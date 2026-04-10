@@ -41,13 +41,19 @@ export async function GET(request: NextRequest) {
     )
 
     const { error } = await supabase.auth.exchangeCodeForSession(code)
-
+    
     if (!error) {
       return response
     }
 
+    // Friendly error transformation
+    let friendlyError = error.message
+    if (error.message.includes("code verifier not found") || error.message.includes("PKCE")) {
+      friendlyError = "Sign-in link expired or opened in a different browser. Please use the original browser window or copy/paste the link manually."
+    }
+
     return NextResponse.redirect(
-      `${origin}/login?error=${encodeURIComponent(error.message)}`
+      `${origin}/login?error=${encodeURIComponent(friendlyError)}`
     )
   }
 

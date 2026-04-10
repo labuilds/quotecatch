@@ -47,6 +47,8 @@ export default function LoginPage() {
     })
     if (error) { setError(error.message) }
     else { setSuccessMessage("Secure login link sent! Check your inbox."); setEmail("") }
+
+
     setIsMagicLinkLoading(false)
   }
 
@@ -99,11 +101,15 @@ export default function LoginPage() {
 
             <div className="space-y-6">
               {error && (
-                <div className="p-5 text-[14px] text-red-600 bg-red-50 rounded-[2rem] border border-red-100 font-bold flex items-center gap-3">
-                  <span className="w-2 h-2 rounded-full bg-red-500 shrink-0" />
-                  {error}
+                <div className="p-6 text-[15px] text-red-700 bg-red-50/80 rounded-[2rem] border-2 border-red-100 font-bold flex flex-col gap-2 shadow-sm animate-in fade-in slide-in-from-top-2 duration-300">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-red-500 shrink-0 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+                    <span className="text-[12px] uppercase tracking-widest text-red-400">Security Notice</span>
+                  </div>
+                  <p className="leading-relaxed pl-4 line-clamp-3">{error}</p>
                 </div>
               )}
+
               {successMessage && (
                 <div className="p-5 text-[14px] text-emerald-700 bg-emerald-50 rounded-[2rem] border border-emerald-100 font-bold flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
