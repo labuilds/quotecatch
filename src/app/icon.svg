@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+  <!-- Background: transparent -->
+
+  <!-- Roofline peak accent (Construction Red/Orange) -->
+  <path
+    d="M12 3 L20 9.5"
+    stroke="#f97316"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Main 'Q' body — Industrial Slate -->
+  <!-- Outer circle of Q -->
+  <circle
+    cx="12"
+    cy="14"
+    r="7"
+    stroke="#0f172a"
+    stroke-width="2.2"
+    fill="none"
+  />
+
+  <!-- Q tail — distinctive and bold -->
+  <line
+    x1="16.8"
+    y1="18.8"
+    x2="20"
+    y2="21.5"
+    stroke="#0f172a"
+    stroke-width="2.5"
+    stroke-linecap="round"
+  />
+
+  <!-- Roofline left side (Industrial Slate) -->
+  <path
+    d="M4 9.5 L12 3"
+    stroke="#0f172a"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
