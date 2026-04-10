@@ -18,4 +18,4 @@ export default async function CalculatorEditorPage({ params }: { params: Promise
   if (!calculator) redirect('/calculators')
 
   return <AICalculatorEditor calculator={calculator} />
-}
+} 
