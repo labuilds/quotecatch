@@ -35,6 +35,10 @@ export function SettingsClient({ isPro }: SettingsClientProps) {
   const handleUpgrade = async () => {
     try {
       const { url } = await createDodoCheckoutSession()
+      if (!url || url.startsWith("#")) {
+        alert("Billing is not configured. Please add DODO_PAYMENTS_API_KEY and DODO_PRO_PRODUCT_ID to your environment variables.")
+        return
+      }
       window.location.href = url
     } catch (error) {
       console.error(error)
