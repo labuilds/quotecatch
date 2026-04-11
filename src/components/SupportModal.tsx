@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react"
 import { MessageSquare, X, Send, Check, Loader2 } from "lucide-react"
+import { createPortal } from "react-dom"
 
 export function SupportButton() {
   const [open, setOpen] = useState(false)
@@ -24,16 +25,22 @@ function SupportModal({ onClose }: { onClose: () => void }) {
   const [message, setMessage] = useState("")
   const [sending, setSending] = useState(false)
   const [sent, setSent] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const overlayRef = useRef<HTMLDivElement>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
+    setMounted(true)
+    document.body.style.overflow = "hidden"
     textareaRef.current?.focus()
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose()
     }
     window.addEventListener("keydown", handler)
-    return () => window.removeEventListener("keydown", handler)
+    return () => {
+      window.removeEventListener("keydown", handler)
+      document.body.style.overflow = "unset"
+    }
   }, [onClose])
 
   const handleSend = async (e: React.FormEvent) => {
@@ -50,10 +57,13 @@ function SupportModal({ onClose }: { onClose: () => void }) {
     }, 2000)
   }
 
-  return (
+  if (!mounted) return null
+
+  return createPortal(
     <div
       ref={overlayRef}
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4"
+      className="fixed inset-0 flex items-end sm:items-center justify-center p-4 pointer-events-auto"
+      style={{ zIndex: 9999999, isolation: "isolate" }}
       onClick={(e) => { if (e.target === overlayRef.current) onClose() }}
     >
       {/* Backdrop */}
@@ -118,6 +128,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }

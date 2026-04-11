@@ -14,9 +14,9 @@ import { getRoofEstimation } from "@/app/actions/solar"
 import { triggerLeadWebhook } from "@/app/actions/integrations"
 
 const variants = {
-  initial: { opacity: 0, y: 10 },
+  initial: { opacity: 0, y: 5 },
   animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -10 },
+  exit: { opacity: 0 },
 }
 
 // Inline SVG icons for each roof pitch — clean minimal line art
@@ -162,9 +162,9 @@ export default function RoofingWidget({
   const totalSteps = isPro ? 6 : 6
 
   return (
-    <div className="w-full max-w-lg mx-auto bg-white shadow-[0_32px_84px_rgba(0,0,0,0.12)] border border-slate-100/80 rounded-[2.5rem] overflow-hidden flex flex-col font-sans select-none ring-1 ring-slate-900/5">
+    <div className="w-full max-w-lg mx-auto bg-white shadow-xl lg:shadow-[0_32px_84px_rgba(0,0,0,0.12)] border border-slate-100/80 rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden flex flex-col font-sans touch-manipulation ring-1 ring-slate-900/5">
       {/* Header */}
-      <div className="px-8 pt-8 pb-4">
+      <div className="px-5 lg:px-8 pt-6 lg:pt-8 pb-3 lg:pb-4">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             {step > 1 && step < 6 && (
@@ -194,11 +194,10 @@ export default function RoofingWidget({
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 px-8 pb-8 min-h-[380px] flex flex-col">
-        <AnimatePresence mode="wait">
+      <div className="flex-1 px-5 lg:px-8 pb-6 lg:pb-8 min-h-[360px] lg:min-h-[380px] flex flex-col relative pointer-events-auto">
           {/* Step 1: Address (Pro) / Size (Free) */}
           {step === 1 && (
-            <motion.div key="st1" variants={variants} initial="initial" animate="animate" exit="exit" className="space-y-6">
+            <div key="st1" className="space-y-6 animate-in fade-in duration-300">
               {isPro ? (
                 <>
                   <div className="space-y-1">
@@ -220,7 +219,7 @@ export default function RoofingWidget({
                   <button
                     onClick={handleAddressLookup}
                     disabled={!formData.address.trim() || !!loadingState}
-                    className="w-full h-16 bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] font-black text-[15px] transition-all hover:scale-[1.01] active:scale-[0.99] shadow-xl shadow-slate-200 flex items-center justify-center gap-3 disabled:opacity-50 disabled:hover:scale-100 cursor-pointer"
+                    className="w-full h-16 bg-[#0F172A] hover:bg-black active:bg-slate-800 text-white rounded-[1.5rem] font-black text-[15px] transition-all shadow-xl shadow-slate-200 flex items-center justify-center gap-3 disabled:opacity-50 cursor-pointer pointer-events-auto"
                   >
                     {loadingState ? (
                       <><Loader2 className="w-5 h-5 animate-spin" /> {loadingState}</>
@@ -228,7 +227,7 @@ export default function RoofingWidget({
                       <>Generate AI Estimate <ArrowLeft className="w-4 h-4 rotate-180" /></>
                     )}
                   </button>
-                  <button onClick={nextStep} className="w-full text-center text-[15px] font-bold text-slate-400 hover:text-slate-900 transition-colors">
+                  <button onClick={nextStep} className="w-full text-center text-[15px] font-bold text-slate-400 hover:text-slate-900 transition-colors cursor-pointer pointer-events-auto">
                     Skip and enter square footage manually
                   </button>
                 </>
@@ -249,10 +248,11 @@ export default function RoofingWidget({
                         <button
                           key={item.id}
                           onClick={() => handleSelect("sqFt", item.id)}
-                          className={`w-full p-5 rounded-3xl border-2 text-left transition-all duration-300 group cursor-pointer ${
+                          onPointerDown={() => handleSelect("sqFt", item.id)}
+                          className={`w-full p-5 rounded-3xl border-2 text-left group cursor-pointer pointer-events-auto ${
                             active
                               ? "border-red-700 bg-red-50/50 shadow-md"
-                              : "border-slate-100 bg-white hover:border-slate-200 hover:bg-slate-50/50 hover:translate-x-1"
+                              : "border-slate-100 bg-white hover:border-slate-200 hover:bg-slate-50/50"
                           }`}
                         >
                           <p className={`text-[18px] font-black transition-colors ${active ? "text-red-800" : "text-slate-900"}`}>{item.label}</p>
@@ -263,12 +263,12 @@ export default function RoofingWidget({
                   </div>
                 </>
               )}
-            </motion.div>
+            </div>
           )}
 
           {/* Step 2: Material */}
           {step === 2 && (
-            <motion.div key="st2" variants={variants} initial="initial" animate="animate" exit="exit" className="space-y-6">
+            <div key="st2" className="space-y-6 animate-in fade-in duration-300">
               <div className="space-y-1">
                 <h2 className="text-[28px] font-black text-slate-900 tracking-tight leading-tight">Roofing Material</h2>
                 <p className="text-[15px] text-slate-500 font-medium">Choose your preferred structural style.</p>
@@ -280,8 +280,8 @@ export default function RoofingWidget({
                     <button
                       key={id}
                       onClick={() => handleSelect("material", id)}
-                      className={`group relative h-36 rounded-[2rem] overflow-hidden transition-all duration-500 cursor-pointer ${
-                        active ? "ring-4 ring-red-700 ring-offset-2 shadow-2xl scale-[1.02]" : "hover:scale-[1.01]"
+                      className={`group relative h-36 rounded-[2rem] overflow-hidden transition-all duration-500 cursor-pointer pointer-events-auto ${
+                        active ? "ring-4 ring-red-700 ring-offset-2 shadow-2xl scale-[1.02]" : ""
                       }`}
                     >
                       <img src={bg} alt={label} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -294,12 +294,12 @@ export default function RoofingWidget({
                   )
                 })}
               </div>
-            </motion.div>
+            </div>
           )}
 
           {/* Step 3: Pitch */}
           {step === 3 && (
-            <motion.div key="st3" variants={variants} initial="initial" animate="animate" exit="exit" className="space-y-6">
+            <div key="st3" className="space-y-6 animate-in fade-in duration-300">
               <div className="space-y-1">
                 <h2 className="text-[28px] font-black text-slate-900 tracking-tight leading-tight">Roof Steepness</h2>
                 <p className="text-[15px] text-slate-500 font-medium">Select the pitch that matches your home.</p>
@@ -311,7 +311,7 @@ export default function RoofingWidget({
                     <button
                       key={id}
                       onClick={() => handleSelect("pitch", id)}
-                      className={`flex flex-col items-center justify-center p-6 rounded-[2rem] border-2 transition-all duration-300 group cursor-pointer ${
+                      className={`flex flex-col items-center justify-center p-6 rounded-[2rem] border-2 transition-all duration-300 group cursor-pointer pointer-events-auto ${
                         active
                           ? "border-red-700 bg-red-50/50 shadow-md scale-[1.02]"
                           : "border-slate-100 bg-white hover:border-slate-200 hover:bg-slate-50/50"
@@ -326,12 +326,12 @@ export default function RoofingWidget({
                   )
                 })}
               </div>
-            </motion.div>
+            </div>
           )}
 
           {/* Step 4: Notes */}
           {step === 4 && (
-            <motion.div key="st4" variants={variants} initial="initial" animate="animate" exit="exit" className="space-y-6">
+            <div key="st4" className="space-y-6 animate-in fade-in duration-300">
               <div className="space-y-1">
                 <h2 className="text-[28px] font-black text-slate-900 tracking-tight leading-tight">Additional Details <span className="text-slate-400 font-bold text-[18px] ml-1">(Optional)</span></h2>
               </div>
@@ -343,16 +343,16 @@ export default function RoofingWidget({
               />
               <button
                 onClick={nextStep}
-                className="w-full h-16 bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] font-black text-[15px] transition-all hover:scale-[1.01] active:scale-[0.99] shadow-xl shadow-slate-200 flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full h-16 bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] font-black text-[15px] transition-all shadow-xl shadow-slate-200 flex items-center justify-center gap-2 cursor-pointer pointer-events-auto"
               >
                 Continue <ArrowLeft className="w-4 h-4 rotate-180" />
               </button>
-            </motion.div>
+            </div>
           )}
 
           {/* Step 5: Final Details */}
           {step === 5 && (
-            <motion.div key="st5" variants={variants} initial="initial" animate="animate" exit="exit" className="space-y-6">
+            <div key="st5" className="space-y-6 animate-in fade-in duration-300">
               <div className="space-y-1">
                 <h2 className="text-[28px] font-black text-slate-900 tracking-tight leading-tight">One Last Step</h2>
                 <p className="text-[15px] text-slate-500 font-medium">Verify your details to secure your estimate.</p>
@@ -373,17 +373,17 @@ export default function RoofingWidget({
                 <button
                   onClick={handleCalculate}
                   disabled={!formData.firstName || !formData.email || !formData.phone || isSubmitting}
-                  className="w-full h-16 bg-gradient-to-r from-red-700 to-red-800 hover:to-red-900 text-white rounded-[1.5rem] font-black text-[15px] transition-all hover:scale-[1.01] shadow-xl shadow-red-100 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                  className="w-full h-16 bg-gradient-to-r from-red-700 to-red-800 hover:to-red-900 text-white rounded-[1.5rem] font-black text-[15px] transition-all shadow-xl shadow-red-100 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 pointer-events-auto"
                 >
                   {isSubmitting ? <><Loader2 className="w-5 h-5 animate-spin" /> Finalizing...</> : <>Reveal My Estimate →</>}
                 </button>
               </div>
-            </motion.div>
+            </div>
           )}
 
           {/* Step 6: Result */}
           {step === 6 && (
-            <motion.div key="st6" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: "spring", damping: 20 }} className="flex-1 flex flex-col items-center justify-center text-center space-y-6 py-6">
+            <div key="st6" className="flex-1 flex flex-col items-center justify-center text-center space-y-6 py-6 animate-in zoom-in-95 duration-500">
               <div className="w-20 h-20 bg-emerald-50 rounded-[2rem] flex items-center justify-center border-2 border-emerald-100 shadow-sm">
                 <CheckCircle className="w-10 h-10 text-emerald-500" />
               </div>
@@ -397,14 +397,13 @@ export default function RoofingWidget({
                 </p>
               </div>
               <div className="w-full pt-4 space-y-3">
-                 <button className="w-full h-16 bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] font-black text-[18px] transition-all hover:-translate-y-1 shadow-2xl shadow-slate-200 cursor-pointer">
+                 <button className="w-full h-16 bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] font-black text-[18px] transition-all shadow-2xl shadow-slate-200 cursor-pointer pointer-events-auto">
                    Book Priority Inspection
                  </button>
                  <p className="text-[14px] text-slate-400 font-bold">Expect a call from our expert within 2 hours.</p>
               </div>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
       </div>
 
       {/* Footer Branding */}

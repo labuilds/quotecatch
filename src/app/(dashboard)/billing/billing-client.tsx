@@ -38,12 +38,18 @@ export function BillingClient({
     setIsLoading(true)
     try {
       const { url } = await createDodoCheckoutSession()
+      if (url.startsWith("#")) {
+        alert("Billing is not configured. Please add DODO_PAYMENTS_API_KEY and DODO_PRO_PRODUCT_ID to your .env.local file.")
+        setIsLoading(false)
+        return
+      }
       window.location.href = url
     } catch (err) {
       console.error(err)
-      alert("Could not start checkout. Please try again or contact support.")
+      alert("Could not start checkout. Please check your network or Dodo Payments configuration.")
       setIsLoading(false)
     }
+
   }
 
   return (

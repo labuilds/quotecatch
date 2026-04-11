@@ -10,6 +10,7 @@ const tiers = [
     price: "$0",
     description: "Perfect for scaling your social presence and viral loop.",
     features: [
+      "Unlimited Lead generation",
       "Manual Sq-Ft estimation cards",
       "Basic email lead notifications",
       "1 Active Pricing Engine",
@@ -29,9 +30,9 @@ const tiers = [
     period: "/mo",
     description: "The complete toolkit for high-growth roofing businesses.",
     features: [
-      "Address-Based Google Solar lookup",
+      "Unlimited leads & calculators",
+      "Address-Based AI Satellite lookup",
       "Remove 'Powered by' branding",
-      "Unlimited Pricing Engines",
       "Zapier & Webhook integrations",
       "Analytics & Conversion insights"
     ],
@@ -55,18 +56,15 @@ export function PricingSection({ onUpgrade, showButton = true }: PricingSectionP
       {tiers.map((tier, i) => (
         <motion.div
           key={tier.name}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: i * 0.1 }}
-          className={`relative rounded-[3rem] p-6 sm:p-10 flex flex-col h-full border ${
+          initial={{ opacity: 1, y: 0 }}
+          className={`relative rounded-[2.5rem] lg:rounded-[3rem] p-6 lg:p-10 flex flex-col h-full border ${
             tier.highlight 
-              ? "border-red-500/20 shadow-[0_40px_80px_rgba(185,28,28,0.15)] ring-1 ring-red-500/30" 
+              ? "border-red-500/20 shadow-xl lg:shadow-[0_40px_80px_rgba(185,28,28,0.15)] ring-1 ring-red-500/30" 
               : "border-slate-100 bg-white shadow-sm"
           } ${tier.bgColor}`}
         >
           {tier.highlight && (
-            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-red-700 to-red-500 text-white text-[13px] font-black uppercase tracking-[0.2em] px-5 py-1.5 rounded-full shadow-lg">
+            <div className="absolute -top-3.5 lg:-top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-red-700 to-red-500 text-white text-[11px] lg:text-[13px] font-black uppercase tracking-[0.2em] px-4 lg:px-5 py-1 lg:py-1.5 rounded-full shadow-lg">
               Most Popular
             </div>
           )}

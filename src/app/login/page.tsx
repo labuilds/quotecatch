@@ -38,18 +38,29 @@ export default function LoginPage() {
 
   const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!email) return
+    
     setIsMagicLinkLoading(true)
     setError(null)
     setSuccessMessage(null)
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/calculators` },
-    })
-    if (error) { setError(error.message) }
-    else { setSuccessMessage("Secure login link sent! Check your inbox."); setEmail("") }
-
-
-    setIsMagicLinkLoading(false)
+    
+    try {
+      const cleanEmail = email.trim()
+      const { error } = await supabase.auth.signInWithOtp({
+        email: cleanEmail,
+        options: { emailRedirectTo: `${window.location.origin}/auth/callback?next=/calculators` },
+      })
+      if (error) { 
+        setError(error.message) 
+      } else { 
+        setSuccessMessage("Secure login link sent! Check your inbox.")
+        setEmail("") 
+      }
+    } catch (err: any) {
+      setError(err?.message || "An unexpected error occurred. Please try again.")
+    } finally {
+      setIsMagicLinkLoading(false)
+    }
   }
 
   const stats = [
@@ -85,9 +96,6 @@ export default function LoginPage() {
         {/* Auth form */}
         <div className="flex-1 flex items-center justify-center px-8 sm:px-20 py-12">
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
             className="w-full max-w-[440px] space-y-10"
           >
             <div className="space-y-3">
@@ -154,12 +162,15 @@ export default function LoginPage() {
                     placeholder="you@roofingcompany.com"
                     required
                     value={email}
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    autoComplete="email"
                     className="h-15 bg-slate-50 border-slate-100 focus-visible:ring-orange-500/10 focus-visible:border-orange-500 rounded-[1.5rem] px-6 text-[16px] font-bold text-[#0F172A] placeholder:text-slate-300 transition-all shadow-inner"
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
                 <Button
-                  className="w-full h-15 text-[16px] font-black bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] transition-all hover:scale-[1.01] active:scale-[0.99] shadow-2xl shadow-slate-200 border-none"
+                  className="w-full h-15 text-[16px] font-black bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] transition-all shadow-2xl shadow-slate-200 border-none"
                   type="submit"
                   disabled={isMagicLinkLoading || isGoogleLoading}
                 >

@@ -12,12 +12,16 @@ export function SidebarUpgradeCard() {
   const handleUpgrade = async () => {
     try {
       const { url } = await createDodoCheckoutSession()
-
+      if (url.startsWith("#")) {
+        alert("Billing is not configured. Please add DODO_PAYMENTS_API_KEY and DODO_PRO_PRODUCT_ID to your .env.local file.")
+        return
+      }
       window.location.href = url
     } catch (error) {
       console.error(error)
-      alert("Failed to start checkout. Check your network or API keys.")
+      alert("Could not start checkout. Please check your internet connection and try again.")
     }
+
   }
 
   return (

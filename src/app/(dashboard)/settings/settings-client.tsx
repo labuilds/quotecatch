@@ -61,17 +61,11 @@ export function SettingsClient({ isPro }: SettingsClientProps) {
             Categories
           </p>
           <button className="w-full text-left px-4 py-3 bg-[#0F172A] text-white font-bold rounded-2xl text-[16px] shadow-lg shadow-slate-200/50">
-            Profile & Billing
+            Profile Settings
           </button>
           <button className="w-full text-left px-4 py-3 text-slate-500 font-bold rounded-2xl text-[16px] hover:bg-slate-50 transition-colors">
             Team Members
           </button>
-          <Link
-            href="/billing"
-            className="block px-4 py-3 text-slate-500 font-bold rounded-2xl text-[16px] hover:bg-slate-50 transition-colors"
-          >
-            Integrations
-          </Link>
         </div>
 
         {/* Content */}
@@ -167,7 +161,7 @@ export function SettingsClient({ isPro }: SettingsClientProps) {
                 <p className="text-[15px] text-slate-400 font-bold">
                   {isPro
                     ? "Unlimited leads · Satellite data · No branding"
-                    : "50 Leads / month · Manual Estimations Only"}
+                    : "Unlimited leads · Manual Estimations Only"}
                 </p>
               </div>
               {!isPro && (
@@ -183,85 +177,6 @@ export function SettingsClient({ isPro }: SettingsClientProps) {
             <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full -mr-16 -mt-16 opacity-50" />
           </section>
 
-          {/* Advanced Math Modifiers (Pro-Gated) */}
-          <section className="bg-white border border-slate-100 rounded-[32px] p-8 shadow-[0_4px_24px_rgba(0,0,0,0.02)] space-y-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${isPro ? "bg-red-50 border-red-100/50" : "bg-slate-50 border-slate-100"}`}>
-                  {isPro ? (
-                    <Zap className="w-5 h-5 text-red-700" />
-                  ) : (
-                    <Lock className="w-5 h-5 text-slate-400" />
-                  )}
-                </div>
-                <h3 className="text-[18px] font-black text-[#0F172A]">Advanced Math Modifiers</h3>
-              </div>
-              {!isPro && (
-                <button
-                  onClick={() => setShowUpgradeModal(true)}
-                  className="text-[12px] font-black uppercase tracking-widest bg-red-700 text-white px-3 py-1.5 rounded-full shadow-sm hover:bg-red-800 transition-colors cursor-pointer"
-                >
-                  Pro Feature
-                </button>
-              )}
-            </div>
-
-            <p className="text-[14px] text-slate-500 font-medium">
-              Fine-tune pitch multipliers and regional cost modifiers for hyper-accurate estimates.
-            </p>
-
-            <div className={`space-y-5 relative ${!isPro ? "opacity-50 pointer-events-none select-none" : ""}`}>
-              {/* Pitch multipliers */}
-              <div className="space-y-3">
-                <Label className="text-[13px] font-black text-slate-400 uppercase tracking-widest">
-                  Pitch Cost Multipliers
-                </Label>
-                <div className="grid grid-cols-2 gap-3">
-                  {[
-                    { label: "Flat (0–2/12)", placeholder: "1.00×" },
-                    { label: "Low (3–5/12)", placeholder: "1.15×" },
-                    { label: "Moderate (6–8/12)", placeholder: "1.25×" },
-                    { label: "Steep (9+/12)", placeholder: "1.50×" },
-                  ].map(({ label, placeholder }) => (
-                    <div key={label} className="space-y-1.5">
-                      <Label className="text-[13px] font-bold text-slate-500 ml-1">{label}</Label>
-                      <Input
-                        disabled={!isPro}
-                        placeholder={placeholder}
-                        className="h-11 rounded-2xl border-slate-100 bg-slate-50/50 px-4 text-[15px] font-bold text-slate-900"
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Regional modifier */}
-              <div className="space-y-1.5">
-                <Label className="text-[13px] font-black text-slate-400 uppercase tracking-widest">
-                  Regional Cost Index
-                </Label>
-                <Input
-                  disabled={!isPro}
-                  placeholder="1.00 (national average)"
-                  className="h-11 rounded-2xl border-slate-100 bg-slate-50/50 px-4 text-[15px] font-bold text-slate-900"
-                />
-                <p className="text-[12px] text-slate-400 font-medium ml-1">
-                  e.g. 1.18 for high-cost metro areas like NYC or SF
-                </p>
-              </div>
-            </div>
-
-            {/* Upgrade CTA overlay when locked */}
-            {!isPro && (
-              <button
-                onClick={() => setShowUpgradeModal(true)}
-                className="w-full mt-2 h-12 border-2 border-dashed border-red-200 rounded-2xl text-red-700 font-black text-[14px] hover:bg-red-50 transition-colors flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <Lock className="w-4 h-4" />
-                Upgrade to Pro to unlock Advanced Modifiers
-              </button>
-            )}
-          </section>
 
           {/* CRM Webhooks (Pro-Gated) */}
           <section className="bg-white border border-slate-100 rounded-[32px] p-8 shadow-[0_4px_24px_rgba(0,0,0,0.02)] space-y-6">

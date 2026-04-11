@@ -3,6 +3,8 @@
 import { motion, AnimatePresence } from "framer-motion"
 import { ShieldCheck, Zap, Globe, X, ArrowRight, Star, Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 
 interface UpgradeModalProps {
   isOpen: boolean
@@ -12,25 +14,42 @@ interface UpgradeModalProps {
 
 const features = {
   free: [
+    "Unlimited lead generation",
     "Manual Sq-Ft estimation cards",
     "Basic email lead notifications",
     "1 Active Pricing Engine",
-    "Standard Dashboard access",
   ],
   pro: [
-    "Address-Based Google Solar lookup",
+    "Unlimited leads & calculators",
+    "Address-Based AI Satellite lookup",
     "Remove 'Powered by' branding",
-    "Unlimited Pricing Engines",
     "Zapier & Webhook integrations",
     "Analytics & Conversion insights",
   ],
 }
 
 export function UpgradeModal({ isOpen, onClose, onUpgrade }: UpgradeModalProps) {
-  return (
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+    if (isOpen) {
+      document.body.style.overflow = "hidden"
+    }
+    return () => {
+      document.body.style.overflow = "unset"
+    }
+  }, [isOpen])
+
+  if (!mounted) return null
+
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6">
+        <div 
+          className="fixed inset-0 flex items-center justify-center p-3 sm:p-6 pointer-events-auto"
+          style={{ zIndex: 9999999, isolation: "isolate" }}
+        >
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -52,7 +71,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade }: UpgradeModalProps) 
             {/* Close */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-all group"
+              className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-all group cursor-pointer"
             >
               <X className="w-4 h-4 text-slate-500 group-hover:text-slate-900" />
             </button>
@@ -133,7 +152,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade }: UpgradeModalProps) 
                     </div>
                     <Button
                       onClick={onUpgrade}
-                      className="w-full h-12 rounded-2xl font-black text-[15px] bg-white text-[#0F172A] hover:bg-slate-50 border-none shadow-xl"
+                      className="w-full h-12 rounded-2xl font-black text-[15px] bg-white text-[#0F172A] hover:bg-slate-50 border-none shadow-xl cursor-pointer"
                     >
                       Upgrade to Profit Engine <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
@@ -144,7 +163,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade }: UpgradeModalProps) 
             </div>
 
             {/* ── Pinned footer ── */}
-            <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-center bg-slate-50/80 shrink-0">
+            <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-center bg-white shrink-0">
               <p className="text-[13px] font-bold text-slate-500 flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-emerald-500" />
                 7-day money-back guarantee. No questions asked.
@@ -153,6 +172,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade }: UpgradeModalProps) 
           </motion.div>
         </div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }

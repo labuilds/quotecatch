@@ -75,10 +75,10 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }
 
         {/* Actions menu */}
         <DropdownMenu>
-          <DropdownMenuTrigger className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20 hover:bg-slate-100 w-9 h-9 rounded-xl inline-flex items-center justify-center outline-none cursor-pointer">
+          <DropdownMenuTrigger className="absolute top-4 right-4 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200 z-20 hover:bg-slate-100 w-9 h-9 rounded-xl inline-flex items-center justify-center outline-none cursor-pointer">
             <MoreHorizontal className="w-4 h-4 text-slate-500" />
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-52 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.1)] border-slate-100 bg-white font-sans">
+          <DropdownMenuContent align="end" className="w-52 rounded-2xl shadow-xl border-slate-100 bg-white font-sans">
             <DropdownMenuItem onClick={handleRename} className="cursor-pointer py-2.5 font-semibold text-slate-700 focus:bg-slate-50 focus:text-slate-900 rounded-xl m-1">
               <Pencil className="w-4 h-4 mr-2.5 text-slate-400" /> Rename Engine
             </DropdownMenuItem>
@@ -96,18 +96,18 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }
           <div className="w-12 h-12 bg-red-50 text-red-700 rounded-2xl flex items-center justify-center mb-4 transition-all group-hover:bg-red-100 group-hover:scale-105 duration-300 border border-red-100">
             <Calculator className="w-6 h-6" />
           </div>
-          <CardTitle className="text-[22px] font-black tracking-tight line-clamp-1 text-slate-900">{calc.name}</CardTitle>
-          <CardDescription className="line-clamp-1 mt-1 text-[15px] font-semibold text-slate-400">
+          <CardTitle className="text-[20px] lg:text-[22px] font-black tracking-tight line-clamp-1 text-slate-900">{calc.name}</CardTitle>
+          <CardDescription className="line-clamp-1 mt-1 text-[14px] lg:text-[15px] font-semibold text-slate-400">
             AI Pricing Engine · Active
           </CardDescription>
         </CardHeader>
 
         <CardContent className="flex-1 space-y-2 relative z-10 px-6">
           {pricing.map(({ label, value }) => (
-            <div key={label} className="flex justify-between items-center bg-slate-50 px-4 py-3 rounded-xl border border-slate-100">
-              <span className="text-slate-500 font-semibold text-[15px]">{label}</span>
-              <span className="font-black text-slate-900 text-[16px]">
-                ${value?.toFixed(2)}<span className="text-slate-400 font-medium text-[13px] ml-1">/sq ft</span>
+            <div key={label} className="flex justify-between items-center bg-slate-50 px-4 py-2.5 lg:py-3 rounded-xl border border-slate-100">
+              <span className="text-slate-500 font-semibold text-[14px] lg:text-[15px]">{label}</span>
+              <span className="font-black text-slate-900 text-[15px] lg:text-[16px]">
+                ${value?.toFixed(2)}<span className="text-slate-400 font-medium text-[12px] lg:text-[13px] ml-1">/sq ft</span>
               </span>
             </div>
           ))}
@@ -116,14 +116,14 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }
         <CardFooter className="border-t border-slate-100 bg-slate-50/60 p-4 gap-3 relative z-10 flex mt-4">
           <Link
             href={`/calculators/${calc.id}`}
-            className={buttonVariants({ variant: "outline", className: "flex-1 border-slate-200 text-slate-600 bg-white hover:bg-slate-50 hover:text-slate-900 shadow-none rounded-xl font-bold transition-all h-11 text-[15px]" })}
+            className={buttonVariants({ variant: "outline", className: "flex-1 border-slate-200 text-slate-600 bg-white hover:bg-slate-50 hover:text-slate-900 shadow-none rounded-xl font-bold transition-all h-10 lg:h-11 text-[14px] lg:text-[15px]" })}
           >
             <Pencil className="w-4 h-4 mr-2 text-slate-400" />
-            Edit Engine
+            Edit
           </Link>
           <Button
             variant="default"
-            className="flex-1 bg-slate-900 hover:bg-black text-white font-bold shadow-sm rounded-xl transition-all h-11 border-none text-[15px]"
+            className="flex-1 bg-slate-900 hover:bg-black text-white font-bold shadow-sm rounded-xl transition-all h-10 lg:h-11 border-none text-[14px] lg:text-[15px]"
             onClick={() => setShowShare(true)}
           >
             <Share className="w-4 h-4 mr-2" />
