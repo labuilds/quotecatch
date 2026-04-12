@@ -8,7 +8,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog"
 import Link from "next/link"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { deleteCalculator, duplicateCalculator, renameCalculator } from "@/app/actions/calculator"
+import { deleteCalculator, duplicateCalculator } from "@/app/actions/calculator"
 
 export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }: {
   calc: any
@@ -22,17 +22,6 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }
   const [isActionLoading, setIsActionLoading] = useState(false)
   const [copied, setCopied] = useState(false)
 
-  const handleRename = async () => {
-    const newName = window.prompt("Enter new engine name:", calc.name)
-    if (newName && newName !== calc.name) {
-      setIsActionLoading(true)
-      try {
-        await renameCalculator(calc.id, newName)
-        if (onRename) onRename(calc.id, newName)
-      } catch (err) { console.error(err) }
-      finally { setIsActionLoading(false) }
-    }
-  }
 
   const handleDelete = async () => {
     setIsDeleting(true)
@@ -61,11 +50,12 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }
     setTimeout(() => setCopied(false), 2000)
   }
 
-  const pricing = [
-    { label: "Asphalt", value: calc.config_json?.materials?.asphalt },
-    { label: "Architectural", value: calc.config_json?.materials?.architectural },
-    { label: "Metal", value: calc.config_json?.materials?.metal },
-  ]
+  const pricing = Object.entries(calc.config_json?.materials || {})
+    .filter(([key]) => key !== 'metal')
+    .map(([key, value]) => ({
+      label: key === 'asphalt' ? 'Asphalt' : key === 'tile' ? 'Tiles' : key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' '),
+      value: value as number
+    }))
 
   return (
     <>
@@ -79,9 +69,6 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }
             <MoreHorizontal className="w-4 h-4 text-slate-500" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-52 rounded-2xl shadow-xl border-slate-100 bg-white font-sans">
-            <DropdownMenuItem onClick={handleRename} className="cursor-pointer py-2.5 font-semibold text-slate-700 focus:bg-slate-50 focus:text-slate-900 rounded-xl m-1">
-              <Pencil className="w-4 h-4 mr-2.5 text-slate-400" /> Rename Engine
-            </DropdownMenuItem>
             <DropdownMenuItem onClick={handleDuplicate} className="cursor-pointer py-2.5 font-semibold text-slate-700 focus:bg-slate-50 focus:text-slate-900 rounded-xl m-1">
               <Copy className="w-4 h-4 mr-2.5 text-slate-400" /> Duplicate
             </DropdownMenuItem>
@@ -98,7 +85,7 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }
           </div>
           <CardTitle className="text-[20px] lg:text-[22px] font-black tracking-tight line-clamp-1 text-slate-900">{calc.name}</CardTitle>
           <CardDescription className="line-clamp-1 mt-1 text-[14px] lg:text-[15px] font-semibold text-slate-400">
-            AI Pricing Engine · Active
+            Custom Lead Estimator · Active
           </CardDescription>
         </CardHeader>
 

@@ -75,12 +75,14 @@ export async function saveCalculator(name: string, config: PricingConfig) {
     .insert([{ user_id: user.id, name, config_json: config }])
     .select()
 
+  console.log("Supabase Creation Result:", { data, error })
+  
   if (error) {
     console.error("Error creating calculator:", error)
     throw new Error(error.message)
   }
 
-  revalidatePath('/calculators')
+  revalidatePath('/(dashboard)', 'layout')
   return data
 }
 
@@ -88,14 +90,14 @@ export async function deleteCalculator(id: string) {
   const supabase = await createClient()
   const { error } = await supabase.from('calculators').delete().eq('id', id)
   if (error) throw new Error(error.message)
-  revalidatePath('/calculators')
+  revalidatePath('/(dashboard)', 'layout')
 }
 
 export async function renameCalculator(id: string, newName: string) {
   const supabase = await createClient()
   const { error } = await supabase.from('calculators').update({ name: newName }).eq('id', id)
   if (error) throw new Error(error.message)
-  revalidatePath('/calculators')
+  revalidatePath('/(dashboard)', 'layout')
 }
 
 export async function duplicateCalculator(id: string) {
@@ -108,7 +110,7 @@ export async function duplicateCalculator(id: string) {
     .insert([{ user_id: original.user_id, name: original.name + ' (Copy)', config_json: original.config_json, brand_color_hex: original.brand_color_hex }])
     .select()
   if (error) throw new Error(error.message)
-  revalidatePath('/calculators')
+  revalidatePath('/(dashboard)', 'layout')
   return data
 }
 
@@ -121,9 +123,10 @@ export async function generateQuickEdit(originalConfig: PricingConfig, prompt: s
   return newConfig
 }
 
-export async function updateCalculatorConfig(id: string, newConfig: PricingConfig) {
+export async function updateCalculatorConfig(id: string, name: string, newConfig: PricingConfig) {
   const supabase = await createClient()
-  const { error } = await supabase.from('calculators').update({ config_json: newConfig }).eq('id', id)
+  const { error } = await supabase.from('calculators').update({ name, config_json: newConfig }).eq('id', id)
+  console.log("Supabase Update Result:", { error })
   if (error) throw new Error(error.message)
-  revalidatePath('/calculators')
+  revalidatePath('/(dashboard)', 'layout')
 }

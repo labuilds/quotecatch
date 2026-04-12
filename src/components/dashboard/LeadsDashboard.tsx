@@ -13,6 +13,7 @@ import {
   ChevronRight,
   Calendar
 } from 'lucide-react'
+import Link from 'next/link'
 import { UpgradeModal } from "@/components/UpgradeModal"
 import { createDodoCheckoutSession } from "@/app/actions/billing"
 
@@ -109,12 +110,12 @@ export default function LeadsDashboard({ initialLeads, initialIsPro }: LeadsDash
             <p className="text-slate-400 font-medium mt-2 text-[16px] max-w-[360px] leading-relaxed">
               Once you embed the estimator widget, homeowners will start appearing here in real-time.
             </p>
-            <a
+            <Link
               href="/calculators"
               className="mt-8 px-8 py-3 bg-[#0F172A] text-white font-bold rounded-2xl text-[14px] hover:bg-black transition-all hover:scale-[1.02] cursor-pointer"
             >
               Configure Estimator →
-            </a>
+            </Link>
           </div>
         ) : (
           /* Lead cards */

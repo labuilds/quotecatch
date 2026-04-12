@@ -18,7 +18,8 @@ import {
   Home,
   Layers,
   ChevronUp,
-  ChevronDown
+  ChevronDown,
+  Settings2
 } from "lucide-react"
 import RoofingWidget from "@/components/RoofingWidget"
 import { useUserTier } from "@/components/UserTierProvider"
@@ -26,6 +27,8 @@ import { updateCalculatorConfig } from "@/app/actions/calculator"
 import { PricingConfig } from "@/lib/pricingEngine"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { cn } from "@/lib/utils"
 
 const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
   event.target.select()
@@ -36,7 +39,7 @@ const LABEL_CLASS = "text-[15px] font-black text-slate-900 block"
 const SUBTEXT_CLASS = "text-[13.5px] text-slate-400 font-bold leading-tight"
 
 // Custom Input with Stepper Controls
-const PremiumInput = ({ value, onChange, placeholder, step = 1, prefix, suffix }: any) => {
+const PremiumInput = ({ value, onChange, placeholder, step = 1, prefix, suffix, dark = false }: any) => {
   const numValue = parseFloat(value) || 0
 
   const handleIncrement = () => {
@@ -70,7 +73,12 @@ const PremiumInput = ({ value, onChange, placeholder, step = 1, prefix, suffix }
         placeholder={placeholder}
         onFocus={handleFocus}
         onChange={(e) => onChange(e.target.value)}
-        className="h-14 pl-10 pr-12 rounded-xl border-slate-200 bg-slate-50/50 font-black text-lg text-slate-900 focus-visible:ring-red-600/10 focus-visible:border-red-600 transition-all text-right w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+        className={cn(
+          "h-14 pl-10 pr-12 rounded-xl border-slate-200 font-black text-lg transition-all text-right w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
+          dark 
+            ? "bg-white/10 border-white/20 text-white placeholder:text-slate-500 focus-visible:border-white/40 focus-visible:ring-white/10" 
+            : "bg-slate-50/50 text-slate-900 border-slate-200 focus-visible:ring-red-600/10 focus-visible:border-red-600"
+        )}
       />
 
       <div className="absolute right-2 top-1/2 -translate-y-1/2 flex flex-col gap-0.5 opacity-0 group-hover/input:opacity-100 transition-opacity">
@@ -105,15 +113,17 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
   const [hasChanges, setHasChanges] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
 
-  const [activeTab, setActiveTab] = useState<'sizing' | 'materials' | 'markups'>('sizing')
+  const [activeTab, setActiveTab] = useState<'name' | 'sizing' | 'materials' | 'markups'>('name')
 
   const [config, setConfig] = useState<PricingConfig>(calculator.config_json)
+  const [engineName, setEngineName] = useState(calculator.name)
   const originalConfig = calculator.config_json
+  const originalName = calculator.name
 
   useEffect(() => {
-    const isDifferent = JSON.stringify(config) !== JSON.stringify(originalConfig)
+    const isDifferent = JSON.stringify(config) !== JSON.stringify(originalConfig) || engineName !== originalName
     setHasChanges(isDifferent)
-  }, [config, originalConfig])
+  }, [config, originalConfig, engineName, originalName])
 
   const handleUpdateMaterial = (key: string, value: string) => {
     const numValue = value === "" ? 0 : parseFloat(value)
@@ -142,10 +152,9 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
   const handleSave = async () => {
     setIsSaving(true)
     try {
-      await updateCalculatorConfig(calculator.id, config)
+      await updateCalculatorConfig(calculator.id, engineName, config)
       setHasChanges(false)
       setShowSuccess(true)
-      setTimeout(() => setShowSuccess(false), 3000)
       router.refresh()
     } catch (err) {
       console.error(err)
@@ -157,6 +166,7 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
 
   const handleReset = () => {
     setConfig(originalConfig)
+    setEngineName(originalName)
   }
 
   const sizeOrder = [
@@ -221,6 +231,12 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
 
         <div className="flex bg-[#F1F5F9] p-1.5 rounded-2xl mb-8 shadow-inner overflow-x-auto no-scrollbar shrink-0">
           <button
+            onClick={() => setActiveTab('name')}
+            className={`flex-1 min-w-[90px] flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'name' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+          >
+            <Settings2 className="w-4 h-4" /> Name
+          </button>
+          <button
             onClick={() => setActiveTab('sizing')}
             className={`flex-1 min-w-[90px] flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'sizing' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
           >
@@ -236,7 +252,7 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
             onClick={() => setActiveTab('markups')}
             className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'markups' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
           >
-            <Layers className="w-4 h-4" /> Markups & Fees
+            <Layers className="w-4 h-4" /> Markups
           </button>
         </div>
 
@@ -290,10 +306,12 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
                   <h3 className="text-lg font-black text-slate-900 tracking-tight">Base Material Rates</h3>
                 </div>
                 <div className="grid grid-cols-1 gap-4">
-                  {Object.entries(config.materials).map(([key, value]) => (
+                  {Object.entries(config.materials)
+                    .filter(([key]) => key !== 'metal')
+                    .map(([key, value]) => (
                     <div key={key} className="group bg-white border border-slate-100 hover:border-slate-200 rounded-2xl p-6 transition-all duration-300 shadow-sm flex items-center justify-between gap-6">
                       <div className="flex-1">
-                        <p className={`${LABEL_CLASS} capitalize text-[17px]`}>{key}</p>
+                        <p className={`${LABEL_CLASS} capitalize text-[17px]`}>{key.replace(/_/g, ' ')}</p>
                         <p className={SUBTEXT_CLASS}>Cost per Square Foot</p>
                       </div>
                       <PremiumInput
@@ -360,12 +378,46 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
                       placeholder="0"
                       prefix="$"
                       step={50}
+                      dark
                       onChange={(val: string) => handleUpdateFlatFee(val)}
                     />
                   </div>
                   <div className="absolute -right-8 -bottom-8 w-40 h-40 bg-red-500/10 rounded-full blur-3xl group-hover:bg-red-500/20 transition-all duration-700" />
                 </section>
               </div>
+            )}
+
+            {/* TAB 1: Name */}
+            {activeTab === 'name' && (
+              <section className="space-y-8">
+                <div className="px-1">
+                  <h3 className="text-2xl font-black text-slate-900 tracking-tight">Estimator Identity</h3>
+                  <p className="text-slate-400 font-bold text-sm mt-1">Give your pricing engine a clear name for your records.</p>
+                </div>
+                
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-red-600/5 blur-2xl rounded-3xl -z-10 group-focus-within:bg-red-600/10 transition-all duration-500" />
+                  <div className="bg-white border border-slate-100 rounded-[2rem] p-6 shadow-sm space-y-5 relative overflow-hidden">
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-xl bg-[#0F172A] flex items-center justify-center shrink-0 shadow-lg shadow-slate-200">
+                        <Calculator className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="space-y-0.5">
+                        <Label htmlFor="engine-name" className={LABEL_CLASS}>Name Your Widget</Label>
+                        <p className={SUBTEXT_CLASS}>Appears on your dashboard and lead reports.</p>
+                      </div>
+                    </div>
+                    
+                    <Input
+                      id="engine-name"
+                      value={engineName}
+                      onChange={(e) => setEngineName(e.target.value)}
+                      className="h-16 bg-slate-50 border-slate-200 rounded-xl font-black text-lg focus-visible:ring-red-600/10 focus-visible:border-red-600 px-6 transition-all shadow-inner"
+                      placeholder="e.g. Premium Roof Estimator"
+                    />
+                  </div>
+                </div>
+              </section>
             )}
           </motion.div>
         </AnimatePresence>
@@ -434,6 +486,42 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
           )}
         </AnimatePresence>
       </div>
+
+      {/* Success Modal */}
+      <Dialog open={showSuccess} onOpenChange={setShowSuccess}>
+        <DialogContent className="max-w-md rounded-[2.5rem] border-slate-100 p-8 shadow-2xl bg-white font-sans text-center">
+          <div className="flex flex-col items-center gap-6">
+            <div className="w-20 h-20 rounded-full bg-emerald-50 flex items-center justify-center border-4 border-emerald-100">
+               <CheckCircle2 className="w-10 h-10 text-emerald-500" />
+            </div>
+            <DialogHeader className="space-y-2">
+              <DialogTitle className="text-[28px] font-black tracking-tight text-[#0F172A] leading-tight">
+                Pricing Rules <br /> Saved Successfully!
+              </DialogTitle>
+              <DialogDescription className="text-slate-500 font-medium text-[16px] leading-relaxed">
+                Your estimator widget has been updated with your latest numbers.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex flex-col w-full gap-3 pt-4">
+              <Button 
+                onClick={() => setShowSuccess(false)}
+                className="h-14 bg-[#F1F5F9] hover:bg-slate-200 text-[#0F172A] font-black rounded-2xl border-none shadow-none text-[15px]"
+              >
+                Keep Editing
+              </Button>
+              <Button 
+                render={
+                  <Link href="/calculators">
+                    Back to Dashboard <ArrowLeft className="w-4 h-4 ml-2" />
+                  </Link>
+                }
+                nativeButton={false}
+                className="h-16 bg-[#0F172A] hover:bg-black text-white font-black rounded-2xl shadow-xl shadow-slate-200 border-none text-[16px]"
+              />
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }

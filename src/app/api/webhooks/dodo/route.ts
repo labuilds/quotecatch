@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
   const rawBody = await req.text()
 
   if (!verifySignature(req, rawBody)) {
-    console.error("[Webhook] Invalid signature.")
+    console.error("[Webhook] Invalid signature verification failed.")
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
@@ -61,7 +61,7 @@ export async function POST(req: NextRequest) {
   }
 
   const eventType: string = payload.type ?? payload.event_type ?? ""
-  console.log(`[Webhook] Received event: ${eventType}`)
+  console.log(`[Webhook] Processing event: ${eventType}`)
 
   // Events that confirm a live, paid subscription
   const activatingEvents = [
@@ -72,29 +72,39 @@ export async function POST(req: NextRequest) {
   ]
 
   if (activatingEvents.includes(eventType)) {
-    // Dodo puts our metadata at different depths depending on event type
+    // Dodo puts our metadata at different depths depending on event type and API version
+    const data = payload.data ?? {}
     const meta =
-      payload.data?.metadata ??
+      data.metadata ??
       payload.metadata ??
-      payload.data?.object?.metadata ??
+      data.object?.metadata ??
       {}
 
     const userId: string =
       meta.user_id ??
-      payload.data?.customer?.customer_reference ??
-      payload.data?.customer_reference ??
+      data.customer?.customer_reference ??
+      data.customer_reference ??
+      data.customer_id ?? // Fallback if customer_id was used as reference
       ""
 
+    console.log(`[Webhook] Metadata resolution:`, {
+      userId,
+      hasMeta: Object.keys(meta).length > 0,
+      keys: Object.keys(meta)
+    })
+
     if (!userId) {
-      console.error("[Webhook] No user_id found in payload:", JSON.stringify(payload))
-      // Return 200 so Dodo doesn't keep retrying — log the issue instead
+      console.warn("[Webhook] No user_id found. Check if metadata was passed during checkout. Full payload:", JSON.stringify(payload, null, 2))
       return NextResponse.json({ received: true, warning: "no user_id" }, { status: 200 })
     }
 
     const admin = createAdminClient()
     const { error } = await admin
       .from("users")
-      .update({ is_pro: true, updated_at: new Date().toISOString() })
+      .update({ 
+        is_pro: true, 
+        updated_at: new Date().toISOString() 
+      })
       .eq("id", userId)
 
     if (error) {
@@ -102,7 +112,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "DB update failed" }, { status: 500 })
     }
 
-    console.log(`[Webhook] ✅ User ${userId} upgraded to Pro.`)
+    console.log(`[Webhook] ✅ SUCCESS: User ${userId} upgraded to Pro.`)
   }
 
   // Handle subscription cancellations / expirations

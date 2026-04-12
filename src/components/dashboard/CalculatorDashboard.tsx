@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import {
@@ -27,6 +27,15 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
   const [calculators, setCalculators] = useState(initialCalculators || [])
   const [isCreating, setIsCreating] = useState(false)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
+
+  // Sync state with server-side props when they change (e.g. after revalidation)
+  useEffect(() => {
+    if (initialCalculators) {
+      setCalculators(initialCalculators)
+    }
+  }, [initialCalculators])
+
+  console.log("Client-side Calculators State:", calculators.length)
 
   const handleUpgrade = async () => {
     try {
@@ -65,7 +74,7 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
   }
 
   return (
-    <div className="space-y-12 max-w-7xl mx-auto pb-12 font-sans overflow-x-hidden">
+    <div className="space-y-12 max-w-7xl mx-auto px-6 pb-12 font-sans">
       {/* Hero Section */}
       <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-12">
         <div className="space-y-6 max-w-2xl">
@@ -74,7 +83,7 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
           </div>
           <h1 className="text-[40px] lg:text-[64px] font-black tracking-tighter leading-[1.05]">
             Set Your Prices. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-red-300">Filter the Tire-Kickers.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-700 to-red-600">Filter the Tire-Kickers.</span>
           </h1>
           <p className="text-[18px] lg:text-[20px] text-slate-400 font-medium leading-relaxed max-w-lg">
             Manage your estimators, set your exact material markups, and control the numbers your homeowners see.
@@ -85,9 +94,9 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
           <Button
             onClick={handleCreateNew}
             disabled={isCreating}
-            className="h-20 px-10 bg-red-700 hover:bg-red-800 text-white font-black rounded-[2rem] text-[20px] shadow-2xl shadow-red-900/40 flex items-center gap-4 transition-all hover:scale-[1.02] active:scale-95 border-none"
+            className="h-16 px-8 bg-red-700 hover:bg-red-800 text-white font-black rounded-2xl text-[17px] shadow-2xl shadow-red-900/40 flex items-center gap-3 transition-all hover:scale-[1.02] active:scale-95 border-none"
           >
-            {isCreating ? <Loader2 className="w-6 h-6 animate-spin text-white" /> : <Plus className="w-6 h-6 stroke-[3px]" />}
+            {isCreating ? <Loader2 className="w-5 h-5 animate-spin text-white" /> : <Plus className="w-5 h-5 stroke-[3px]" />}
             Create New Estimator
           </Button>
           <p className="text-center text-slate-500 text-sm font-bold uppercase tracking-widest">
@@ -104,14 +113,7 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
             <p className="text-slate-500 font-medium text-[16px]">Edit your pricing rules, grab your embed codes, and watch the qualified leads roll in.</p>
           </div>
           <div className="flex items-center gap-3">
-            <div className="flex -space-x-3">
-              {[1, 2, 3].map(i => (
-                <div key={i} className="w-10 h-10 rounded-full border-4 border-white bg-slate-100 flex items-center justify-center overflow-hidden">
-                  <img src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="User" />
-                </div>
-              ))}
-            </div>
-            <p className="text-sm font-black text-slate-400 uppercase tracking-widest ml-2">
+            <p className="text-sm font-black text-slate-400 uppercase tracking-widest">
               {calculators.length} ACTIVE WIDGETS
             </p>
           </div>

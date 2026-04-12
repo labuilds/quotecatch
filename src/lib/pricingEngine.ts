@@ -16,7 +16,6 @@ export const DEFAULT_PRICING_CONFIG: PricingConfig = {
   materials: {
     asphalt: 5.50,
     tile: 14.00,
-    metal: 9.00
   },
   modifiers: {
     pitch: {

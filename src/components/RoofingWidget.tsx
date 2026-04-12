@@ -12,6 +12,7 @@ import { QCLogo } from "@/components/QCLogo"
 import { PricingConfig, calculateEstimate } from "@/lib/pricingEngine"
 import { getRoofEstimation } from "@/app/actions/solar"
 import { triggerLeadWebhook } from "@/app/actions/integrations"
+import { getAddressSuggestions } from "@/app/actions/places"
 
 const variants = {
   initial: { opacity: 0, y: 5 },
@@ -89,8 +90,10 @@ export default function RoofingWidget({
   const [estimatedPrice, setEstimatedPrice] = useState<number | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [loadingState, setLoadingState] = useState<string | null>(null)
-
   const [isAdvancing, setIsAdvancing] = useState(false)
+  
+  const [addressSuggestions, setAddressSuggestions] = useState<{description: string, placeId: string}[]>([])
+  const [showSuggestions, setShowSuggestions] = useState(false)
 
   const nextStep = () => {
     if (isAdvancing) return
@@ -115,12 +118,15 @@ export default function RoofingWidget({
     }, 300)
   }
 
-  const handleAddressLookup = async () => {
-    if (!formData.address.trim()) return
+  const handleAddressLookup = async (selectedAddress?: string) => {
+    const addr = selectedAddress || formData.address
+    if (!addr.trim()) return
+    
     setLoadingState("Connecting to satellite...")
+    setShowSuggestions(false)
 
     try {
-      const result = await getRoofEstimation(formData.address)
+      const result = await getRoofEstimation(addr)
 
       setLoadingState("Analyzing structure...")
       await new Promise(r => setTimeout(r, 800))
@@ -128,7 +134,7 @@ export default function RoofingWidget({
       setFormData(prev => ({
         ...prev,
         sqFt: result.areaSqFt.toString(),
-        address: result.formattedAddress || prev.address
+        address: result.formattedAddress || addr
       }))
 
       setLoadingState(null)
@@ -137,6 +143,18 @@ export default function RoofingWidget({
       console.error(error)
       setLoadingState(null)
       alert(error.message || "Could not find property data. Please enter manually.")
+    }
+  }
+
+  const handleAddressChange = async (val: string) => {
+    setFormData({ ...formData, address: val })
+    if (val.length > 3) {
+      const suggestions = await getAddressSuggestions(val)
+      setAddressSuggestions(suggestions)
+      setShowSuggestions(suggestions.length > 0)
+    } else {
+      setAddressSuggestions([])
+      setShowSuggestions(false)
     }
   }
 
@@ -216,38 +234,91 @@ export default function RoofingWidget({
         {step === 1 && (
           <div key="st1" className="space-y-6 animate-in fade-in duration-300">
             {isPro ? (
-              <>
-                <div className="space-y-1">
-                  <h2 className="text-[28px] font-black text-slate-900 tracking-tight leading-tight">Property Address</h2>
-                  <p className="text-[15px] text-slate-500 font-medium">We'll use satellite data to estimate dimensions.</p>
-                </div>
-                <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                    <Search className="h-6 w-6 text-slate-300 group-focus-within:text-red-700 transition-colors" />
+              <div className="space-y-6">
+                <div className="relative h-32 w-full bg-white border border-slate-100 rounded-[1.5rem] shadow-sm flex flex-col items-center justify-center p-6 text-center">
+                   <AnimatePresence mode="wait">
+                     {loadingState ? (
+                       <motion.div 
+                         key="scanning"
+                         initial={{ opacity: 0 }}
+                         animate={{ opacity: 1 }}
+                         exit={{ opacity: 0 }}
+                         className="flex flex-col items-center justify-center"
+                       >
+                         <Loader2 className="w-6 h-6 text-red-600 animate-spin mb-2" />
+                         <p className="text-slate-400 font-bold text-[10px] tracking-widest uppercase">{loadingState}</p>
+                       </motion.div>
+                     ) : (
+                       <motion.div 
+                         key="idle"
+                         initial={{ opacity: 0 }}
+                         animate={{ opacity: 1 }}
+                         exit={{ opacity: 0 }}
+                         className="flex flex-col items-center justify-center"
+                       >
+                         <div className="w-9 h-9 bg-slate-50 rounded-xl flex items-center justify-center mb-3 text-red-600">
+                           <MapPin className="w-4 h-4" />
+                         </div>
+                         <h3 className="text-slate-900 font-bold text-[17px] tracking-tight">Identify your property</h3>
+                         <p className="text-slate-500 text-sm font-medium leading-relaxed mt-0.5">Get an accurate ballpark in seconds without an onsite visit.</p>
+                       </motion.div>
+                     )}
+                   </AnimatePresence>
+                </div>                <div className="space-y-3.5 relative">
+                  <div className="relative group">
+                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                      <Search className="h-4 w-4 text-slate-400 group-focus-within:text-slate-900 transition-colors" />
+                    </div>
+                    <Input
+                      className="pl-11 h-14 bg-white border-slate-200 focus-visible:ring-slate-900/5 focus-visible:border-slate-400 text-slate-900 placeholder:text-slate-400 rounded-2xl text-[16px] font-medium transition-all"
+                      placeholder="Enter house number & street"
+                      value={formData.address}
+                      onChange={(e) => handleAddressChange(e.target.value)}
+                      onKeyDown={(e) => e.key === "Enter" && handleAddressLookup()}
+                      onFocus={() => addressSuggestions.length > 0 && setShowSuggestions(true)}
+                    />
+
+                    {/* Suggestions Dropdown */}
+                    <AnimatePresence>
+                      {showSuggestions && (
+                        <motion.div 
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          className="absolute z-50 left-0 right-0 top-[110%] bg-white border border-slate-100 rounded-2xl shadow-2xl overflow-hidden"
+                        >
+                          {addressSuggestions.map((s, i) => (
+                            <button
+                              key={s.placeId}
+                              onClick={() => handleAddressLookup(s.description)}
+                              className="w-full px-5 py-4 text-left hover:bg-slate-50 transition-colors border-b border-slate-50 last:border-0 flex items-center gap-3 group"
+                            >
+                              <MapPin className="w-4 h-4 text-slate-300 group-hover:text-red-600 transition-colors" />
+                              <span className="text-[14px] font-bold text-slate-600 group-hover:text-slate-900">{s.description}</span>
+                            </button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
-                  <Input
-                    className="pl-12 h-16 bg-slate-50 border-slate-100 focus-visible:ring-red-700/10 focus-visible:border-red-700 text-slate-900 placeholder:text-slate-300 rounded-3xl text-[18px] font-bold transition-all shadow-inner"
-                    placeholder="Street address, City, ZIP"
-                    value={formData.address}
-                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    onKeyDown={(e) => e.key === "Enter" && handleAddressLookup()}
-                  />
+                  
+                  <button
+                    onClick={() => handleAddressLookup()}
+                    disabled={!formData.address.trim() || !!loadingState}
+                    className="w-full h-14 bg-[#0F172A] hover:bg-black active:scale-[0.99] text-white rounded-2xl font-bold text-[15px] transition-all flex items-center justify-center gap-2.5 disabled:opacity-50 cursor-pointer"
+                  >
+                    {loadingState ? (
+                      <><Loader2 className="w-4 h-4 animate-spin" /> Analyzing...</>
+                    ) : (
+                      <>Get my pricing range →</>
+                    )}
+                  </button>
+                  
+                  <button onClick={nextStep} className="w-full py-1 text-center text-[13px] font-bold text-slate-400 hover:text-slate-600 transition-colors cursor-pointer">
+                    Skip and enter square footage manually
+                  </button>
                 </div>
-                <button
-                  onClick={handleAddressLookup}
-                  disabled={!formData.address.trim() || !!loadingState}
-                  className="w-full h-16 bg-[#0F172A] hover:bg-black active:bg-slate-800 text-white rounded-[1.5rem] font-black text-[15px] transition-all shadow-xl shadow-slate-200 flex items-center justify-center gap-3 disabled:opacity-50 cursor-pointer pointer-events-auto"
-                >
-                  {loadingState ? (
-                    <><Loader2 className="w-5 h-5 animate-spin" /> {loadingState}</>
-                  ) : (
-                    <>Generate AI Estimate <ArrowLeft className="w-4 h-4 rotate-180" /></>
-                  )}
-                </button>
-                <button onClick={nextStep} className="w-full text-center text-[15px] font-bold text-slate-400 hover:text-slate-900 transition-colors cursor-pointer pointer-events-auto">
-                  Skip and enter square footage manually
-                </button>
-              </>
+              </div>
             ) : (
               <>
                 <div className="space-y-1">
