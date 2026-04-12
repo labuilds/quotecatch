@@ -24,7 +24,11 @@ export default function Home() {
   const supabase = createClient()
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => setUser(user))
+    const fetchUser = async () => {
+      const { data } = await supabase.auth.getUser()
+      setUser(data.user)
+    }
+    fetchUser()
   }, [supabase])
 
   const NavLinks = () => (

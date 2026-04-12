@@ -4,7 +4,8 @@ import LeadsDashboard from '@/components/dashboard/LeadsDashboard'
 
 export default async function LeadsPage() {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const { data } = await supabase.auth.getUser()
+  const user = data?.user
   if (!user) redirect('/login')
 
   // Parallel fetch: is_pro status AND leads data
