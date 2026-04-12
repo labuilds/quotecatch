@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,7 +11,7 @@ import { QCLogo } from "@/components/QCLogo"
 import Link from "next/link"
 import { motion } from "framer-motion"
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const supabase = createClient()
@@ -22,17 +22,15 @@ export default function LoginPage() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    const errParam = params.get('error')
+    const errParam = searchParams.get('error')
     if (errParam) setError(errParam)
-  }, [])
+  }, [searchParams])
 
   const handleGoogleLogin = async () => {
     try {
       setIsGoogleLoading(true)
       setError(null)
 
-      // Check for buy intent from landing page
       const intent = searchParams.get("intent")
       if (intent === "pro") {
         document.cookie = "checkout_intent=pro; path=/; max-age=3600; SameSite=Lax"
@@ -65,7 +63,6 @@ export default function LoginPage() {
     setError(null)
     setSuccessMessage(null)
 
-    // Check for buy intent from landing page
     const intent = searchParams.get("intent")
     if (intent === "pro") {
       document.cookie = "checkout_intent=pro; path=/; max-age=3600; SameSite=Lax"
@@ -76,7 +73,6 @@ export default function LoginPage() {
       const { error } = await supabase.auth.signInWithOtp({
         email: cleanEmail,
         options: {
-          // This tells Supabase exactly where to send the email link, whether on localhost or live
           emailRedirectTo: `${window.location.origin}/auth/confirm?next=/calculators`
         },
       })
@@ -93,7 +89,102 @@ export default function LoginPage() {
     }
   }
 
-  // Replaced fake social proof with concrete product value
+  return (
+    <div className="flex-1 flex items-center justify-center px-8 sm:px-20 py-12">
+      <motion.div className="w-full max-w-[440px] space-y-10">
+        <div className="space-y-3">
+          <h1 className="text-[44px] font-black tracking-tighter text-[#0F172A] leading-[1.1]">
+            Welcome back.
+          </h1>
+          <p className="text-[17px] text-slate-500 font-medium leading-relaxed">
+            Log in to your dashboard to manage your widget, view your leads, and close more roofs.
+          </p>
+        </div>
+
+        <div className="space-y-6">
+          {error && (
+            <div className="p-6 text-[15px] text-red-700 bg-red-50/80 rounded-[2rem] border-2 border-red-100 font-bold flex flex-col gap-2 shadow-sm animate-in fade-in slide-in-from-top-2 duration-300">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500 shrink-0 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+                <span className="text-[12px] uppercase tracking-widest text-red-400">Security Notice</span>
+              </div>
+              <p className="leading-relaxed pl-4 line-clamp-3">{error}</p>
+            </div>
+          )}
+
+          {successMessage && (
+            <div className="p-5 text-[14px] text-emerald-700 bg-emerald-50 rounded-[2rem] border border-emerald-100 font-bold flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
+              {successMessage}
+            </div>
+          )}
+
+          <Button
+            type="button"
+            className="w-full h-16 text-[16px] font-black bg-white hover:bg-slate-50 border-2 border-slate-100 text-[#0F172A] rounded-[1.5rem] transition-all hover:border-slate-200 hover:shadow-xl hover:shadow-slate-100 flex items-center justify-center gap-4"
+            onClick={handleGoogleLogin}
+            disabled={isGoogleLoading || isMagicLinkLoading}
+          >
+            {isGoogleLoading ? (
+              <Loader2 className="h-5 w-5 animate-spin text-slate-400" />
+            ) : (
+              <svg className="h-6 w-6" viewBox="0 0 488 512" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#4285F4" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" />
+              </svg>
+            )}
+            Continue with Google
+          </Button>
+
+          <div className="relative py-4">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-slate-100" />
+            </div>
+            <div className="relative flex justify-center text-[11px] uppercase tracking-[0.25em] font-black text-slate-300">
+              <span className="bg-white px-6">Direct Access</span>
+            </div>
+          </div>
+
+          <form onSubmit={handleMagicLink} className="space-y-5">
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-[15px] font-black uppercase tracking-widest text-[#0F172A] ml-1">
+                Work Email
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="you@roofingcompany.com"
+                required
+                value={email}
+                autoCapitalize="none"
+                autoCorrect="off"
+                autoComplete="email"
+                className="h-17 bg-slate-50 border-slate-100 focus-visible:ring-orange-500/10 focus-visible:border-orange-500 rounded-[1.5rem] px-6 text-[18px] font-black text-[#0F172A] placeholder:text-slate-300 transition-all shadow-inner"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <Button
+              className="w-full h-16 text-[18px] font-black bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] transition-all shadow-2xl shadow-slate-200 border-none"
+              type="submit"
+              disabled={isMagicLinkLoading || isGoogleLoading}
+            >
+              {isMagicLinkLoading ? (
+                <><Loader2 className="mr-3 h-5 w-5 animate-spin" /> Authenticating...</>
+              ) : (
+                "Email login link →"
+              )}
+            </Button>
+          </form>
+        </div>
+
+        <p className="text-center text-[13px] text-slate-400 font-bold leading-relaxed px-4">
+          By joining, you agree to our <span className="text-slate-900 border-b border-slate-900 cursor-pointer">Terms of Service</span> and <span className="text-slate-900 border-b border-slate-900 cursor-pointer">Privacy Policy</span>.
+        </p>
+      </motion.div>
+    </div>
+  )
+}
+
+export default function LoginPage() {
   const stats = [
     { icon: Zap, value: "24/7", label: "Lead Capture" },
     { icon: CheckCircle2, value: "100%", label: "Pre-Qualified" },
@@ -124,106 +215,17 @@ export default function LoginPage() {
           </Link>
         </div>
 
-        {/* Auth form */}
-        <div className="flex-1 flex items-center justify-center px-8 sm:px-20 py-12">
-          <motion.div
-            className="w-full max-w-[440px] space-y-10"
-          >
-            <div className="space-y-3">
-              <h1 className="text-[44px] font-black tracking-tighter text-[#0F172A] leading-[1.1]">
-                Welcome back.
-              </h1>
-              <p className="text-[17px] text-slate-500 font-medium leading-relaxed">
-                Log in to your dashboard to manage your widget, view your leads, and close more roofs.
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              {error && (
-                <div className="p-6 text-[15px] text-red-700 bg-red-50/80 rounded-[2rem] border-2 border-red-100 font-bold flex flex-col gap-2 shadow-sm animate-in fade-in slide-in-from-top-2 duration-300">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-red-500 shrink-0 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
-                    <span className="text-[12px] uppercase tracking-widest text-red-400">Security Notice</span>
-                  </div>
-                  <p className="leading-relaxed pl-4 line-clamp-3">{error}</p>
-                </div>
-              )}
-
-              {successMessage && (
-                <div className="p-5 text-[14px] text-emerald-700 bg-emerald-50 rounded-[2rem] border border-emerald-100 font-bold flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
-                  {successMessage}
-                </div>
-              )}
-
-              {/* Google Button — Primary CTA */}
-              <Button
-                type="button"
-                className="w-full h-16 text-[16px] font-black bg-white hover:bg-slate-50 border-2 border-slate-100 text-[#0F172A] rounded-[1.5rem] transition-all hover:border-slate-200 hover:shadow-xl hover:shadow-slate-100 flex items-center justify-center gap-4"
-                onClick={handleGoogleLogin}
-                disabled={isGoogleLoading || isMagicLinkLoading}
-              >
-                {isGoogleLoading ? (
-                  <Loader2 className="h-5 w-5 animate-spin text-slate-400" />
-                ) : (
-                  <svg className="h-6 w-6" viewBox="0 0 488 512" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="#4285F4" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" />
-                  </svg>
-                )}
-                Continue with Google
-              </Button>
-
-              <div className="relative py-4">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t border-slate-100" />
-                </div>
-                <div className="relative flex justify-center text-[11px] uppercase tracking-[0.25em] font-black text-slate-300">
-                  <span className="bg-white px-6">Direct Access</span>
-                </div>
-              </div>
-
-              <form onSubmit={handleMagicLink} className="space-y-5">
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-[15px] font-black uppercase tracking-widest text-[#0F172A] ml-1">
-                    Work Email
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="you@roofingcompany.com"
-                    required
-                    value={email}
-                    autoCapitalize="none"
-                    autoCorrect="off"
-                    autoComplete="email"
-                    className="h-17 bg-slate-50 border-slate-100 focus-visible:ring-orange-500/10 focus-visible:border-orange-500 rounded-[1.5rem] px-6 text-[18px] font-black text-[#0F172A] placeholder:text-slate-300 transition-all shadow-inner"
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <Button
-                  className="w-full h-16 text-[18px] font-black bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] transition-all shadow-2xl shadow-slate-200 border-none"
-                  type="submit"
-                  disabled={isMagicLinkLoading || isGoogleLoading}
-                >
-                  {isMagicLinkLoading ? (
-                    <><Loader2 className="mr-3 h-5 w-5 animate-spin" /> Authenticating...</>
-                  ) : (
-                    "Email login link →"
-                  )}
-                </Button>
-              </form>
-            </div>
-
-            <p className="text-center text-[13px] text-slate-400 font-bold leading-relaxed px-4">
-              By joining, you agree to our <span className="text-slate-900 border-b border-slate-900 cursor-pointer">Terms of Service</span> and <span className="text-slate-900 border-b border-slate-900 cursor-pointer">Privacy Policy</span>.
-            </p>
-          </motion.div>
-        </div>
+        <Suspense fallback={
+          <div className="flex-1 flex items-center justify-center">
+            <Loader2 className="w-10 h-10 animate-spin text-slate-200" />
+          </div>
+        }>
+          <LoginForm />
+        </Suspense>
       </div>
 
       {/* Right: Feature Panel */}
       <div className="hidden lg:flex lg:w-[52%] relative overflow-hidden flex-col items-center justify-center bg-[#0F172A]">
-        {/* Background Image: Premium Roofing */}
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1635848253029-27ef193d7431?w=1600&q=80"
@@ -234,7 +236,6 @@ export default function LoginPage() {
         </div>
 
         <div className="relative z-10 px-16 max-w-2xl w-full py-14 space-y-8">
-          {/* Tagline */}
           <div className="space-y-6">
             <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20">
               <span className="w-2.5 h-2.5 rounded-full bg-orange-500 animate-pulse shadow-[0_0_12px_rgba(249,115,22,0.8)]" />
@@ -249,7 +250,6 @@ export default function LoginPage() {
             </p>
           </div>
 
-          {/* Stats Cards */}
           <div className="grid grid-cols-3 gap-5">
             {stats.map(({ icon: Icon, value, label }) => (
               <div key={label} className="bg-white/5 border border-white/10 rounded-[2rem] p-6 backdrop-blur-md transition-all hover:bg-white/10 group">
@@ -262,7 +262,6 @@ export default function LoginPage() {
             ))}
           </div>
 
-          {/* Decorative Mission Panel (Replaces Fake Testimonial) */}
           <div className="relative">
             <div className="absolute -inset-4 bg-orange-500/20 blur-[80px] pointer-events-none" />
             <div className="relative bg-white/5 border border-white/10 rounded-[2.5rem] p-1 shadow-2xl backdrop-blur-xl">
