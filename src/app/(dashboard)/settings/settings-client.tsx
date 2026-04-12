@@ -150,7 +150,7 @@ export function SettingsClient({ isPro }: SettingsClientProps) {
               <div>
                 <div className="flex items-center gap-2 mb-1">
                   <p className="text-[20px] font-black text-[#0F172A]">
-                    {isPro ? "Profit Engine" : "Distribution Engine"}
+                    {isPro ? "Pro Satellite" : "Basic Estimator"}
                   </p>
                   <span
                     className={`text-[12px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full border ${
@@ -173,7 +173,7 @@ export function SettingsClient({ isPro }: SettingsClientProps) {
                   onClick={() => setShowUpgradeModal(true)}
                   className="h-11 px-6 bg-red-700 text-white font-black rounded-xl text-[14px] shadow-lg shadow-red-200 hover:bg-red-800 hover:-translate-y-0.5 transition-all cursor-pointer"
                 >
-                  Upgrade to Profit Engine
+                  Upgrade to Pro Satellite
                 </Button>
               )}
             </div>

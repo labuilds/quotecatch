@@ -43,6 +43,21 @@ export async function GET(request: NextRequest) {
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     
     if (!error) {
+      // Check for checkout intent cookie
+      const intent = request.cookies.get('checkout_intent')?.value
+      
+      if (intent === 'pro') {
+        const checkoutResponse = NextResponse.redirect(`${origin}/api/checkout/init`)
+        // Clear intent and preserve session cookies
+        request.cookies.getAll().forEach(c => {
+           if (c.name.startsWith('sb-')) { // Basic heuristic for session cookies
+              checkoutResponse.cookies.set(c.name, c.value, { path: '/' })
+           }
+        })
+        checkoutResponse.cookies.set('checkout_intent', '', { maxAge: 0 })
+        return checkoutResponse
+      }
+      
       return response
     }
 

@@ -1,0 +1,439 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+  Loader2,
+  CheckCircle2,
+  ArrowLeft,
+  DollarSign,
+  Zap,
+  ChevronRight,
+  Calculator,
+  Save,
+  Undo2,
+  Home,
+  Layers,
+  ChevronUp,
+  ChevronDown
+} from "lucide-react"
+import RoofingWidget from "@/components/RoofingWidget"
+import { useUserTier } from "@/components/UserTierProvider"
+import { updateCalculatorConfig } from "@/app/actions/calculator"
+import { PricingConfig } from "@/lib/pricingEngine"
+import Link from "next/link"
+import { motion, AnimatePresence } from "framer-motion"
+
+const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+  event.target.select()
+}
+
+// Standard design tokens for consistent UI
+const LABEL_CLASS = "text-[15px] font-black text-slate-900 block"
+const SUBTEXT_CLASS = "text-[13.5px] text-slate-400 font-bold leading-tight"
+
+// Custom Input with Stepper Controls
+const PremiumInput = ({ value, onChange, placeholder, step = 1, prefix, suffix }: any) => {
+  const numValue = parseFloat(value) || 0
+
+  const handleIncrement = () => {
+    const newVal = (numValue + step).toFixed(2)
+    onChange(newVal.endsWith('.00') ? parseInt(newVal).toString() : newVal)
+  }
+
+  const handleDecrement = () => {
+    const newVal = Math.max(0, numValue - step).toFixed(2)
+    onChange(newVal.endsWith('.00') ? parseInt(newVal).toString() : newVal)
+  }
+
+  return (
+    <div className="relative group/input w-40">
+      
+      {prefix && (
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-black text-lg pointer-events-none z-10">
+          {prefix}
+        </div>
+      )}
+
+      {suffix && (
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black tracking-widest text-slate-300 uppercase pointer-events-none z-10">
+          {suffix}
+        </div>
+      )}
+
+      <Input
+        type="number"
+        value={value ?? ""}
+        placeholder={placeholder}
+        onFocus={handleFocus}
+        onChange={(e) => onChange(e.target.value)}
+        className="h-14 pl-10 pr-12 rounded-xl border-slate-200 bg-slate-50/50 font-black text-lg text-slate-900 focus-visible:ring-red-600/10 focus-visible:border-red-600 transition-all text-right w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+      />
+
+      <div className="absolute right-2 top-1/2 -translate-y-1/2 flex flex-col gap-0.5 opacity-0 group-hover/input:opacity-100 transition-opacity">
+        <button 
+          onClick={handleIncrement}
+          className="p-1 hover:bg-slate-200 rounded-md text-slate-400 hover:text-slate-900 transition-colors"
+        >
+          <ChevronUp className="w-3 h-3 stroke-[3px]" />
+        </button>
+        <button 
+          onClick={handleDecrement}
+          className="p-1 hover:bg-slate-200 rounded-md text-slate-400 hover:text-slate-900 transition-colors"
+        >
+          <ChevronDown className="w-3 h-3 stroke-[3px]" />
+        </button>
+      </div>
+    </div>
+  )
+}
+
+const PITCH_METADATA = [
+  { id: "flat", label: "Flat Roof", sub: "Safe to walk on" },
+  { id: "low", label: "Low Pitch", sub: "Easy to climb" },
+  { id: "standard", label: "Moderate Pitch", sub: "Walk with caution" },
+  { id: "steep", label: "Steep Pitch", sub: "Harness required" },
+]
+
+export default function ManualCalculatorEditor({ calculator }: { calculator: any }) {
+  const router = useRouter()
+  const { isPro } = useUserTier()
+  const [isSaving, setIsSaving] = useState(false)
+  const [hasChanges, setHasChanges] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
+
+  const [activeTab, setActiveTab] = useState<'sizing' | 'materials' | 'markups'>('sizing')
+
+  const [config, setConfig] = useState<PricingConfig>(calculator.config_json)
+  const originalConfig = calculator.config_json
+
+  useEffect(() => {
+    const isDifferent = JSON.stringify(config) !== JSON.stringify(originalConfig)
+    setHasChanges(isDifferent)
+  }, [config, originalConfig])
+
+  const handleUpdateMaterial = (key: string, value: string) => {
+    const numValue = value === "" ? 0 : parseFloat(value)
+    setConfig(prev => ({
+      ...prev,
+      materials: { ...prev.materials, [key]: numValue }
+    }))
+  }
+
+  const handleUpdatePitch = (key: string, value: string) => {
+    const numValue = value === "" ? 0 : parseFloat(value)
+    setConfig(prev => ({
+      ...prev,
+      modifiers: {
+        ...prev.modifiers,
+        pitch: { ...prev.modifiers.pitch, [key]: numValue }
+      }
+    }))
+  }
+
+  const handleUpdateFlatFee = (value: string) => {
+    const numValue = value === "" ? 0 : parseFloat(value)
+    setConfig(prev => ({ ...prev, flat_fees: numValue }))
+  }
+
+  const handleSave = async () => {
+    setIsSaving(true)
+    try {
+      await updateCalculatorConfig(calculator.id, config)
+      setHasChanges(false)
+      setShowSuccess(true)
+      setTimeout(() => setShowSuccess(false), 3000)
+      router.refresh()
+    } catch (err) {
+      console.error(err)
+      alert("Failed to save configuration.")
+    } finally {
+      setIsSaving(false)
+    }
+  }
+
+  const handleReset = () => {
+    setConfig(originalConfig)
+  }
+
+  const sizeOrder = [
+    { key: "under_1500", label: "Small (Under 1,500)" },
+    { key: "1500_2500", label: "Medium (1,500 - 2,500)" },
+    { key: "over_2500", label: "Large (2,500+)" }
+  ]
+
+  return (
+    <div className="flex flex-col lg:flex-row h-[calc(100vh)] w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-[#F8FAFC] overflow-hidden">
+
+      {/* Left Sidebar: Controls */}
+      <div className="w-full lg:w-[42%] h-full p-6 lg:p-10 overflow-y-auto border-b lg:border-b-0 lg:border-r bg-white flex flex-col shadow-2xl z-10 custom-scrollbar">
+
+        <div className="flex items-center justify-between mb-10 shrink-0">
+          <Link href="/calculators" className="group inline-flex items-center text-xs font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-all">
+            <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" /> Back
+          </Link>
+
+          <AnimatePresence>
+            {hasChanges && (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 20 }}
+                className="flex gap-2"
+              >
+                <Button variant="ghost" onClick={handleReset} className="h-9 px-4 text-slate-400 font-bold hover:bg-slate-50 rounded-xl hidden sm:flex">
+                  <Undo2 className="w-4 h-4 mr-2" /> Reset
+                </Button>
+                <Button
+                  onClick={handleSave}
+                  disabled={isSaving}
+                  className="h-9 px-6 bg-[#0F172A] hover:bg-black text-white font-black rounded-xl shadow-lg shadow-slate-200 transition-all active:scale-95"
+                >
+                  {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-3.5 h-3.5 mr-2" />}
+                  Save Rules
+                </Button>
+              </motion.div>
+            )}
+            {showSuccess && !hasChanges && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex items-center gap-2 text-emerald-500 font-black text-sm bg-emerald-50 px-4 py-2 rounded-xl"
+              >
+                <CheckCircle2 className="w-4 h-4" /> Rules Saved
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        <div className="mb-10 shrink-0">
+          <h1 className="text-[32px] lg:text-[40px] font-black text-slate-900 tracking-tighter leading-[1.05]">
+            Control Your <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-700 to-red-500">Pricing Rules.</span>
+          </h1>
+          <p className="text-slate-500 mt-4 text-[15px] font-medium leading-relaxed max-w-sm">
+            No guesswork. You have 100% control over the numbers your homeowners see.
+          </p>
+        </div>
+
+        <div className="flex bg-[#F1F5F9] p-1.5 rounded-2xl mb-8 shadow-inner overflow-x-auto no-scrollbar shrink-0">
+          <button
+            onClick={() => setActiveTab('sizing')}
+            className={`flex-1 min-w-[90px] flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'sizing' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+          >
+            <Home className="w-4 h-4" /> Sizing
+          </button>
+          <button
+            onClick={() => setActiveTab('materials')}
+            className={`flex-1 min-w-[100px] flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'materials' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+          >
+            <Calculator className="w-4 h-4" /> Materials
+          </button>
+          <button
+            onClick={() => setActiveTab('markups')}
+            className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'markups' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+          >
+            <Layers className="w-4 h-4" /> Markups & Fees
+          </button>
+        </div>
+
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            transition={{ duration: 0.15 }}
+            className="flex-1 pb-10"
+          >
+            {/* TAB 1: Sizing */}
+            {activeTab === 'sizing' && (
+              <section className="space-y-4">
+                <div className="mb-6 px-1">
+                  <h3 className="text-lg font-black text-slate-900 tracking-tight">Manual Size Defaults</h3>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4">
+                  {sizeOrder.map(({ key, label }) => {
+                    const value = config.free_tier_averages[key as keyof typeof config.free_tier_averages]
+                    return (
+                      <div key={key} className="group bg-white border border-slate-100 hover:border-slate-200 rounded-2xl p-6 transition-all duration-300 shadow-sm flex items-center justify-between gap-6">
+                        <div className="flex-1">
+                          <Label className={LABEL_CLASS}>{label}</Label>
+                        </div>
+                        <PremiumInput
+                          value={value === 0 ? "" : value}
+                          placeholder="0"
+                          suffix="SQFT"
+                          onChange={(val: string) => {
+                            const num = parseInt(val) || 0
+                            setConfig(prev => ({
+                              ...prev,
+                              free_tier_averages: { ...prev.free_tier_averages, [key]: num }
+                            }))
+                          }}
+                        />
+                      </div>
+                    )
+                  })}
+                </div>
+              </section>
+            )}
+
+            {/* TAB 2: Materials */}
+            {activeTab === 'materials' && (
+              <section className="space-y-4">
+                 <div className="mb-6 px-1">
+                  <h3 className="text-lg font-black text-slate-900 tracking-tight">Base Material Rates</h3>
+                </div>
+                <div className="grid grid-cols-1 gap-4">
+                  {Object.entries(config.materials).map(([key, value]) => (
+                    <div key={key} className="group bg-white border border-slate-100 hover:border-slate-200 rounded-2xl p-6 transition-all duration-300 shadow-sm flex items-center justify-between gap-6">
+                      <div className="flex-1">
+                        <p className={`${LABEL_CLASS} capitalize text-[17px]`}>{key}</p>
+                        <p className={SUBTEXT_CLASS}>Cost per Square Foot</p>
+                      </div>
+                      <PremiumInput
+                        value={value === 0 ? "" : value}
+                        placeholder="0.00"
+                        step={0.5}
+                        prefix="$"
+                        onChange={(val: string) => handleUpdateMaterial(key, val)}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* TAB 3: Markups & Fees */}
+            {activeTab === 'markups' && (
+              <div className="space-y-10">
+                {/* Pitch Modifiers */}
+                <section className="space-y-4">
+                  <div className="mb-6 px-1">
+                    <h3 className="text-lg font-black text-slate-900 tracking-tight">Pitch Multipliers</h3>
+                  </div>
+                  <div className="grid grid-cols-1 gap-4">
+                    {PITCH_METADATA.map((pitch) => {
+                      const value = config.modifiers.pitch[pitch.id as keyof typeof config.modifiers.pitch] ?? 1.0
+                      return (
+                        <div key={pitch.id} className="bg-white border border-slate-100 hover:border-slate-200 rounded-2xl p-6 shadow-sm flex items-center justify-between gap-6">
+                          <div className="space-y-1.5 flex-1">
+                            <Label className={LABEL_CLASS}>{pitch.label}</Label>
+                            <p className={SUBTEXT_CLASS}>{pitch.sub}</p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                             <div className="text-[12px] font-black text-slate-300 uppercase tracking-tighter shrink-0">x</div>
+                             <PremiumInput
+                               value={value === 0 ? "" : value}
+                               placeholder="1.00"
+                               step={0.05}
+                               onChange={(val: string) => handleUpdatePitch(pitch.id, val)}
+                             />
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </section>
+
+                {/* Flat Fees */}
+                <section className="bg-[#0F172A] rounded-3xl p-8 text-white relative overflow-hidden group shadow-2xl">
+                  <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-8">
+                    <div className="space-y-2">
+                       <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-2">
+                          <DollarSign className="w-4 h-4 text-red-500" />
+                       </div>
+                      <h4 className="text-[18px] font-black tracking-tight">
+                        Base Mobilization Fee
+                      </h4>
+                      <p className="text-slate-400 text-[13.5px] font-bold leading-relaxed max-w-[240px]">
+                        Fixed project cost covering setup, permits, and waste disposal.
+                      </p>
+                    </div>
+                    <PremiumInput
+                      value={config.flat_fees === 0 ? "" : config.flat_fees}
+                      placeholder="0"
+                      prefix="$"
+                      step={50}
+                      onChange={(val: string) => handleUpdateFlatFee(val)}
+                    />
+                  </div>
+                  <div className="absolute -right-8 -bottom-8 w-40 h-40 bg-red-500/10 rounded-full blur-3xl group-hover:bg-red-500/20 transition-all duration-700" />
+                </section>
+              </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Right Content: Live Preview */}
+      <div className="w-full lg:flex-1 h-full bg-slate-100/50 flex flex-col items-center justify-start p-6 lg:pt-10 lg:px-10 lg:pb-4 overflow-y-auto relative">
+
+        <div className="hidden lg:flex w-full max-w-xl justify-start gap-4 z-20 mb-8 shrink-0">
+          <div className="bg-white/90 backdrop-blur-xl border border-slate-200 px-4 py-2.5 rounded-xl shadow-sm">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
+              <span className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-600">Live Widget Preview</span>
+            </div>
+          </div>
+          {hasChanges && (
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="bg-red-700 text-white px-4 py-2.5 rounded-xl shadow-xl shadow-red-200 text-[11px] font-black uppercase tracking-[0.15em] flex items-center gap-2"
+            >
+              <Zap className="w-3.5 h-3.5 fill-white" />
+              Unsaved Changes
+            </motion.div>
+          )}
+        </div>
+
+        <div className="flex lg:hidden w-full max-w-xl items-center justify-between mb-6 shrink-0">
+          <div className="bg-white border border-slate-200 px-3 py-1.5 rounded-lg shadow-sm flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">Preview</span>
+          </div>
+          {hasChanges && (
+            <span className="text-red-600 text-[10px] font-black uppercase tracking-widest flex items-center gap-1">
+              <Zap className="w-3 h-3" /> Unsaved
+            </span>
+          )}
+        </div>
+
+        <div className="w-full max-w-xl transition-all duration-500 lg:hover:scale-[1.01] relative z-10 shrink-0 mb-12">
+          <RoofingWidget isPro={isPro} config={config} calculatorId="preview-mode" />
+          
+          <p className="text-center mt-6 text-slate-400 font-bold text-xs sm:text-sm flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 mb-20 lg:mb-0">
+            This preview uses the exact <span className="text-slate-900 border-b-2 border-slate-900">pricing rules</span> you set.
+          </p>
+        </div>
+
+        <AnimatePresence>
+          {hasChanges && (
+            <motion.div
+              initial={{ y: 100 }}
+              animate={{ y: 0 }}
+              exit={{ y: 100 }}
+              className="fixed lg:absolute bottom-6 lg:bottom-10 right-4 lg:right-10 z-50 lg:z-30 w-[calc-100%-2rem)] lg:w-auto"
+            >
+              <Button
+                onClick={handleSave}
+                disabled={isSaving}
+                className="w-full lg:w-auto h-16 px-10 bg-[#0F172A] hover:bg-black text-white font-black rounded-2xl shadow-2xl shadow-slate-400/50 flex items-center justify-center gap-3 transition-transform active:scale-95 border-2 border-white lg:border-none"
+              >
+                {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+                Save Pricing Rules
+                <ChevronRight className="w-4 h-4 text-slate-500 hidden sm:block" />
+              </Button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </div>
+  )
+}

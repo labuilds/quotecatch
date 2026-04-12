@@ -9,17 +9,17 @@ import { Button } from "@/components/ui/button"
 import { createDodoCheckoutSession } from "@/app/actions/billing"
 
 const proFeatures = [
-  "Address-Based Google Solar roof measurement",
-  "Remove 'Powered by QuoteCatch' branding",
-  "Unlimited Pricing Engines",
-  "Zapier & Webhook CRM integrations",
-  "Priority email support",
+  "Remote Satellite measurements (Google Solar)",
+  "No 'Powered by QuoteCatch' branding",
+  "Unlimited AI Pricing Engines",
+  "Zapier & CRM integrations",
+  "Priority support & analytics",
 ]
 
 const freeFeatures = [
   "1 Active Pricing Engine",
-  "Manual sq-ft estimation cards",
-  "Basic email lead notifications",
+  "Manual sq-ft selection cards",
+  "Instant lead email notifications",
   "Standard dashboard access",
 ]
 
@@ -73,7 +73,7 @@ export function BillingClient({
             <CheckCircle2 className="w-5 h-5 text-white" />
           </div>
           <div>
-            <p className="font-black text-emerald-900 text-[17px]">Welcome to the Profit Engine! 🎉</p>
+            <p className="font-black text-emerald-900 text-[17px]">Welcome to the Pro Satellite! 🎉</p>
             <p className="text-emerald-700 font-medium text-[14px] mt-0.5">
               Your subscription is now active. All Pro features have been unlocked.
             </p>
@@ -94,7 +94,7 @@ export function BillingClient({
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <p className="text-[20px] font-black text-white">Profit Engine</p>
+                    <p className="text-[20px] font-black text-white">Pro Satellite</p>
                     <span className="text-[11px] font-black uppercase tracking-widest bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">
                       Active
                     </span>
@@ -152,7 +152,7 @@ export function BillingClient({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 bg-slate-50 rounded-2xl border border-slate-100">
               <div>
                 <div className="flex items-center gap-2 mb-0.5">
-                  <p className="text-[18px] font-black text-slate-900">Distribution Engine</p>
+                  <p className="text-[18px] font-black text-slate-900">Basic Estimator</p>
                   <span className="text-[11px] font-black uppercase tracking-widest border border-slate-200 bg-white px-2 py-0.5 rounded-full text-slate-400">
                     Active
                   </span>
@@ -185,13 +185,13 @@ export function BillingClient({
                   <Zap className="w-5 h-5 text-red-400 fill-red-400/30" />
                 </div>
                 <div>
-                  <p className="text-[20px] font-black text-white">Profit Engine</p>
+                  <p className="text-[20px] font-black text-white">Pro Satellite</p>
                   <p className="text-slate-400 font-bold text-[14px]">$49 / month</p>
                 </div>
               </div>
 
               <p className="text-slate-300 font-medium text-[15px] leading-relaxed mb-6 max-w-lg">
-                Unlock satellite-powered roof measurements, remove our branding from your widget, and push leads directly to your CRM.
+                Unlock remote satellite measurements, remove the QuoteCatch badge, and push leads directly to your CRM.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">

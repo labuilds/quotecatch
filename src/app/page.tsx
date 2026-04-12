@@ -20,8 +20,12 @@ const DEMO_CONFIG: PricingConfig = {
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isSearchVisible, setIsSearchVisible] = useState(false)
+  const [user, setUser] = useState<any>(null)
   const supabase = createClient()
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data: { user } }) => setUser(user))
+  }, [supabase])
 
   const NavLinks = () => (
     <>
@@ -41,19 +45,27 @@ export default function Home() {
           </div>
           <span className="text-[18px] lg:text-[20px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
         </div>
-        
+
         <div className="hidden lg:flex items-center gap-10 text-[14px] font-bold text-slate-500">
-           <NavLinks />
+          <NavLinks />
         </div>
 
         <div className="flex items-center gap-2 sm:gap-4">
-          <Link href="/login" className="hidden sm:inline-flex text-[14px] font-bold text-slate-900 px-4 lg:px-6 py-2.5 hover:bg-slate-50 rounded-xl transition-all">
-            Login
-          </Link>
-          <Link href="/login?tab=signup" className="bg-[#0F172A] text-white text-[12px] sm:text-[14px] font-black px-4 sm:px-6 py-2.5 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
-            Get Started
-          </Link>
-          
+          {user ? (
+            <Link href="/calculators" className="bg-[#0F172A] text-white text-[12px] sm:text-[14px] font-black px-4 sm:px-6 py-2.5 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
+              Go to Dashboard
+            </Link>
+          ) : (
+            <>
+              <Link href="/login" className="hidden sm:inline-flex text-[14px] font-bold text-slate-900 px-4 lg:px-6 py-2.5 hover:bg-slate-50 rounded-xl transition-all">
+                Login
+              </Link>
+              <Link href="/login?tab=signup" className="bg-[#0F172A] text-white text-[12px] sm:text-[14px] font-black px-4 sm:px-6 py-2.5 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
+                Get Started
+              </Link>
+            </>
+          )}
+
           <div className="lg:hidden">
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger className="h-10 w-10 flex items-center justify-center hover:bg-slate-50 rounded-xl transition-all">
@@ -62,7 +74,11 @@ export default function Home() {
               <SheetContent side="top" className="w-full pt-20 pb-10">
                 <div className="flex flex-col items-center gap-8 text-[18px] font-black text-slate-900">
                   <NavLinks />
-                  <Link href="/login" onClick={() => setIsMenuOpen(false)} className="text-red-700">Login</Link>
+                  {user ? (
+                    <Link href="/calculators" onClick={() => setIsMenuOpen(false)} className="text-red-700">Dashboard</Link>
+                  ) : (
+                    <Link href="/login" onClick={() => setIsMenuOpen(false)} className="text-red-700">Login</Link>
+                  )}
                 </div>
               </SheetContent>
             </Sheet>
@@ -104,19 +120,19 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex-1 w-full max-w-[480px] relative mt-8 lg:mt-0 z-50">
-               {/* Label for the playable widget */}
-               <div className="absolute -top-10 lg:-top-12 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-md border border-slate-100 px-4 lg:px-6 py-1.5 lg:py-2 rounded-full shadow-sm z-20 flex items-center gap-2 whitespace-nowrap">
-                 <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                 <span className="text-[10px] lg:text-[12px] font-black text-slate-400 uppercase tracking-widest">Live Playable Demo</span>
-               </div>
-               
-               <div className="relative z-50 bg-white rounded-[2rem] lg:rounded-[3rem] shadow-[0_30px_60px_rgba(0,0,0,0.1)] border border-slate-100">
-                 <RoofingWidget isPro={false} config={DEMO_CONFIG} calculatorId="demo" />
-               </div>
+            <div id="demo" className="flex-1 w-full max-w-[480px] relative mt-8 lg:mt-0 z-50">
+              {/* Label for the playable widget */}
+              <div className="absolute -top-10 lg:-top-12 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-md border border-slate-100 px-4 lg:px-6 py-1.5 lg:py-2 rounded-full shadow-sm z-20 flex items-center gap-2 whitespace-nowrap">
+                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                <span className="text-[10px] lg:text-[12px] font-black text-slate-400 uppercase tracking-widest">Live Playable Demo</span>
+              </div>
 
-               {/* Optimized decorative background */}
-               <div className="absolute -inset-4 bg-gradient-to-br from-red-500/5 to-indigo-500/5 rounded-[4rem] blur-2xl lg:blur-3xl -z-10" />
+              <div className="relative z-50 bg-white rounded-[2rem] lg:rounded-[3rem] shadow-[0_30px_60px_rgba(0,0,0,0.1)] border border-slate-100">
+                <RoofingWidget isPro={false} config={DEMO_CONFIG} calculatorId="demo" />
+              </div>
+
+              {/* Optimized decorative background */}
+              <div className="absolute -inset-4 bg-gradient-to-br from-red-500/5 to-indigo-500/5 rounded-[4rem] blur-2xl lg:blur-3xl -z-10" />
             </div>
           </div>
 
@@ -125,72 +141,72 @@ export default function Home() {
 
       {/* Feature Section Preview */}
       <section id="features" className="py-16 lg:py-24 px-4 sm:px-6 bg-slate-50">
-         <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12 lg:mb-16">
-               <h2 className="text-[32px] lg:text-[42px] font-black text-[#0F172A] tracking-tight mb-3 lg:mb-4 leading-tight">Built for the Modern Roofer.</h2>
-               <p className="text-slate-500 text-[16px] lg:text-[18px] font-medium max-w-xl mx-auto px-4">Skip the complex CRMs. QuoteCatch focuses on the only thing that matters: conversion.</p>
-            </div>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12 lg:mb-16">
+            <h2 className="text-[32px] lg:text-[42px] font-black text-[#0F172A] tracking-tight mb-3 lg:mb-4 leading-tight">Stop Driving to Tire-Kickers.</h2>
+            <p className="text-slate-500 text-[16px] lg:text-[18px] font-medium max-w-xl mx-auto px-4">We filter the serious buyers from the window shoppers before your phone even rings.</p>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-               {[
-                 { title: "Instant AI Pricing", desc: "Homeowners get a range-based quote in 30 seconds, building instant trust.", icon: (props: any) => <QCLogo {...props} /> },
-                 { title: "Viral Growth Loop", desc: "The 'Powered by QuoteCatch' badge turns every live widget into a referral source.", icon: MousePointer2 },
-                 { title: "Satellite Data (Pro)", desc: "Upgrade to Profit Engine and get exact measurements via Google Solar data.", icon: Shield },
-               ].map((f, i) => (
-                 <div key={i} className="bg-white p-8 lg:p-10 rounded-[2rem] lg:rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 group">
-                    <div className="w-12 h-12 lg:w-14 lg:h-14 bg-red-50 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110">
-                       <f.icon className="w-6 h-6 lg:w-7 lg:h-7 text-red-700" size={28} />
-                    </div>
-                    <h4 className="text-[18px] lg:text-[20px] font-black text-[#0F172A] mb-2">{f.title}</h4>
-                    <p className="text-slate-500 font-medium leading-relaxed text-[15px] lg:text-[16px]">{f.desc}</p>
-                 </div>
-               ))}
-            </div>
-         </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {[
+              { title: "Instant Ballpark Estimates", desc: "Homeowners get a rough price instantly, building trust while weeding out the low-ballers who can't afford your quality of work.", icon: (props: any) => <QCLogo {...props} /> },
+              { title: "Pre-Qualified Leads", desc: "By the time you call them, they already know the price range and are ready to talk financing or book a real inspection.", icon: MousePointer2 },
+              { title: "Remote Measurements (Pro)", desc: "Stop climbing roofs for free. Get exact square footage instantly using satellite data—right from your truck.", icon: Shield },
+            ].map((f, i) => (
+              <div key={i} className="bg-white p-8 lg:p-10 rounded-[2rem] lg:rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 group">
+                <div className="w-12 h-12 lg:w-14 lg:h-14 bg-red-50 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110">
+                  <f.icon className="w-6 h-6 lg:w-7 lg:h-7 text-red-700" size={28} />
+                </div>
+                <h4 className="text-[18px] lg:text-[20px] font-black text-[#0F172A] mb-2">{f.title}</h4>
+                <p className="text-slate-500 font-medium leading-relaxed text-[15px] lg:text-[16px]">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* Pricing Section */}
       <section id="pricing" className="py-16 lg:py-24 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-           <div className="text-center mb-12 lg:mb-16">
-              <h2 className="text-[36px] lg:text-[48px] font-black text-[#0F172A] tracking-tight mb-4 leading-tight">Transparent Pricing.</h2>
-              <p className="text-slate-500 text-[16px] lg:text-[18px] font-medium px-4">Choose the engine that matches your growth stage.</p>
-           </div>
-           <PricingSection />
+          <div className="text-center mb-12 lg:mb-16">
+            <h2 className="text-[36px] lg:text-[48px] font-black text-[#0F172A] tracking-tight mb-4 leading-tight">Transparent Pricing.</h2>
+            <p className="text-slate-500 text-[16px] lg:text-[18px] font-medium px-4">Stop wasting gas. Start closing deals.</p>
+          </div>
+          <PricingSection />
         </div>
       </section>
 
       {/* CTA Footer */}
       <section className="py-12 lg:py-24 px-4 sm:px-6">
-         <div className="max-w-5xl mx-auto bg-[#0F172A] rounded-[2rem] lg:rounded-[3rem] p-10 sm:p-12 lg:p-20 text-center relative overflow-hidden shadow-2xl shadow-[#0F172A]/20">
-            <div className="relative z-10 text-white space-y-6 lg:space-y-8">
-               <h2 className="text-[36px] lg:text-[64px] font-black tracking-tighter leading-[1.1] lg:leading-none">Ready to catch every lead?</h2>
-               <p className="text-white/60 text-[16px] lg:text-[20px] font-medium max-w-xl mx-auto px-2">Join hundreds of contractors already using QuoteCatch to grow their business.</p>
-               <div className="flex justify-center pt-2">
-                  <Link href="/login?tab=signup" className="w-full sm:w-auto h-14 lg:h-16 px-8 lg:px-10 bg-red-700 text-white flex items-center justify-center gap-3 rounded-2xl font-black text-[16px] lg:text-[18px] hover:bg-red-800 transition-all shadow-xl shadow-red-700/20">
-                    Get Started Free
-                    <ArrowRight className="w-5 h-5" />
-                  </Link>
-               </div>
+        <div className="max-w-5xl mx-auto bg-[#0F172A] rounded-[2rem] lg:rounded-[3rem] p-10 sm:p-12 lg:p-20 text-center relative overflow-hidden shadow-2xl shadow-[#0F172A]/20">
+          <div className="relative z-10 text-white space-y-6 lg:space-y-8">
+            <h2 className="text-[36px] lg:text-[64px] font-black tracking-tighter leading-[1.1] lg:leading-none">Ready to catch every lead?</h2>
+            <p className="text-white/60 text-[16px] lg:text-[20px] font-medium max-w-xl mx-auto px-2">Join hundreds of contractors already using QuoteCatch to grow their business.</p>
+            <div className="flex justify-center pt-2">
+              <Link href="/login?tab=signup" className="w-full sm:w-auto h-14 lg:h-16 px-8 lg:px-10 bg-red-700 text-white flex items-center justify-center gap-3 rounded-2xl font-black text-[16px] lg:text-[18px] hover:bg-red-800 transition-all shadow-xl shadow-red-700/20">
+                Get Started Free
+                <ArrowRight className="w-5 h-5" />
+              </Link>
             </div>
-            {/* Optimized decorative effect */}
-            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-red-500/10 rounded-full blur-3xl pointer-events-none" />
-         </div>
+          </div>
+          {/* Optimized decorative effect */}
+          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-red-500/10 rounded-full blur-3xl pointer-events-none" />
+        </div>
       </section>
-      
+
       <footer className="py-12 lg:py-20 border-t border-slate-100 px-4 sm:px-6">
-         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 lg:gap-8">
-            <div className="flex items-center gap-2.5 sm:gap-3">
-               <div className="w-8 h-8 bg-[#0F172A] rounded-lg flex items-center justify-center">
-                  <QCLogo size={18} isDark={false} />
-               </div>
-               <span className="text-[18px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 lg:gap-8">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="w-8 h-8 bg-[#0F172A] rounded-lg flex items-center justify-center">
+              <QCLogo size={18} isDark={false} />
             </div>
-            
-            <p className="text-slate-400 font-bold text-[12px] lg:text-[14px] text-center md:text-left">
-               © {new Date().getFullYear()} QuoteCatch. All rights reserved. Built for roofers.
-            </p>
-         </div>
+            <span className="text-[18px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
+          </div>
+
+          <p className="text-slate-400 font-bold text-[12px] lg:text-[14px] text-center md:text-left">
+            © {new Date().getFullYear()} QuoteCatch. All rights reserved. Built for roofers.
+          </p>
+        </div>
       </footer>
     </div>
   )

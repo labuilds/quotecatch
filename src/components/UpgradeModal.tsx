@@ -15,16 +15,16 @@ interface UpgradeModalProps {
 const features = {
   free: [
     "Unlimited lead generation",
-    "Manual Sq-Ft estimation cards",
-    "Basic email lead notifications",
+    "Ballpark estimation cards",
+    "Instant lead notifications",
     "1 Active Pricing Engine",
   ],
   pro: [
-    "Unlimited leads & calculators",
-    "Address-Based AI Satellite lookup",
-    "Remove 'Powered by' branding",
-    "Zapier & Webhook integrations",
-    "Analytics & Conversion insights",
+    "Unlimited leads & engines",
+    "Remote AI Satellite measurements",
+    "Custom branding & badge removal",
+    "Zapier & CRM integrations",
+    "Priority support & insights",
   ],
 }
 
@@ -85,10 +85,10 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade }: UpgradeModalProps) 
                   <span className="text-[12px] font-black text-red-800 uppercase tracking-widest">Premium Growth Toolkit</span>
                 </div>
                 <h2 className="text-[28px] sm:text-[38px] font-black text-[#0F172A] tracking-tighter leading-none mb-3">
-                  Unlock the <span className="text-red-700">Profit Engine.</span>
+                  Unlock the <span className="text-red-700">Pro Satellite.</span>
                 </h2>
                 <p className="text-[15px] text-slate-500 font-medium max-w-lg leading-relaxed">
-                  Go beyond basic estimations. Unlock high-precision satellite data, custom branding removal, and seamless CRM integrations.
+                  Stop climbing roofs for free. Unlock remote satellite measurements, custom branding removal, and seamless CRM integrations.
                 </p>
               </div>
 
@@ -101,8 +101,8 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade }: UpgradeModalProps) 
                     <div className="w-12 h-12 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center mb-4 shadow-sm">
                       <Globe className="w-6 h-6 text-slate-400" />
                     </div>
-                    <h3 className="text-[20px] font-black text-slate-900 tracking-tight mb-1">Distribution Engine</h3>
-                    <p className="text-[14px] text-slate-500 font-medium mb-4">Perfect for scaling your social presence and viral loop.</p>
+                    <h3 className="text-[20px] font-black text-slate-900 tracking-tight mb-1">Basic Estimator</h3>
+                    <p className="text-[14px] text-slate-500 font-medium mb-4">Stop driving to tire-kickers. Build trust with ballpark pricing.</p>
                     <div className="mb-5 flex items-baseline gap-1">
                       <span className="text-[40px] font-black text-slate-900 tracking-tighter">$0</span>
                       <span className="text-[15px] font-bold text-slate-400">/mo</span>
@@ -134,8 +134,8 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade }: UpgradeModalProps) 
                     <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center mb-4 shadow-sm">
                       <Zap className="w-6 h-6 text-red-400" />
                     </div>
-                    <h3 className="text-[20px] font-black text-white tracking-tight mb-1">Profit Engine</h3>
-                    <p className="text-[14px] text-slate-400 font-medium mb-4">The complete toolkit for high-growth roofing businesses.</p>
+                    <h3 className="text-[20px] font-black text-white tracking-tight mb-1">Pro Satellite</h3>
+                    <p className="text-[14px] text-slate-400 font-medium mb-4">Exact square footage and leads pushed straight to your CRM.</p>
                     <div className="mb-5 flex items-baseline gap-1">
                       <span className="text-[40px] font-black text-white tracking-tighter">$49</span>
                       <span className="text-[15px] font-bold text-slate-400">/mo</span>
@@ -154,7 +154,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade }: UpgradeModalProps) 
                       onClick={onUpgrade}
                       className="w-full h-12 rounded-2xl font-black text-[15px] bg-white text-[#0F172A] hover:bg-slate-50 border-none shadow-xl cursor-pointer"
                     >
-                      Upgrade to Profit Engine <ArrowRight className="w-4 h-4 ml-2" />
+                      Upgrade to Pro Satellite <ArrowRight className="w-4 h-4 ml-2" />
                     </Button>
                   </div>
 

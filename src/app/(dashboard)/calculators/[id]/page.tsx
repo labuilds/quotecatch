@@ -1,6 +1,6 @@
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
-import AICalculatorEditor from '@/components/dashboard/AICalculatorEditor'
+import ManualCalculatorEditor from '@/components/dashboard/ManualCalculatorEditor'
 
 export default async function CalculatorEditorPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -17,5 +17,5 @@ export default async function CalculatorEditorPage({ params }: { params: Promise
 
   if (!calculator) redirect('/calculators')
 
-  return <AICalculatorEditor calculator={calculator} />
+  return <ManualCalculatorEditor calculator={calculator} />
 } 

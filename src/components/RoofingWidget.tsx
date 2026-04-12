@@ -90,12 +90,29 @@ export default function RoofingWidget({
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [loadingState, setLoadingState] = useState<string | null>(null)
 
-  const nextStep = () => setStep((s) => s + 1)
-  const prevStep = () => setStep((s) => s - 1)
+  const [isAdvancing, setIsAdvancing] = useState(false)
+
+  const nextStep = () => {
+    if (isAdvancing) return
+    setIsAdvancing(true)
+    setStep((s) => s + 1)
+    setTimeout(() => setIsAdvancing(false), 400) // Cooling period to prevent tap-through
+  }
+
+  const prevStep = () => {
+    setStep((s) => s - 1)
+  }
 
   const handleSelect = (field: keyof FormData, value: string) => {
+    if (isAdvancing) return
+    setIsAdvancing(true) // Lock immediately!
+    
     setFormData((prev) => ({ ...prev, [field]: value }))
-    setTimeout(() => nextStep(), 250)
+    // Slightly longer timeout for visual feedback of selection before moving
+    setTimeout(() => {
+      setStep((s) => s + 1)
+      setTimeout(() => setIsAdvancing(false), 400) // Cooling period for ghost clicks
+    }, 300)
   }
 
   const handleAddressLookup = async () => {
@@ -247,8 +264,14 @@ export default function RoofingWidget({
                     return (
                       <button
                         key={item.id}
-                        onClick={() => handleSelect("sqFt", item.id)}
-                        onPointerDown={() => handleSelect("sqFt", item.id)}
+                        onClick={(e) => {
+                          e.preventDefault()
+                          handleSelect("sqFt", item.id)
+                        }}
+                        onPointerDown={(e) => {
+                          e.preventDefault()
+                          handleSelect("sqFt", item.id)
+                        }}
                         className={`w-full p-5 rounded-3xl border-2 text-left group cursor-pointer pointer-events-auto ${active
                             ? "border-red-700 bg-red-50/50 shadow-md"
                             : "border-slate-100 bg-white hover:border-slate-200 hover:bg-slate-50/50"
@@ -278,7 +301,14 @@ export default function RoofingWidget({
                 return (
                   <button
                     key={id}
-                    onClick={() => handleSelect("material", id)}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      handleSelect("material", id)
+                    }}
+                    onPointerDown={(e) => {
+                      e.preventDefault()
+                      handleSelect("material", id)
+                    }}
                     className={`group relative h-36 rounded-[2rem] overflow-hidden transition-all duration-500 cursor-pointer pointer-events-auto ${active ? "ring-4 ring-red-700 ring-offset-2 shadow-2xl scale-[1.02]" : ""
                       }`}
                   >
@@ -308,7 +338,14 @@ export default function RoofingWidget({
                 return (
                   <button
                     key={id}
-                    onClick={() => handleSelect("pitch", id)}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      handleSelect("pitch", id)
+                    }}
+                    onPointerDown={(e) => {
+                      e.preventDefault()
+                      handleSelect("pitch", id)
+                    }}
                     className={`flex flex-col items-center justify-center p-6 rounded-[2rem] border-2 transition-all duration-300 group cursor-pointer pointer-events-auto ${active
                         ? "border-red-700 bg-red-50/50 shadow-md scale-[1.02]"
                         : "border-slate-100 bg-white hover:border-slate-200 hover:bg-slate-50/50"

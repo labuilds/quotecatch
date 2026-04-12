@@ -1,6 +1,6 @@
 import { createClient } from '@/utils/supabase/server'
 import { redirect } from 'next/navigation'
-import AICalculatorBuilder from '@/components/dashboard/AICalculatorBuilder'
+import CalculatorDashboard from '@/components/dashboard/CalculatorDashboard'
 
 export default async function CalculatorsPage() {
   const supabase = await createClient()
@@ -11,8 +11,9 @@ export default async function CalculatorsPage() {
   const { data: calculators, error } = await supabase
     .from('calculators')
     .select('*')
+    .order('created_at', { ascending: false })
 
   return (
-    <AICalculatorBuilder initialCalculators={calculators || []} />
+    <CalculatorDashboard initialCalculators={calculators || []} />
   )
 }

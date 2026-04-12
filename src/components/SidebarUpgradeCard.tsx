@@ -32,10 +32,10 @@ export function SidebarUpgradeCard() {
             <div className="w-6 h-6 rounded-lg bg-red-500/20 flex items-center justify-center">
               <Zap className="w-3.5 h-3.5 text-red-400 fill-red-400" />
             </div>
-            <p className="text-[16px] font-black text-white">Go Pro</p>
+            <p className="text-[16px] font-black text-white">Go Pro Satellite</p>
           </div>
           <p className="text-[14px] text-slate-400 font-medium leading-relaxed mb-4">
-            Remove branding, unlock satellite data, and CRM webhooks.
+            Remote satellite data, no QuoteCatch badge, and CRM webhooks.
           </p>
           <button 
             onClick={() => setShowModal(true)}
