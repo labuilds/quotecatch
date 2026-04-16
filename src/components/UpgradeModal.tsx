@@ -21,7 +21,7 @@ const features = {
   ],
   pro: [
     "Unlimited leads & engines",
-    "Remote AI Satellite measurements",
+    "High-Resolution Satellite measurements",
     "Custom branding & badge removal",
     "Zapier & CRM integrations",
     "Priority support & insights",

@@ -50,7 +50,7 @@ export default function MarketingWidget() {
 
         <div className="pt-6 border-t border-slate-200/80">
            <p className="text-[10px] font-black text-slate-400 tracking-[0.2em] uppercase mb-1 flex items-center justify-center gap-2">
-             AI Calculated Math <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+             Automated Calculation <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
            </p>
            <div className="flex justify-center items-end gap-1 h-20">
               <span className="text-3xl font-extrabold text-slate-300 mb-1.5">$</span>

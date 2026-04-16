@@ -177,7 +177,7 @@ export default function AICalculatorBuilder({ initialCalculators }: { initialCal
               <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center border border-red-100">
                 <Loader2 className="w-8 h-8 animate-spin text-red-700" />
               </div>
-              <p className="font-bold text-slate-700 text-center">Gemini AI is parsing your pricing rules...</p>
+              <p className="font-bold text-slate-700 text-center">Our system is parsing your pricing rules...</p>
             </div>
           ) : config ? (
             <div className="w-full max-w-[420px] transform animate-in zoom-in-95 duration-500 pt-12 lg:pt-0">
@@ -202,13 +202,13 @@ export default function AICalculatorBuilder({ initialCalculators }: { initialCal
       <div className="max-w-4xl mx-auto text-center space-y-4 lg:space-y-6">
         <div className="pt-4 lg:pt-0">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-100 text-red-700 text-[11px] lg:text-[13px] font-bold uppercase tracking-widest mb-4">
-            <Sparkles className="w-3.5 h-3.5" /> AI Pricing Architect
+            <Sparkles className="w-3.5 h-3.5" /> Smart Pricing Architect
           </div>
           <h1 className="text-[32px] sm:text-[40px] lg:text-[48px] font-black tracking-tighter text-slate-900 leading-[1.1] lg:leading-tight">
             Design your pricing engine.
           </h1>
           <p className="text-[15px] lg:text-[18px] text-slate-500 font-medium mt-3 leading-relaxed max-w-2xl mx-auto">
-            Describe your math in plain English. Gemini AI builds a live widget instantly.
+            Describe your math in plain English. Our system builds a live widget instantly.
           </p>
         </div>
 

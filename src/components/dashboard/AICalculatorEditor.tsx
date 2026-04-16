@@ -74,7 +74,7 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
             Modify Physics.
           </h1>
           <p className="text-slate-500 mt-4 text-xl font-medium leading-relaxed max-w-md">
-            Prompt your desired logic changes below. The AI will compile a differential schema instantly.
+            Prompt your desired logic changes below. The system will compile a differential schema instantly.
           </p>
         </div>
 
@@ -163,7 +163,7 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
                       {/* Empty state fallback if no major differences were detected */}
                       {JSON.stringify(originalConfig) === JSON.stringify(diffConfig) && (
                          <div className="w-full text-center py-4 bg-slate-100 rounded-xl border border-slate-200 text-slate-500 font-sans font-semibold">
-                            AI analyzed parameters exactly matched baseline engine architecture natively.
+                             All parameters analyzed and matched baseline engine architecture natively.
                          </div>
                       )}
                    </div>

@@ -11,7 +11,7 @@ import { createDodoCheckoutSession } from "@/app/actions/billing"
 const proFeatures = [
   "Remote Satellite measurements (Google Solar)",
   "No 'Powered by QuoteCatch' branding",
-  "Unlimited AI Pricing Engines",
+  "Unlimited Smart Pricing Engines",
   "Zapier & CRM integrations",
   "Priority support & analytics",
 ]
