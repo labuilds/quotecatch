@@ -49,7 +49,7 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
         ...(diffConfig || originalConfig),
         steps: stepToggles
       }
-      await updateCalculatorConfig(calculator.id, finalConfig)
+      await updateCalculatorConfig(calculator.id, calculator.name, finalConfig)
       router.push('/calculators')
       router.refresh()
     } catch(err) {
