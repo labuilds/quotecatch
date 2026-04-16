@@ -3,6 +3,8 @@ import RoofingWidget from "@/components/RoofingWidget";
 import { ShieldAlert } from 'lucide-react';
 import { PricingConfig } from "@/lib/pricingEngine";
 
+export const revalidate = 0;
+
 export default async function WidgetPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   
@@ -14,7 +16,7 @@ export default async function WidgetPage({ params }: { params: Promise<{ id: str
 
   const { data: calc } = await supabase
     .from('calculators')
-    .select('*, users(is_pro)')
+    .select('*')
     .eq('id', id)
     .single();
 
@@ -32,7 +34,13 @@ export default async function WidgetPage({ params }: { params: Promise<{ id: str
     )
   }
 
-  const isPro = calc.users?.is_pro || false;
+  const { data: userData } = await supabase
+    .from('users')
+    .select('is_pro, company_name, company_logo_url')
+    .eq('id', calc.user_id)
+    .single();
+
+  const isPro = userData?.is_pro || false;
   const config = calc.config_json as PricingConfig;
 
   return (
@@ -41,6 +49,8 @@ export default async function WidgetPage({ params }: { params: Promise<{ id: str
         isPro={isPro} 
         config={config} 
         calculatorId={id} 
+        companyName={userData?.company_name || ""}
+        companyLogoUrl={userData?.company_logo_url || ""}
       />
     </div>
   );

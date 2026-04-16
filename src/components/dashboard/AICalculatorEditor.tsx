@@ -19,6 +19,13 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
   const [isSaving, setIsSaving] = useState(false)
   
   const [diffConfig, setDiffConfig] = useState<PricingConfig | null>(null)
+  const [stepToggles, setStepToggles] = useState({
+    buildingType: calculator.config_json.steps?.buildingType ?? true,
+    currentMaterial: calculator.config_json.steps?.currentMaterial ?? true,
+    desiredMaterial: calculator.config_json.steps?.desiredMaterial ?? true,
+    timeline: calculator.config_json.steps?.timeline ?? false,
+    financing: calculator.config_json.steps?.financing ?? false,
+  })
 
   const originalConfig = calculator.config_json
 
@@ -36,10 +43,13 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
   }
 
   const handleConfirmEdit = async () => {
-    if (!diffConfig) return
     setIsSaving(true)
     try {
-      await updateCalculatorConfig(calculator.id, diffConfig)
+      const finalConfig = {
+        ...(diffConfig || originalConfig),
+        steps: stepToggles
+      }
+      await updateCalculatorConfig(calculator.id, finalConfig)
       router.push('/calculators')
       router.refresh()
     } catch(err) {
@@ -162,6 +172,58 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
             </div>
           </div>
         </div>
+
+        {/* Lead Capture Settings Section */}
+        <div className="mt-8 pt-8 border-t border-slate-100 max-w-2xl">
+          <div className="flex items-center justify-between mb-6">
+             <div className="space-y-1">
+               <h3 className="text-xl font-black text-slate-900 tracking-tight">Question Sequence</h3>
+               <p className="text-slate-400 text-sm font-medium">Toggle optional lead-capture questions.</p>
+             </div>
+             {!diffConfig ? (
+               <Button 
+                 onClick={handleConfirmEdit} 
+                 disabled={isSaving} 
+                 className="bg-emerald-500 hover:bg-emerald-600 text-white font-black h-11 px-6 rounded-xl shadow-[0_4px_14px_rgba(16,185,129,0.2)] transition-all active:scale-95"
+               >
+                 {isSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <CheckCircle2 className="w-4 h-4 mr-2" />}
+                 Save Sequence
+               </Button>
+             ) : (
+               <div className="px-3 py-1 bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest rounded-lg">Pro Feature</div>
+             )}
+          </div>
+
+          <div className="grid grid-cols-1 gap-3">
+             {[
+               { id: 'buildingType', label: 'Building Type', sub: 'Ask if Residential vs Commercial', icon: '🏢' },
+               { id: 'currentMaterial', label: 'Current Material', sub: 'What is currently on their roof', icon: '🏠' },
+               { id: 'desiredMaterial', label: 'Desired Material', sub: 'What material they want to switch to', icon: '✨' },
+               { id: 'timeline', label: 'Project Timeline', sub: 'How soon they want to start', icon: '📅' },
+               { id: 'financing', label: 'Financing Interest', sub: 'Ask if they need monthly payments', icon: '💰' }
+             ].map((item) => {
+               const active = stepToggles[item.id as keyof typeof stepToggles]
+               return (
+                 <button 
+                   key={item.id}
+                   onClick={() => setStepToggles(prev => ({ ...prev, [item.id]: !active }))}
+                   className={`flex items-center justify-between p-4 rounded-2xl border-2 transition-all cursor-pointer ${active ? "border-slate-900 bg-slate-50 shadow-sm" : "border-slate-100 bg-white opacity-60 grayscale"}`}
+                 >
+                   <div className="flex items-center gap-4 text-left">
+                     <span className="text-2xl">{item.icon}</span>
+                     <div>
+                       <p className="font-bold text-slate-900">{item.label}</p>
+                       <p className="text-xs text-slate-500 font-medium">{item.sub}</p>
+                     </div>
+                   </div>
+                   <div className={`w-12 h-6 rounded-full relative transition-colors ${active ? "bg-red-700" : "bg-slate-200"}`}>
+                      <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${active ? "left-7" : "left-1"}`} />
+                   </div>
+                 </button>
+               )
+             })}
+          </div>
+        </div>
       </div>
 
       {/* Right Live Preview Pane */}
@@ -189,7 +251,7 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
            </div>
          ) : (
            <div className="w-full max-w-lg transform origin-top animate-in zoom-in-95 duration-700 relative z-10 transition-all">
-              <RoofingWidget isPro={isPro} config={diffConfig || originalConfig} calculatorId="preview-mode" />
+              <RoofingWidget isPro={isPro} config={{ ...(diffConfig || originalConfig), steps: stepToggles }} calculatorId="preview-mode" />
            </div>
          )}
       </div>

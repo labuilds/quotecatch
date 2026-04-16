@@ -44,8 +44,8 @@ export default function Home() {
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 lg:bg-white/80 backdrop-blur-md lg:backdrop-blur-xl border-b border-slate-100 px-4 sm:px-6 h-16 lg:h-20 flex items-center justify-between transition-all">
         <div className="flex items-center gap-2.5 sm:gap-3">
-          <div className="w-8 h-8 lg:w-10 lg:h-10 bg-[#0F172A] rounded-xl flex items-center justify-center shadow-lg">
-            <QCLogo size={20} isDark={false} />
+          <div className="w-8 h-8 lg:w-10 lg:h-10 bg-slate-50 rounded-xl flex items-center justify-center transition-all">
+            <QCLogo size={20} isDark={true} />
           </div>
           <span className="text-[18px] lg:text-[20px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
         </div>
@@ -132,7 +132,7 @@ export default function Home() {
               </div>
 
               <div className="relative z-50 bg-white rounded-[2rem] lg:rounded-[3rem] shadow-[0_30px_60px_rgba(0,0,0,0.1)] border border-slate-100">
-                <RoofingWidget isPro={false} config={DEMO_CONFIG} calculatorId="demo" />
+                <RoofingWidget isPro={true} config={DEMO_CONFIG} calculatorId="demo" isDemo={true} />
               </div>
 
               {/* Optimized decorative background */}
@@ -201,15 +201,23 @@ export default function Home() {
       <footer className="py-12 lg:py-20 border-t border-slate-100 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 lg:gap-8">
           <div className="flex items-center gap-2.5 sm:gap-3">
-            <div className="w-8 h-8 bg-[#0F172A] rounded-lg flex items-center justify-center">
-              <QCLogo size={18} isDark={false} />
+            <div className="w-8 h-8 bg-slate-50 rounded-lg flex items-center justify-center">
+              <QCLogo size={18} isDark={true} />
             </div>
             <span className="text-[18px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
           </div>
 
-          <p className="text-slate-400 font-bold text-[12px] lg:text-[14px] text-center md:text-left">
-            © {new Date().getFullYear()} QuoteCatch. All rights reserved. Built for roofers.
-          </p>
+          <div className="flex items-center gap-6">
+            <Link href="/terms" className="text-slate-400 hover:text-slate-900 font-bold text-[12px] lg:text-[14px] transition-colors">
+              Terms
+            </Link>
+            <Link href="/privacy" className="text-slate-400 hover:text-slate-900 font-bold text-[12px] lg:text-[14px] transition-colors">
+              Privacy
+            </Link>
+            <p className="text-slate-400 font-bold text-[12px] lg:text-[14px]">
+              © {new Date().getFullYear()} QuoteCatch. All rights reserved.
+            </p>
+          </div>
         </div>
       </footer>
     </div>

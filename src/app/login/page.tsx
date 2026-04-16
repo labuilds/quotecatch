@@ -15,6 +15,7 @@ function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const supabase = createClient()
+  const [mounted, setMounted] = useState(false)
   const [email, setEmail] = useState("")
   const [isGoogleLoading, setIsGoogleLoading] = useState(false)
   const [isMagicLinkLoading, setIsMagicLinkLoading] = useState(false)
@@ -22,6 +23,7 @@ function LoginForm() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    setMounted(true)
     const errParam = searchParams.get('error')
     if (errParam) setError(errParam)
   }, [searchParams])
@@ -119,61 +121,69 @@ function LoginForm() {
             </div>
           )}
 
-          <Button
-            type="button"
-            className="w-full h-16 text-[16px] font-black bg-white hover:bg-slate-50 border-2 border-slate-100 text-[#0F172A] rounded-[1.5rem] transition-all hover:border-slate-200 hover:shadow-xl hover:shadow-slate-100 flex items-center justify-center gap-4"
-            onClick={handleGoogleLogin}
-            disabled={isGoogleLoading || isMagicLinkLoading}
-          >
-            {isGoogleLoading ? (
-              <Loader2 className="h-5 w-5 animate-spin text-slate-400" />
-            ) : (
-              <svg className="h-6 w-6" viewBox="0 0 488 512" xmlns="http://www.w3.org/2000/svg">
-                <path fill="#4285F4" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" />
-              </svg>
-            )}
-            Continue with Google
-          </Button>
+          {mounted ? (
+            <>
+              <Button
+                type="button"
+                className="w-full h-16 text-[16px] font-black bg-white hover:bg-slate-50 border-2 border-slate-100 text-[#0F172A] rounded-[1.5rem] transition-all hover:border-slate-200 hover:shadow-xl hover:shadow-slate-100 flex items-center justify-center gap-4"
+                onClick={handleGoogleLogin}
+                disabled={isGoogleLoading || isMagicLinkLoading}
+              >
+                {isGoogleLoading ? (
+                  <Loader2 className="h-5 w-5 animate-spin text-slate-400" />
+                ) : (
+                  <svg className="h-6 w-6" viewBox="0 0 488 512" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#4285F4" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" />
+                  </svg>
+                )}
+                Continue with Google
+              </Button>
 
-          <div className="relative py-4">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-slate-100" />
-            </div>
-            <div className="relative flex justify-center text-[11px] uppercase tracking-[0.25em] font-black text-slate-300">
-              <span className="bg-white px-6">Direct Access</span>
-            </div>
-          </div>
+              <div className="relative py-4">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t border-slate-100" />
+                </div>
+                <div className="relative flex justify-center text-[11px] uppercase tracking-[0.25em] font-black text-slate-300">
+                  <span className="bg-white px-6">Direct Access</span>
+                </div>
+              </div>
 
-          <form onSubmit={handleMagicLink} className="space-y-5">
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-[15px] font-black uppercase tracking-widest text-[#0F172A] ml-1">
-                Work Email
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="you@roofingcompany.com"
-                required
-                value={email}
-                autoCapitalize="none"
-                autoCorrect="off"
-                autoComplete="email"
-                className="h-17 bg-slate-50 border-slate-100 focus-visible:ring-orange-500/10 focus-visible:border-orange-500 rounded-[1.5rem] px-6 text-[18px] font-black text-[#0F172A] placeholder:text-slate-300 transition-all shadow-inner"
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <form onSubmit={handleMagicLink} className="space-y-5">
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-[15px] font-black uppercase tracking-widest text-[#0F172A] ml-1">
+                    Work Email
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="you@roofingcompany.com"
+                    required
+                    value={email}
+                    autoCapitalize="none"
+                    autoCorrect="off"
+                    autoComplete="email"
+                    className="h-17 bg-slate-50 border-slate-100 focus-visible:ring-orange-500/10 focus-visible:border-orange-500 rounded-[1.5rem] px-6 text-[18px] font-black text-[#0F172A] placeholder:text-slate-300 transition-all shadow-inner"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <Button
+                  className="w-full h-16 text-[18px] font-black bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] transition-all shadow-2xl shadow-slate-200 border-none"
+                  type="submit"
+                  disabled={isMagicLinkLoading || isGoogleLoading}
+                >
+                  {isMagicLinkLoading ? (
+                    <><Loader2 className="mr-3 h-5 w-5 animate-spin" /> Authenticating...</>
+                  ) : (
+                    "Email login link →"
+                  )}
+                </Button>
+              </form>
+            </>
+          ) : (
+            <div className="h-[300px] flex items-center justify-center">
+              <Loader2 className="w-6 h-6 animate-spin text-slate-200" />
             </div>
-            <Button
-              className="w-full h-16 text-[18px] font-black bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] transition-all shadow-2xl shadow-slate-200 border-none"
-              type="submit"
-              disabled={isMagicLinkLoading || isGoogleLoading}
-            >
-              {isMagicLinkLoading ? (
-                <><Loader2 className="mr-3 h-5 w-5 animate-spin" /> Authenticating...</>
-              ) : (
-                "Email login link →"
-              )}
-            </Button>
-          </form>
+          )}
         </div>
 
         <p className="text-center text-[13px] text-slate-400 font-bold leading-relaxed px-4">
@@ -198,8 +208,8 @@ export default function LoginPage() {
         {/* Top nav */}
         <div className="flex items-center justify-between px-10 py-8">
           <Link href="/" className="flex items-center gap-3.5 group">
-            <div className="w-11 h-11 bg-[#0F172A] rounded-2xl flex items-center justify-center shadow-[0_8px_16px_rgba(15,23,42,0.1)] group-hover:scale-105 transition-all duration-300">
-              <QCLogo size={26} isDark={false} />
+            <div className="w-11 h-11 bg-slate-50 rounded-2xl flex items-center justify-center transition-all duration-300">
+              <QCLogo size={26} isDark={true} />
             </div>
             <div className="flex flex-col">
               <span className="text-[20px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>

@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link'
-import { Calculator, Users, Settings, Menu } from 'lucide-react'
+import { Zap, Users, Settings, Menu } from 'lucide-react'
 import { QCLogo } from '@/components/QCLogo'
 import { ReactNode, useState, useEffect } from 'react'
 import LogoutButton from '@/components/LogoutButton'
@@ -28,7 +28,7 @@ export default function DashboardLayoutClient({ children, isPro, userEmail }: Da
   }, [pathname])
 
   const navItems = [
-    { href: '/calculators', icon: Calculator, label: 'Calculators' },
+    { href: '/calculators', icon: Zap, label: 'Machines' },
     { href: '/leads', icon: Users, label: 'Leads' },
     { href: '/settings', icon: Settings, label: 'Settings' },
   ]
@@ -38,8 +38,8 @@ export default function DashboardLayoutClient({ children, isPro, userEmail }: Da
       {/* Logo */}
       <div className="px-6 py-7">
         <Link href="/calculators" className="flex items-center gap-3.5 group">
-          <div className="w-10 h-10 bg-[#0F172A] rounded-2xl flex items-center justify-center shadow-[0_8px_16px_rgba(15,23,42,0.15)] group-hover:shadow-[0_12px_24px_rgba(15,23,42,0.2)] transition-all group-hover:-translate-y-0.5 duration-300">
-            <QCLogo size={24} isDark={false} />
+          <div className="w-10 h-10 bg-slate-50 rounded-2xl flex items-center justify-center transition-all group-hover:-translate-y-0.5 duration-300">
+            <QCLogo size={24} isDark={true} />
           </div>
           <div className="flex flex-col">
             <span className="text-[20px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
@@ -96,8 +96,8 @@ export default function DashboardLayoutClient({ children, isPro, userEmail }: Da
       {/* Mobile Nav Top Bar */}
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-100 px-4 flex items-center justify-between z-40">
         <Link href="/calculators" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-[#0F172A] rounded-xl flex items-center justify-center shadow-md">
-            <QCLogo size={18} isDark={false} />
+          <div className="w-8 h-8 bg-slate-50 rounded-xl flex items-center justify-center">
+            <QCLogo size={18} isDark={true} />
           </div>
           <span className="text-[16px] font-black text-[#0F172A]">QuoteCatch</span>
         </Link>

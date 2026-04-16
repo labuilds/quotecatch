@@ -1,6 +1,7 @@
 "use server"
 
 import { createClient } from '@/utils/supabase/server'
+import { createAdminClient } from '@/utils/supabase/admin'
 import { PricingConfig } from '@/lib/pricingEngine'
 import { revalidatePath } from 'next/cache'
 import { GoogleGenAI } from '@google/genai'
@@ -70,7 +71,8 @@ export async function saveCalculator(name: string, config: PricingConfig) {
     throw new Error("You must be logged in to save a calculator.")
   }
 
-  const { data, error } = await supabase
+  const admin = createAdminClient()
+  const { data, error } = await admin
     .from('calculators')
     .insert([{ user_id: user.id, name, config_json: config }])
     .select()
@@ -87,25 +89,25 @@ export async function saveCalculator(name: string, config: PricingConfig) {
 }
 
 export async function deleteCalculator(id: string) {
-  const supabase = await createClient()
-  const { error } = await supabase.from('calculators').delete().eq('id', id)
+  const admin = createAdminClient()
+  const { error } = await admin.from('calculators').delete().eq('id', id)
   if (error) throw new Error(error.message)
   revalidatePath('/(dashboard)', 'layout')
 }
 
 export async function renameCalculator(id: string, newName: string) {
-  const supabase = await createClient()
-  const { error } = await supabase.from('calculators').update({ name: newName }).eq('id', id)
+  const admin = createAdminClient()
+  const { error } = await admin.from('calculators').update({ name: newName }).eq('id', id)
   if (error) throw new Error(error.message)
   revalidatePath('/(dashboard)', 'layout')
 }
 
 export async function duplicateCalculator(id: string) {
-  const supabase = await createClient()
-  const { data: original, error: fetchErr } = await supabase
+  const admin = createAdminClient()
+  const { data: original, error: fetchErr } = await admin
     .from('calculators').select('*').eq('id', id).single()
   if (fetchErr || !original) throw new Error("Could not duplicate configuration.")
-  const { data, error } = await supabase
+  const { data, error } = await admin
     .from('calculators')
     .insert([{ user_id: original.user_id, name: original.name + ' (Copy)', config_json: original.config_json, brand_color_hex: original.brand_color_hex }])
     .select()
@@ -124,8 +126,8 @@ export async function generateQuickEdit(originalConfig: PricingConfig, prompt: s
 }
 
 export async function updateCalculatorConfig(id: string, name: string, newConfig: PricingConfig) {
-  const supabase = await createClient()
-  const { error } = await supabase.from('calculators').update({ name, config_json: newConfig }).eq('id', id)
+  const admin = createAdminClient()
+  const { error } = await admin.from('calculators').update({ name, config_json: newConfig }).eq('id', id)
   console.log("Supabase Update Result:", { error })
   if (error) throw new Error(error.message)
   revalidatePath('/(dashboard)', 'layout')

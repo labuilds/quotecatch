@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Calculator, MoreHorizontal, Copy, Trash, Pencil, Share, ExternalLink } from "lucide-react"
+import { Zap, MoreHorizontal, Copy, Trash, Pencil, Share, ExternalLink } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
@@ -42,7 +42,8 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }
     finally { setIsActionLoading(false) }
   }
 
-  const embedCode = `<iframe src="https://getquotecatch.com/widget/${calc.id}" width="100%" height="640" style="border:none; border-radius: 24px; overflow:hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.08);" title="Roofing Estimate"></iframe>`
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://getquotecatch.com'
+  const embedCode = `<iframe src="${origin}/widget/${calc.id}" width="100%" height="640" style="border:none; border-radius: 24px; overflow:hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.08);" title="Roofing Estimate"></iframe>`
 
   const handleCopy = () => {
     navigator.clipboard.writeText(embedCode)
@@ -74,18 +75,18 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }
             </DropdownMenuItem>
             <DropdownMenuSeparator className="bg-slate-100 my-1" />
             <DropdownMenuItem className="text-red-500 focus:text-red-600 focus:bg-red-50 cursor-pointer py-2.5 font-semibold rounded-xl m-1" onClick={() => setShowDelete(true)}>
-              <Trash className="w-4 h-4 mr-2.5" /> Disable Widget
+              <Trash className="w-4 h-4 mr-2.5" /> Disable Machine
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
 
         <CardHeader className="pb-4 mb-1 pr-10 relative z-10 pt-6 px-6">
           <div className="w-12 h-12 bg-red-50 text-red-700 rounded-2xl flex items-center justify-center mb-4 transition-all group-hover:bg-red-100 group-hover:scale-105 duration-300 border border-red-100">
-            <Calculator className="w-6 h-6" />
+            <Zap className="w-6 h-6" />
           </div>
           <CardTitle className="text-[20px] lg:text-[22px] font-black tracking-tight line-clamp-1 text-slate-900">{calc.name}</CardTitle>
           <CardDescription className="line-clamp-1 mt-1 text-[14px] lg:text-[15px] font-semibold text-slate-400">
-            Custom Lead Estimator · Active
+            Lead Generation Machine · Active
           </CardDescription>
         </CardHeader>
 
@@ -123,9 +124,9 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }
       <AlertDialog open={showDelete} onOpenChange={setShowDelete}>
         <AlertDialogContent className="rounded-3xl border-slate-100 bg-white font-sans">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-[22px] font-black text-slate-900">Disable this engine?</AlertDialogTitle>
+            <AlertDialogTitle className="text-[22px] font-black text-slate-900">Disable this machine?</AlertDialogTitle>
             <AlertDialogDescription className="text-[15px] text-slate-500 mt-2 leading-relaxed font-medium">
-              This instantly turns off your active public widget. Any embedded links will show an "unavailable" message.
+              This instantly turns off your active lead machine. Any embedded links will show an "unavailable" message.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="mt-6 gap-3">
@@ -149,7 +150,7 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }
               <div className="w-10 h-10 rounded-2xl bg-slate-100 flex items-center justify-center">
                 <ExternalLink className="w-5 h-5 text-slate-600" />
               </div>
-              Embed Your Engine
+              Embed Your Machine
             </DialogTitle>
             <DialogDescription className="text-[15px] pt-1 text-slate-500 font-medium leading-relaxed">
               Paste this into WordPress, Webflow, GoHighLevel, or any CMS.
@@ -159,7 +160,7 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }
             <div className="space-y-2.5">
               <label className="text-[14px] font-black text-slate-400 tracking-widest uppercase">Direct Link</label>
               <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl text-[15px] text-slate-700 break-all select-all font-mono font-medium">
-                https://getquotecatch.com/widget/{calc.id}
+                {origin}/widget/{calc.id}
               </div>
             </div>
             <div className="space-y-2.5">

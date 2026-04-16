@@ -101,15 +101,15 @@ export async function POST(req: NextRequest) {
     const admin = createAdminClient()
     const { error } = await admin
       .from("users")
-      .update({ 
+      .upsert({ 
+        id: userId,
         is_pro: true, 
         updated_at: new Date().toISOString() 
-      })
-      .eq("id", userId)
+      }, { onConflict: 'id' })
 
     if (error) {
-      console.error("[Webhook] Supabase update error:", error.message)
-      return NextResponse.json({ error: "DB update failed" }, { status: 500 })
+      console.error("[Webhook] Supabase upsert error:", error.message)
+      return NextResponse.json({ error: "DB upsert failed" }, { status: 500 })
     }
 
     console.log(`[Webhook] ✅ SUCCESS: User ${userId} upgraded to Pro.`)

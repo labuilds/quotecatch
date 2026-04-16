@@ -19,7 +19,8 @@ import {
   Layers,
   ChevronUp,
   ChevronDown,
-  Settings2
+  Settings2,
+  Edit3
 } from "lucide-react"
 import RoofingWidget from "@/components/RoofingWidget"
 import { useUserTier } from "@/components/UserTierProvider"
@@ -106,24 +107,38 @@ const PITCH_METADATA = [
   { id: "steep", label: "Steep Pitch", sub: "Harness required" },
 ]
 
-export default function ManualCalculatorEditor({ calculator }: { calculator: any }) {
+export default function ManualCalculatorEditor({ 
+  calculator, companyName, companyLogoUrl 
+}: { 
+  calculator: any, companyName: string, companyLogoUrl: string 
+}) {
   const router = useRouter()
   const { isPro } = useUserTier()
   const [isSaving, setIsSaving] = useState(false)
   const [hasChanges, setHasChanges] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
 
-  const [activeTab, setActiveTab] = useState<'name' | 'sizing' | 'materials' | 'markups'>('name')
+  const [activeTab, setActiveTab] = useState<'name' | 'sizing' | 'materials' | 'markups' | 'sequence'>('name')
 
   const [config, setConfig] = useState<PricingConfig>(calculator.config_json)
   const [engineName, setEngineName] = useState(calculator.name)
+  
+  const [stepToggles, setStepToggles] = useState({
+    buildingType: calculator.config_json.steps?.buildingType ?? true,
+    currentMaterial: calculator.config_json.steps?.currentMaterial ?? true,
+    desiredMaterial: calculator.config_json.steps?.desiredMaterial ?? true,
+    timeline: calculator.config_json.steps?.timeline ?? false,
+    financing: calculator.config_json.steps?.financing ?? false,
+  })
+
   const originalConfig = calculator.config_json
   const originalName = calculator.name
 
   useEffect(() => {
-    const isDifferent = JSON.stringify(config) !== JSON.stringify(originalConfig) || engineName !== originalName
+    const currentFullConfig = { ...config, steps: stepToggles }
+    const isDifferent = JSON.stringify(currentFullConfig) !== JSON.stringify(originalConfig) || engineName !== originalName
     setHasChanges(isDifferent)
-  }, [config, originalConfig, engineName, originalName])
+  }, [config, stepToggles, originalConfig, engineName, originalName])
 
   const handleUpdateMaterial = (key: string, value: string) => {
     const numValue = value === "" ? 0 : parseFloat(value)
@@ -152,7 +167,8 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
   const handleSave = async () => {
     setIsSaving(true)
     try {
-      await updateCalculatorConfig(calculator.id, engineName, config)
+      const finalConfig = { ...config, steps: stepToggles }
+      await updateCalculatorConfig(calculator.id, engineName, finalConfig)
       setHasChanges(false)
       setShowSuccess(true)
       router.refresh()
@@ -246,13 +262,19 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
             onClick={() => setActiveTab('materials')}
             className={`flex-1 min-w-[100px] flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'materials' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
           >
-            <Calculator className="w-4 h-4" /> Materials
+            <Layers className="w-4 h-4" /> Materials
           </button>
           <button
             onClick={() => setActiveTab('markups')}
             className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'markups' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
           >
             <Layers className="w-4 h-4" /> Markups
+          </button>
+          <button
+            onClick={() => setActiveTab('sequence')}
+            className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'sequence' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+          >
+            <Settings2 className="w-4 h-4" /> Sequence
           </button>
         </div>
 
@@ -299,30 +321,88 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
               </section>
             )}
 
-            {/* TAB 2: Materials */}
+            {/* TAB 1: Materials */}
             {activeTab === 'materials' && (
-              <section className="space-y-4">
-                 <div className="mb-6 px-1">
-                  <h3 className="text-lg font-black text-slate-900 tracking-tight">Base Material Rates</h3>
+              <section className="space-y-10">
+                 <div>
+                  <div className="mb-6 px-1">
+                    <h3 className="text-lg font-black text-slate-900 tracking-tight text-[20px]">Materials You Offer</h3>
+                    <p className="text-slate-400 font-bold text-sm mt-1">Select the roof types homeowners can get estimates for.</p>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-3 mb-10">
+                    {[
+                      { id: 'asphalt', img: '/asphalt.jpg' },
+                      { id: 'metal', img: '/materials/metal.jpg' },
+                      { id: 'tile', img: '/tiles.jpg' },
+                      { id: 'cedar', img: '/materials/cedar.png' }
+                    ].map((item) => {
+                      const offered = config.offered_materials?.includes(item.id) ?? true
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={() => {
+                            const current = config.offered_materials ?? ['asphalt', 'tile']
+                            const next = offered 
+                              ? current.filter(m => m !== item.id)
+                              : [...current, item.id]
+                            setConfig(prev => ({ ...prev, offered_materials: next }))
+                          }}
+                          className={cn(
+                            "group relative h-28 rounded-[2rem] border-2 transition-all p-4 flex items-center gap-4 overflow-hidden",
+                            offered 
+                              ? "border-red-600 bg-white shadow-xl shadow-red-50" 
+                              : "border-slate-100 bg-white grayscale opacity-60 hover:opacity-100 hover:grayscale-0 hover:border-slate-300"
+                          )}
+                        >
+                          <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0 border border-slate-100">
+                             <img src={item.img} className="w-full h-full object-cover" alt={item.id} />
+                          </div>
+                          <div className="flex-1 text-left">
+                            <span className={cn("block font-black text-[15px] capitalize", offered ? "text-slate-900" : "text-slate-400")}>{item.id}</span>
+                            <span className="text-[11px] font-bold text-slate-400 block uppercase tracking-widest">{offered ? "Currently Offered" : "Inactive"}</span>
+                          </div>
+                          {offered && <CheckCircle2 className="w-5 h-5 text-red-600 absolute top-4 right-4" />}
+                        </button>
+                      )
+                    })}
+                  </div>
                 </div>
-                <div className="grid grid-cols-1 gap-4">
-                  {Object.entries(config.materials)
-                    .filter(([key]) => key !== 'metal')
-                    .map(([key, value]) => (
-                    <div key={key} className="group bg-white border border-slate-100 hover:border-slate-200 rounded-2xl p-6 transition-all duration-300 shadow-sm flex items-center justify-between gap-6">
-                      <div className="flex-1">
-                        <p className={`${LABEL_CLASS} capitalize text-[17px]`}>{key.replace(/_/g, ' ')}</p>
-                        <p className={SUBTEXT_CLASS}>Cost per Square Foot</p>
-                      </div>
-                      <PremiumInput
-                        value={value === 0 ? "" : value}
-                        placeholder="0.00"
-                        step={0.5}
-                        prefix="$"
-                        onChange={(val: string) => handleUpdateMaterial(key, val)}
-                      />
-                    </div>
-                  ))}
+
+                <div>
+                  <div className="mb-6 px-1">
+                    <h3 className="text-lg font-black text-slate-900 tracking-tight text-[20px]">Base Material Rates</h3>
+                    <p className="text-slate-400 font-bold text-sm mt-1">Set your cost per square foot for each material.</p>
+                  </div>
+                  <div className="grid grid-cols-1 gap-4">
+                    {['asphalt', 'metal', 'tile', 'cedar'].map((key) => {
+                      const value = config.materials[key] ?? 0
+                      const offered = config.offered_materials?.includes(key) ?? true
+                      return (
+                        <div key={key} className={cn(
+                          "group bg-white border rounded-3xl p-6 transition-all duration-300 shadow-sm flex items-center justify-between gap-6",
+                          offered ? "border-slate-100 hover:border-slate-200" : "border-slate-50 opacity-50 grayscale select-none"
+                        )}>
+                          <div className="flex-1">
+                            <p className={`${LABEL_CLASS} capitalize text-[17px]`}>{key.replace(/_/g, ' ')}</p>
+                            <p className={SUBTEXT_CLASS}>Cost per Square Foot</p>
+                          </div>
+                          <div className="flex items-center gap-4">
+                            {!offered && (
+                              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Not Offered</span>
+                            )}
+                            <PremiumInput
+                              value={value === 0 ? "" : value}
+                              placeholder="0.00"
+                              step={0.5}
+                              prefix="$"
+                              onChange={(val: string) => handleUpdateMaterial(key, val)}
+                            />
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
               </section>
             )}
@@ -360,11 +440,11 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
                 </section>
 
                 {/* Flat Fees */}
-                <section className="bg-[#0F172A] rounded-3xl p-8 text-white relative overflow-hidden group shadow-2xl">
+                <section className="bg-white border-2 border-slate-900 rounded-[2.5rem] p-8 text-slate-900 relative overflow-hidden group shadow-2xl shadow-slate-200/50">
                   <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-8">
                     <div className="space-y-2">
-                       <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-2">
-                          <DollarSign className="w-4 h-4 text-red-500" />
+                       <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center mb-2">
+                          <DollarSign className="w-4 h-4 text-white" />
                        </div>
                       <h4 className="text-[18px] font-black tracking-tight">
                         Base Mobilization Fee
@@ -378,43 +458,75 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
                       placeholder="0"
                       prefix="$"
                       step={50}
-                      dark
                       onChange={(val: string) => handleUpdateFlatFee(val)}
                     />
                   </div>
-                  <div className="absolute -right-8 -bottom-8 w-40 h-40 bg-red-500/10 rounded-full blur-3xl group-hover:bg-red-500/20 transition-all duration-700" />
+                  <div className="absolute -right-8 -bottom-8 w-40 h-40 bg-red-500/5 rounded-full blur-3xl group-hover:bg-red-500/10 transition-all duration-700" />
                 </section>
               </div>
             )}
 
-            {/* TAB 1: Name */}
-            {activeTab === 'name' && (
-              <section className="space-y-8">
+            {/* TAB 4: Sequence */}
+            {activeTab === 'sequence' && (
+              <section className="space-y-6">
                 <div className="px-1">
-                  <h3 className="text-2xl font-black text-slate-900 tracking-tight">Estimator Identity</h3>
-                  <p className="text-slate-400 font-bold text-sm mt-1">Give your pricing engine a clear name for your records.</p>
+                  <h3 className="text-2xl font-black text-slate-900 tracking-tight">Question Sequence</h3>
+                  <p className="text-slate-400 font-bold text-sm mt-1">Toggle optional lead-capture questions for this widget.</p>
                 </div>
                 
-                <div className="relative group">
-                  <div className="absolute inset-0 bg-red-600/5 blur-2xl rounded-3xl -z-10 group-focus-within:bg-red-600/10 transition-all duration-500" />
-                  <div className="bg-white border border-slate-100 rounded-[2rem] p-6 shadow-sm space-y-5 relative overflow-hidden">
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-xl bg-[#0F172A] flex items-center justify-center shrink-0 shadow-lg shadow-slate-200">
-                        <Calculator className="w-5 h-5 text-white" />
+                <div className="grid grid-cols-1 gap-3">
+                   {[
+                     { id: 'buildingType', label: 'Building Type', sub: 'Ask if Residential vs Commercial', icon: '🏢' },
+                     { id: 'currentMaterial', label: 'Current Material', sub: 'What is currently on their roof', icon: '🏠' },
+                     { id: 'desiredMaterial', label: 'Desired Material', sub: 'What material they want to switch to', icon: '✨' },
+                     { id: 'timeline', label: 'Project Timeline', sub: 'How soon they want to start', icon: '📅' },
+                     { id: 'financing', label: 'Financing Interest', sub: 'Ask if they need monthly payments', icon: '💰' }
+                   ].map((item) => {
+                     const active = stepToggles[item.id as keyof typeof stepToggles]
+                     return (
+                       <button 
+                         key={item.id}
+                         onClick={() => setStepToggles(prev => ({ ...prev, [item.id]: !active }))}
+                         className={`flex items-center justify-between p-5 rounded-3xl border-2 transition-all cursor-pointer ${active ? "border-slate-900 bg-slate-50 shadow-sm" : "border-slate-100 bg-white opacity-60 grayscale"}`}
+                       >
+                         <div className="flex items-center gap-4 text-left">
+                           <span className="text-2xl">{item.icon}</span>
+                           <div>
+                             <p className="font-black text-slate-900">{item.label}</p>
+                             <p className="text-[13px] text-slate-400 font-bold">{item.sub}</p>
+                           </div>
+                         </div>
+                         <div className={`w-12 h-6 rounded-full relative transition-colors ${active ? "bg-red-700" : "bg-slate-200"}`}>
+                            <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${active ? "left-7" : "left-1"}`} />
+                         </div>
+                       </button>
+                     )
+                   })}
+                </div>
+              </section>
+            )}
+
+            {/* TAB 1: Name */}
+            {activeTab === 'name' && (
+              <section className="space-y-6">
+                <div className="bg-white border border-slate-100 rounded-[2rem] p-8 text-slate-900 relative overflow-hidden group shadow-sm">
+                  <div className="relative z-10 space-y-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-slate-50 flex items-center justify-center border border-slate-100">
+                        <Edit3 className="w-4 h-4 text-slate-400" />
                       </div>
-                      <div className="space-y-0.5">
-                        <Label htmlFor="engine-name" className={LABEL_CLASS}>Name Your Widget</Label>
-                        <p className={SUBTEXT_CLASS}>Appears on your dashboard and lead reports.</p>
-                      </div>
+                      <h3 className="text-xl font-black tracking-tight text-slate-900">Name your machine</h3>
                     </div>
                     
-                    <Input
-                      id="engine-name"
-                      value={engineName}
-                      onChange={(e) => setEngineName(e.target.value)}
-                      className="h-16 bg-slate-50 border-slate-200 rounded-xl font-black text-lg focus-visible:ring-red-600/10 focus-visible:border-red-600 px-6 transition-all shadow-inner"
-                      placeholder="e.g. Premium Roof Estimator"
-                    />
+                    <div className="space-y-3">
+                      <Input
+                        id="engine-name"
+                        value={engineName}
+                        onChange={(e) => setEngineName(e.target.value)}
+                        className="h-14 bg-slate-50/50 border-slate-100 rounded-xl font-black text-lg focus-visible:ring-red-600/10 focus-visible:border-red-600 px-6 transition-all text-slate-900 placeholder:text-slate-300 shadow-inner"
+                        placeholder="e.g. Premium Estimator"
+                      />
+                    </div>
                   </div>
                 </div>
               </section>
@@ -430,7 +542,7 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
           <div className="bg-white/90 backdrop-blur-xl border border-slate-200 px-4 py-2.5 rounded-xl shadow-sm">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
-              <span className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-600">Live Widget Preview</span>
+              <span className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-600">Live Machine Preview</span>
             </div>
           </div>
           {hasChanges && (
@@ -458,7 +570,13 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
         </div>
 
         <div className="w-full max-w-xl transition-all duration-500 lg:hover:scale-[1.01] relative z-10 shrink-0 mb-12">
-          <RoofingWidget isPro={isPro} config={config} calculatorId="preview-mode" />
+          <RoofingWidget 
+            isPro={isPro} 
+            config={{ ...config, steps: stepToggles }} 
+            calculatorId="preview-mode" 
+            companyName={companyName}
+            companyLogoUrl={companyLogoUrl}
+          />
           
           <p className="text-center mt-6 text-slate-400 font-bold text-xs sm:text-sm flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 mb-20 lg:mb-0">
             This preview uses the exact <span className="text-slate-900 border-b-2 border-slate-900">pricing rules</span> you set.
@@ -499,7 +617,7 @@ export default function ManualCalculatorEditor({ calculator }: { calculator: any
                 Pricing Rules <br /> Saved Successfully!
               </DialogTitle>
               <DialogDescription className="text-slate-500 font-medium text-[16px] leading-relaxed">
-                Your estimator widget has been updated with your latest numbers.
+                Your lead machine has been updated with your latest numbers.
               </DialogDescription>
             </DialogHeader>
             <div className="flex flex-col w-full gap-3 pt-4">

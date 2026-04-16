@@ -17,7 +17,19 @@ export default async function CalculatorEditorPage({ params }: { params: Promise
     .eq('id', id)
     .single()
 
+  const { data: profile } = await supabase
+    .from('users')
+    .select('company_name, company_logo_url')
+    .eq('id', user.id)
+    .single()
+
   if (!calculator) redirect('/calculators')
 
-  return <ManualCalculatorEditor calculator={calculator} />
+  return (
+    <ManualCalculatorEditor 
+      calculator={calculator} 
+      companyName={profile?.company_name || ""}
+      companyLogoUrl={profile?.company_logo_url || ""}
+    />
+  )
 } 

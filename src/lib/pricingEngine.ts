@@ -3,6 +3,14 @@ export interface PricingConfig {
   modifiers: { pitch: { [key: string]: number } };
   flat_fees: number;
   free_tier_averages: { [key: string]: number };
+  offered_materials?: string[];
+  steps?: {
+    buildingType?: boolean;
+    currentMaterial?: boolean;
+    desiredMaterial?: boolean;
+    timeline?: boolean;
+    financing?: boolean;
+  };
 }
 
 export interface EstimateInputs {
@@ -16,6 +24,8 @@ export const DEFAULT_PRICING_CONFIG: PricingConfig = {
   materials: {
     asphalt: 5.50,
     tile: 14.00,
+    metal: 12.00,
+    cedar: 15.00,
   },
   modifiers: {
     pitch: {
@@ -30,7 +40,8 @@ export const DEFAULT_PRICING_CONFIG: PricingConfig = {
     small: 1500,
     medium: 2500,
     large: 4000
-  }
+  },
+  offered_materials: ['asphalt', 'tile']
 }
 
 export function calculateEstimate(inputs: EstimateInputs, config: PricingConfig): number {
