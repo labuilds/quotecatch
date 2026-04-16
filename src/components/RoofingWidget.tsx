@@ -21,7 +21,7 @@ const variants = {
   exit: { opacity: 0 },
 }
 
-const GOOGLE_MAPS_LIBRARIES: ("places" | "drawing" | "geometry" | "localContext" | "visualization")[] = ["places"]
+const GOOGLE_MAPS_LIBRARIES: any = ["places"]
 
 // Inline SVG icons for each roof pitch — clean minimal line art
 const PitchIcon = ({ type, active }: { type: string; active: boolean }) => {
