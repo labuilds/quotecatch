@@ -223,7 +223,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                   value={formData.website}
                   onChange={(e) => setFormData(prev => ({ ...prev, website: e.target.value }))}
                   placeholder="https://apexroofing.com"
-                  className="h-14 pl-12 rounded-2xl border-slate-200 bg-white px-6 text-[16px] font-black text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
+                  className="h-14 pl-12 pr-6 rounded-2xl border-slate-200 bg-white text-[16px] font-black text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
                 />
               </div>
             </div>
