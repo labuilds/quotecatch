@@ -627,10 +627,10 @@ export default function RoofingWidget({
               {PITCH_OPTIONS.map(({ id, label, sub }) => {
                 const active = formData.pitch === id;
                 return (
-                  <button key={id} onClick={() => handleSelect("pitch", id)} className={`flex flex-col items-center justify-center p-6 rounded-[2rem] border-2 transition-all duration-300 group cursor-pointer ${active ? "border-red-700 bg-red-50/50 shadow-md scale-[1.02]" : "border-slate-100 bg-white hover:border-slate-200 hover:bg-slate-50/50"}`}>
+                  <button key={id} onClick={() => handleSelect("pitch", id)} className={`flex flex-col items-start p-6 rounded-[2rem] border-2 transition-all duration-300 group cursor-pointer text-left ${active ? "border-red-700 bg-red-50/50 shadow-md scale-[1.02]" : "border-slate-100 bg-white hover:border-slate-200 hover:bg-slate-50/50"}`}>
                     <div className="mb-4"><PitchIcon type={id} active={active} /></div>
-                    <p className={`text-[18px] font-black transition-colors ${active ? "text-red-800" : "text-slate-900"}`}>{label}</p>
-                    <p className="text-[13px] text-slate-400 font-black uppercase tracking-widest mt-1 text-center">{sub}</p>
+                    <p className={`text-[19px] font-black tracking-tight transition-colors ${active ? "text-red-900" : "text-slate-900"}`}>{label}</p>
+                    <p className="text-[14px] text-slate-500 font-bold mt-1">{sub}</p>
                   </button>
                 )
               })}
