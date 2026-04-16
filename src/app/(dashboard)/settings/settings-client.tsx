@@ -198,6 +198,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                   <p className="text-[13px] text-slate-500 font-bold leading-relaxed">
                     Upload your company logo. This will be shown on your quotes and widgets.
                   </p>
+                  <div className="flex flex-wrap gap-3 items-center">
                     <Button
                       variant="outline"
                       className="h-10 rounded-xl relative overflow-hidden font-bold text-slate-600 hover:text-slate-900 border-slate-200"
@@ -222,10 +223,14 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                       </Button>
                     )}
                     {logoPreview && !logoUploading && !isSaving && (
-                      <p className="text-[11px] font-black text-red-600 uppercase tracking-widest bg-red-50 px-3 py-2 rounded-lg animate-pulse">
-                        Pending Save
-                      </p>
+                      <div className="flex items-center gap-2 px-3 py-1.5 bg-red-50 rounded-xl border border-red-100 animate-pulse">
+                        <span className="w-1.5 h-1.5 rounded-full bg-red-600" />
+                        <span className="text-[10px] font-black text-red-600 uppercase tracking-widest">
+                          Pending Save
+                        </span>
+                      </div>
                     )}
+                  </div>
                 </div>
               </div>
             </div>
