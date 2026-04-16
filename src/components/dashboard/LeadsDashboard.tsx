@@ -14,7 +14,7 @@ import {
   Calendar,
   Trash2,
   X,
-  Buildings,
+  Building,
   Zap
 } from 'lucide-react'
 import Link from 'next/link'
