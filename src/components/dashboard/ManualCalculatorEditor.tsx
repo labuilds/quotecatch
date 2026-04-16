@@ -36,8 +36,8 @@ const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
 }
 
 // Standard design tokens for consistent UI
-const LABEL_CLASS = "text-[15px] font-black text-slate-900 block"
-const SUBTEXT_CLASS = "text-[13.5px] text-slate-400 font-bold leading-tight"
+const LABEL_CLASS = "text-[15px] font-bold text-slate-900 block"
+const SUBTEXT_CLASS = "text-[13.5px] text-slate-400 font-medium leading-tight"
 
 // Custom Input with Stepper Controls
 const PremiumInput = ({ value, onChange, placeholder, step = 1, prefix, suffix, dark = false }: any) => {
@@ -75,7 +75,7 @@ const PremiumInput = ({ value, onChange, placeholder, step = 1, prefix, suffix, 
         onFocus={handleFocus}
         onChange={(e) => onChange(e.target.value)}
         className={cn(
-          "h-14 pl-10 pr-12 rounded-xl border-slate-200 font-black text-lg transition-all text-right w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
+          "h-14 pl-10 pr-12 rounded-xl border-slate-200 font-normal text-lg transition-all text-right w-full [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
           dark 
             ? "bg-white/10 border-white/20 text-white placeholder:text-slate-500 focus-visible:border-white/40 focus-visible:ring-white/10" 
             : "bg-slate-50/50 text-slate-900 border-slate-200 focus-visible:ring-red-600/10 focus-visible:border-red-600"
@@ -120,7 +120,14 @@ export default function ManualCalculatorEditor({
 
   const [activeTab, setActiveTab] = useState<'name' | 'sizing' | 'materials' | 'markups' | 'sequence'>('name')
 
-  const [config, setConfig] = useState<PricingConfig>(calculator.config_json)
+  const [config, setConfig] = useState<PricingConfig>({
+    ...calculator.config_json,
+    free_tier_averages: {
+      under_1500: calculator.config_json.free_tier_averages?.under_1500 || 1200,
+      "1500_2500": calculator.config_json.free_tier_averages?.["1500_2500"] || 2000,
+      over_2500: calculator.config_json.free_tier_averages?.over_2500 || 3200,
+    }
+  })
   const [engineName, setEngineName] = useState(calculator.name)
   
   const [stepToggles, setStepToggles] = useState({
@@ -523,7 +530,7 @@ export default function ManualCalculatorEditor({
                         id="engine-name"
                         value={engineName}
                         onChange={(e) => setEngineName(e.target.value)}
-                        className="h-14 bg-slate-50/50 border-slate-100 rounded-xl font-black text-lg focus-visible:ring-red-600/10 focus-visible:border-red-600 px-6 transition-all text-slate-900 placeholder:text-slate-300 shadow-inner"
+                        className="h-14 bg-slate-50/50 border-slate-100 rounded-xl font-normal text-lg focus-visible:ring-red-600/10 focus-visible:border-red-600 px-6 transition-all text-slate-900 placeholder:text-slate-300 shadow-inner"
                         placeholder="e.g. Premium Estimator"
                       />
                     </div>

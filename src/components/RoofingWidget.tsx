@@ -405,10 +405,10 @@ export default function RoofingWidget({
                   </div>
                 ) : (
                   <div className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
-                    <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center">
+                    <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center shrink-0">
                        <Home className="w-6 h-6 text-white" />
                     </div>
-                    <span className="text-xl font-black text-slate-900 tracking-tighter uppercase">{companyName || "Best Roofing Company"}</span>
+                    <span className="text-xl font-black text-slate-900 tracking-tighter uppercase whitespace-normal text-left">{companyName || "Roofing Specialist"}</span>
                   </div>
                 )}
               </div>
@@ -520,7 +520,7 @@ export default function RoofingWidget({
             ) : (
               <div className="space-y-6">
                 <div className="space-y-1">
-                  <h1 className="text-[28px] font-black text-slate-900 tracking-tight leading-tight">Roof Size</h1>
+                  <h1 className="text-[28px] font-bold text-slate-900 tracking-tight leading-tight">Roof Size</h1>
                   <p className="text-[15px] text-slate-500 font-medium">Approximate square footage of your home.</p>
                 </div>
                 <div className="grid gap-3">
@@ -528,7 +528,7 @@ export default function RoofingWidget({
                     const active = formData.sqFt === item.id;
                     return (
                       <button key={item.id} onClick={() => handleSelect("sqFt", item.id)} className={`w-full p-5 rounded-3xl border-2 text-left group cursor-pointer ${active ? "border-red-700 bg-red-50/50 shadow-md" : "border-slate-100 bg-white hover:border-slate-200 hover:bg-slate-50/50"}`}>
-                        <p className={`text-[18px] font-black transition-colors ${active ? "text-red-800" : "text-slate-900"}`}>{item.label}</p>
+                        <p className={`text-[18px] font-bold transition-colors ${active ? "text-red-800" : "text-slate-900"}`}>{item.label}</p>
                         <p className="text-[15px] text-slate-400 font-bold mt-0.5">{item.sub}</p>
                       </button>
                     )

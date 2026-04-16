@@ -5,13 +5,12 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import {
   Loader2,
-  Zap,
   Plus,
-  Settings2,
-  TrendingUp,
-  Layout,
-  ExternalLink,
-  ChevronRight
+  Activity,
+  ChevronRight,
+  Sparkles,
+  Zap,
+  Layout
 } from "lucide-react"
 import CalculatorCard from "@/components/dashboard/CalculatorCard"
 import { UpgradeModal } from "@/components/UpgradeModal"
@@ -28,14 +27,11 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
   const [isCreating, setIsCreating] = useState(false)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
 
-  // Sync state with server-side props when they change (e.g. after revalidation)
   useEffect(() => {
     if (initialCalculators) {
       setCalculators(initialCalculators)
     }
   }, [initialCalculators])
-
-  console.log("Client-side Calculators State:", calculators.length)
 
   const handleUpgrade = async () => {
     try {
@@ -51,7 +47,6 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
   }
 
   const handleCreateNew = async () => {
-    // Restriction: 1 calculator for free users
     if (!isPro && calculators.length >= 1) {
       setShowUpgradeModal(true)
       return
@@ -63,7 +58,6 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
       const savedData = await saveCalculator(name, DEFAULT_PRICING_CONFIG)
 
       if (savedData && savedData[0]) {
-        // Redirect immediately to the editor
         router.push(`/calculators/${savedData[0].id}`)
       }
     } catch (err) {
@@ -74,91 +68,137 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
   }
 
   return (
-    <div className="space-y-12 max-w-7xl mx-auto px-6 pb-12 font-sans">
-      {/* Hero Section */}
-      <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-12">
-        <div className="space-y-6 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-300 font-bold text-xs uppercase tracking-[0.2em]">
-            <Settings2 className="w-4 h-4 text-red-500" /> Machine Dashboard
+    <div className="space-y-16 max-w-7xl mx-auto px-6 pb-20 font-sans relative">
+      {/* Premium background effects */}
+      <div className="absolute top-0 right-0 -mr-20 w-[500px] h-[500px] bg-red-50/40 rounded-full blur-[120px] -z-10 pointer-events-none" />
+      <div className="absolute top-40 left-0 -ml-20 w-[400px] h-[400px] bg-slate-50/60 rounded-full blur-[100px] -z-10 pointer-events-none" />
+
+      {/* Hero Section - High-End Premium */}
+      <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-12 pt-8">
+        <div className="space-y-8 max-w-2xl">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-white border border-slate-100 shadow-sm text-slate-500 font-black text-[11px] uppercase tracking-[0.2em]"
+          >
+            <div className="w-2 h-2 bg-red-600 rounded-full animate-pulse" />
+            Machine Dashboard v2.0
+          </motion.div>
+          
+          <div className="space-y-4">
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-[48px] lg:text-[72px] font-black tracking-tighter leading-[0.95] text-[#0F172A]"
+            >
+              Master Your Pricing. <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-600 to-red-500">Capture Leads.</span>
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-[18px] lg:text-[21px] text-slate-400 font-medium leading-relaxed max-w-xl"
+            >
+              Control your quote engines, automate your math, and capture high-intent leads on your website.
+            </motion.p>
           </div>
-          <h1 className="text-[40px] lg:text-[64px] font-black tracking-tighter leading-[1.05]">
-            Set Your Prices. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-700 to-red-600">Filter the Tire-Kickers.</span>
-          </h1>
-          <p className="text-[18px] lg:text-[20px] text-slate-400 font-medium leading-relaxed max-w-lg">
-            Manage your lead machines, set your exact material markups, and control the numbers your homeowners see.
-          </p>
         </div>
 
-        <div className="shrink-0 flex flex-col gap-4">
-          <Button
+        <motion.div 
+           initial={{ opacity: 0, scale: 0.9 }}
+           animate={{ opacity: 1, scale: 1 }}
+           transition={{ delay: 0.3 }}
+           className="shrink-0 flex flex-col items-center lg:items-end gap-5"
+        >
+          <button
             onClick={handleCreateNew}
             disabled={isCreating}
-            className="h-16 px-8 bg-red-700 hover:bg-red-800 text-white font-black rounded-2xl text-[17px] shadow-2xl shadow-red-900/40 flex items-center gap-3 transition-all hover:scale-[1.02] active:scale-95 border-none"
+            className="h-20 px-10 bg-[#0F172A] hover:bg-black text-white font-black rounded-[2rem] text-[18px] shadow-2xl shadow-slate-200 flex items-center gap-4 transition-all hover:scale-[1.02] active:scale-95 border-none group cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
           >
-            {isCreating ? <Loader2 className="w-5 h-5 animate-spin text-white" /> : <Plus className="w-5 h-5 stroke-[3px]" />}
+            {isCreating ? <Loader2 className="w-6 h-6 animate-spin" /> : <Plus className="w-6 h-6 stroke-[3px] group-hover:rotate-90 transition-transform duration-300" />}
             Build New Machine
-          </Button>
-          <p className="text-center text-slate-500 text-sm font-bold uppercase tracking-widest">
-            {!isPro && calculators.length >= 1 ? "Free Tier Limit Reached" : "Live on your website in seconds."}
-          </p>
-        </div>
+          </button>
+          <div className="flex items-center gap-2">
+            {!isPro && calculators.length >= 1 ? (
+              <span className="text-red-600 font-black text-[11px] uppercase tracking-widest bg-red-50 px-3 py-1 rounded-full border border-red-100">Plan Limit Reached</span>
+            ) : (
+              <p className="flex items-center gap-2 text-slate-400 text-[12px] font-black uppercase tracking-[0.15em]">
+                <Sparkles className="w-3.5 h-3.5 text-red-500" />
+                Live on your site in seconds
+              </p>
+            )}
+          </div>
+        </motion.div>
       </div>
 
       {/* Grid Section */}
-      <div className="space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b border-slate-200 pb-8 gap-6">
-          <div className="space-y-1">
-            <h2 className="text-[32px] font-black tracking-tight text-[#0F172A] leading-tight">Your Lead Machines</h2>
-            <p className="text-slate-500 font-medium text-[16px]">Edit your pricing rules, grab your embed codes, and watch the qualified leads roll in.</p>
+      <div className="space-y-10">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-slate-50 pb-10 gap-6">
+          <div className="space-y-2">
+            <h2 className="text-[36px] font-black tracking-tighter text-[#0F172A] leading-none">Global Network</h2>
+            <p className="text-slate-400 font-bold text-[17px]">Manage and scale your active web-estimators.</p>
           </div>
-          <div className="flex items-center gap-3">
-            <p className="text-sm font-black text-slate-400 uppercase tracking-widest">
-              {calculators.length} ACTIVE MACHINES
+          <div className="flex items-center gap-4 px-5 py-2.5 bg-slate-50 border border-slate-100 rounded-2xl">
+            <Activity className="w-4 h-4 text-emerald-500" />
+            <p className="text-[13px] font-black text-slate-600 uppercase tracking-widest">
+              {calculators.length} ACTIVE SYSTEMS
             </p>
           </div>
         </div>
 
-        {calculators.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {calculators.map((calc: any) => (
-              <CalculatorCard
-                key={calc.id}
-                calc={calc}
-                onDelete={(id) => setCalculators(prev => prev.filter(c => c.id !== id))}
-                onRename={(id, name) => setCalculators(prev => prev.map(c => c.id === id ? { ...c, name } : c))}
-                onDuplicate={(newObj) => setCalculators(prev => [newObj, ...prev])}
-              />
-            ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {calculators.map((calc: any) => (
+            <CalculatorCard
+              key={calc.id}
+              calc={calc}
+              onDelete={(id) => setCalculators(prev => prev.filter(c => c.id !== id))}
+              onRename={(id, name) => setCalculators(prev => prev.map(c => c.id === id ? { ...c, name } : c))}
+              onDuplicate={(newObj) => setCalculators(prev => [newObj, ...prev])}
+              onUpgradeRequest={() => setShowUpgradeModal(true)}
+            />
+          ))}
 
-            {/* Create Card placeholder */}
+          {/* Premium Create Card placeholder */}
+          <motion.button
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={handleCreateNew}
+            disabled={isCreating}
+            className="group min-h-[440px] rounded-[2.5rem] border-4 border-dashed border-slate-100 hover:border-red-500/10 bg-slate-50/20 hover:bg-red-50/10 transition-all flex flex-col items-center justify-center gap-6 cursor-pointer"
+          >
+            <div className="w-20 h-20 rounded-3xl bg-white border border-slate-100 shadow-sm group-hover:bg-[#0F172A] group-hover:border-[#0F172A] group-hover:scale-110 transition-all duration-500 flex items-center justify-center">
+              {isCreating ? <Loader2 className="w-8 h-8 animate-spin text-slate-400 group-hover:text-white" /> : <Plus className="w-8 h-8 text-slate-400 group-hover:text-white stroke-[3.5px]" />}
+            </div>
+            <div className="text-center space-y-2">
+              <p className="text-[#0F172A] font-black uppercase tracking-widest text-[13px] group-hover:text-red-700">Deploy New Machine</p>
+              <p className="text-slate-400 font-bold text-[12px] max-w-[150px]">Filter tire-kickers on another site</p>
+            </div>
+          </motion.button>
+        </div>
+
+        {calculators.length === 0 && (
+          <div className="flex flex-col items-center justify-center py-40 border-4 border-dashed border-slate-50 rounded-[4rem] bg-white/50 text-center px-8 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-50/30 -z-10" />
+            <div className="w-28 h-28 rounded-[2.5rem] bg-white border border-slate-100 shadow-xl flex items-center justify-center mb-10 relative">
+              <Zap className="w-14 h-14 text-red-100" />
+              <div className="absolute inset-0 bg-red-500/5 blur-2xl rounded-full" />
+            </div>
+            <h3 className="font-black text-[#0F172A] text-[36px] tracking-tighter leading-tight max-w-xl">
+              Capturing leads <br />
+              <span className="text-red-600">is now automated.</span>
+            </h3>
+            <p className="text-slate-400 font-medium mt-6 text-[20px] max-w-md mx-auto leading-relaxed">
+              Start by building your first lead machine and let it qualify homeowners for you.
+            </p>
             <button
               onClick={handleCreateNew}
               disabled={isCreating}
-              className="group h-[320px] rounded-[3rem] border-4 border-dashed border-slate-100 hover:border-red-100 bg-white/50 hover:bg-red-50/30 transition-all flex flex-col items-center justify-center gap-4 cursor-pointer"
+              className="mt-12 h-18 px-12 bg-[#0F172A] hover:bg-black text-white font-black rounded-2xl text-[18px] shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4 disabled:opacity-50"
             >
-              <div className="w-16 h-16 rounded-[1.5rem] bg-slate-50 group-hover:bg-red-700 group-hover:scale-110 transition-all flex items-center justify-center">
-                {isCreating ? <Loader2 className="w-6 h-6 animate-spin text-slate-400 group-hover:text-white" /> : <Plus className="w-6 h-6 text-slate-400 group-hover:text-white stroke-[3px]" />}
-              </div>
-              <p className="text-slate-400 font-black uppercase tracking-widest text-sm group-hover:text-red-700">Add New Machine</p>
+              Initialize First Machine <ChevronRight className="w-6 h-6" />
             </button>
-          </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center py-20 lg:py-32 border-4 border-dashed border-slate-100 rounded-[3.5rem] bg-white/50 text-center px-8">
-            <div className="w-24 h-24 rounded-[2rem] bg-slate-50 flex items-center justify-center mb-8">
-              <Zap className="w-12 h-12 text-slate-200" />
-            </div>
-            <h3 className="font-black text-[#0F172A] text-[24px] lg:text-[28px] tracking-tight">Stop losing leads to boring contact forms.</h3>
-            <p className="text-slate-400 font-medium mt-2 text-[16px] lg:text-[18px] max-w-md mx-auto leading-relaxed">
-              Build your first lead machine and let your website qualify homeowners while you sleep.
-            </p>
-            <Button
-              onClick={handleCreateNew}
-              disabled={isCreating}
-              className="mt-10 h-16 px-10 bg-[#0F172A] hover:bg-black text-white font-black rounded-[1.5rem] text-[16px] shadow-xl hover:-translate-y-1 transition-all flex items-center gap-3 border-none"
-            >
-              Get Started Now <ChevronRight className="w-5 h-5" />
-            </Button>
           </div>
         )}
       </div>

@@ -134,7 +134,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
           <div>
-            <h2 className="text-[20px] font-black text-slate-900 tracking-tight">Contact Support</h2>
+            <h2 className="text-[20px] font-semibold text-slate-900 tracking-tight">Contact Support</h2>
             <p className="text-[14px] text-slate-400 font-medium mt-0.5">We usually reply within a few hours.</p>
           </div>
           <button
@@ -148,7 +148,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
         {/* Body */}
         <form onSubmit={handleSend} className="p-6 space-y-6">
           <div className="space-y-2">
-            <label className="text-[14px] font-black text-slate-400 uppercase tracking-widest px-1">
+            <label className="text-[14px] font-semibold text-slate-400 uppercase tracking-widest px-1">
               What can we help you with?
             </label>
             <textarea
@@ -157,13 +157,13 @@ function SupportModal({ onClose }: { onClose: () => void }) {
               onChange={e => setMessage(e.target.value)}
               placeholder="Describe your issue, question, or feature request..."
               rows={6}
-              className="w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-[16px] font-bold text-slate-900 placeholder:text-slate-400 placeholder:font-medium focus:outline-none focus:ring-4 focus:ring-slate-900/5 focus:border-slate-900 transition-all leading-relaxed"
+              className="w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-[16px] font-medium text-slate-900 placeholder:text-slate-400 placeholder:font-medium focus:outline-none focus:ring-4 focus:ring-slate-900/5 focus:border-slate-900 transition-all leading-relaxed"
             />
           </div>
 
           <div className="space-y-3">
             <div className="flex items-center justify-between px-1">
-              <label className="text-[14px] font-black text-slate-400 uppercase tracking-widest">
+              <label className="text-[14px] font-semibold text-slate-400 uppercase tracking-widest">
                 Screenshots ({screenshots.length}/5)
               </label>
             </div>

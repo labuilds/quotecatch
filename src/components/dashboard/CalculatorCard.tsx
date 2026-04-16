@@ -1,7 +1,17 @@
 "use client"
 
 import { useState } from "react"
-import { Zap, MoreHorizontal, Copy, Trash, Pencil, Share, ExternalLink } from "lucide-react"
+import { 
+  MoreHorizontal, 
+  Copy, 
+  Trash, 
+  Pencil, 
+  ExternalLink, 
+  CheckCircle2,
+  MousePointer2,
+  Share,
+  Zap
+} from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Button, buttonVariants } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
@@ -9,19 +19,24 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import Link from "next/link"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { deleteCalculator, duplicateCalculator } from "@/app/actions/calculator"
+import { motion, AnimatePresence } from "framer-motion"
+import { cn } from "@/lib/utils"
+import { useUserTier } from "@/components/UserTierProvider"
 
-export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }: {
+export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, onUpgradeRequest }: {
   calc: any
   onDelete?: (id: string) => void
   onRename?: (id: string, name: string) => void
   onDuplicate?: (obj: any) => void
+  onUpgradeRequest?: () => void
 }) {
+  const { isPro } = useUserTier()
   const [showDelete, setShowDelete] = useState(false)
   const [showShare, setShowShare] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [isActionLoading, setIsActionLoading] = useState(false)
-  const [copied, setCopied] = useState(false)
-
+  const [linkCopied, setLinkCopied] = useState(false)
+  const [embedCopied, setEmbedCopied] = useState(false)
 
   const handleDelete = async () => {
     setIsDeleting(true)
@@ -34,6 +49,11 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }
   }
 
   const handleDuplicate = async () => {
+    if (!isPro) {
+      if (onUpgradeRequest) onUpgradeRequest()
+      return
+    }
+
     setIsActionLoading(true)
     try {
       const newCalc = await duplicateCalculator(calc.id)
@@ -43,100 +63,153 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }
   }
 
   const origin = typeof window !== 'undefined' ? window.location.origin : 'https://getquotecatch.com'
-  const embedCode = `<iframe src="${origin}/widget/${calc.id}" width="100%" height="640" style="border:none; border-radius: 24px; overflow:hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.08);" title="Roofing Estimate"></iframe>`
+  const embedCode = `<iframe src="${origin}/widget/${calc.id}" width="100%" height="640" style="border:none; border-radius: 24px; overflow:hidden;" title="Roofing Estimate"></iframe>`
 
   const handleCopy = () => {
     navigator.clipboard.writeText(embedCode)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    setEmbedCopied(true)
+    setTimeout(() => setEmbedCopied(false), 2000)
   }
 
-  const pricing = Object.entries(calc.config_json?.materials || {})
-    .filter(([key]) => key !== 'metal')
-    .map(([key, value]) => ({
-      label: key === 'asphalt' ? 'Asphalt' : key === 'tile' ? 'Tiles' : key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' '),
-      value: value as number
-    }))
+  const offeredMaterials = calc.config_json?.offered_materials || [];
+  const materialPricing = calc.config_json?.materials || {};
 
   return (
     <>
-      <Card className="flex flex-col bg-white border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 relative group rounded-[1.5rem] overflow-hidden cursor-default font-sans">
-        {/* Hover shimmer */}
-        <div className="absolute inset-0 bg-gradient-to-br from-red-50/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[1.5rem]" />
-
-        {/* Actions menu */}
-        <DropdownMenu>
-          <DropdownMenuTrigger className="absolute top-4 right-4 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200 z-20 hover:bg-slate-100 w-9 h-9 rounded-xl inline-flex items-center justify-center outline-none cursor-pointer">
-            <MoreHorizontal className="w-4 h-4 text-slate-500" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-52 rounded-2xl shadow-xl border-slate-100 bg-white font-sans">
-            <DropdownMenuItem onClick={handleDuplicate} className="cursor-pointer py-2.5 font-semibold text-slate-700 focus:bg-slate-50 focus:text-slate-900 rounded-xl m-1">
-              <Copy className="w-4 h-4 mr-2.5 text-slate-400" /> Duplicate
-            </DropdownMenuItem>
-            <DropdownMenuSeparator className="bg-slate-100 my-1" />
-            <DropdownMenuItem className="text-red-500 focus:text-red-600 focus:bg-red-50 cursor-pointer py-2.5 font-semibold rounded-xl m-1" onClick={() => setShowDelete(true)}>
-              <Trash className="w-4 h-4 mr-2.5" /> Disable Machine
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <CardHeader className="pb-4 mb-1 pr-10 relative z-10 pt-6 px-6">
-          <div className="w-12 h-12 bg-red-50 text-red-700 rounded-2xl flex items-center justify-center mb-4 transition-all group-hover:bg-red-100 group-hover:scale-105 duration-300 border border-red-100">
-            <Zap className="w-6 h-6" />
-          </div>
-          <CardTitle className="text-[20px] lg:text-[22px] font-black tracking-tight line-clamp-1 text-slate-900">{calc.name}</CardTitle>
-          <CardDescription className="line-clamp-1 mt-1 text-[14px] lg:text-[15px] font-semibold text-slate-400">
-            Lead Generation Machine · Active
-          </CardDescription>
-        </CardHeader>
-
-        <CardContent className="flex-1 space-y-2 relative z-10 px-6">
-          {pricing.map(({ label, value }) => (
-            <div key={label} className="flex justify-between items-center bg-slate-50 px-4 py-2.5 lg:py-3 rounded-xl border border-slate-100">
-              <span className="text-slate-500 font-semibold text-[14px] lg:text-[15px]">{label}</span>
-              <span className="font-black text-slate-900 text-[15px] lg:text-[16px]">
-                ${value?.toFixed(2)}<span className="text-slate-400 font-medium text-[12px] lg:text-[13px] ml-1">/sq ft</span>
-              </span>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        whileHover={{ y: -5 }}
+        transition={{ duration: 0.4 }}
+        className="group relative h-full"
+      >
+        <Card className="h-full flex flex-col bg-white border border-slate-100 shadow-[0_2px_15px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-500 rounded-[2.5rem] overflow-hidden cursor-default font-sans relative">
+          
+          {/* Subtle Hover Shimmer Effect */}
+          <div className="absolute inset-0 bg-gradient-to-tr from-red-50/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+          
+          {/* Status Badge */}
+          <div className="absolute top-6 left-6 z-20">
+            <div className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-100 rounded-full">
+              <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+              <span className="text-[10px] font-black text-emerald-700 uppercase tracking-widest">Active System</span>
             </div>
-          ))}
-        </CardContent>
+          </div>
 
-        <CardFooter className="border-t border-slate-100 bg-slate-50/60 p-4 gap-3 relative z-10 flex mt-4">
-          <Link
-            href={`/calculators/${calc.id}`}
-            className={buttonVariants({ variant: "outline", className: "flex-1 border-slate-200 text-slate-600 bg-white hover:bg-slate-50 hover:text-slate-900 shadow-none rounded-xl font-bold transition-all h-10 lg:h-11 text-[14px] lg:text-[15px]" })}
-          >
-            <Pencil className="w-4 h-4 mr-2 text-slate-400" />
-            Edit
-          </Link>
-          <Button
-            variant="default"
-            className="flex-1 bg-slate-900 hover:bg-black text-white font-bold shadow-sm rounded-xl transition-all h-10 lg:h-11 border-none text-[14px] lg:text-[15px]"
-            onClick={() => setShowShare(true)}
-          >
-            <Share className="w-4 h-4 mr-2" />
-            Embed
-          </Button>
-        </CardFooter>
-      </Card>
+          <CardHeader className="pt-16 pb-4 px-8 relative z-10">
+            <div className="flex items-start justify-between">
+              <div className="space-y-1">
+                <CardTitle className="text-[22px] font-black tracking-tighter text-[#0F172A] group-hover:text-red-700 transition-colors duration-300">
+                  {calc.name}
+                </CardTitle>
+                <CardDescription className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
+                  Automated Capturing Engine
+                </CardDescription>
+              </div>
+              
+              <DropdownMenu>
+                <DropdownMenuTrigger className={cn(
+                  buttonVariants({ variant: "ghost", size: "icon" }),
+                  "h-10 w-10 rounded-2xl bg-slate-50 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-300 hover:bg-white border border-transparent hover:border-slate-100 shadow-sm flex items-center justify-center -mt-2"
+                )}>
+                  <MoreHorizontal className="w-4 h-4 text-slate-400" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-52 p-2 rounded-2xl shadow-2xl border-slate-100 bg-white/95 backdrop-blur-xl font-sans">
+                  <DropdownMenuItem onClick={handleDuplicate} className="cursor-pointer py-3 font-bold text-slate-700 focus:bg-slate-50 focus:text-red-700 rounded-xl transition-colors">
+                    <Copy className="w-4 h-4 mr-3 text-slate-400" /> Duplicate Machine
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-slate-100 my-1" />
+                  <DropdownMenuItem 
+                    className="text-red-600 focus:text-red-700 focus:bg-red-50 cursor-pointer py-3 font-bold rounded-xl transition-colors" 
+                    onClick={() => setShowDelete(true)}
+                  >
+                    <Trash className="w-4 h-4 mr-3" /> Disable System
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </CardHeader>
+
+          <CardContent className="flex-1 p-8 pt-2 space-y-6 relative z-10">
+            <div className="space-y-3">
+              <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] px-1">Live Inventory & Rates</h4>
+              <div className="bg-slate-50/50 rounded-3xl border border-slate-100 p-2 overflow-hidden hover:bg-white transition-colors">
+                {['asphalt', 'tile', 'metal', 'cedar'].map(key => {
+                  const isEnabled = offeredMaterials.includes(key);
+                  const price = materialPricing[key];
+                  
+                  return (
+                    <div key={key} className={cn(
+                      "flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-white transition-all group/row",
+                      !isEnabled && "opacity-60"
+                    )}>
+                      <div className="flex items-center gap-3">
+                        <div className={cn(
+                          "w-2 h-2 rounded-full",
+                          isEnabled ? "bg-red-600" : "bg-slate-300"
+                        )} />
+                        <span className={cn(
+                          "text-[14px] font-bold capitalize",
+                          isEnabled ? "text-[#0F172A]" : "text-slate-400"
+                        )}>
+                          {key.replace(/_/g, ' ')}
+                        </span>
+                      </div>
+                      <span className={cn(
+                        "text-[15px] font-black",
+                        isEnabled ? "text-[#0F172A]" : "text-slate-400 font-bold"
+                      )}>
+                        {price > 0 ? `$${price.toFixed(2)}/sq` : <span className="text-[11px] text-slate-400 lowercase italic font-medium">pending config</span>}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </CardContent>
+
+          <CardFooter className="p-8 pt-0 flex gap-3 relative z-10">
+            <Link
+              href={`/calculators/${calc.id}`}
+              className={cn(
+                buttonVariants({ variant: "default" }),
+                "flex-[7] basis-0 h-12 rounded-2xl font-black text-[15px] bg-[#0F172A] hover:bg-black text-white shadow-xl shadow-slate-200 border-none transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center"
+              )}
+            >
+              <Pencil className="w-4 h-4 mr-2.5 opacity-70" />
+              Configure
+            </Link>
+            <Button
+              variant="outline"
+              className="flex-[3] basis-0 h-12 rounded-2xl font-bold text-sm border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-[#0F172A] hover:border-slate-300 transition-all flex items-center justify-center p-0"
+              onClick={() => setShowShare(true)}
+            >
+              <ExternalLink className="w-5 h-5" />
+            </Button>
+          </CardFooter>
+        </Card>
+      </motion.div>
 
       {/* Delete Dialog */}
       <AlertDialog open={showDelete} onOpenChange={setShowDelete}>
-        <AlertDialogContent className="rounded-3xl border-slate-100 bg-white font-sans">
+        <AlertDialogContent className="rounded-[2.5rem] border-slate-100 bg-white/95 backdrop-blur-xl font-sans p-8">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-[22px] font-black text-slate-900">Disable this machine?</AlertDialogTitle>
-            <AlertDialogDescription className="text-[15px] text-slate-500 mt-2 leading-relaxed font-medium">
-              This instantly turns off your active lead machine. Any embedded links will show an "unavailable" message.
+            <div className="w-16 h-16 bg-red-50 text-red-600 rounded-3xl flex items-center justify-center mb-6">
+              <Trash className="w-8 h-8" />
+            </div>
+            <AlertDialogTitle className="text-[24px] font-black text-[#0F172A] tracking-tight">Disable this machine?</AlertDialogTitle>
+            <AlertDialogDescription className="text-slate-500 font-medium">
+              This will instantly deactivate the lead capture system. Any embedded widgets will show an unavailable message.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter className="mt-6 gap-3">
-            <AlertDialogCancel className="rounded-2xl font-bold h-12 border-slate-200 text-slate-700 hover:bg-slate-50">Cancel</AlertDialogCancel>
+          <AlertDialogFooter className="mt-8 gap-3">
+            <AlertDialogCancel className="rounded-2xl font-black h-14 border-slate-100 text-slate-500 hover:bg-slate-50">Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDelete}
-              className="bg-red-500 hover:bg-red-600 text-white font-black rounded-2xl h-12 shadow-[0_4px_14px_rgba(239,68,68,0.3)] border-none"
+              className="bg-red-600 hover:bg-red-700 text-white font-black rounded-2xl h-14 border-none shadow-xl shadow-red-600/20"
               disabled={isDeleting}
             >
-              {isDeleting ? "Disabling..." : "Yes, disable"}
+              {isDeleting ? "Disabling..." : "Yes, disable machine"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -144,42 +217,76 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate }
 
       {/* Share / Embed Dialog */}
       <Dialog open={showShare} onOpenChange={setShowShare}>
-        <DialogContent className="max-w-lg rounded-3xl border-slate-100 p-8 shadow-[0_20px_60px_rgba(0,0,0,0.1)] bg-white font-sans">
+        <DialogContent className="max-w-xl rounded-[3rem] border-slate-100 p-10 shadow-3xl bg-white font-sans overflow-hidden">
+          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-red-50/50 rounded-full blur-3xl -z-10" />
+          
           <DialogHeader>
-            <DialogTitle className="text-[24px] font-black text-slate-900 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-2xl bg-slate-100 flex items-center justify-center">
-                <ExternalLink className="w-5 h-5 text-slate-600" />
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-[1.25rem] bg-slate-50 flex items-center justify-center">
+                <Share className="w-6 h-6 text-[#0F172A]" />
               </div>
-              Embed Your Machine
-            </DialogTitle>
-            <DialogDescription className="text-[15px] pt-1 text-slate-500 font-medium leading-relaxed">
-              Paste this into WordPress, Webflow, GoHighLevel, or any CMS.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-5 pt-5">
-            <div className="space-y-2.5">
-              <label className="text-[14px] font-black text-slate-400 tracking-widest uppercase">Direct Link</label>
-              <div className="p-4 bg-slate-50 border border-slate-200 rounded-2xl text-[15px] text-slate-700 break-all select-all font-mono font-medium">
-                {origin}/widget/{calc.id}
+              <div>
+                <DialogTitle className="text-[28px] font-black text-[#0F172A] tracking-tight">
+                  Deploy Machine
+                </DialogTitle>
+                <DialogDescription className="text-[12px] font-black text-slate-400 uppercase tracking-[0.2em] pt-1">
+                  {calc.name}
+                </DialogDescription>
               </div>
             </div>
-            <div className="space-y-2.5">
-              <label className="text-[14px] font-black text-slate-400 tracking-widest uppercase">Embed Snippet</label>
-              <div className="relative">
+          </DialogHeader>
+
+          <div className="space-y-8 pt-10">
+            <div className="space-y-3">
+              <label className="text-[11px] font-black text-slate-400 tracking-[0.2em] uppercase px-1">Private Access Link</label>
+              <div 
+                className="relative group cursor-pointer"
+                onClick={() => {
+                  navigator.clipboard.writeText(`${origin}/widget/${calc.id}`)
+                  setLinkCopied(true)
+                  setTimeout(() => setLinkCopied(false), 2000)
+                }}
+              >
+                <div className={cn(
+                  "p-5 bg-slate-50 border rounded-3xl text-[15px] text-slate-600 break-all pr-12 font-bold transition-all group-hover:bg-white",
+                  linkCopied ? "border-emerald-500 bg-emerald-50/30" : "border-slate-200"
+                )}>
+                  {origin}/widget/{calc.id}
+                </div>
+                <div className={cn(
+                  "absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-xl transition-all border",
+                  linkCopied ? "bg-emerald-500 border-emerald-500 text-white" : "text-slate-400 border-transparent"
+                )}>
+                  {linkCopied ? <CheckCircle2 className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                </div>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <label className="text-[11px] font-black text-slate-400 tracking-[0.2em] uppercase px-1">Embed Component Code</label>
+              <div 
+                className="relative cursor-pointer group"
+                onClick={handleCopy}
+              >
                 <textarea
                   readOnly
-                  className="w-full h-32 p-5 bg-slate-900 text-emerald-400 rounded-2xl font-mono text-[14px] focus:outline-none resize-none leading-relaxed border-0"
+                  className={cn(
+                    "w-full h-36 p-6 rounded-[2rem] font-mono text-[13px] focus:outline-none resize-none leading-relaxed border-2 transition-all cursor-pointer",
+                    embedCopied ? "bg-emerald-900/10 border-emerald-500 text-emerald-700" : "bg-[#1e293b] text-emerald-400 border-transparent"
+                  )}
                   value={embedCode}
                 />
-                <Button
-                  size="sm"
-                  className={`absolute bottom-4 right-4 font-bold border-0 shadow-lg transition-all rounded-xl h-9 px-3.5 text-[14px] ${copied ? 'bg-emerald-500 text-white' : 'bg-white hover:bg-slate-100 text-slate-900'}`}
-                  onClick={handleCopy}
-                >
-                  <Copy className="w-4 h-4 mr-1.5" />
-                  {copied ? 'Copied!' : 'Copy'}
-                </Button>
+                <div className={cn(
+                  "absolute bottom-4 right-4 font-black rounded-xl h-10 px-6 flex items-center justify-center transition-all",
+                  embedCopied ? "bg-emerald-500 text-white shadow-lg" : "bg-white text-[#0F172A] opacity-0 group-hover:opacity-100 shadow-xl"
+                )}>
+                  {embedCopied ? "Copied!" : "Copy Code"}
+                </div>
               </div>
+              <p className="text-[12px] text-slate-400 font-bold px-2 flex items-center gap-2">
+                <MousePointer2 className="w-3.5 h-3.5 text-emerald-500" />
+                Click anywhere on the code to copy
+              </p>
             </div>
           </div>
         </DialogContent>

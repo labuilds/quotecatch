@@ -14,7 +14,17 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { UpgradeModal } from "@/components/UpgradeModal"
 import { createDodoCheckoutSession } from "@/app/actions/billing"
-import { updateUserProfile } from "@/app/actions/profile"
+import { updateUserProfile, deleteUserAccount } from "@/app/actions/profile"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 
 interface SettingsClientProps {
   isPro: boolean
@@ -35,6 +45,9 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
     instagram_url: userProfile.instagram_url || "",
   })
   const [isSaving, setIsSaving] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false)
+  const [deleteConfirmation, setDeleteConfirmation] = useState("")
   const [saved, setSaved] = useState(false)
   const [logoUploading, setLogoUploading] = useState(false)
   const [logoPreview, setLogoPreview] = useState<string | null>(null)
@@ -117,6 +130,22 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
     }
   }
 
+  const handleDeleteAccount = async () => {
+    if (deleteConfirmation !== "DELETE") return
+    
+    setIsDeleting(true)
+    try {
+      const { success } = await deleteUserAccount()
+      if (success) {
+        await supabase.auth.signOut()
+        router.push("/login")
+      }
+    } catch (err: any) {
+      alert("Error deleting account: " + err.message)
+      setIsDeleting(false)
+    }
+  }
+
   return (
     <div className="max-w-3xl mx-auto space-y-10 pb-20">
       {/* Page header */}
@@ -143,32 +172,32 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
 
             <div className="grid grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label className="text-[12px] font-black uppercase tracking-[0.1em] text-slate-400 ml-1.5">First Name</Label>
+                <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">First Name</Label>
                 <Input
                   value={formData.first_name}
                   onChange={(e) => setFormData(prev => ({ ...prev, first_name: e.target.value }))}
                   placeholder="John"
-                  className="h-14 rounded-2xl border-slate-200 bg-white px-6 text-[16px] font-black text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
+                  className="h-14 rounded-2xl border-slate-200 bg-white px-6 text-[16px] font-normal text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
                 />
               </div>
               <div className="space-y-2">
-                <Label className="text-[12px] font-black uppercase tracking-[0.1em] text-slate-400 ml-1.5">Last Name</Label>
+                <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">Last Name</Label>
                 <Input
                   value={formData.last_name}
                   onChange={(e) => setFormData(prev => ({ ...prev, last_name: e.target.value }))}
                   placeholder="Smith"
-                  className="h-14 rounded-2xl border-slate-200 bg-white px-6 text-[16px] font-black text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
+                  className="h-14 rounded-2xl border-slate-200 bg-white px-6 text-[16px] font-normal text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label className="text-[12px] font-black uppercase tracking-[0.1em] text-slate-400 ml-1.5">Company Name</Label>
+              <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">Company Name</Label>
               <Input
                 value={formData.company_name}
                 onChange={(e) => setFormData(prev => ({ ...prev, company_name: e.target.value }))}
                 placeholder="Apex Roofing Pros"
-                className="h-14 rounded-2xl border-slate-200 bg-white px-6 text-[16px] font-black text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
+                className="h-14 rounded-2xl border-slate-200 bg-white px-6 text-[16px] font-normal text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
               />
             </div>
 
@@ -236,24 +265,24 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-[12px] font-black uppercase tracking-[0.1em] text-slate-400 ml-1.5">Short Description (One-liner)</Label>
+              <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">Short Description (One-liner)</Label>
               <Input
                 value={formData.company_description}
                 onChange={(e) => setFormData(prev => ({ ...prev, company_description: e.target.value }))}
                 placeholder="High-quality roofing services with a 25-year warranty."
-                className="h-14 rounded-2xl border-slate-200 bg-white px-6 text-[16px] font-black text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
+                className="h-14 rounded-2xl border-slate-200 bg-white px-6 text-[16px] font-normal text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
               />
             </div>
 
             <div className="space-y-2">
-              <Label className="text-[12px] font-black uppercase tracking-[0.1em] text-slate-400 ml-1.5">Business Website</Label>
+              <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">Business Website</Label>
               <div className="relative">
                 <Globe className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <Input
                   value={formData.website}
                   onChange={(e) => setFormData(prev => ({ ...prev, website: e.target.value }))}
                   placeholder="https://apexroofing.com"
-                  className="h-14 pl-12 pr-6 rounded-2xl border-slate-200 bg-white text-[16px] font-black text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
+                  className="h-14 pl-12 pr-6 rounded-2xl border-slate-200 bg-white text-[16px] font-normal text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
                 />
               </div>
             </div>
@@ -401,14 +430,14 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
             <div className={`space-y-4 ${!isPro ? "opacity-50 pointer-events-none" : ""}`}>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label className="text-[12px] font-black uppercase tracking-[0.1em] text-slate-400 ml-1.5">Endpoint URL</Label>
+                  <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">Endpoint URL</Label>
                 </div>
                 <Input
                   value={formData.webhook_url}
                   onChange={(e) => setFormData(prev => ({ ...prev, webhook_url: e.target.value }))}
                   disabled={!isPro}
                   placeholder="https://hooks.zapier.com/..."
-                  className="h-14 rounded-2xl border-slate-200 bg-white px-6 text-[16px] font-black text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
+                  className="h-14 rounded-2xl border-slate-200 bg-white px-6 text-[16px] font-normal text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
                 />
               </div>
             </div>
@@ -422,6 +451,35 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                 Upgrade to Pro to unlock CRM Webhooks
               </button>
             )}
+          </section>
+
+          {/* Danger Zone */}
+          <section className="bg-red-50/30 border border-red-100 rounded-[32px] p-8 space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-red-100 flex items-center justify-center border border-red-200">
+                <X className="w-5 h-5 text-red-700" />
+              </div>
+              <div>
+                <h3 className="text-[18px] font-black text-[#0F172A]">Danger Zone</h3>
+                <p className="text-[13px] text-red-600/60 font-medium italic">Proceed with absolute caution</p>
+              </div>
+            </div>
+
+            <div className="p-6 bg-white border border-red-100 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+              <div className="space-y-1">
+                <p className="text-[16px] font-black text-[#0F172A]">Delete Your Account</p>
+                <p className="text-[13px] text-slate-500 font-bold max-w-sm">
+                  Permanently remove all your lead machines, estimator data, and website integrations. This action is irreversible.
+                </p>
+              </div>
+              <Button
+                variant="ghost"
+                onClick={() => setShowDeleteDialog(true)}
+                className="h-12 px-6 rounded-xl bg-red-50 text-red-600 font-black hover:bg-red-600 hover:text-white transition-all shadow-sm"
+              >
+                Delete Account
+              </Button>
+            </div>
           </section>
 
           {/* Sign out */}
@@ -446,6 +504,46 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
         onClose={() => setShowUpgradeModal(false)}
         onUpgrade={handleUpgrade}
       />
+
+      {/* Delete Account Dialog */}
+      <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+        <AlertDialogContent className="rounded-[2.5rem] border-red-100 bg-white p-10 font-sans max-w-md">
+          <AlertDialogHeader>
+            <div className="w-16 h-16 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mb-6 border border-red-100">
+              <X className="w-8 h-8" />
+            </div>
+            <AlertDialogTitle className="text-[28px] font-black text-[#0F172A] tracking-tight leading-tight">
+              Are you absolutely certain?
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-slate-500 font-medium text-[15px] pt-4">
+              This will permanently delete your QuoteCatch account and all associated data. You will lose access to all your Lead Machines instantly.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+
+          <div className="py-8 space-y-4">
+             <p className="text-[12px] font-black uppercase tracking-widest text-slate-400">Type <span className="text-red-600">DELETE</span> to confirm</p>
+             <Input 
+               value={deleteConfirmation}
+               onChange={(e) => setDeleteConfirmation(e.target.value)}
+               placeholder="DELETE"
+               className="h-14 rounded-2xl border-2 border-red-100 bg-white px-6 text-center text-[18px] font-black text-red-600 focus-visible:ring-4 focus-visible:ring-red-100 focus-visible:border-red-500 transition-all placeholder:text-red-100"
+             />
+          </div>
+
+          <AlertDialogFooter className="gap-3">
+            <AlertDialogCancel className="h-14 rounded-2xl font-black border-slate-100 text-slate-500 flex-1">
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteAccount}
+              disabled={deleteConfirmation !== "DELETE" || isDeleting}
+              className="h-14 rounded-2xl bg-red-600 text-white font-black flex-[1.5] border-none shadow-xl shadow-red-200 transition-all hover:bg-black disabled:opacity-30"
+            >
+              {isDeleting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Delete Irreversibly"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   )
 }

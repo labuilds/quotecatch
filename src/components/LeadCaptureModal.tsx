@@ -85,12 +85,12 @@ export default function LeadCaptureModal({
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-5">
               <div className="space-y-2">
-                <Label className="text-[14px] font-black text-slate-400 uppercase tracking-widest ml-1">Name*</Label>
+                <Label className="text-[14px] font-bold text-slate-400 uppercase tracking-widest ml-1">Name*</Label>
                 <div className="relative group">
                   <User className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300 group-focus-within:text-slate-900 transition-colors" />
                   <Input 
                     placeholder="Enter your full name" 
-                    className="h-14 pl-14 pr-6 rounded-2xl border-slate-100 bg-slate-50/50 text-[16px] font-bold text-slate-900 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all"
+                    className="h-14 pl-14 pr-6 rounded-2xl border-slate-100 bg-slate-50/50 text-[16px] font-normal text-slate-900 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all"
                     value={formData.name}
                     onChange={e => setFormData({ ...formData, name: e.target.value })}
                   />
@@ -99,26 +99,26 @@ export default function LeadCaptureModal({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-[14px] font-black text-slate-400 uppercase tracking-widest ml-1">Email*</Label>
+                  <Label className="text-[14px] font-bold text-slate-400 uppercase tracking-widest ml-1">Email*</Label>
                   <div className="relative group">
                     <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300 group-focus-within:text-slate-900 transition-colors" />
                     <Input 
                       placeholder="Enter your email" 
                       type="email"
-                      className="h-14 pl-14 pr-6 rounded-2xl border-slate-100 bg-slate-50/50 text-[16px] font-bold text-slate-900 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all"
+                      className="h-14 pl-14 pr-6 rounded-2xl border-slate-100 bg-slate-50/50 text-[16px] font-normal text-slate-900 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all"
                       value={formData.email}
                       onChange={e => setFormData({ ...formData, email: e.target.value })}
                     />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-[14px] font-black text-slate-400 uppercase tracking-widest ml-1">Phone*</Label>
+                  <Label className="text-[14px] font-bold text-slate-400 uppercase tracking-widest ml-1">Phone*</Label>
                   <div className="relative group">
                     <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300 group-focus-within:text-slate-900 transition-colors" />
                     <Input 
                       placeholder="Enter phone number" 
                       type="tel"
-                      className="h-14 pl-14 pr-6 rounded-2xl border-slate-100 bg-slate-50/50 text-[16px] font-bold text-slate-900 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all"
+                      className="h-14 pl-14 pr-6 rounded-2xl border-slate-100 bg-slate-50/50 text-[16px] font-normal text-slate-900 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all"
                       value={formData.phone}
                       onChange={e => setFormData({ ...formData, phone: e.target.value })}
                     />

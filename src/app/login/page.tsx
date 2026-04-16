@@ -95,7 +95,7 @@ function LoginForm() {
     <div className="flex-1 flex items-center justify-center px-8 sm:px-20 py-12">
       <motion.div className="w-full max-w-[440px] space-y-10">
         <div className="space-y-3">
-          <h1 className="text-[44px] font-black tracking-tighter text-[#0F172A] leading-[1.1]">
+          <h1 className="text-[44px] font-bold tracking-tighter text-[#0F172A] leading-[1.1]">
             Welcome back.
           </h1>
           <p className="text-[17px] text-slate-500 font-medium leading-relaxed">
@@ -143,14 +143,14 @@ function LoginForm() {
                 <div className="absolute inset-0 flex items-center">
                   <span className="w-full border-t border-slate-100" />
                 </div>
-                <div className="relative flex justify-center text-[11px] uppercase tracking-[0.25em] font-black text-slate-300">
+                <div className="relative flex justify-center text-[11px] uppercase tracking-[0.25em] font-bold text-slate-300">
                   <span className="bg-white px-6">Direct Access</span>
                 </div>
               </div>
 
               <form onSubmit={handleMagicLink} className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-[15px] font-black uppercase tracking-widest text-[#0F172A] ml-1">
+                  <Label htmlFor="email" className="text-[15px] font-bold uppercase tracking-widest text-[#0F172A] ml-1">
                     Work Email
                   </Label>
                   <Input
@@ -162,7 +162,7 @@ function LoginForm() {
                     autoCapitalize="none"
                     autoCorrect="off"
                     autoComplete="email"
-                    className="h-17 bg-slate-50 border-slate-100 focus-visible:ring-red-500/10 focus-visible:border-red-600 rounded-[1.5rem] px-6 text-[18px] font-black text-[#0F172A] placeholder:text-slate-300 transition-all shadow-inner"
+                    className="h-17 bg-slate-50 border-slate-100 focus-visible:ring-red-500/10 focus-visible:border-red-600 rounded-[1.5rem] px-6 text-[18px] font-normal text-[#0F172A] placeholder:text-slate-300 transition-all shadow-inner"
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>

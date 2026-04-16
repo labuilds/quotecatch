@@ -3,17 +3,22 @@
 import { createClient } from "@/utils/supabase/server"
 import DodoPayments from 'dodopayments'
 
-const DODO_API_KEY = process.env.DODO_PAYMENTS_API_KEY
-const DODO_PRODUCT_ID = process.env.DODO_PRO_PRODUCT_ID
-const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
+const MODE = process.env.DODO_PAYMENTS_MODE || 'test'
+const IS_LIVE = MODE === 'live'
 
-// Determine environment based on API key prefix or NODE_ENV
-// Dodo API keys usually start with 'dp_test_' or 'dp_live_'
-const environment = DODO_API_KEY?.startsWith('dp_live_') ? 'live_mode' : 'test_mode'
+const DODO_API_KEY = IS_LIVE 
+  ? process.env.DODO_PAYMENTS_LIVE_API_KEY 
+  : process.env.DODO_PAYMENTS_TEST_API_KEY
+
+const DODO_PRODUCT_ID = IS_LIVE 
+  ? process.env.DODO_PRO_LIVE_PRODUCT_ID 
+  : process.env.DODO_PRO_TEST_PRODUCT_ID
+
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
 
 const dodo = new DodoPayments({
   bearerToken: DODO_API_KEY,
-  environment: 'test_mode', // Forced to test_mode as requested
+  environment: IS_LIVE ? 'live_mode' : 'test_mode',
 })
 
 export async function createDodoCheckoutSession() {

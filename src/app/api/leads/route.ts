@@ -101,7 +101,8 @@ export async function POST(request: Request) {
       homeowner_phone = 'Pending...',
       estimated_price,
       address,
-      notes
+      notes,
+      form_data
     } = body;
 
     // Aggressive override specifically targeting Dashboard visual iframes capturing preview inputs elegantly without invoking UUID throws
@@ -173,6 +174,7 @@ export async function POST(request: Request) {
       estimated_price,
       address,
       notes,
+      form_data: form_data || {},
       pricing_snapshot: calc?.config_json || (calculator_id === 'demo' ? body.form_data?.config : null)
     };
 
@@ -183,7 +185,7 @@ export async function POST(request: Request) {
     let finalError = error;
 
     // Self-Healing Loop: Strips missing columns and retries until success or non-column error
-    const schemaColumns = ['pricing_snapshot', 'user_id', 'notes', 'calculator_id']; // columns we know might be missing
+    const schemaColumns = ['pricing_snapshot', 'user_id', 'notes', 'calculator_id', 'form_data']; // columns we know might be missing
     let attempts = 0;
     
     while (finalError && finalError.message.includes("column") && attempts < 5) {

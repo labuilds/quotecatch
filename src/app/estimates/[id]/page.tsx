@@ -56,6 +56,15 @@ export default async function EstimateResultPage({
       if (userProfile?.company_name) {
         companyName = userProfile.company_name
       }
+      
+      return (
+        <EstimatesClient 
+          lead={lead} 
+          companyName={companyName} 
+          userProfile={userProfile}
+          isDemo={calculatorData?.name === 'Main Landing Page' || !lead.calculator_id}
+        />
+      )
     }
   }
 
