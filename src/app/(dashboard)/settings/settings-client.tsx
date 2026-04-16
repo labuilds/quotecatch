@@ -198,7 +198,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                   <p className="text-[13px] text-slate-500 font-bold leading-relaxed">
                     Upload your company logo. This will be shown on your quotes and widgets.
                   </p>
-                  <div className="flex flex-wrap gap-3 items-center">
+                  <div className="flex flex-wrap gap-2">
                     <Button
                       variant="outline"
                       className="h-10 rounded-xl relative overflow-hidden font-bold text-slate-600 hover:text-slate-900 border-slate-200"
