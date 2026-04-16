@@ -33,7 +33,8 @@ export default async function EstimateResultPage({
 
   // 2. Fetch Calculator (Optional)
   let companyName = "Our Roofing Team"
-  let calculatorData = null
+  let calculatorData: { name: string; user_id: string } | null = null
+  let userProfile: any = null
   
   if (lead.calculator_id) {
     const { data: calculator } = await supabase
@@ -47,32 +48,29 @@ export default async function EstimateResultPage({
       companyName = calculator.name
       
       // 3. Fetch User Company Profile
-      const { data: userProfile } = await supabase
+      const { data: profile } = await supabase
         .from('users')
         .select('*')
         .eq('id', calculator.user_id)
         .single()
       
-      if (userProfile?.company_name) {
-        companyName = userProfile.company_name
+      if (profile) {
+        userProfile = profile
+        if (profile.company_name) {
+          companyName = profile.company_name
+        }
       }
-      
-      return (
-        <EstimatesClient 
-          lead={lead} 
-          companyName={companyName} 
-          userProfile={userProfile}
-          isDemo={calculatorData?.name === 'Main Landing Page' || !lead.calculator_id}
-        />
-      )
     }
   }
+
+  const isDemo = calculatorData?.name === 'Main Landing Page' || !lead.calculator_id
 
   return (
     <EstimatesClient 
       lead={lead} 
       companyName={companyName} 
-      isDemo={calculatorData?.name === 'Main Landing Page' || !lead.calculator_id}
+      userProfile={userProfile}
+      isDemo={isDemo}
     />
   )
 }
