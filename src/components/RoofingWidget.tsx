@@ -136,11 +136,16 @@ export default function RoofingWidget({
   const [addressConfirmed, setAddressConfirmed] = useState(isDemo)
   const [autocomplete, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null)
 
-  const { isLoaded } = useJsApiLoader({
+  const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || "",
     libraries: GOOGLE_MAPS_LIBRARIES,
   })
+
+  // Log specific load error for debugging in production console
+  if (loadError) {
+    console.error("Google Maps Load Error:", loadError)
+  }
 
   const onPlaceChanged = () => {
     if (autocomplete !== null) {
