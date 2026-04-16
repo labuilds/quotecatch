@@ -43,5 +43,5 @@ export default async function SettingsPage() {
     .eq("id", user.id)
     .single()
 
-  return <SettingsClient isPro={profile?.is_pro ?? false} userProfile={{ ...profile, ...fullProfile } || {}} />
+  return <SettingsClient isPro={profile?.is_pro ?? false} userProfile={{ ...profile, ...fullProfile }} />
 }
