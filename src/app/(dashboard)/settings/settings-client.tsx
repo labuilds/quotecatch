@@ -43,19 +43,6 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
   const supabase = createClient()
   const router = useRouter()
 
-  const handleSave = async () => {
-    setIsSaving(true)
-    try {
-      await updateUserProfile(formData)
-      setSaved(true)
-      setTimeout(() => setSaved(false), 2500)
-    } catch (err: any) {
-      alert("Error saving profile: " + err.message)
-    } finally {
-      setIsSaving(false)
-    }
-  }
-
   const handleLogoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
@@ -63,38 +50,55 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
     setLogoPreview(URL.createObjectURL(file))
   }
 
-  const confirmLogoUpload = async () => {
-    if (!selectedFile) return
-    setLogoUploading(true)
+  const handleSave = async () => {
+    setIsSaving(true)
     try {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) throw new Error("Not authenticated")
+      let finalLogoUrl = formData.company_logo_url
 
-      const fileExt = selectedFile.name.split('.').pop()
-      const fileName = `${user.id}-${Date.now()}.${fileExt}`
-      const filePath = `logos/${fileName}`
+      // 1. Upload logo if a new one is selected
+      if (selectedFile) {
+        setLogoUploading(true)
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) throw new Error("Not authenticated")
 
-      const { error: uploadError } = await supabase.storage
-        .from('assets')
-        .upload(filePath, selectedFile)
+        const fileExt = selectedFile.name.split('.').pop()
+        const fileName = `${user.id}-${Date.now()}.${fileExt}`
+        const filePath = `logos/${fileName}`
 
-      if (uploadError) throw uploadError
+        const { error: uploadError } = await supabase.storage
+          .from('assets')
+          .upload(filePath, selectedFile)
 
-      const { data: { publicUrl } } = supabase.storage
-        .from('assets')
-        .getPublicUrl(filePath)
+        if (uploadError) throw uploadError
 
-      setFormData(prev => ({ ...prev, company_logo_url: publicUrl }))
-      setLogoPreview(null)
-      setSelectedFile(null)
-    } catch (error: any) {
-      alert("Error uploading logo: " + error.message)
+        const { data: { publicUrl } } = supabase.storage
+          .from('assets')
+          .getPublicUrl(filePath)
+        
+        finalLogoUrl = publicUrl
+        setLogoPreview(null)
+        setSelectedFile(null)
+      }
+
+      // 2. Update profile with everything
+      await updateUserProfile({
+        ...formData,
+        company_logo_url: finalLogoUrl
+      })
+
+      setFormData(prev => ({ ...prev, company_logo_url: finalLogoUrl }))
+      setSaved(true)
+      setTimeout(() => setSaved(false), 2500)
+    } catch (err: any) {
+      alert("Error saving profile: " + err.message)
     } finally {
+      setIsSaving(false)
       setLogoUploading(false)
     }
   }
 
-  const cancelLogoUpload = () => {
+  const removeLogo = () => {
+    setFormData(prev => ({ ...prev, company_logo_url: "" }))
     setLogoPreview(null)
     setSelectedFile(null)
   }
@@ -194,55 +198,34 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                   <p className="text-[13px] text-slate-500 font-bold leading-relaxed">
                     Upload your company logo. This will be shown on your quotes and widgets.
                   </p>
-                  <div className="flex flex-wrap gap-2">
-                    {logoPreview ? (
-                      <div className="flex gap-2 animate-in fade-in zoom-in duration-300">
-                        <Button 
-                          onClick={confirmLogoUpload}
-                          disabled={logoUploading}
-                          className="h-10 rounded-xl bg-red-700 hover:bg-red-800 text-white font-bold px-4 shadow-sm"
-                        >
-                          <Check className="w-4 h-4 mr-2" />
-                          Upload This
-                        </Button>
-                        <Button 
-                          variant="ghost"
-                          onClick={cancelLogoUpload}
-                          disabled={logoUploading}
-                          className="h-10 rounded-xl text-slate-500 font-bold px-4"
-                        >
-                          <X className="w-4 h-4 mr-2" />
-                          Cancel
-                        </Button>
-                      </div>
-                    ) : (
-                      <>
-                        <Button
-                          variant="outline"
-                          className="h-10 rounded-xl relative overflow-hidden font-bold text-slate-600 hover:text-slate-900 border-slate-200"
-                        >
-                          <input
-                            type="file"
-                            className="absolute inset-0 opacity-0 cursor-pointer"
-                            accept="image/*"
-                            onChange={handleLogoSelect}
-                            disabled={logoUploading}
-                          />
-                          <Camera className="w-4 h-4 mr-2" />
-                          {formData.company_logo_url ? "Change Logo" : "Select Logo"}
-                        </Button>
-                        {formData.company_logo_url && (
-                          <Button
-                            variant="ghost"
-                            onClick={() => setFormData(prev => ({ ...prev, company_logo_url: "" }))}
-                            className="h-10 rounded-xl font-bold text-red-600 hover:text-red-700 hover:bg-red-50"
-                          >
-                            Remove
-                          </Button>
-                        )}
-                      </>
+                    <Button
+                      variant="outline"
+                      className="h-10 rounded-xl relative overflow-hidden font-bold text-slate-600 hover:text-slate-900 border-slate-200"
+                    >
+                      <input
+                        type="file"
+                        className="absolute inset-0 opacity-0 cursor-pointer"
+                        accept="image/*"
+                        onChange={handleLogoSelect}
+                        disabled={logoUploading || isSaving}
+                      />
+                      <Camera className="w-4 h-4 mr-2" />
+                      {formData.company_logo_url || logoPreview ? "Change Logo" : "Select Logo"}
+                    </Button>
+                    {(formData.company_logo_url || logoPreview) && (
+                      <Button
+                        variant="ghost"
+                        onClick={removeLogo}
+                        className="h-10 rounded-xl font-bold text-red-600 hover:text-red-700 hover:bg-red-50"
+                      >
+                        Remove
+                      </Button>
                     )}
-                  </div>
+                    {logoPreview && !logoUploading && !isSaving && (
+                      <p className="text-[11px] font-black text-red-600 uppercase tracking-widest bg-red-50 px-3 py-2 rounded-lg animate-pulse">
+                        Pending Save
+                      </p>
+                    )}
                 </div>
               </div>
             </div>
