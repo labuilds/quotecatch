@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import {
   Crown, Check, Loader2, LogOut, User, CreditCard, Bot, Lock,
-  Camera, Globe, MessageSquare, Info, Type
+  Camera, Globe, MessageSquare, Info, Type, X
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
