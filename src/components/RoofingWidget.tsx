@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { CheckCircle, MapPin, Zap, ArrowLeft, Home, Search, Loader2, ExternalLink, ChevronRight, X } from "lucide-react"
+import { CheckCircle, MapPin, Zap, ArrowLeft, ArrowRight, Home, Search, Loader2, ExternalLink, ChevronRight, X } from "lucide-react"
 import { GoogleMap, Autocomplete, useJsApiLoader } from "@react-google-maps/api"
 
 import { PricingConfig, calculateEstimate } from "@/lib/pricingEngine"
@@ -113,7 +113,7 @@ export default function RoofingWidget({
 
   // -- MODULAR STEP LOGIC --
   const stepsConfig = [
-    { id: 'INTRO', show: !isDemo }, // Skip intro for demo? No, user said "popup questions" so maybe keep it.
+    { id: 'INTRO', show: true },
     { id: 'ADDRESS', show: true },
     { id: 'BUILDING_TYPE', show: config.steps?.buildingType ?? true },
     { id: 'MATERIAL_CURRENT', show: config.steps?.currentMaterial ?? true },
@@ -127,8 +127,12 @@ export default function RoofingWidget({
   ]
 
   const visibleSteps = stepsConfig.filter(s => s.show)
-  const totalSteps = visibleSteps.length
+  const questionSteps = visibleSteps.filter(s => s.id !== 'INTRO' && s.id !== 'RESULT')
+  const totalQuestions = questionSteps.length
+  
   const currentStepId = visibleSteps[step - 1]?.id
+  // Find current step's index in the question array for accurate counting
+  const currentQuestionIndex = questionSteps.findIndex(s => s.id === currentStepId)
 
   // Map State
   const [mapCenter, setMapCenter] = useState({ lat: 34.256, lng: -118.601 }) // Default to Chatsworth for demo
@@ -342,8 +346,8 @@ export default function RoofingWidget({
 
   return (
     <div className="w-full max-w-lg mx-auto bg-white shadow-xl lg:shadow-[0_32px_84px_rgba(0,0,0,0.12)] border border-slate-100/80 rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden flex flex-col font-sans touch-manipulation ring-1 ring-slate-900/5 min-h-[580px]">
-      {/* Header - Hidden on Intro */}
-      {currentStepId !== 'INTRO' && (
+      {/* Header - Hidden on Intro and Result */}
+      {currentStepId !== 'INTRO' && currentStepId !== 'RESULT' && (
         <div className="px-5 lg:px-8 pt-6 lg:pt-8 pb-1">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
@@ -357,10 +361,10 @@ export default function RoofingWidget({
               )}
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
-                  <span className="text-[14px] font-semibold text-slate-500/80 tracking-tight">Step {step - 1} of {totalSteps - 1}</span>
+                  <span className="text-[14px] font-semibold text-slate-500/80 tracking-tight">Step {currentQuestionIndex + 1} of {totalQuestions}</span>
                   <div className="flex gap-1 ml-1">
-                    {visibleSteps.slice(1).map((_, i) => (
-                      <div key={i} className={`h-1 !rounded-full transition-all duration-500 ${i < (step - 1) ? "w-3 bg-red-700" : "w-1 bg-slate-100"}`} />
+                    {questionSteps.map((_, i) => (
+                      <div key={i} className={`h-1 !rounded-full transition-all duration-500 ${i <= currentQuestionIndex ? "w-3 bg-red-700" : "w-1 bg-slate-100"}`} />
                     ))}
                   </div>
                 </div>
@@ -373,47 +377,64 @@ export default function RoofingWidget({
         
         {/* Step: Intro */}
         {currentStepId === 'INTRO' && (
-          <div className="flex-1 flex flex-col items-center justify-center py-10 animate-in fade-in zoom-in-95 duration-700 relative overflow-hidden">
-            {/* Background elements */}
-            <div className="absolute top-0 right-0 opacity-[0.03] rotate-12 scale-150 pointer-events-none">
-              <Home className="w-48 h-48" />
+          <div className="flex-1 flex flex-col items-center justify-center py-10 animate-in fade-in zoom-in-95 duration-1000 relative overflow-hidden">
+            {/* Minimal Background Art - similar to screenshot */}
+            <div className="absolute top-4 left-4 opacity-[0.06] -rotate-12 pointer-events-none">
+              <div className="relative">
+                <Home className="w-32 h-32 lg:w-48 lg:h-48" strokeWidth={0.5} />
+                <MapPin className="absolute top-4 right-4 w-6 h-6 lg:w-10 lg:h-10 opacity-40" />
+              </div>
             </div>
-            <div className="absolute bottom-10 left-0 opacity-[0.03] -rotate-12 scale-125 pointer-events-none">
-              <Home className="w-32 h-32" />
+            
+            <div className="absolute bottom-4 right-4 opacity-[0.06] rotate-12 pointer-events-none">
+              <div className="flex flex-col items-end gap-2">
+                <Home className="w-24 h-24 lg:w-40 lg:h-40" strokeWidth={0.5} />
+                <div className="flex gap-2">
+                   <Zap className="w-5 h-5 opacity-40" />
+                   <CheckCircle className="w-5 h-5 opacity-40" />
+                </div>
+              </div>
             </div>
 
-            <div className="w-full max-w-sm mx-auto flex flex-col items-center z-10">
-              {companyLogoUrl ? (
-                <div className="mb-6 h-20 flex items-center justify-center">
-                  <img src={companyLogoUrl} alt={companyName} className="h-full w-auto object-contain" />
-                </div>
-              ) : (
-                <div className="mb-8 p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-sm">
-                  <span className="text-xl font-black text-slate-900 tracking-tighter uppercase">{companyName || "Your Company"}</span>
-                </div>
-              )}
+            <div className="w-full max-w-lg mx-auto flex flex-col items-center z-10 px-6">
+              {/* Branding Header */}
+              <div className="mb-10 lg:mb-12 flex flex-col items-center">
+                {companyLogoUrl ? (
+                  <div className="h-16 lg:h-20 flex items-center justify-center">
+                    <img src={companyLogoUrl} alt={companyName} className="h-full w-auto object-contain" />
+                  </div>
+                ) : (
+                  <div className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
+                    <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center">
+                       <Home className="w-6 h-6 text-white" />
+                    </div>
+                    <span className="text-xl font-black text-slate-900 tracking-tighter uppercase">{companyName || "Best Roofing Company"}</span>
+                  </div>
+                )}
+              </div>
 
-              <h1 className="text-[32px] lg:text-[40px] font-black text-[#0F172A] text-center leading-[1.1] tracking-tight mb-6">
-                Get a <span className="italic underline underline-offset-[6px] decoration-red-600 decoration-[3px]">free</span> instant estimate
+              <h1 className="text-[36px] lg:text-[54px] font-black text-[#0F172A] text-center leading-[1.05] tracking-tighter mb-6">
+                Get a <span className="italic underline underline-offset-[8px] decoration-red-600/30">free</span> instant estimate
               </h1>
 
-              <p className="text-[16px] lg:text-[18px] text-slate-500 text-center font-semibold leading-relaxed mb-10 px-4">
-                We use satellite imagery to measure your roof and provide an instant estimate for your roof replacement.
+              <p className="text-[17px] lg:text-[20px] text-slate-500 text-center font-medium leading-relaxed mb-12 max-w-md">
+                We use satellite imagery to measure your roof and provide an instant estimate for your roof replacement
               </p>
 
               <button 
                 onClick={nextStep}
-                className="w-full max-w-[280px] h-16 bg-[#1e293b] hover:bg-black text-white rounded-full font-black text-[18px] transition-all hover:scale-[1.02] active:scale-95 shadow-2xl shadow-slate-200 flex items-center justify-center gap-3 group cursor-pointer"
+                className="w-full max-w-[320px] h-16 lg:h-20 bg-[#1e293b] hover:bg-[#0F172A] text-white rounded-[2rem] font-black text-[20px] transition-all hover:scale-[1.02] active:scale-95 shadow-2xl shadow-slate-200 flex items-center justify-center gap-4 group cursor-pointer border-none"
               >
                 Get started 
-                <ChevronRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform duration-300" />
+                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
               </button>
 
-              <div className="mt-12 flex items-center gap-2 grayscale opacity-40 hover:opacity-100 transition-opacity">
-                <div className="w-5 h-5 bg-red-700 rounded-md flex items-center justify-center">
-                  <div className="w-1.5 h-1.5 bg-white rounded-full" />
+              <div className="mt-16 flex items-center gap-3 grayscale opacity-30 hover:opacity-100 transition-opacity">
+                <div className="w-6 h-6 bg-slate-200 rounded-md flex items-center justify-center">
+                  <span className="text-[10px] font-black text-slate-50 opacity-0 group-hover:opacity-100 transition-all">QC</span>
+                  <div className="w-2 h-2 bg-slate-400 rounded-full" />
                 </div>
-                <span className="text-[11px] font-black uppercase tracking-widest text-slate-500">Powered by QuoteCatch</span>
+                <span className="text-[12px] font-bold tracking-widest text-slate-400 uppercase">Powered by QuoteCatch</span>
               </div>
             </div>
           </div>
