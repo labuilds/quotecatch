@@ -162,7 +162,7 @@ function LoginForm() {
                     autoCapitalize="none"
                     autoCorrect="off"
                     autoComplete="email"
-                    className="h-17 bg-slate-50 border-slate-100 focus-visible:ring-orange-500/10 focus-visible:border-orange-500 rounded-[1.5rem] px-6 text-[18px] font-black text-[#0F172A] placeholder:text-slate-300 transition-all shadow-inner"
+                    className="h-17 bg-slate-50 border-slate-100 focus-visible:ring-red-500/10 focus-visible:border-red-600 rounded-[1.5rem] px-6 text-[18px] font-black text-[#0F172A] placeholder:text-slate-300 transition-all shadow-inner"
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
@@ -202,7 +202,7 @@ export default function LoginPage() {
   ]
 
   return (
-    <div className="flex min-h-screen w-full bg-white font-sans selection:bg-orange-100 selection:text-orange-900">
+    <div className="flex min-h-screen w-full bg-white font-sans selection:bg-red-50 selection:text-red-900">
       {/* Left: Auth Panel */}
       <div className="w-full lg:w-[48%] flex flex-col relative z-20 bg-white">
         {/* Top nav */}
@@ -247,13 +247,13 @@ export default function LoginPage() {
 
         <div className="relative z-10 px-16 max-w-2xl w-full py-14 space-y-8">
           <div className="space-y-6">
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-orange-500/10 border border-orange-500/20">
-              <span className="w-2.5 h-2.5 rounded-full bg-orange-500 animate-pulse shadow-[0_0_12px_rgba(249,115,22,0.8)]" />
-              <span className="text-[12px] font-black text-orange-400 tracking-[0.2em] uppercase">Built for Roofing Contractors</span>
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
+              <span className="text-[12px] font-black text-red-400 tracking-[0.2em] uppercase">Built for Roofing Contractors</span>
             </div>
             <h2 className="text-[52px] font-black text-white leading-[1.1] tracking-tighter">
               Stop driving to <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">tire-kickers.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">tire-kickers.</span>
             </h2>
             <p className="text-[20px] text-slate-300 font-medium leading-relaxed max-w-md">
               Let your website qualify homeowners and calculate instant ballparks while you sleep.
@@ -263,8 +263,8 @@ export default function LoginPage() {
           <div className="grid grid-cols-3 gap-5">
             {stats.map(({ icon: Icon, value, label }) => (
               <div key={label} className="bg-white/5 border border-white/10 rounded-[2rem] p-6 backdrop-blur-md transition-all hover:bg-white/10 group">
-                <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <Icon className="w-5 h-5 text-orange-400" />
+                <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <Icon className="w-5 h-5 text-red-400" />
                 </div>
                 <p className="text-[24px] font-black text-white tracking-tight">{value}</p>
                 <p className="text-[12px] text-slate-400 font-bold uppercase tracking-widest mt-1">{label}</p>
@@ -273,12 +273,12 @@ export default function LoginPage() {
           </div>
 
           <div className="relative">
-            <div className="absolute -inset-4 bg-orange-500/20 blur-[80px] pointer-events-none" />
+            <div className="absolute -inset-4 bg-red-500/20 blur-[80px] pointer-events-none" />
             <div className="relative bg-white/5 border border-white/10 rounded-[2.5rem] p-1 shadow-2xl backdrop-blur-xl">
               <div className="bg-[#0F172A] rounded-[2rem] p-8 overflow-hidden relative">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-full bg-orange-500/20 border-2 border-orange-500/30 flex items-center justify-center overflow-hidden">
-                    <Zap className="w-6 h-6 text-orange-400" />
+                  <div className="w-12 h-12 rounded-full bg-red-500/20 border-2 border-red-500/30 flex items-center justify-center overflow-hidden">
+                    <Zap className="w-6 h-6 text-red-400" />
                   </div>
                   <div>
                     <p className="text-white font-black text-[16px]">The QuoteCatch Edge</p>
@@ -289,7 +289,7 @@ export default function LoginPage() {
                   "Your time is your most valuable asset. We built QuoteCatch so you can stop doing free roof inspections for window shoppers, and focus entirely on customers who are ready to buy."
                 </p>
                 <div className="absolute top-6 right-8 opacity-10">
-                  <Shield className="w-24 h-24 text-orange-500 fill-orange-500" />
+                  <Shield className="w-24 h-24 text-red-500 fill-red-500" />
                 </div>
               </div>
             </div>
