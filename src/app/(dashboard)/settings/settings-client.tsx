@@ -37,6 +37,8 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
   const [isSaving, setIsSaving] = useState(false)
   const [saved, setSaved] = useState(false)
   const [logoUploading, setLogoUploading] = useState(false)
+  const [logoPreview, setLogoPreview] = useState<string | null>(null)
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
   const supabase = createClient()
   const router = useRouter()
@@ -54,23 +56,27 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
     }
   }
 
-  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLogoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
+    setSelectedFile(file)
+    setLogoPreview(URL.createObjectURL(file))
+  }
 
+  const confirmLogoUpload = async () => {
+    if (!selectedFile) return
     setLogoUploading(true)
     try {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) throw new Error("Not authenticated")
 
-      const fileExt = file.name.split('.').pop()
-      const fileName = `${user.id}-${Math.round(Math.random() * 1000000)}.${fileExt}`
+      const fileExt = selectedFile.name.split('.').pop()
+      const fileName = `${user.id}-${Date.now()}.${fileExt}`
       const filePath = `logos/${fileName}`
 
-      // We'll use a public bucket named 'assets'
       const { error: uploadError } = await supabase.storage
         .from('assets')
-        .upload(filePath, file)
+        .upload(filePath, selectedFile)
 
       if (uploadError) throw uploadError
 
@@ -79,11 +85,18 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
         .getPublicUrl(filePath)
 
       setFormData(prev => ({ ...prev, company_logo_url: publicUrl }))
+      setLogoPreview(null)
+      setSelectedFile(null)
     } catch (error: any) {
       alert("Error uploading logo: " + error.message)
     } finally {
       setLogoUploading(false)
     }
+  }
+
+  const cancelLogoUpload = () => {
+    setLogoPreview(null)
+    setSelectedFile(null)
   }
 
   const handleUpgrade = async () => {
@@ -159,11 +172,16 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
               <Label className="text-[15px] font-bold text-slate-600 ml-1">Company Logo</Label>
               <div className="flex items-center gap-6">
                 <div className="relative group">
-                  <div className="w-24 h-24 rounded-2xl bg-slate-50 border-2 border-dashed border-slate-200 flex items-center justify-center overflow-hidden">
-                    {formData.company_logo_url ? (
-                      <img src={formData.company_logo_url} alt="Logo" className="w-full h-full object-contain" />
+                  <div className={`w-24 h-24 rounded-3xl bg-slate-50 border-2 border-dashed transition-colors flex items-center justify-center overflow-hidden ${logoPreview ? 'border-red-500 bg-red-50/30' : 'border-slate-200'}`}>
+                    {logoPreview ? (
+                      <img src={logoPreview} alt="Preview" className="w-full h-full object-contain p-2" />
+                    ) : formData.company_logo_url ? (
+                      <img src={formData.company_logo_url} alt="Logo" className="w-full h-full object-contain p-2" />
                     ) : (
-                      <Info className="w-8 h-8 text-slate-300" />
+                      <div className="flex flex-col items-center gap-1.5 opacity-40">
+                        <Globe className="w-8 h-8 text-slate-400" />
+                        <span className="text-[10px] font-black uppercase tracking-tighter">No Logo</span>
+                      </div>
                     )}
                     {logoUploading && (
                       <div className="absolute inset-0 bg-white/80 flex items-center justify-center">
@@ -176,29 +194,53 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                   <p className="text-[13px] text-slate-500 font-bold leading-relaxed">
                     Upload your company logo. This will be shown on your quotes and widgets.
                   </p>
-                  <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      className="h-10 rounded-xl relative overflow-hidden font-bold text-slate-600 hover:text-slate-900 border-slate-200"
-                    >
-                      <input
-                        type="file"
-                        className="absolute inset-0 opacity-0 cursor-pointer"
-                        accept="image/*"
-                        onChange={handleLogoUpload}
-                        disabled={logoUploading}
-                      />
-                      <Camera className="w-4 h-4 mr-2" />
-                      {formData.company_logo_url ? "Change Logo" : "Upload Logo"}
-                    </Button>
-                    {formData.company_logo_url && (
-                      <Button
-                        variant="ghost"
-                        onClick={() => setFormData(prev => ({ ...prev, company_logo_url: "" }))}
-                        className="h-10 rounded-xl font-bold text-red-600 hover:text-red-700 hover:bg-red-50"
-                      >
-                        Remove
-                      </Button>
+                  <div className="flex flex-wrap gap-2">
+                    {logoPreview ? (
+                      <div className="flex gap-2 animate-in fade-in zoom-in duration-300">
+                        <Button 
+                          onClick={confirmLogoUpload}
+                          disabled={logoUploading}
+                          className="h-10 rounded-xl bg-red-700 hover:bg-red-800 text-white font-bold px-4 shadow-sm"
+                        >
+                          <Check className="w-4 h-4 mr-2" />
+                          Upload This
+                        </Button>
+                        <Button 
+                          variant="ghost"
+                          onClick={cancelLogoUpload}
+                          disabled={logoUploading}
+                          className="h-10 rounded-xl text-slate-500 font-bold px-4"
+                        >
+                          <X className="w-4 h-4 mr-2" />
+                          Cancel
+                        </Button>
+                      </div>
+                    ) : (
+                      <>
+                        <Button
+                          variant="outline"
+                          className="h-10 rounded-xl relative overflow-hidden font-bold text-slate-600 hover:text-slate-900 border-slate-200"
+                        >
+                          <input
+                            type="file"
+                            className="absolute inset-0 opacity-0 cursor-pointer"
+                            accept="image/*"
+                            onChange={handleLogoSelect}
+                            disabled={logoUploading}
+                          />
+                          <Camera className="w-4 h-4 mr-2" />
+                          {formData.company_logo_url ? "Change Logo" : "Select Logo"}
+                        </Button>
+                        {formData.company_logo_url && (
+                          <Button
+                            variant="ghost"
+                            onClick={() => setFormData(prev => ({ ...prev, company_logo_url: "" }))}
+                            className="h-10 rounded-xl font-bold text-red-600 hover:text-red-700 hover:bg-red-50"
+                          >
+                            Remove
+                          </Button>
+                        )}
+                      </>
                     )}
                   </div>
                 </div>
