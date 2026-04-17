@@ -10,7 +10,9 @@ import {
   CheckCircle2,
   MousePointer2,
   Share,
-  Zap
+  Zap,
+  QrCode,
+  Download
 } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card"
 import { Button, buttonVariants } from "@/components/ui/button"
@@ -69,6 +71,25 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
     navigator.clipboard.writeText(embedCode)
     setEmbedCopied(true)
     setTimeout(() => setEmbedCopied(false), 2000)
+  }
+
+  const handleDownloadQR = async () => {
+    try {
+      const response = await fetch(`https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(`${origin}/widget/${calc.id}`)}`)
+      const blob = await response.blob()
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `quotecatch-qr-${calc.name.toLowerCase().replace(/\s+/g, '-')}.png`
+      document.body.appendChild(a)
+      a.click()
+      window.URL.revokeObjectURL(url)
+      document.body.removeChild(a)
+    } catch (err) {
+      console.error("Download failed", err)
+      // Fallback: open in new tab
+      window.open(`https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&data=${encodeURIComponent(`${origin}/widget/${calc.id}`)}`, '_blank')
+    }
   }
 
   const offeredMaterials = calc.config_json?.offered_materials || [];
@@ -217,7 +238,7 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
 
       {/* Share / Embed Dialog */}
       <Dialog open={showShare} onOpenChange={setShowShare}>
-        <DialogContent className="max-w-xl rounded-[3rem] border-slate-100 p-10 shadow-3xl bg-white font-sans overflow-hidden">
+        <DialogContent className="w-[95vw] sm:w-[90vw] md:w-full max-w-3xl lg:max-w-5xl rounded-[2.5rem] lg:rounded-[3.5rem] border-slate-100 p-6 sm:p-10 lg:p-16 shadow-3xl bg-white font-sans overflow-y-auto max-h-[90vh]">
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-red-50/50 rounded-full blur-3xl -z-10" />
           
           <DialogHeader>
@@ -262,31 +283,69 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
               </div>
             </div>
 
-            <div className="space-y-3">
-              <label className="text-[11px] font-black text-slate-400 tracking-[0.2em] uppercase px-1">Embed Component Code</label>
-              <div 
-                className="relative cursor-pointer group"
-                onClick={handleCopy}
-              >
-                <textarea
-                  readOnly
-                  className={cn(
-                    "w-full h-36 p-6 rounded-[2rem] font-mono text-[13px] focus:outline-none resize-none leading-relaxed border-2 transition-all cursor-pointer",
-                    embedCopied ? "bg-emerald-900/10 border-emerald-500 text-emerald-700" : "bg-[#1e293b] text-emerald-400 border-transparent"
-                  )}
-                  value={embedCode}
-                />
-                <div className={cn(
-                  "absolute bottom-4 right-4 font-black rounded-xl h-10 px-6 flex items-center justify-center transition-all",
-                  embedCopied ? "bg-emerald-500 text-white shadow-lg" : "bg-white text-[#0F172A] opacity-0 group-hover:opacity-100 shadow-xl"
-                )}>
-                  {embedCopied ? "Copied!" : "Copy Code"}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 w-full">
+              <div className="flex flex-col h-full">
+                <label className="text-[11px] font-black text-slate-400 tracking-[0.2em] uppercase px-1 mb-4">Marketing QR Code</label>
+                <div className="flex-1 p-6 lg:p-10 bg-slate-50 border border-slate-200 rounded-[2.5rem] lg:rounded-[3rem] flex flex-col items-center justify-between gap-6 group hover:bg-white transition-all min-h-[360px] w-full">
+                  <div className="bg-white p-4 lg:p-6 rounded-[2rem] shadow-sm border border-slate-100 mt-2 shrink-0">
+                    <img 
+                      src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`${origin}/widget/${calc.id}`)}`} 
+                      alt="QR Code"
+                      className="w-32 h-32 sm:w-40 sm:h-40 lg:w-56 lg:h-56 object-contain"
+                    />
+                  </div>
+                  <div className="w-full space-y-5">
+                    <Button 
+                      variant="default" 
+                      className="w-full h-14 rounded-2xl font-black text-[13px] uppercase tracking-widest bg-[#0F172A] text-white hover:bg-black flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-slate-200"
+                      onClick={handleDownloadQR}
+                    >
+                      <Download className="w-4 h-4" />
+                      Download High-Res
+                    </Button>
+                    <p className="text-[12px] lg:text-[13px] text-slate-400 font-bold px-1 leading-relaxed text-center">
+                      Put this on your truck, lawn signs, or business cards.
+                    </p>
+                  </div>
                 </div>
               </div>
-              <p className="text-[12px] text-slate-400 font-bold px-2 flex items-center gap-2">
-                <MousePointer2 className="w-3.5 h-3.5 text-emerald-500" />
-                Click anywhere on the code to copy
-              </p>
+
+              <div className="flex flex-col h-full">
+                <label className="text-[11px] font-black text-slate-400 tracking-[0.2em] uppercase px-1 mb-4">Embed Component Code</label>
+                <div className="flex-1 p-6 lg:p-10 bg-slate-50 border border-slate-200 rounded-[2.5rem] lg:rounded-[3rem] flex flex-col items-center justify-between gap-6 min-h-[360px] group transition-all w-full">
+                  <div 
+                    className="w-full flex-1 relative cursor-pointer group/code mt-2 overflow-hidden rounded-[1.5rem] lg:rounded-[2rem] border-2 transition-all shrink-0 min-h-[180px]"
+                    onClick={handleCopy}
+                  >
+                    <textarea
+                      readOnly
+                      className={cn(
+                        "w-full h-full p-5 lg:p-10 font-mono text-[11px] sm:text-[13px] lg:text-[15px] focus:outline-none resize-none leading-relaxed cursor-pointer transition-all",
+                        embedCopied ? "bg-emerald-900/10 border-emerald-500 text-emerald-700" : "bg-[#1e293b] text-emerald-400 border-transparent"
+                      )}
+                      value={embedCode}
+                    />
+                    <div className={cn(
+                      "absolute bottom-4 right-4 flex items-center justify-center transition-all",
+                      embedCopied ? "opacity-100" : "opacity-0 group-hover/code:opacity-100"
+                    )}>
+                      <div className={cn(
+                        "w-10 h-10 rounded-xl flex items-center justify-center shadow-xl transition-all",
+                        embedCopied ? "bg-emerald-500 text-white" : "bg-white text-[#0F172A] hover:bg-slate-50"
+                      )}>
+                        {embedCopied ? <CheckCircle2 className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="w-full flex items-center justify-center gap-2">
+                    <MousePointer2 className="w-4 h-4 text-emerald-500" />
+                    <p className="text-[12px] lg:text-[13px] text-slate-400 font-bold leading-relaxed text-center">
+                      Click anywhere on the code block to copy
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </DialogContent>

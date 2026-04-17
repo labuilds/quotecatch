@@ -109,7 +109,7 @@ export default function Home() {
               </h1>
 
               <p className="text-[16px] lg:text-[22px] text-slate-500 font-medium max-w-2xl mx-auto lg:mx-0">
-                Replace boring contact forms with QuoteCatch. Give homeowners instant estimates and book inspections automatically.
+                Replace boring contact forms with QuoteCatch. Qualify leads from your phone while you're in the field—via QR codes on your truck, social media, or door hangers.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 lg:gap-6 pt-2 lg:pt-4">
@@ -143,28 +143,67 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Feature Section Preview */}
-      <section id="features" className="py-16 lg:py-24 px-4 sm:px-6 bg-slate-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12 lg:mb-16">
-            <h2 className="text-[32px] lg:text-[42px] font-black text-[#0F172A] tracking-tight mb-3 lg:mb-4 leading-tight">Stop Driving to Tire-Kickers.</h2>
-            <p className="text-slate-500 text-[16px] lg:text-[18px] font-medium max-w-xl mx-auto px-4">We filter the serious buyers from the window shoppers before your phone even rings.</p>
+      {/* The 4-Step Lead Machine Section */}
+      <section className="py-20 lg:py-32 px-4 sm:px-6 bg-[#0F172A] relative overflow-hidden">
+        {/* Subtle decorative elements */}
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-red-900/10 rounded-full blur-[120px] -z-0" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[120px] -z-0" />
+        
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="text-center mb-10 lg:mb-16">
+            <h2 className="text-[36px] lg:text-[64px] font-black text-white tracking-tighter mb-2 lg:mb-3 leading-tight">
+              Win more with the <span className="text-red-500">Instant Lead Machine</span>
+            </h2>
+            <p className="text-slate-400 text-[18px] lg:text-[24px] font-medium max-w-2xl mx-auto px-4">
+              We've digitized the roofing sales process so you can close deals faster than you can climb a ladder.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-14">
             {[
-              { title: "Instant Ballpark Estimates", desc: "Homeowners get a rough price instantly, building trust while weeding out the low-ballers who can't afford your quality of work.", icon: (props: any) => <QCLogo {...props} /> },
-              { title: "Pre-Qualified Leads", desc: "By the time you call them, they already know the price range and are ready to talk financing or book a real inspection.", icon: MousePointer2 },
-              { title: "Remote Measurements (Pro)", desc: "Stop climbing roofs for free. Get exact square footage instantly using satellite data—right from your truck.", icon: Shield },
-            ].map((f, i) => (
-              <div key={i} className="bg-white p-8 lg:p-10 rounded-[2rem] lg:rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 group">
-                <div className="w-12 h-12 lg:w-14 lg:h-14 bg-red-50 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110">
-                  <f.icon className="w-6 h-6 lg:w-7 lg:h-7 text-red-700" size={28} />
+              { 
+                step: "STEP 1", 
+                title: "Create & Customize", 
+                desc: "Pick your materials, set your labor rates, and add your brand. Your estimator reflects your real business math.", 
+                icon: <QCLogo size={32} isDark={false} /> 
+              },
+              { 
+                step: "STEP 2", 
+                title: "Promote & Share", 
+                desc: "Put it everywhere. Share links on social media or download unique QR codes for your trucks, yard signs, and balloons.", 
+                icon: <Zap className="w-8 h-8 text-red-500" /> 
+              },
+              { 
+                step: "STEP 3", 
+                title: "Capture & Qualify", 
+                desc: "Homeowners get a detailed price instantly. You get a qualified job card with timeline, roof size, and contact info.", 
+                icon: <CheckCircle className="w-8 h-8 text-red-500" /> 
+              },
+              { 
+                step: "STEP 4", 
+                title: "Connect & Close", 
+                desc: "Prioritize leads effortlessly. Move faster while you're in the field and strike while the iron's hot.", 
+                icon: <ArrowRight className="w-8 h-8 text-red-500" /> 
+              },
+            ].map((s, i) => (
+              <div key={i} className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
+                <div className="w-16 h-16 bg-white/5 border border-white/10 rounded-[1.25rem] flex items-center justify-center mb-2">
+                  {s.icon}
                 </div>
-                <h4 className="text-[18px] lg:text-[20px] font-black text-[#0F172A] mb-2">{f.title}</h4>
-                <p className="text-slate-500 font-medium leading-relaxed text-[15px] lg:text-[16px]">{f.desc}</p>
+                <div className="space-y-3">
+                  <span className="text-[13px] font-black text-red-500 tracking-[0.2em] uppercase">{s.step}</span>
+                  <h4 className="text-[24px] lg:text-[28px] font-black text-white tracking-tight">{s.title}</h4>
+                  <p className="text-slate-400 font-medium leading-relaxed text-[16px] lg:text-[18px]">{s.desc}</p>
+                </div>
               </div>
             ))}
+          </div>
+          
+          <div className="mt-20 flex flex-col sm:flex-row items-center justify-center gap-6">
+            <Link href="/login?tab=signup" className="h-14 lg:h-16 px-10 bg-white text-[#0F172A] flex items-center justify-center gap-3 rounded-2xl font-black text-[16px] lg:text-[18px] hover:bg-slate-100 transition-all">
+              Try it now
+              <ArrowRight className="w-5 h-5" />
+            </Link>
           </div>
         </div>
       </section>
