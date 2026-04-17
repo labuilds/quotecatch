@@ -33,9 +33,9 @@ export default function Home() {
 
   const NavLinks = () => (
     <>
-      <a href="#features" className="hover:text-slate-900 transition-colors">Features</a>
-      <a href="#pricing" className="hover:text-slate-900 transition-colors">Pricing</a>
-      <a href="#demo" className="hover:text-slate-900 transition-colors">Demo</a>
+      <a href="/#features" className="hover:text-slate-900 transition-colors">Features</a>
+      <a href="/#pricing" className="hover:text-slate-900 transition-colors">Pricing</a>
+      <Link href="/tools" className="text-red-600 hover:text-red-700 transition-colors">Free Tools</Link>
     </>
   )
 
