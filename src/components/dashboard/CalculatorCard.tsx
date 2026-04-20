@@ -202,10 +202,10 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
             </Link>
             <Button
               variant="outline"
-              className="flex-[3] basis-0 h-12 rounded-2xl font-bold text-sm border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-[#0F172A] hover:border-slate-300 transition-all flex items-center justify-center p-0"
+              className="flex-[3] basis-0 h-12 rounded-2xl font-bold text-sm border-slate-200 text-slate-800 hover:bg-slate-50 hover:text-[#0F172A] hover:border-slate-300 transition-all flex items-center justify-center p-0"
               onClick={() => setShowShare(true)}
             >
-              <ExternalLink className="w-5 h-5" />
+              <ExternalLink className="w-5 h-5 opacity-90" />
             </Button>
           </CardFooter>
         </Card>
@@ -301,7 +301,7 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
                       onClick={handleDownloadQR}
                     >
                       <Download className="w-4 h-4" />
-                      Download High-Res
+                      Download QR
                     </Button>
                     <p className="text-[12px] lg:text-[13px] text-slate-400 font-bold px-1 leading-relaxed text-center">
                       Put this on your truck, lawn signs, or business cards.
