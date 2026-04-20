@@ -8,7 +8,14 @@ export interface ToolInput {
   description?: string;
   options?: string[];
 }
-
+export interface ToolConfig {
+  slug: string;
+  title: string;
+  seoDescription: string;
+  type: ToolType;
+  resultLabel: string;
+  inputs: ToolInput[];
+  compute: (values: Record<string, string>) => string;
   iconName?: string;
   faqs?: { question: string; answer: string }[];
 }
