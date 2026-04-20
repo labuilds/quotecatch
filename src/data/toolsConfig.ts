@@ -54,16 +54,16 @@ export const toolsConfig: ToolConfig[] = [
     },
     faqs: [
       { 
-        question: "What is the standard waste percentage for a simple gable roof?", 
-        answer: "A typical waste factor for a simple gable roof takes between 10% and 12%. This accounts for the standard overlaps and the relatively small amount of cutting required at the edges and ridges." 
+        question: "How can I optimize my company's shingle waste factor for standard gable projects?", 
+        answer: "For simple gable roofs, professional estimators should aim for a 10%–12% waste factor. This provides enough material for starter courses and ridge caps while maintaining lean inventory to maximize project profit margins." 
       },
       { 
-        question: "How much waste should I add for complex roofs with valleys and dormers?", 
-        answer: "For complex roofs, including hip designs or those with multiple dormers and valleys, you should increase your waste factor to 15%–20%. The diagonal cuts required in valleys significantly increase material loss compared to straight eave cuts." 
+        question: "What waste percentage should I quote for complex roofs with multiple valleys?", 
+        answer: "Complex designs with multiple valleys and dormers require a 15%–20% waste buffer. Accurately quoting this at the estimate stage prevents your crew from running short and the company from eating the cost of an emergency material 'hot run'." 
       },
       { 
-        question: "Does the roof pitch affect how much shingle waste I should order?", 
-        answer: "Yes, steep-slope roofs (8/12 pitch or higher) usually require an additional 2%–3% in waste. This compensates for the difficulty of handling materials on a vertical surface and the increased likelihood of shingle damage during installation." 
+        question: "How does roof pitch impact shingle waste in a commercial estimate?", 
+        answer: "Steep-slope projects (8/12 pitch and up) should include an additional 3% 'handling waste.' This accounts for the increased breakage rate and safety-related material loss common when crews are working on steep inclines." 
       }
     ]
   },
@@ -89,16 +89,16 @@ Would it be a total inconvenience if I took a quick look at your shingles while 
     },
     faqs: [
       { 
-        question: "What are the best hours for door knocking on roofing prospective leads?", 
-        answer: "The most effective times are typically 'The Golden Hour' between 4:00 PM and 7:30 PM on weekdays, or Saturdays from 10:00 AM to 4:00 PM. This is when homeowners are most likely to be home and available to discuss their property's health after a storm." 
+        question: "What are the peak operational hours for a post-storm door knocking team?", 
+        answer: "For maximum lead ROI, schedule your canvassers for 'The Golden Window' (4:00 PM – 7:30 PM) on weekdays. This timing ensures the highest 'homeowner-on-site' rate, significantly reducing your cost-per-lead compared to morning shifts." 
       },
       { 
-        question: "How do I start a conversation using a door-knocking script effectively?", 
-        answer: "Use the 'SLAP' formula: Start with a friendly greeting, Let them know why you're there (mention a neighbor's roof or recent storm activity), Ask an open-ended question about their roof, and Present a low-risk offer like a free inspection." 
+        question: "How can I train my sales reps to use the SLAP formula effectively?", 
+        answer: "Train reps to lead with Social proof (mentioning a nearby neighbor) and then immediately offer a low-friction inspection. The goal is to move from the 'annoying salesman' category to the 'helpful local expert' category within the first 15 seconds." 
       },
       { 
-        question: "What should I do if a homeowner says no to a full roof inspection?", 
-        answer: "Focus on providing immediate, low-stakes value. Offer a quick 'structural health check' of their gutters or downspouts to look for hail clues, which can often lead to a deeper conversation about the roof without feeling pushy." 
+        question: "How should my team handle a 'no' during door knocking sessions?", 
+        answer: "Reframe a 'no' as a request for lower stakes. Have reps offer a quick '5-minute gutter wellness check' from the ground. This often opens the door to a full roof inspection once the homeowner sees a tangible, non-threatening professional at work." 
       }
     ]
   },
@@ -130,16 +130,16 @@ ${values.companyName || 'The Team'}
     },
     faqs: [
       { 
-        question: "How many days should I wait before sending a follow-up email after an estimate?", 
-        answer: "A good rule of thumb is to send your first follow-up email 2–3 days after providing the estimate. This keeps your company top-of-mind while they are still in the decision-making phase without being overwhelming." 
+        question: "What is the industry benchmark for roofing estimate follow-up timing?", 
+        answer: "Top-performing roofing companies send the first follow-up within 24–48 hours of estimate delivery. This ensures your bid remains top-of-mind before the homeowner receives competing quotes from other local contractors." 
       },
       { 
-        question: "What is the most effective subject line for a roofing estimate follow-up?", 
-        answer: "The highest-performing subject lines are personal and direct, such as 'Quick question about your roofing project' or 'Checking in on your roofing estimate.' Avoid sales-heavy language that might trigger spam filters or homeowner 'blindness'." 
+        question: "How can I optimize follow-up subject lines for higher open rates?", 
+        answer: "Use direct, client-specific subject lines like 'Update on your [Street Name] roof' or 'Question about your estimate.' Professionalism in the subject line increases your 'pro status' and separates you from automated spam outreach." 
       },
       { 
-        question: "How many times should I follow up on a roofing lead before stopping?", 
-        answer: "Most successful contractors follow up 3–5 times over the course of two weeks. If you haven't received a response after the 10-day mark, send a 'Gentle Nudge' email asking if they've made other arrangements." 
+        question: "How many touchpoints should be in a roofing sales follow-up sequence?", 
+        answer: "A standard high-conversion sequence includes 4 touchpoints over 10 days: a personal email, a check-in phone call, a second email with a 'social proof' case study, and a final 'break-up' email to clear your pipeline." 
       }
     ]
   },
@@ -169,16 +169,16 @@ ${values.companyName || 'The Team'}
     },
     faqs: [
       { 
-        question: "How much does metal roofing cost per square in 2026?", 
-        answer: "As of 2026, metal roofing typically costs between $700 and $2,900 per square (100 sq. ft.) installed. The wide range is due to the difference between affordable corrugated panels and premium standing seam or copper options." 
+        question: "How should I calculate my base rate for metal roofing in a volatile market?", 
+        answer: "In 2026, set your base rate for standard 26G metal at $900–$1,100 per square. Adjust this monthly based on steel index changes to ensure your material cost-of-goods-sold (COGS) doesn't erode your final project margin." 
       },
       { 
-        question: "Which metal roofing material provides the best value for the money?", 
-        answer: "Galvanized steel and aluminum are the best value options, typically costing $400–$1,400 per square for materials. Aluminum is particularly favored in coastal areas because it doesn't rust, significantly increasing its lifespan and ROI." 
+        question: "What is the sales ROI for pitching aluminum over galvanized steel?", 
+        answer: "Pitching aluminum in coastal regions offers a 2x ROI on customer satisfaction and reduced warranty calls. While the material cost is 15-20% higher, the corrosion resistance allows you to command a premium price and eliminate salt-air rust disputes." 
       },
       { 
-        question: "Does the design of a metal roof increase the labor cost significantly?", 
-        answer: "Yes, complex designs with many hips, valleys, or dormers can increase labor costs by 15%–25%. Specialized trim and flashing requirements for these features require much more precision work than a standard asphalt install." 
+        question: "How much should I mark up labor for complex metal roof designs?", 
+        answer: "Difficult designs with multiple hips and valleys should carry a 25%–40% labor markup. The precision required for custom trim and flashing in metal roofing is significantly higher than asphalt, requiring more expert man-hours." 
       }
     ]
   },
@@ -201,16 +201,16 @@ ${values.companyName || 'The Team'}
     },
     faqs: [
       { 
-        question: "How many shingle bundles do I need to cover one roofing square?", 
-        answer: "It takes exactly 3 standard bundles of asphalt shingles to cover one roofing square (100 square feet). Each bundle typically covers 33.3 square feet, so ordering by the '3-bundle rule' ensures you match your measured area perfectly." 
+        question: "How can I prevent inventory bloat when ordering by the bundle?", 
+        answer: "Use the '3-bundle rule' (3 bundles = 1 square) for consistent ordering. Rounding up to the nearest bundle for every hip and valley cut prevents excess material left in the warehouse while ensuring my crew finishes the job on time." 
       },
       { 
-        question: "How many shingles are in a standard bundle for 3-tab vs. architectural shingles?", 
-        answer: "A bundle of 3-tab shingles typically contains 26–29 pieces, while architectural (dimensional) shingles usually have 20–24 pieces. This is because architectural shingles are thicker and heavier per piece, covering more area with fewer physical units." 
+        question: "What is the margin difference between ordering 3-tab vs. architectural shingle bundles?", 
+        answer: "Architectural shingles often have a higher net profit margin due to perceived homeowner value, even though the labor cost is nearly identical to 3-tab. Always lead your sales pitch with the 'Dimensional' bundle upgrade." 
       },
       { 
-        question: "How many bundles should I order for a 20 square roof including waste?", 
-        answer: "For a 20 square roof, you should order 66 bundles if using a 10% waste factor (20 squares + 2 waste squares = 22 squares total). This gives you 60 bundles for the main field and 6 extra for starter courses, ridges, and cuts." 
+        question: "Should I order separate bundles for starter shingles and ridge caps?", 
+        answer: "Yes; for professional results and full manufacturer warranty compliance, always order designated starter and ridge bundles. Avoid the practice of cutting field shingles for these zones to save time and reduce wasted man-hours." 
       }
     ]
   },
@@ -232,16 +232,16 @@ ${values.companyName || 'The Team'}
     },
     faqs: [
       { 
-        question: "How is a roof pitch multiplier calculated using the Pythagorean theorem?", 
-        answer: "The multiplier is found by calculating the hypotenuse of a right angle where the 'run' (base) is 12 and the 'rise' (height) is your roof's pitch. Dividing this rafter length by the 12-inch run gives you a precise decimal multiplier used to find true surface area from a flat footprint." 
+        question: "How can I explain the pitch multiplier to a client to justify material costs?", 
+        answer: "Frame it as the 'true surface area' conversation. A 1,000 sq. ft. footprint on a 4/12 pitch is actually ~1,054 sq. ft. of roofing surface. Showing clients the multiplier data builds trust and prevents disputes when your estimate reflects more squares than the floor plan suggest." 
       },
       { 
-        question: "Why do I need to use a pitch multiplier for roofing estimates?", 
-        answer: "A flat blueprint only shows the 'projected' area of a house, but sloped roofs have more surface area than their footprint. Multiplying the footprint square footage by the pitch multiplier ensures you order enough shingles to cover the actual incline of the rafters." 
+        question: "What is the risk of not using a precise pitch multiplier during estimation?", 
+        answer: "Inaccurate multipliers lead to 'short-orders.' Forgetting the 1.2019 multiplier on an 8/12 roof can leave your crew 20% short on shingles, forcing expensive job site delays and potentially leading to color-match issues with a second material order." 
       },
       { 
-        question: "What is the pitch multiplier for common slopes like 4/12 or 8/12?", 
-        answer: "For a standard 4/12 pitch, the multiplier is approximately 1.054, while a steeper 8/12 pitch requires a 1.2019 multiplier. These decimals represent the percentage increase in material needed compared to a flat roof of the same dimensions." 
+        question: "Do pitch multipliers change for hip roofs vs. gable roofs?", 
+        answer: "The multiplier for surface area remains the same based on the slope; however, you must add an extra 3%–5% to your waste factor for hip roofs to account for the triangular cuts required along the hip lines, even if using an accurate pitch multiplier." 
       }
     ]
   },
@@ -267,16 +267,16 @@ ${values.companyName || 'The Team'}
     },
     faqs: [
       { 
-        question: "What is the average cost per square foot for TPO roofing in 2026?", 
-        answer: "As of 2026, TPO roofing typically costs between $5.00 and $12.00 per square foot installed. This range accounts for membrane thickness (45, 60, or 80 mil) and whether the system is mechanically fastened or fully adhered." 
+        question: "How should I scope TPO membrane thickness for maximum project longevity?", 
+        answer: "Always lead with 60-mil or 80-mil TPO for commercial bids. While 45-mil is cheaper, the increased puncture resistance of thicker membranes reduces your 10-year warranty liability and provides a more 'premium' positioning for your bid." 
       },
       { 
-        question: "Does adding rigid insulation increase the cost of a TPO roof significantly?", 
-        answer: "Yes, adding Polyiso insulation can increase your budget by $1.50 to $4.50 per square foot depending on the R-value required. Tapered insulation systems, designed to create slope for drainage on flat decks, are at the higher end of this price spectrum." 
+        question: "What are the profit implications of a fully adhered TPO system vs. mechanically fastened?", 
+        answer: "Fully adhered systems require significantly more labor and adhesive costs, adding ~$1.50–$2.25 per sq. ft. to the baseline. However, they offer superior wind-uplift ratings, allowing you to charge a higher premium for high-wind-zone commercial building owners." 
       },
       { 
-        question: "Why is a commercial TPO inspection more expensive than a residential one?", 
-        answer: "Commercial roofs often require specialized thermal imaging or electronic leak detection to find water trapped beneath the membrane. These diagnostic tools, combined with the safety requirements for large-scale buildings, drive up professional assessment costs." 
+        question: "When should I recommend a tapered insulation system to a commercial client?", 
+        answer: "If the property has 'ponding water' issues on a flat deck, a tapered system is mandatory. Explain to the client that while the upfront cost is higher, it prevents premature membrane failure and is the only way to meet most 20-year NDL (No Dollar Limit) warranty requirements." 
       }
     ]
   },
@@ -306,16 +306,16 @@ This system comes with our industry-leading ${values.warranty || 'lifetime'} yea
     },
     faqs: [
       { 
-        question: "What are the most important elements to include in a roofing proposal?", 
-        answer: "A high-converting proposal must include a detailed scope of work, specific material brands (e.g., GAF or Owens Corning), and a transparent breakdown of labor and disposal costs. Clear warranty terms and a firm project timeline are also essential." 
+        question: "What are the 'Closing Triggers' I should include in my roofing proposals?", 
+        answer: "Use 'Scarcity' and 'Trust' triggers. Mention your next available start date (to drive urgency) and clearly display your Platinum/Master Elite status. High-res photos of the specific damage on their roof (rather than stock photos) are the single highest converting element in a proposal." 
       },
       { 
-        question: "Should a roofing proposal include a workmanship warranty?", 
-        answer: "Absolutely; most professional roofing proposals offer a workmanship warranty ranging from 5 to 25 years. This protects the homeowner against installation errors and is often the deciding factor when comparing multiple contractor bids." 
+        question: "How should I structure my workmanship warranty to outperform local competitors?", 
+        answer: "Offer a '5-Year No-Leak' guarantee as standard, but offer a 10-year or 25-year upgrade as part of a premium material package. This allows you to upsell higher-margin shingles while providing higher perceived value than 'tail-light' contractors." 
       },
       { 
-        question: "How does a detailed scope of work help prevent project disputes?", 
-        answer: "By itemizing every task—from the multi-layer tear-off to the installation of ice and water shields—you set clear expectations. This prevents 'hidden' costs later on and ensures the homeowner understands exactly what they are paying for." 
+        question: "How can a detailed scope of work prevent profit-eating 'scope creep'?", 
+        answer: "By itemizing everything—from the number of pipe boots replaced to the linear footage of ice and water shield—you eliminate 'he-said, she-said' disputes. If the client asks for extra work during the job, the detailed scope makes it easy to issue a change order for more revenue." 
       }
     ]
   },
@@ -340,16 +340,16 @@ This system comes with our industry-leading ${values.warranty || 'lifetime'} yea
     },
     faqs: [
       { 
-        question: "How many downspouts are required per linear foot of gutter?", 
-        answer: "Industry standards generally require one downspout for every 30 to 40 linear feet of guttering to prevent overflow during heavy rain. If your roof has a large surface area or a steep pitch, you should decrease this spacing to every 20-25 feet for better drainage." 
+        question: "What is the professional standard for downspout spacing to prevent callbacks?", 
+        answer: "Install one downspout for every 30–40 linear feet. Reducing this to 20 feet for steep-slope or large-area roofs prevents overflows, protecting your business from water damage liability and customer complaints during heavy deluges." 
       },
       { 
-        question: "What is the best location to place downspouts on a residential home?", 
-        answer: "Downspouts should be placed at the corners of the house wherever possible, ideally away from high-traffic walkways. Ensuring they discharge at least 5 to 10 feet away from the foundation is critical to preventing basement flooding." 
+        question: "Why should my crew always prioritize downspout discharge zones?", 
+        answer: "Improper discharge is the #1 cause of foundation disputes after a roof/gutter job. Ensuring downspouts discharge 5-10 feet away from the basement wall is a low-cost step that prevents massive legal headaches and negative reviews." 
       },
       { 
-        question: "Does the size of my gutter (5-inch vs 6-inch) change the downspout requirement?", 
-        answer: "Yes, 6-inch gutters can handle nearly 50% more water volume, which may allow for slightly wider downspout spacing. However, the bottleneck is usually the downspout itself, so using 3x4 inch downspouts is recommended for larger gutter systems." 
+        question: "Should I upsell 6-inch gutters on all residential shingle projects?", 
+        answer: "Yes; 6-inch gutters handle ~50% more volume than 5-inch systems. Upselling the larger system as 'Commercial Grade Protection' for a residential home increases your project ticket size by $500–$1,200 with minimal additional labor cost." 
       }
     ]
   },
@@ -371,16 +371,16 @@ This system comes with our industry-leading ${values.warranty || 'lifetime'} yea
     },
     faqs: [
       { 
-        question: "What is the difference between the 1:150 and 1:300 ventilation rules?", 
-        answer: "The 1:150 rule requires 1 sq. ft. of ventilation for every 150 sq. ft. of attic floor, used for older homes without vapor barriers. Modern homes with balanced intake and exhaust systems often qualify for the 1:300 rule, which is the current efficiency standard." 
+        question: "How can I explain the 1:150 vs 1:300 rule to a client during an upsell?", 
+        answer: "Frame it as 'Attic Health.' Explain that properly balancing intake and exhaust (the 1:300 rule) is required by shingle manufacturers to maintain the lifetime warranty. This justification makes it much easier to include high-margin ridge vents and soffit intakes in your bid." 
       },
       { 
-        question: "How do I calculate Net Free Area (NFA) for attic vents?", 
-        answer: "NFA is calculated by dividing your total attic square footage by your target ratio (e.g., 300) and then multiplying by 144 to get square inches. This number tells you the total amount of 'empty space' needed in your vents to allow proper airflow." 
+        question: "What are the common liability risks of unbalanced intake and exhaust?", 
+        answer: "Unbalanced systems create a 'vacuum' that sucks conditioned air into the attic, causing ice dams in winter and shingle 'cooking' in summer. Ensuring a 50/50 split protects you from shingles-failure warranty claims and keeps the homeowner's energy bills low." 
       },
       { 
-        question: "Why must attic ventilation be balanced between intake and exhaust?", 
-        answer: "Unbalanced ventilation can create a 'vacuum' effect that pulls conditioned air from your living space into the attic. A 50/50 split between soffit intake and ridge exhaust ensures a continuous flow of air that keeps the roof deck cool and dry." 
+        question: "Should I replace old-style box vents with a ridge vent system on every job?", 
+        answer: "In most cases, yes. Continuous ridge ventilation provides much more uniform airflow than box vents and is a cleaner aesthetic look. It’s a standard 'Best Practice' upgrade that allows you to offer a premium workmanship guarantee." 
       }
     ]
   },
@@ -401,16 +401,16 @@ I'd love to invite you into our "Refer-a-Neighbor" program where we'll send you 
     },
     faqs: [
       { 
-        question: "What are the best incentives for a roofing referral program?", 
-        answer: "The most effective incentives are direct cash bonuses or gift cards ranging from $50 to $250. 'Two-sided' incentives, where you reward both the referrer and the new customer with a discount, often see the highest conversion rates." 
+        question: "How can I use a referral program to reduce my average cost-per-lead?", 
+        answer: "Referrals are your lowest-cost lead source. By offering a $100–$250 'Refer-a-Neighbor' bonus, you can acquire high-converting leads for a fraction of the cost of Google Ads or door-knocking labor, significantly padding your net profits." 
       },
       { 
-        question: "How should a roofing contractor ask a happy customer for a referral?", 
-        answer: "The best approach is to wait until the final walkthrough or sign-off when the customer is most satisfied. Use a helpful script that highlights your 'Refer-a-Neighbor' program and mentions that most of your business comes from local word-of-mouth." 
+        question: "What is the best way to ask a 'High-NPS' client for a written review or referral?", 
+        answer: "Ask during the final walkthrough while the yard is clean and the new roof look is fresh. Use a script that positions their referral as 'helping their neighbors work with a licensed pro' rather than just making you more money." 
       },
       { 
-        question: "When is the most effective time to launch a referral request?", 
-        answer: "While the initial request should happen at the job's completion, a follow-up 3-6 months later is also highly effective. This reminds the homeowner about the program just as their neighbors might start noticing the roof's durability." 
+        question: "How often should I follow up with former clients for new referrals?", 
+        answer: "Schedule a '1-Year Wellness Check' email. Ask how the roof is holding up and remind them of your referral incentive. This keeps your brand top-of-mind just as their friends and family might be starting their own home projects." 
       }
     ]
   },
@@ -437,16 +437,16 @@ We look forward to meeting your adjuster at the property to ensure the homeowner
     },
     faqs: [
       { 
-        question: "What are the common reasons for appealing a denied roof insurance claim?", 
-        answer: "Appeals are often triggered by adjusters misidentifying storm damage as 'age-related wear' or failing to document functional damage. Providing independent documentation from a licensed contractor with high-resolution photos of hail impacts is key to winning an appeal." 
+        question: "How should my sales team identify 'Appeatable' hail damage?", 
+        answer: "Look for 'Functional Damage'—fractures in the asphalt mat or bruises that compromise the waterproofing. Adjusters often deny 'cosmetic' hail, so your team must document how the impact reduces the roof's expected lifespan." 
       },
       { 
-        question: "Can a claim be appealed if it was denied for being 'cosmetic' damage?", 
-        answer: "Yes, if you can prove the 'cosmetic' damage compromises the long-term waterproofing or structural integrity of the roof, the denial can be overturned. This usually requires a technical report explaining how the impact damaged the mat." 
+        question: "What are the key technical terms to use in a claim appeal letter?", 
+        answer: "Use industry-standard terms like 'granule loss leading to UV degradation,' 'creased shingles,' and 'compromised mat integrity.' These terms force the carrier to address the technical failure rather than dismissing it as an aesthetic issue." 
       },
       { 
-        question: "What evidence is needed to successfully appeal a roofing claim denial?", 
-        answer: "You should provide dated photos, local weather data confirming the storm event, and a professional contractor's estimate. Demonstrating 'recent and functional' damage rather than 'gradual and cosmetic' is the most powerful argument." 
+        question: "How can my company build a relationship with local adjusters to increase approval rates?", 
+        answer: "Be at the property for the adjustment. Provide the adjuster with a pre-marked 'Damage Map' and high-res photos. Being helpful and professional rather than adversarial is the single fastest way to get your claims approved on the first try." 
       }
     ]
   },
@@ -467,16 +467,16 @@ I'd love to see if we can still honor that old quote before the new pricing kick
     },
     faqs: [
       { 
-        question: "What is the best way to contact a cold roofing lead from six months ago?", 
-        answer: "The most effective method is a 'soft' follow-up that leads with a value-driven reason, such as upcoming material price increases or a seasonal maintenance check. This reactivates the conversation without being pushy." 
+        question: "How can I leverage material price increases to reactivate cold roofing leads?", 
+        answer: "Lead with the data. Informing aged leads that shingles prices are scheduled for an 8%–12% hike next month creates genuine urgency. Professional contractors use this 'Price Protection' window to close leads that have been stagnant for 6+ months." 
       },
       { 
-        question: "Why do most roofing leads go cold after the initial estimate?", 
-        answer: "Most leads stagnate due to decision fatigue or sticker shock from the high cost of replacement. Reaching out with financing options or a smaller repair-based 'entry offer' can often lower the barrier to entry and get them on the phone." 
+        question: "What is the industry benchmark for aged lead conversion in roofing?", 
+        answer: "A well-executed reactivation campaign should see a 5%–10% conversion rate of cold estimates. Focus on lowering the barrier to entry by offering financing options or a no-cost 'secondary inspection' to identify any new storm damage that occurred since your first visit." 
       },
       { 
-        question: "How often should I run a database reactivation campaign for roofing?", 
-        answer: "Running a reactivation campaign every 3 to 6 months is an industry best practice. This timing aligns with seasonal transitions and ensures you stay top-of-mind before the lead decides to call a different contractor." 
+        question: "How should my sales team handle a lead that went to a 'Tail-Light' contractor?", 
+        answer: "Position your company as the 'Project Correction' expert. Ask if they’ve received a copy of the permit yet or if the contractor provided a workmanship warranty. Often, homeowners realize the risk of the cheaper bid and pivot back to a licensed professional." 
       }
     ]
   },
@@ -501,16 +501,16 @@ I'd love to see if we can still honor that old quote before the new pricing kick
     },
     faqs: [
       { 
-        question: "How much does vinyl siding cost per square foot installed in 2026?", 
-        answer: "In 2026, professional installation for vinyl siding typically ranges from $4.00 to $12.00 per square foot. This includes the cost of materials ($3-$7) and labor ($2.50-$5.00), depending on the siding's thickness and local rates." 
+        question: "How should I set my labor rate for vertical Board & Batten siding installation?", 
+        answer: "Always add a 15%–20% labor premium for vertical siding. The requirement for extra furring strips and more complex trimming at the eaves significantly increases man-hours compared to standard horizontal laps." 
       },
       { 
-        question: "What is the price difference between standard and insulated vinyl siding?", 
-        answer: "Insulated vinyl siding generally costs 30% to 50% more than standard panels, averaging $8.00 to $12.00 per square foot installed. However, the higher upfront cost is often offset by improved R-value and a more premium appearance." 
+        question: "What is the sales ROI of upselling insulated vinyl siding to homeowners?", 
+        answer: "Insulated vinyl allows you to position the project as an 'Energy Upgrade' rather than just an aesthetic change. Though the material costs 40% more, it supports a much higher markup and reduces call-backs related to panel 'noise' and expansion warping." 
       },
       { 
-        question: "Does horizontal vs vertical siding affect the total installation cost?", 
-        answer: "Yes, vertical siding (like board and batten) is often 10% to 20% more expensive due to additional furring strips and specialized trimming required. It is also more labor-intensive to install properly to ensure a waterproof finish." 
+        question: "How can I maintain siding project margins during material price volatility?", 
+        answer: "Include a 30-day expiration on all siding quotes. Work with your local supplier to secure 'lock-in' pricing on popular colors (like charcoal or deep blues) to ensure you aren't eating price hikes between the estimate and the install date." 
       }
     ]
   },
@@ -535,16 +535,16 @@ I'd love to see if we can still honor that old quote before the new pricing kick
     },
     faqs: [
       { 
-        question: "How many bundles of cedar shakes are in a roofing square?", 
-        answer: "The number of bundles per square depends on your chosen exposure. For a standard 5-inch exposure, you'll need 5 bundles per square, whereas a 7.5-inch exposure reduces the requirement to 4 bundles per square (100 sq. ft)." 
+        question: "Why should my company only quote 'Blue Label' cedar for primary structures?", 
+        answer: "No. 1 Blue Label shakes are 100% edge-grain and clear of knots. Recommending lower grades (Red Label) for a main roof creates a massive liability for leaks and warping, which will cost your company more in warranty calls than you save on material." 
       },
       { 
-        question: "What is the difference between No. 1 and No. 2 grade cedar shakes?", 
-        answer: "No. 1 Blue Label shakes are 100% edge-grain and clear of knots, offering the highest durability. No. 2 Red Label shakes contain some flat grain and limited knots, making them a more budget-friendly option for secondary structures." 
+        question: "How can I explain bundle-per-square counts to justify a premium cedar bid?", 
+        answer: "Focus on 'Triple-Coverage.' Explain that at a 5-inch exposure, you are providing three layers of cedar at every point of the roof. This technical justification makes your high-bundle-count bid look like 'Superior Protection' compared to a low-exposure, cheaper competitor." 
       },
       { 
-        question: "How does the 'exposure' of a cedar shake affect the roof's lifespan?", 
-        answer: "Lower exposure (5 inches) increases the 'triple-coverage' area, providing better protection against moisture. While a higher exposure (7.5 inches) uses less material, it may slightly reduce the absolute lifespan in high-moisture climates." 
+        question: "What is the professional standard for cedar shake underlayment?", 
+        answer: "Always use a specialized breathable underlayment (like Cedar Breather) to prevent rot. Adding this $0.50–$0.75 per sq. ft. material prevents common moisture trap issues, allowing you to offer a much stronger 25-year workmanship warranty." 
       }
     ]
   },
@@ -570,16 +570,16 @@ I'd love to see if we can still honor that old quote before the new pricing kick
     },
     faqs: [
       { 
-        question: "What is the difference between soft washing and pressure washing for roofs?", 
-        answer: "Soft washing uses low-pressure water and specialized detergents to kill algae and moss at the root without damaging shingles. Traditional pressure washing uses high-force water that can strip away protective granules and force moisture under the roof deck, leading to premature leaks." 
+        question: "How can I add roof soft-washing as a high-margin service to my roofing business?", 
+        answer: "Soft-washing has a 70%–80% profit margin and is an easy 'maintenance upsell' after any inspection. Position it as a way to 'extend the life of your existing roof' for clients who aren't ready for a full $20,000 replacement yet." 
       },
       { 
-        question: "How much does a professional roof cleaning cost in 2026?", 
-        answer: "Residential roof cleaning typically ranges from $0.30 to $0.75 per square foot, depending on the moss levels and the cleaning method used. Steep roofs that require harness safety systems or specialized chemical treatments for heavy lichen may be at the higher end of the pricing spectrum." 
+        question: "What are the common liability pitfalls of pressure washing shingles?", 
+        answer: "Pressure washing is a massive liability. High-force water strips away protective granules, potentially voiding the manufacturer's warranty and shortening the roof's life. Only use soft-wash chemical systems to protect your business's reputation and avoid damage claims." 
       },
       { 
-        question: "Will soft washing damage my plants or landscaping?", 
-        answer: "Professional roofing crews use biodegradable detergents and pre-rinse all vegetation to ensure your plants are protected. As long as the manufacturer's dilution ratios are followed and the property is thoroughly rinsed, soft washing is safe for most standard landscaping." 
+        question: "Should I charge extra for moss removal on steep-slope roofs?", 
+        answer: "Yes; any roof requiring a harness safety system should carry a 20%–30% 'steep-slope premium.' The added time for anchoring and the increased risk to your technicians must be reflected in your service ticket to maintain target profitability." 
       }
     ]
   },
@@ -603,16 +603,16 @@ I'd love to see if we can still honor that old quote before the new pricing kick
     },
     faqs: [
       { 
-        question: "How much does it cost to replace a skylight during a roof replacement?", 
-        answer: "Replacing an existing skylight while the roof is already torn off typically costs between $900 and $1,800. This is significantly cheaper than a standalone installation because the labor for flashing and shingle integration is already being performed as part of the total roof project." 
+        question: "How should I price skylight replacements during a full roof tear-off?", 
+        answer: "Since your crew is already doing the labor for flashing and shingle tie-ins, you can offer a $500–$800 discount on skylight replacements compared to standalone installs. This 'bundled price' makes the upsell nearly irresistible to homeowners during a reroof." 
       },
       { 
-        question: "Is solar-powered venting worth the additional cost for a skylight?", 
-        answer: "Solar-powered skylights often qualify for a 26-30% federal tax credit on the total cost of the unit and installation labor, making them comparable in price to manual venting units. They also feature rain sensors that automatically close the vent at the first sign of moisture." 
+        question: "What is the sales advantage of pitching solar-powered skylights?", 
+        answer: "Position the 26%-30% federal tax credit (Section 25D). Because the credit covers the entire cost of the unit and the installation labor, your client effectively gets an automated, solar-venting unit for the same price as a manual sky-light." 
       },
       { 
-        question: "Can I install a skylight on a flat or low-slope roof?", 
-        answer: "Yes, specialized 'curb-mounted' skylights are designed specifically for flat or low-slope TPO and EPDM roofs. These require a built-up wooden curb to ensure water flows around the unit rather than pooling against the flashing, preventing long-term leaks." 
+        question: "How can I prevent leaks on low-slope skylight installations?", 
+        answer: "Always use curb-mounted skylights for roofs below a 3/12 pitch. Building a professional wooden curb ensures water flows around the unit rather than pooling on the frame—eliminating the #1 source of skylight callbacks for flat-roof TPO projects." 
       }
     ]
   },
@@ -636,16 +636,16 @@ I'd love to see if we can still honor that old quote before the new pricing kick
     },
     faqs: [
       { 
-        question: "How do I calculate how many solar panels will fit on my roof?", 
-        answer: "A reliable estimate is to multiply your usable south-facing roof area by 0.75 to account for fire code setbacks and vents. Dividing this adjusted square footage by 18 (the average size of a 400W panel) tells you the maximum number of panels your roof can support." 
+        question: "How should I calculate 'usable' area for a solar-ready roof installation?", 
+        answer: "Always subtract 3-foot pathways from all ridges and eaves for fire code compliance. When pitching a reroof, show the client their 'Usable Solar Zone' vs. 'Setback Zone' to demonstrate your technical expertise in modern roofing standards." 
       },
       { 
-        question: "What is the standard fire department setback for roof-mounted solar?", 
-        answer: "Most local building codes require a 3-foot 'pathway' along the ridges and eaves to allow firefighters safe access. This setback reduces the usable area for panels but is essential for safety and ensuring your solar installation passes final building inspections." 
+        question: "What is the ROI potential for upselling 'Solar-Ready' underlayment?", 
+        answer: "High-temperature underlayment (like Grace Ice & Water Shield HT) is essential for roofs getting solar later. Upselling this premium product now protects the shingles from the extreme heat trapped under solar panels, allowing you to charge a $0.50–$1.00 per sq. ft. premium." 
       },
       { 
-        question: "How many kW of solar power does the average home roof produce?", 
-        answer: "A typical residential installation produces between 5kW and 12kW of peak power, depending on the number of south-facing roof faces available. Modern 400W panels allow homeowners to generate significantly more power in less square footage." 
+        question: "How can a solar capacity estimate help me close higher roofing tickets?", 
+        answer: "By demonstrating how many kW their roof can produce, you position your roofing company as an energy consultant. This adds a 'high-tech' layer to your brand that local 'shingle slingers' can't match, allowing you to command higher margins." 
       }
     ]
   },
@@ -673,16 +673,16 @@ I'd love to see if we can still honor that old quote before the new pricing kick
     },
     faqs: [
       { 
-        question: "What are the federal laws for paying overtime to roofing crews?", 
-        answer: "Under the FLSA, all non-exempt workers must be paid time-and-a-half for every hour worked over 40 in a single workweek. This applies even if you pay your crew on a 'piece-rate' or 'per square' basis, which is a common point of legal liability for roofing contractors." 
+        question: "How can I ensure my piece-rate roofing crew is FLSA compliant for overtime?", 
+        answer: "By law, piece-rate workers are entitled to overtime pay based on their 'regular rate of pay' for that week. Calculate the total earnings divided by total hours; if they exceed 40, you must pay an additional half-time premium to avoid massive DOL back-wage penalties." 
       },
       { 
-        question: "Do 'per square' payments exempt a contractor from overtime requirements?", 
-        answer: "No, piece-rate workers are still entitled to overtime pay based on their 'regular rate of pay' for that week. Failing to calculate and pay this additional half-time for hours over 40 can lead to back-wage penalties and Department of Labor audits." 
+        question: "What is the biggest labor liability for roofing companies using subcontractors?", 
+        answer: "Misclassification. If you control the crew's schedule, provide their tools, and dictate every movement, the IRS may classify them as W-2 employees. Using a robust 1099 subcontractor agreement is vital to prove their independent contractor status." 
       },
       { 
-        question: "How does 1099 vs W-2 status affect roofing labor costs?", 
-        answer: "Legitimately classified W-2 employees require you to pay for workers' comp, social security, and overtime, which adds 20-30% to your raw labor cost. 1099 subcontractors are responsible for their own taxes and insurance, but they must meet strict 'independent contractor' criteria." 
+        question: "How should I budget for workers' comp premiums in my labor estimates?", 
+        answer: "Roofing has some of the highest workers' comp rates in the industry (~$20–$40 per $100 of payroll). Ensure your labor quote includes this 'burdened' cost to protect your net profit from being eroded by end-of-year insurance audits." 
       }
     ]
   },
@@ -707,16 +707,16 @@ I'd love to see if we can still honor that old quote before the new pricing kick
     },
     faqs: [
       { 
-        question: "What is the average cost to replace a single broken roof tile?", 
-        answer: "Replacing a few tiles typically involves a base 'trip charge' of $250 to $450 plus $20 to $40 per tile. The price is higher than standard shingles because the repair requires carefully sliding out adjacent tiles and ensuring the underlying 'head-lap' remains waterproof." 
+        question: "How should I structure my 'Trip Charge' for small tile repair jobs?", 
+        answer: "Always charge a minimum flat-fee 'mobilization charge' ($350–$500) regardless of the tile count. This covers the cost of travel, safety setup, and the high-liability risk of walking on fragile concrete or clay tiles." 
       },
       { 
-        question: "Why are clay S-tiles more expensive to repair than concrete tiles?", 
-        answer: "Clay tiles are more fragile and often require specialized sourcing to match the color and profile of older installations. The labor is also more intensive because contractors must be extremely careful not to break additional tiles while walking on the roof surface." 
+        question: "What is the secret to sourcing matching tiles for older roof repairs?", 
+        answer: "Keep a 'Boneyard' of salvaged tiles from your full replacement jobs. Being able to offer an immediate match for a 20-year-old Monier or Eagle tile profile allows you to charge a premium for your 'expert sourcing' and immediate job completion." 
       },
       { 
-        question: "Can I glue a broken roof tile back together instead of replacing it?", 
-        answer: "Using tile adhesive is acceptable for minor corner chips, but a clean break through the center of the tile requires a full replacement. Glued tiles eventually fail due to thermal expansion and contraction, allowing UV damage to penetrate the underlayment." 
+        question: "How can I prevent crew members from breaking extra tiles during a repair?", 
+        answer: "Enforce a 'Walk on the Laps' rule. Tiles are strongest where they overlap the battens. Professional crews should also use foam walking pads or specialized roofing ladders to distribute weight evenly and eliminate the cost of collateral damage." 
       }
     ]
   },
@@ -741,16 +741,16 @@ I'd love to see if we can still honor that old quote before the new pricing kick
     },
     faqs: [
       { 
-        question: "How many rows of snow guards are needed for a metal roof?", 
-        answer: "Most residential metal roofs require at least two staggered rows of snow guards along the eaves. For roofs with a pitch steeper than 8/12 or rafters longer than 20 feet, a third supplemental row is recommended to prevent large 'snow-slides' that can damage gutters." 
+        question: "How can I upsell snow guards as a mandatory safety feature for metal roofs?", 
+        answer: "Explain the 'Avalanche Risk' and the liability of standard gutters. On slick surfaces like metal or slate, snow guards are an essential investment to prevent total gutter failure and the risk of injury to people on the ground—protecting the homeowner and your business." 
       },
       { 
-        question: "What is the standard spacing for snow guards on a standing seam roof?", 
-        answer: "Snow guards are typically spaced every 9 to 12 inches to effectively break up the snow-pack. On modern standing seam roofs, specialized clamps are used that attach directly to the metal ribs without penetrating the surface, maintaining the roof's waterproofing integrity." 
+        question: "What is the markup strategy for standing seam vs. screw-down snow guards?", 
+        answer: "Standing seam snow guards (using non-penetrating clamps like S-5!) should carry a higher premium. Position the 'No Holes in Your Roof' benefit to justify the $15–$25 per unit cost, allowing for a 40% margin on the hardware and labor." 
       },
       { 
-        question: "Does every house in a cold climate need snow guards?", 
-        answer: "Snow guards are Specifically critical for 'slick' surfaces like metal, slate, and synthetic shakes. They prevent the entire roof's snow load from sliding off at once, which is an 'avalanche' hazard that can rip gutters off the house or injure people on the ground." 
+        question: "Should my company offer snow guard layout design as a professional service?", 
+        answer: "Yes; a professional layout that considers rafter length and local snow-load data separates you from 'handyman' competitors. Providing a stamped or technical layout adds massive perceived value to your metal roofing bids." 
       }
     ]
   },
@@ -774,16 +774,16 @@ I'd love to see if we can still honor that old quote before the new pricing kick
     },
     faqs: [
       { 
-        question: "What is the linear foot cost for fascia replacement in 2026?", 
-        answer: "Standard aluminum-wrapped fascia replacement typically costs $12 to $18 per linear foot, while premium thick-milled PVC (like Azek) can range from $22 to $30. These prices usually include removal of old rotted wood and installation of custom-bent metal trim." 
+        question: "How should I price custom aluminum fascia wrapping for 2026 projects?", 
+        answer: "Set your linear foot rate at $18–$25 for custom bending. This includes the cost of rotted wood removal and the skilled labor required to use a metal brake. It's a high-visibility upgrade that significantly increases the 'Curb Appeal' of your final roof job." 
       },
       { 
-        question: "Is it better to use wood or PVC for my roof fascia boards?", 
-        answer: "While primed wood is cheaper upfront, PVC fascia is highly recommended because it is completely impervious to rot and insects. Over a 20-year lifespan, PVC often pays for itself by eliminating the need for regular painting and structural repairs." 
+        question: "What is the sales advantage of pitching PVC (Azek) fascia over wood?", 
+        answer: "Position PVC as 'The Last Fascia You'll Ever Buy.' By eliminating rot and the need for regular painting, you provide long-term value that homeowners are willing to pay a 100% premium for, while yours crews save time by not having to prime or paint on site." 
       },
       { 
-        question: "What happens if I ignore rotted fascia or soffit boards?", 
-        answer: "Damaged fascia allows water to seep behind your gutters and into your roof's starter course, leading to rotted rafter tails. Similarly, blocked or falling soffit boards prevent attic ventilation, which can cause mold growth and ice dams during winter." 
+        question: "How can rotted fascia damage my roofing profit margins?", 
+        answer: "Ignoring fascia issues leads to 'unforeseen conditions' during the install. If you don't scope rotted fascia upfront, you'll end up with structural delays or a pissed-off customer when you ask for a sudden $1,500 change order on Day 2." 
       }
     ]
   },
@@ -814,16 +814,16 @@ Subcontractor must maintain active General Liability and Workers Compensation in
     },
     faqs: [
       { 
-        question: "What should be included in a professional roofing subcontractor agreement?", 
-        answer: "A valid agreement must clearly define the scope of work (e.g., tear-off, cleanup, specific material usage) and detailed payment terms. It is also critical to include insurance requirements for General Liability and Workers' Comp to protect your company." 
+        question: "What are the mandatory clauses for a roofing subcontractor agreement?", 
+        answer: "Ensure your agreement includes an 'Indemnification Clause' and a mandatory 'Cleanup Standard.' This legally protects your company from the sub's errors and ensures your brand reputation isn't tarnished by nails left in the homeowner's driveway." 
       },
       { 
-        question: "How does a 'per-square' pay rate work for roofing subcontractors?", 
-        answer: "Subcontractors are usually paid based on the number of 'squares' (100 sq. ft.) of shingles they actually install. Most contractors pay a base rate for the field shingles plus 'add-ons' for steep pitches, multiple layers, or specialized flashing work." 
+        question: "How should I structure 'Add-On' payments for subs on steep roofs?", 
+        answer: "Adopt a transparent tier system: $+10/square for over 8/12 pitch, and $+25/square for over 12/12. Standardizing these add-ons for your subs ensures you can accurately price your homeowner estimates without eroding your net margin." 
       },
       { 
-        question: "Why is an 'independent contractor' status important for roofing crews?", 
-        answer: "Calling a crew a subcontractor rather than an employee avoids payroll taxes and insurance overhead, but the crew must meet strict 'independent contractor' criteria. Misclassifying employees as subcontractors can lead to massive IRS penalties." 
+        question: "Why is proof of Workers' Comp non-negotiable for my subcontractors?", 
+        answer: "If a sub's worker is injured and the sub doesn't have insurance, your own workers' comp carrier will likely have to pay the claim. This can lead to a massive spike in your X-Mod (Experience Modifier) rating, costing your business thousands in future premiums." 
       }
     ]
   },
@@ -849,16 +849,16 @@ Subcontractor must maintain active General Liability and Workers Compensation in
     },
     faqs: [
       { 
-        question: "What is the best material for chimney flashing: steel, aluminum, or copper?", 
-        answer: "Copper is the gold standard for chimney flashing because it can last over 50 years and develops a beautiful patina. Galvanized steel is more budget-friendly but can rust at joints, while aluminum is a lightweight, rust-proof option common in mid-range projects." 
+        question: "How should I explain the ROI of copper chimney flashing to a homeowner?", 
+        answer: "Frame it as a 'Once-in-a-Lifetime' solution. While copper is 2x the price of steel, its 50+ year lifespan and aesthetic patina add significant property value. For high-end slate or metal roofs, copper is the only material that matches the roof's durability." 
       },
       { 
-        question: "Does a chimney leak always mean the flashing needs to be replaced?", 
-        answer: "Not necessarily; a leak could also be caused by cracked mortar on top of the chimney. However, if the leak appears in the attic at the base of the chimney, it is almost always a failure in the 'step flashing' or 'counter-flashing' where the roof meets the masonry." 
+        question: "What are the common liability risks of the 'Recaulking' chimney leaks?", 
+        answer: "Caulking is a temporary fix that often hides underlying flashing failure. Professional companies should never offer 'caulk repairs' without a disclaimer; always recommend a full step-flashing replacement to eliminate the risk of a leak callback." 
       },
       { 
-        question: "What is the average cost for a chimney flashing repair in 2026?", 
-        answer: "A professional chimney flashing job typically costs between $650 and $1,200 depending on the size of the chimney. Large custom chimneys with multiple corners require more detailed soldering and hand-bent metal, which pushes the price higher." 
+        question: "How much should I charge for a custom-bent cricket behind a wide chimney?", 
+        answer: "Any chimney wider than 30 inches needs a cricket. Charge a flat $450–$750 for this custom-bent metalwork. It's a mandatory code requirement that prevents water pooling and ensures your company is performing 'to-code' professional installations." 
       }
     ]
   },
@@ -885,16 +885,16 @@ Subcontractor must maintain active General Liability and Workers Compensation in
     },
     faqs: [
       { 
-        question: "How much does a slate roof weigh per square foot?", 
-        answer: "Standard 1/4-inch slate weighs approximately 8 to 10 pounds per square foot (800-1,000 lbs per square). Thicker architectural slates (1/2-inch or 3/4-inch) can weigh up to 25 pounds per square foot, which is five times heavier than asphalt shingles." 
+        question: "How can I protect my business from liability on slate roof load assessments?", 
+        answer: "Always require a signed report from a structural engineer if you are switching a home from asphalt to slate. This documented evaluation protects you from future claims related to foundation settling or truss failure caused by the massive weight increase." 
       },
       { 
-        question: "Does my house need structural reinforcement before installing slate?", 
-        answer: "Yes, unless your home was originally built for slate, you must have a structural engineer evaluate your rafters. Most modern homes are only engineered for 'lightweight' materials and will require additional trusses orサポート beams to safely hold slate." 
+        question: "What are the 'Critical rafter' spacing requirements for professional slate?", 
+        answer: "Slate requires rafters spaced no more than 16 inches on center. If you encounter a home with 24-inch spacing, you must factor in the cost of sistering the rafters to ensure structural integrity—this is a high-margin upsell that ensures a legal, safe installation." 
       },
       { 
-        question: "What are the common structural requirements for a slate roof?", 
-        answer: "Slate requires heavy-duty 3/4-inch CDX plywood or solid wood-plank decking to support the weight. You should also ensure your rafters are spaced no more than 16 inches on center and are properly braced to prevent 'settling' or sagging over time." 
+        question: "Should my company charge for a 'Structural Pre-Check' when bidding slate?", 
+        answer: "Yes; position the $250 pre-check as a mark of your technical professionalism. It demonstrates you aren't a 'shingle slinger' and that you care about the long-term safety of the client's home, which helps justify a premium project bid." 
       }
     ]
   },
@@ -919,16 +919,16 @@ Subcontractor must maintain active General Liability and Workers Compensation in
     },
     faqs: [
       { 
-        question: "Is OSB or Plywood better for roof sheathing in 2026?", 
-        answer: "While OSB is 15-30% cheaper and standard for most residential builds, plywood is superior for moisture resistance. In high-humidity climates, plywood's ability to dry out quickly without 'swelling' at the edges makes it the preferred choice for long-term structural integrity." 
+        question: "What is the sales advantage of pitching CDX Plywood over OSB?", 
+        answer: "In high-value bids, position CDX Plywood as the 'Moisture Resistant Standard.' It recovers better from accidental leaks and has superior nail-holding power, allowing you to charge a premium over competitors using standard OSB, while reducing your call-back risk." 
       },
       { 
-        question: "How much does it cost to replace a sheet of roof decking?", 
-        answer: "Replacing a single 4x8 sheet typically costs between $70 and $130, which includes the material cost ($15-$40) and install labor ($55-$90). If you are replacing the entire deck during a re-roof, you can often negotiate a lower 'per-sheet' rate." 
+        question: "How should I structure my 'Per Sheet' replacement price for 2026?", 
+        answer: "Charge $85–$115 per sheet. This covers the material, disposal of the rotted sheet, and the labor for custom cutting. Standardizing this price in your contract upfront eliminates 'sticker shock' when your crew finds rot during the tear-off phase." 
       },
       { 
-        question: "When does rotted roof decking actually need to be replaced?", 
-        answer: "Any section of decking that yields to pressure or shows visible signs of black mold and delamination must be replaced. Ignoring rotted sheathing prevents the new roofing nails from 'biting' correctly, which can cause shingles to blow off during high winds." 
+        question: "Why should my crew replace rotted decking instead of 'patching' it?", 
+        answer: "Patching rot is a major liability. If a roofing nail doesn't have a solid wood 'bite,' that shingle will blow off in the next storm. Complete sheet replacement ensures a full manufacturer warranty and protects your business from workmanship claims." 
       }
     ]
   },
@@ -954,16 +954,16 @@ I look forward to your timely approval so we can proceed with the installation.`
     },
     faqs: [
       { 
-        question: "Why do HOAs require approval for new roofing materials?", 
-        answer: "HOAs enforce architectural standards to maintain neighborhood property values and visual harmony. They typically require a formal application that includes manufacturer spec sheets and specific color samples to ensure your new roof matches the approved community palette." 
+        question: "How can I help my clients win HOA approval for premium roofing materials?", 
+        answer: "Provide them with a 'Technical Spec Package.' This includes high-res material brochures, fire-rating certifications, and local address references where you've installed the same material. This professional documentation closes HOA-restricted leads much faster." 
       },
       { 
-        question: "What should I do if my HOA denies my roof color choice?", 
-        answer: "If denied, you should immediately request the 'Approved Color List' from the board. Most denials are based on a lack of technical documentation; resubmitting your request with a professional manufacturer's brochure and a sample shingle usually resolves the issue." 
+        question: "What should my roofing company do if an HOA denies a color choice?", 
+        answer: "Request the 'Approved Roofing Palette' immediately and offer the closest matching architectural shingle. Position the upgrade to a more durable mat or better wind rating to maintain the project's high-ticket value despite the color restriction." 
       },
       { 
-        question: "Can an HOA force me to remove a roof installed without approval?", 
-        answer: "Yes, HOAs have the legal authority through their CC&Rs to demand removal of non-compliant materials at the homeowner's expense. To avoid this, always wait for a 'Notice to Proceed' letter from the board before your contractor starts the tear-off process." 
+        question: "Is it worth specializing in HOA-managed neighborhoods?", 
+        answer: "Yes; the complexity of HOA approvals acts as a barrier to entry for 'fly-by-night' contractors. Becoming the 'Go-To HOA Pro' allows you to charge higher margins and often leads to lucrative group-bid opportunities within the community." 
       }
     ]
   },
@@ -984,16 +984,16 @@ I look forward to your timely approval so we can proceed with the installation.`
     },
     faqs: [
       { 
-        question: "How do I calculate the amount of ridge vent my attic needs?", 
-        answer: "The standard '1/150 rule' requires 1 square foot of ventilation for every 150 square feet of attic floor space. Since ridge vents are 'shingle-over' pieces, you should measure total length of your peaks and subtract 2 feet from each end to allow for capping." 
+        question: "How can I explain the 'Siphon Effect' benefit of ridge vents to a client?", 
+        answer: "Explain that ridge vents use the Bernoulli principle to naturally pull hot air out of the attic. This continuous airflow prevents the 'Heat Trap' that cooks shingles from the inside out, allowing you to justify the premium ridge vent as a lifetime protection upgrade." 
       },
       { 
-        question: "Is a ridge vent more effective than traditional box vents?", 
-        answer: "Ridge vents are generally superior because they provide continuous exhaust at the highest point of the roof, creating a natural 'siphon' effect. When combined with working soffit intake vents, they ensure even cooling across the entire roof deck." 
+        question: "Why is balancing intake and exhaust mandatory for manufacturer warranties?", 
+        answer: "GAF, Owens Corning, and CertainTeed require balanced ventilation to validate their lifetime warranties. Failing to install a 50/50 intake/exhaust split can lead to your company being liable for premature shingle failure—always include proper soffit venting in your bid." 
       },
       { 
-        question: "Can I use a ridge vent on a roof with a very steep pitch?", 
-        answer: "Most modern shingle-over ridge vents are designed to work on pitches up to 12/12. For 'extreme' pitches, specialized high-profile or metal-specific ridge vents are required to ensure the vent remains weather-tight and provides adequate Net Free Area (NFA)." 
+        question: "Should my company charge more for ridge vent on steep-slope roofs?", 
+        answer: "Yes; installing 4ft shingle-over ridge vents on 10/12+ pitches is significantly more labor-intensive and requires higher safety precautions. Charge a 20% premium on ridge vent labor to protect your margins on these difficult runs." 
       }
     ]
   },
@@ -1017,16 +1017,16 @@ I look forward to your timely approval so we can proceed with the installation.`
     },
     faqs: [
       { 
-        question: "Do heating cables actually prevent ice dams?", 
-        answer: "Heating cables are a 'symptom' fix; they create channels for water to drain but do not address the root cause. True prevention requires sealing attic air leaks and increasing insulation to an R-49 rating, which keeps the roof surface cold enough." 
+        question: "How can I explain the 'root cause' of ice dams to justify an insulation upsell?", 
+        answer: "Frame it as a 'System Failure.' Explain that ice dams are a result of heat loss, not just cold weather. By upselling air-sealing and R-49 insulation, you provide a permanent solution that protects the roof deck and prevents the ice dams your shingles are designed to resist." 
       },
       { 
-        question: "How far should an Ice & Water shield extend past my interior wall?", 
-        answer: "To meet International Residential Code (IRC), the self-adhered waterproof membrane must extend at least 2 feet past the interior 'warm' wall line. This creates a secondary barrier that prevents backing-up water from entering your home." 
+        question: "What is the IRC code requirement for Ice & Water shield extension?", 
+        answer: "To meet International Residential Code (IRC), the self-adhered membrane must extend at least 2 feet past the interior 'warm' wall line. Adhering to this standard protects your business from liability during building inspections and ensures the assembly is legally waterproof." 
       },
       { 
-        question: "Why are gutters full of debris a major risk factor for ice dams?", 
-        answer: "When gutters are clogged, water cannot drain away from the roofline, causing it to pool and freeze directly at the shingle edge. This 'ice-wall' traps further snow-melt, forcing liquid water up under the shingles where it can leak into your rafters." 
+        question: "Should my company offer heat cable installation as a primary service?", 
+        answer: "Heat cables should be a secondary 'add-on' for problematic valleys only. Position them as a 'fail-safe' rather than a primary solution, as they do not address the ventilation and insulation issues that cause structural damage over time." 
       }
     ]
   },
@@ -1049,16 +1049,16 @@ I look forward to your timely approval so we can proceed with the installation.`
     },
     faqs: [
       { 
-        question: "What is the standard screw spacing for an exposed-fastener metal roof?", 
-        answer: "Common practice is to place screws every 24 inches along the panels, with double-fastening at the eave and ridge for wind uplift protection. Each panel 'low' usually receives a fastener to ensure the neoprene washer creates a tight seal." 
+        question: "How can I set a mandatory fastener pattern to protect against wind uplift?", 
+        answer: "Standard practice is screws every 24 inches on center, with a 'double-screw' pattern at the eaves and ridges. Providing this technical specification in your contract demonstrates superior structural attention compared to 'fly-by-night' crews." 
       },
       { 
-        question: "How many screws are typically in a 'square' of metal roofing?", 
-        answer: "For a standard 3-foot wide AG or R-panel, you can expect to use 80 to 120 screws per square (100 sq. ft.). This count includes the extra fasteners required around trim pieces like rake edges, sidewall flashing, and ridge caps." 
+        question: "What is the profit potential of 'Re-Screwing' aged metal roofs?", 
+        answer: "Re-screwing is a high-margin maintenance service ($2.50–$4.00 per linear foot of ridge/eave). As neoprene washers degrade after 15 years, offering a full fastener replacement can double the roof's life and generate lucrative 'fill-in' jobs for your crews." 
       },
       { 
-        question: "Do metal roof screws need to be replaced over time?", 
-        answer: "Yes, the neoprene washers on exposed fasteners can dry out and crack after 15-20 years, leading to 'pinhole' leaks. It is an industry best practice to inspect your fasteners every decade and 're-screw' sections where the washers have failed." 
+        question: "Why should I only use EPDM-washer screws for metal roofing?", 
+        answer: "Standard neoprene washers dry out and crack in 10 years, creating 'pinhole' leaks. Specifying high-grade EPDM washers allows you to offer a 20-year workmanship warranty on the seal, setting your company apart as a premium specialty contractor." 
       }
     ]
   },
@@ -1082,16 +1082,16 @@ I look forward to your timely approval so we can proceed with the installation.`
     },
     faqs: [
       { 
-        question: "Is roof coating a viable alternative to a full roof replacement?", 
-        answer: "If your flat roof is structurally sound and lacks saturated insulation, a high-solids silicone coating can add 10-15 years of life at roughly 40% of the cost of a replacement. However, if the underlying boards are rotted, coating is a temporary fix." 
+        question: "How can I identify saturated insulation before estimating a roof coating?", 
+        answer: "Infrared thermal imaging is essential. Coating over saturated insulation is a recipe for project failure and lawsuits. Proving the sub-roof is dry allows you to offer a manufacturer-backed warranty on the silicone system." 
       },
       { 
-        question: "How many gallons of silicone coating are needed per square?", 
-        answer: "Most high-performance silicone systems require 2 to 3 gallons per 'square' (100 sq. ft.) to achieve the necessary 20-30 mil thickness. This is typically applied in two separate 'passes' to ensure complete coverage and to fill in minor cracks." 
+        question: "What is the average profit margin for a silicone roof coating project?", 
+        answer: "Professional coatings typically carry 50%–60% margins. Since the labor is primarily power-washing and liquid application, you can achieve high daily revenue per crew member compared to traditional heavy tear-off projects." 
       },
       { 
-        question: "Does white roof coating actually lower energy bills?", 
-        answer: "Yes, 'cool roof' coatings reflect up to 85% of UV radiation, significantly reducing the surface temperature of your flat roof. In summer months, this can lower HVAC cooling costs by 15-25% by preventing the roof from acting as a massive heat sink." 
+        question: "How should I position the ROI of 'Cool Roof' coatings to property managers?", 
+        answer: "Focus on the 10-year tax depreciation and immediate energy savings. Reflective silicone can lower a commercial building's cooling costs by 20%, often paying for the entire coating project within 3–5 years." 
       }
     ]
   },
@@ -1114,16 +1114,16 @@ I look forward to your timely approval so we can proceed with the installation.`
     },
     faqs: [
       { 
-        question: "What are the pros and cons of stone-coated steel roofing?", 
-        answer: "The major 'pros' are a 50-year lifespan and the look of traditional tile or wood shakes without the massive weight. The primary 'con' is the initial investment, which is typically 2-3 times higher than asphalt shingles, though cheaper than true clay." 
+        question: "Why is stone-coated steel a high-margin alternative to clay tiles?", 
+        answer: "It provides the 'Spanish Villa' aesthetic at 1/8th the weight. This eliminates the need for expensive structural rafter reinforcements, allowing you to close high-end aesthetic leads that can't afford the structural work required for true clay." 
       },
       { 
-        question: "Is a stone-coated steel roof noisy during heavy rain?", 
-        answer: "Because stone-coated steel panels are installed over an airspace or 'batten' system, they are significantly quieter than traditional corrugated metal. The textured stone granule surface also breaks up rain-drop impact, making the acoustic profile similar to shingles." 
+        question: "What is the technical benefit of a Batten-System installation?", 
+        answer: "Installing over battens creates a 'Below-Deck' venting channel. This natural airspace significantly improves the thermal performance of the home and protects the steel panels from moisture traps, allowing you to justify your premium project pricing." 
       },
       { 
-        question: "Can I walk on a stone-coated steel roof without denting it?", 
-        answer: "Yes, but you must follow specific walking patterns. You should only step in the 'low' areas of the panel where the steel is supported by the decking or battens. Walking on the high 'ridges' or 'barrels' of the profile can cause cosmetic denting." 
+        question: "How can I prevent crew members from denting stone-coated panels?", 
+        answer: "Enforce a 'Step in the Lows' safety training. Walking on the high-profile ridges will cause permanent cosmetic denting. Using specialized foam-filled walking pads is a professional standard that protects the product and your profit margin from replacement costs." 
       }
     ]
   },
@@ -1149,16 +1149,16 @@ Please provide the necessary claim packet and instructions for submitting physic
     },
     faqs: [
       { 
-        question: "What constitutes a valid shingle warranty claim?", 
-        answer: "Valid claims usually involve 'manufacturing defects' like premature granule loss, thermal cracking, or delamination occurring before the rated life. Damage caused by wind, hail, or improper installation is generally not covered and handled by insurance." 
+        question: "How can my company handle a shingle warranty claim for a client?", 
+        answer: "Charge a 'Claim Management Fee' ($350–$500). Navigating the GAF or OC warranty packet, performing the shingle-pull for lab analysis, and providing technical photos is a professional service that most homeowners can't do themselves—position it as an 'Expert Advocate' service." 
       },
       { 
-        question: "How do I start a warranty claim with GAF or Owens Corning?", 
-        answer: "You must first obtain a 'Warranty Claim Packet' from the manufacturer's website. They will require evidence including clear photos, a sample of the defective material (shingle pull), and proof the roof was installed to their technical manuals." 
+        question: "What is the difference between an 'Installation Error' and a 'Material Defect'?", 
+        answer: "Manufacturers won't pay for high-nailing or lack of venting. Being able to technically identify a delamination defect before the manufacturer's rep arrives protects your reputation and ensures you don't waste time on claims that will be denied for 'Installer Error.'" 
       },
       { 
-        question: "What does a 'pro-rated' roofing warranty mean?", 
-        answer: "A pro-rated warranty means the manufacturer's payout decreases every year your roof is in service. For example, a 50-year shingle might cover 100% replacement for the first 10 years, but only 20% by year 40, requiring the homeowner to cover the balance." 
+        question: "How do pro-rated warranties affect my replacement margins?", 
+        answer: "If a claim only covers 20% of the material cost, the homeowner still has to pay you for 100% of the labor. Frame the manufacturer's payout as a 'Down Payment' on a proper replacement to ensure your full company profit is protected." 
       }
     ]
   },
@@ -1184,16 +1184,16 @@ Please provide the necessary claim packet and instructions for submitting physic
     },
     faqs: [
       { 
-        question: "What are the typical interest rates for roofing loans in 2026?", 
-        answer: "Homeowners with good credit (700+) can typically secure roofing financing between 6.99% and 9.99%. Special 'zero-interest' promotions are often available through large contractors, but these usually require the balance to be paid in full within 12-24 months." 
+        question: "How can offering 'Approval-in-Minutes' financing increase my closing rate?", 
+        answer: "Financing removes the 'Price Barrier.' By pitching a $199/month payment instead of a $20,000 lump sum, you shift the conversation from 'Can I afford this?' to 'Which material do I want?' Companies offering financing typically see a 30%–50% increase in average ticket size." 
       },
       { 
-        question: "Is it better to use a HELOC or a personal loan for a new roof?", 
-        answer: "A HELOC often offers the lowest interest rates and potential tax advantages, making it ideal for expensive tile or slate projects. A personal home improvement loan is faster to set up and doesn't require putting your home up as collateral." 
+        question: "What is the advantage of using specialized roofing lenders like GoodLeap?", 
+        answer: "Specialized lenders understand the urgency of roof leaks. They offer 'No Interest, No Payment' (NINA) loans that allow the homeowner to get the roof now and wait for their insurance check to arrive, ensuring your company can start work immediately." 
       },
       { 
-        question: "Can I finance a roof if my insurance claim was denied?", 
-        answer: "Yes, most professional roofing companies partner with specialized lenders like Sunlight Financial or GoodLeap. These lenders understand the emergency nature of roof repairs and can often provide approvals in minutes, allowing you to start work immediately." 
+        question: "Should I include financing as the 'Default Choice' in my bids?", 
+        answer: "Yes. Every bid should include a 'Monthly Option' side-by-side with the cash price. High-end homeowners often prefer the liquidity of financing, even if they have the cash—allowing you to upsell to premium designer shingles or metal more easily." 
       }
     ]
   },
@@ -1220,16 +1220,16 @@ Please provide the necessary claim packet and instructions for submitting physic
     },
     faqs: [
       { 
-        question: "What is the weight limit for snow on a standard residential roof?", 
-        answer: "Most modern homes are engineered to support a 'live load' of 20 to 40 pounds per square foot (psf). In areas with 20 psf limits, roughly 2 feet of packed snow or 4 inches of solid ice is enough to reach the structural danger zone where rafter bowing occurs." 
+        question: "What are the structural engineering limits for snow load on modern roofs?", 
+        answer: "Most 16' on-center rafters are engineered for 30–40 psf (pounds per square foot). Knowing these limits allows you to position yourself as a technical expert when discussing the 'Saturated Snow Weight' that leads to catastrophic structural failure and emergency tarping jobs." 
       },
       { 
-        question: "How do I know if the snow on my roof is too heavy?", 
-        answer: "Warning signs include interior doors that suddenly won't close, new cracks in ceiling drywall, or a 'creaking' sound from the attic. If you see visible bowing in your rafters or have over 3 feet of wet snow, contact a professional to safely rake the roof." 
+        question: "How can I price emergency roof snow removal safely?", 
+        answer: "Charge by the man-hour with a 4-hour minimum. Factoring in harness time and the liability of shingle damage in freezing temps ensures your business is protected while offering a high-demand, high-margin winter service." 
       },
       { 
-        question: "Does metal roofing shed snow more safely than shingles?", 
-        answer: "Metal roofs with a steep pitch are excellent at shedding snow naturally, but they can create 'avalanche' hazards for anyone on the ground. Shingle roofs hold snow in place longer, providing better insulation but requiring the structure to support the weight longer." 
+        question: "Does metal roofing require the same snow load engineering as shingles?", 
+        answer: "Technically yes, but the faster shedding of metal reduces the time the structure is under stress. However, you must warn clients about 'Shock Loading' where a massive avalanche of snow drops suddenly—recommending staggered snow guards as a mandatory structural protection." 
       }
     ]
   },
@@ -1258,16 +1258,16 @@ Please provide the necessary claim packet and instructions for submitting physic
     },
     faqs: [
       { 
-        question: "How can I find the official age of my roof if I just bought the house?", 
-        answer: "The most reliable way is to check the local building department for past permits, which will list the exact date of the last full re-roof. If no permit is on file, you can often find the age in the home's real estate disclosure or by having a roofer inspect the shingles for a manufacturer date code." 
+        question: "How can my sales team use 'Cupping' and 'Clawing' to close aged leads?", 
+        answer: "Technical education closes deals. Explain that curling edges (cupping) or centers popping (clawing) are irreversible signs of asphalt embrittlement. Showing the homeowner that their shingles have lost their 'Flexural Strength' makes a full replacement look like a necessary structural fix rather than an option." 
       },
       { 
-        question: "What are the earliest signs that a shingle roof is failing?", 
-        answer: "Look for 'granule loss' in your gutters, which indicates the protective coating is wearing off. Other early warnings include 'cupping' (edges turning up) or 'clawing' (centers popping up), both of which indicate the asphalt has dried out and the shingles are becoming brittle." 
+        question: "What is the 'Manufacturing Date Code' on a shingle and how do I find it?", 
+        answer: "Look at the back of a shingle pull for a printed alphanumeric string. Identifying the exact year of manufacture allows you to prove to the homeowner (and insurance) that the roof has exceeded its 20-year performance window, justifying a full replacement bid." 
       },
       { 
-        question: "Is it worth repairing a 20-year-old shingle roof?", 
-        answer: "Generally, no. Most architectural shingles have a functional lifespan of 22-25 years. At the 20-year mark, the asphalt becomes too brittle to 'seal' around new repair nails, often leading to a cycle of leaks. Investing in a full replacement is usually more cost-effective." 
+        question: "Is it worth trying to repair 'Bald Spots' on an aged shingle roof?", 
+        answer: "Absolutely not. Granule loss leaves the asphalt mat exposed to UV, which destroys the shingle in months. Frame this as 'Exposed Vital Organs' of the roof to explain why a small repair won't stop the inevitable degradation of the entire system." 
       }
     ]
   },
@@ -1279,27 +1279,18 @@ Please provide the necessary claim packet and instructions for submitting physic
     resultLabel: 'SMS Message Content',
     inputs: [
       { id: 'clientName', label: 'Homeowner Name', type: 'text' },
-      { id: 'link', label: 'Review Link', type: 'text', placeholder: 'g.page/your-company/review' }
-    ],
-    compute: (values) => {
-      return `Hi ${values.clientName || 'there'}! This is with QuoteCatch Roofing. It was an absolute pleasure getting your new roof installed today. 
-
-If you have 30 seconds, would you mind sharing your experience with us here? ${values.link || '[LINK]'} 
-
-Reviews from neighbors like you help us tremendously. Thank you!`;
-    },
-    faqs: [
+},
       { 
-        question: "When is the best time to send a review request to a homeowner?", 
-        answer: "The 'Golden Window' is within 2 to 4 hours of completing the project and cleaning up the job site. This is when the homeowner is most impressed by the visual transformation and cleanliness of their yard, resulting in a much higher conversion rate for 5-star reviews." 
+        question: "What is the 'Golden Window' to send an SMS review request and why?", 
+        answer: "Send the text within 1 hour of the crew leaving the site. The homeowner's emotional satisfaction is at its peak right after the visual 'wow' factor of the transformation and the clean yard. High-speed review capture is the #1 way to dominate local SEO rankings." 
       },
       { 
-        question: "How can I increase the number of reviews my roofing company gets?", 
-        answer: "The most effective method is to send a personalized text message with a direct link to your Google Business Profile. Homeowners are significantly more likely to click a link on their smartphone than navigate through an email. Incentivizing your crew for reviews also helps." 
+        question: "How should I incentivize my roofing crews to collect 5-star reviews?", 
+        answer: "Offer a $25–$50 'Review Bonus' for every review that mentions a crew member by name. This gamifies the process, ensures the job site is left immaculate, and provides your business with social proof that drives new organic leads." 
       },
       { 
-        question: "Should I respond to negative reviews on Google?", 
-        answer: "Yes, always respond professionally. Future customers read your responses to see how you handle conflict. Acknowledge the issue and offer to resolve it offline. A thoughtful response can often mitigate the damage of a one-star rating and build trust with others." 
+        question: "Is it better to send a Google link or a Facebook link for roofing reviews?", 
+        answer: "Google is priority #1. Google reviews directly impact your 'Map Pack' ranking and GMB visibility, which is where 70% of local roofing searches happen. Only pivot to Facebook if you are running heavy social media lead-gen campaigns." 
       }
     ]
   },
@@ -1322,16 +1313,16 @@ Reviews from neighbors like you help us tremendously. Thank you!`;
     },
     faqs: [
       { 
-        question: "What is the minimum legal size for a roof scupper?", 
-        answer: "According to the International Building Code (IBC), a scupper must be at least 4 inches in height or width. However, sizing should never be based on minimums alone; it must be calculated using your roof's total drainage area and your local 100-year rainfall intensity rate." 
+        question: "What is the IBC code requirement for primary vs. secondary scuppers?", 
+        answer: "The International Building Code (IBC) requires secondary (overflow) scuppers to be sized at least as large as the primary drains and located 2 inches higher. Failing to meet this standard on a commercial reroof is a major structural liability if a primary drain ever clogs." 
       },
       { 
-        question: "What is the difference between a primary and secondary scupper?", 
-        answer: "Primary scuppers are the main drainage path, while secondary (overflow) scuppers are installed 2 inches higher. If water starts pouring out of your secondary scuppers, it is a critical warning sign that your primary drains are clogged and your roof is holding dangerous weight." 
+        question: "How can I avoid perimeter leaks around scupper installations?", 
+        answer: "Always use a high-quality flashing membrane and ensure the scupper is 'set in a bed of mastic.' Professional custom-bent metal scuppers with wide flanges provide the best 'tie-in' to your main roof field, significantly reducing the risk of a high-consequence failure at the parapet wall." 
       },
       { 
-        question: "Do roof scuppers require maintenance?", 
-        answer: "Yes, scuppers are high-risk areas for debris accumulation. They should be cleared at least twice a year. Clogged scuppers cause water to pool against the parapet wall, which is the leading cause of perimeter leaks on flat residential and commercial roofs." 
+        question: "How should I price scupper replacement on a flat-roofing project?", 
+        answer: "Charge $250–$450 per scupper. This includes the custom metalwork and the high-skilled labor required to tie the scupper into the existing TPO or EPDM system. Don't include this in your general square count; it's a specialty technical detail that warrants a separate line item." 
       }
     ]
   },
@@ -1356,16 +1347,16 @@ Reviews from neighbors like you help us tremendously. Thank you!`;
     },
     faqs: [
       { 
-        question: "Do solar attic fans actually lower my electric bill?", 
-        answer: "Solar attic fans can reduce attic temperatures significantly, but their impact on your AC bill depends on your insulation. In older homes with poor insulation (R-19 or less), they are most effective because the attic acts as a massive heat sink for the living space." 
+        question: "What is the 'Negative Pressure' risk of powered attic fans?", 
+        answer: "If the attic isn't air-sealed, a powered fan can pull conditioned (cooled) air from the living space into the attic. This forces the homeowner's AC to work harder—effectively neutralizing the savings. Educating your client on this allows you to sell a more comprehensive air-sealing and passive venting package." 
       },
       { 
-        question: "Can an attic fan cause my AC to work harder?", 
-        answer: "Yes, if your attic isn't properly air-sealed. A powerful fan can create negative pressure, pulling conditioned (cooled) air from your living space into the attic through light fixtures. This forces your AC to run longer to replace the lost cooling." 
+        question: "Why is Passive Ventilation often superior to solar attic fans?", 
+        answer: "Passive ventilation (soffit + ridge) has zero mechanical failure points. For a roofing company, this means fewer warranty callbacks related to non-functional solar motors or leaking fan housings. It's a 'Set It and Forget It' solution that delivers reliable performance for the life of the shingles." 
       },
       { 
-        question: "What is the best alternative to a powered attic fan?", 
-        answer: "The industry standard for efficiency is 'Passive Ventilation,' which combines continuous soffit intake vents with a ridge exhaust vent. This creates a natural 'chimney effect' that cools the attic without using electricity or risking negative pressure leaks." 
+        question: "How should I explain R-value vs. Attic temperatures during a sales pitch?", 
+        answer: "Thermal transfer is the real enemy. Even a cool attic (via a fan) won't stop heat loss if the insulation is compressed or insufficient. Positioning your company as an 'Attic Health' expert who understands both venting and R-values allows you to justify a much higher project ticket." 
       }
     ]
   },
@@ -1390,16 +1381,16 @@ Reviews from neighbors like you help us tremendously. Thank you!`;
     },
     faqs: [
       { 
-        question: "How big does hail need to be to damage a roof?", 
-        answer: "Most shingles can withstand hail up to 1 inch (quarter-sized) without structural damage. However, 'Golf Ball' sized hail (1.75 inches) is typically the threshold where shingles suffer 'functional damage,' meaning the granules are knocked loose and the mat is fractured." 
+        question: "What constitutes 'Functional Damage' in an insurance hail claim?", 
+        answer: "In the roofing industry, functional damage is defined as a reduction in the roof's lifespan or its ability to shed water. Identifying fractures in the shingle mat or significant granule bruising allows you to prove to an adjuster that a full replacement is required despite no active leaks." 
       },
       { 
-        question: "Can small hail cause a roof to leak?", 
-        answer: "Small hail rarely causes immediate leaks but can significantly shorten the life of a roof. Cumulative 'bruising' knocks granules loose, exposing the asphalt to UV rays. This leads to premature aging and cracking, causing leaks years earlier than expected." 
+        question: "How should I document a 'Hail Impact' to ensure claim approval?", 
+        answer: "Use high-res macros of individual bruises and mark a 10’x10’ 'test square' on each roof face. Counting the impacts per square provides the objective data insurance carriers need to approve a full replacement, protecting your client and securing your contract." 
       },
       { 
-        question: "Does insurance cover hail damage if there aren't any leaks yet?", 
-        answer: "Yes. Most policies cover 'functional damage,' which includes the reduction of the roof's lifespan. You don't need a leak for a valid claim; a certified inspector can identify the 'bruises' and underlying fractures that justify a full replacement under most policies." 
+        question: "Why should my company avoid using the term 'Bruising' on older roofs?", 
+        answer: "On aged, brittle roofs, hail often causes 'fractures' rather than just bruising. Focus your documentation on 'Mat Fracture' and 'Thermal Splitting' caused by the impact—these terms are more scientifically accurate for insurance purposes and harder for an adjuster to dismiss." 
       }
     ]
   },
@@ -1421,16 +1412,16 @@ Reviews from neighbors like you help us tremendously. Thank you!`;
     },
     faqs: [
       { 
-        question: "Why do I need a permit for a simple re-roof?", 
-        answer: "Permits ensure that your roof is installed to current local building codes, specifically regarding wind uplift and fire ratings. Without a permit, you may face fines, issues with your insurance during a claim, or delays when trying to sell your home." 
+        question: "Why should my roofing company always handle the permit process?", 
+        answer: "Pulling the permit is a professional 'Shield.' It proves you are licensed and bonded. If you allow a homeowner to pull an 'Owner-Builder' permit, they assume all liability for injuries on the site—which can lead to massive legal headaches for your business if anything goes wrong." 
       },
       { 
-        question: "How much do roofing permits typically cost in 2026?", 
-        answer: "Permit fees are usually based on 'Total Contract Value.' Most jurisdictions charge a base fee of $150 to $300, plus an additional $10 to $20 for every $1,000 of project cost. A standard $20,000 roof will typically have a permit fee between $350 and $700." 
+        question: "How can I explain permit fees as a non-negotiable project cost?", 
+        answer: "Explain that the fee covers the 'Final Inspection.' This inspection provides the homeowner with a third-party certificate from the city/county verifying that your work meets code. It’s an insurance policy for the client that justifies the $300–$700 permit line-item in your bid." 
       },
       { 
-        question: "Should the homeowner or the contractor pull the roofing permit?", 
-        answer: "Always require your contractor to pull the permit. This ensures they are licensed and legally responsible for the workmanship. If you pull an 'Owner-Builder' permit, you assume all liability for code violations and worker injuries on your property." 
+        question: "What happens if I skip the permit for a residential reroof?", 
+        answer: "Skipping permits leads to work-stop orders and massive fines ($1,000+). More importantly, if the homeowner tries to sell the house later, a title search will reveal the unpermitted work, potentially requiring you to return and 'certify' the roof at your own expense." 
       }
     ]
   },
@@ -1452,16 +1443,16 @@ Reviews from neighbors like you help us tremendously. Thank you!`;
     },
     faqs: [
       { 
-        question: "Is there a federal tax credit for cool roofs in 2026?", 
-        answer: "As of early 2026, many primary federal energy tax credits (Section 25C) for residential cool roofs have expired. However, many state-level programs (like California's Title 24) and utility companies still offer rebates that can offset up to 20% of the material cost." 
+        question: "What is California Title 24 and why does it matter for cool roofs?", 
+        answer: "Title 24 requires specific SRI (Solar Reflectance Index) values for residential and commercial roofs in CA. Mastering these technical requirements allows you to position yourself as a compliance expert for both new builds and major reroofing projects in that market." 
       },
       { 
-        question: "How much does a 'Cool Roof' actually save on cooling costs?", 
-        answer: "A high-reflectance roof can reduce the cooling load of a building by 10-15% during peak summer months. For a typical residential property, this translates to roughly $200–$500 in annual savings depending on local electricity rates and HVAC efficiency." 
+        question: "How should I market the ROI of high-reflectance systems on commercial bids?", 
+        answer: "Focus on the 'Lifecycle Savings.' A cool roof can reduce HVAC equipment wear by 15%, leading to longer building lifespans and lower maintenance costs. Presenting this to building owners shifts the project from a 'Pure Expense' to a 'Capital Investment with ROI.'" 
       },
       { 
-        question: "Does a white roof save money in cold climates?", 
-        answer: "In northern climates, 'Cool Roofs' can have a 'heating penalty.' While they save money in the summer, they prevent the sun from warming your home in the winter, which can slightly increase heating bills. They are most cost-effective in 'Sun Belt' regions." 
+        question: "Should my company offer reflectivity testing for existing flat roofs?", 
+        answer: "Yes; use a simple hand-held SRI meter to show how much heat an old black roof is absorbing. This visual data is a powerful closing tool that justifies the premium for a new premium white coating or single-ply system." 
       }
     ]
   },
@@ -1486,16 +1477,16 @@ Reviews from neighbors like you help us tremendously. Thank you!`;
     },
     faqs: [
       { 
-        question: "Does OSHA require fall protection for residential roofing?", 
-        answer: "Yes. OSHA regulation 1926.501 requires fall protection for any work performed at 6 feet or more above a lower level. For residential roofing, a harness, lifeline, and permanent anchor are the industry standards for legal and physical safety compliance." 
+        question: "What is OSHA 1926.501 and how does it affect my roofing margins?", 
+        answer: "OSHA requires fall protection for work at 6 feet or more. Implementing this correctly isn't just about safety; it's about protecting your 'X-Mod' insurance rating. One OSHA fine or injury claim can double your premiums, wiping out years of project profit." 
       },
       { 
-        question: "What is the cost of a full OSHA-compliant roofing safety kit?", 
-        answer: "A basic, high-quality safety kit—including a full-body harness, 50ft vertical lifeline, shock-absorbing lanyard, and reusable roof anchor—typically costs between $160 and $250 per worker. This is a vital investment to prevent catastrophic injury and massive fines." 
+        question: "How should I budget for crew safety gear on high-volume projects?", 
+        answer: "Factor a 'Safety Surcharge' into your per-square labor rates. High-quality permanent anchors and harnesses are a cost of doing business. Showing the homeowner that you invest in certified safety equipment justifies your premium pricing over 'under-the-table' crews." 
       },
       { 
-        question: "Do roof anchors need to be replaced after a fall?", 
-        answer: "Yes. Any component of a fall arrest system, including the harness and anchor, that has been subjected to 'impact loading' (a fall) must be immediately removed from service and replaced. They are one-time-use items designed for life-saving structural preservation." 
+        question: "Do permanent roof anchors add value to a residential roof replacement?", 
+        answer: "Yes. Position them as a 'Lifetime Service Point.' They allow for safe future maintenance, gutter cleaning, and satellite installs. Framing a permanent anchor as a 'Professional Service Standard' demonstrates your company's superior attention to code and safety." 
       }
     ]
   }
