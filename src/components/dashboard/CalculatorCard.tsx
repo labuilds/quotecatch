@@ -238,7 +238,10 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
 
       {/* Share / Embed Dialog */}
       <Dialog open={showShare} onOpenChange={setShowShare}>
-        <DialogContent className="w-[95vw] sm:w-[90vw] md:w-full max-w-3xl lg:max-w-5xl rounded-[2.5rem] lg:rounded-[3.5rem] border-slate-100 p-6 sm:p-10 lg:p-16 shadow-3xl bg-white font-sans overflow-y-auto max-h-[90vh]">
+        <DialogContent 
+          className="w-[95vw] sm:w-[90vw] md:w-full max-w-3xl lg:max-w-5xl rounded-[2.5rem] lg:rounded-[3.5rem] border-slate-100 p-6 sm:p-10 lg:p-16 shadow-3xl bg-white font-sans overflow-y-auto max-h-[90vh]"
+          closeButtonClassName="top-8 right-8"
+        >
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-red-50/50 rounded-full blur-3xl -z-10" />
           
           <DialogHeader>
