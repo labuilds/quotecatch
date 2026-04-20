@@ -17,6 +17,7 @@ export interface ToolConfig {
   inputs: ToolInput[];
   compute: (values: Record<string, string>) => string;
   iconName?: string;
+  informationalText?: string;
   faqs?: { question: string; answer: string }[];
 }
 
@@ -342,7 +343,9 @@ This system comes with our industry-leading ${values.warranty || 'lifetime'} yea
     faqs: [
       { 
         question: "What is the 'Rule of Thumb' for downspout spacing on high-volume residential roofs?", 
-{ 
+        answer: "The industry standard is one 2x3 downspout for every 20-30 feet of gutter run. However, if you are installing 6-inch gutters on a steep-slope roof, you can often push spacing to 40 feet if you use 3x4 oversized downspouts to handle the increased water velocity." 
+      },
+      { 
         question: "When is a 6-inch gutter mandatory for a residential contract?", 
         answer: "If the roof pitch is 8/12 or steeper, or if the roof surface area feeding into a single run exceeds 1,500 sq. ft., 5-inch gutters will likely overshoot during heavy downpours. Specifying 6-inch gutters in your bid demonstrates technical superiority and prevents future warranty calls for foundation erosion." 
       }
@@ -905,7 +908,12 @@ Subcontractor must maintain active General Liability and Workers Compensation in
         answer: "In high-value bids, position CDX Plywood as the 'Moisture Resistant Standard.' It recovers better from accidental leaks and has superior nail-holding power, allowing you to charge a premium over competitors using standard OSB, while reducing your call-back risk." 
       },
       { 
-{
+        question: "How should I estimate 'Rot Factors' for insurance supplementals?", 
+        answer: "Base your estimate on a 5% baseline and supplement for any sheets beyond that during the 'Deck Inspection' phase. Photodocumenting rusted nails or delaminated OSB is the primary technical evidence needed to win $100+ per sheet from the carrier." 
+      }
+    ]
+  },
+  {
     slug: 'hoa-roofing-approval-generator',
     title: 'HOA Technical Approval & Variance Kit',
     seoDescription: 'Generate professional HOA approval documents including material technical data, fire-rating specs, and manufacturer compliance sheets.',
@@ -1023,7 +1031,20 @@ This project will utilize high-profile ridge caps to maintain neighborhood aesth
     title: 'Commercial Coating Mil-Spec & Warranty Estimator',
     seoDescription: 'Commercial tool for estimating liquid-applied silicone or acrylic roof coating systems and project profitability.',
     type: 'calculator',
-      },
+    resultLabel: 'Commercial Coating Estimate',
+    inputs: [
+      { id: 'area', label: 'Roof Surface Area (Sqft)', type: 'number', placeholder: '10000' },
+      { id: 'system', label: 'Coating System', type: 'select', options: ['Premium Silicone (20 Year)', 'Standard Acrylic (10 Year)'] }
+    ],
+    compute: (values) => {
+      const area = Number(values.area) || 0;
+      let rate = 1.50; // acrylic
+      if (values.system === 'Premium Silicone (20 Year)') rate = 2.85;
+      const total = area * rate;
+      return `$${total.toLocaleString()} (Estimated Materials + Labor)`;
+    },
+    informationalText: 'Calculate high-level estimates for liquid-applied roofing systems. Silicone coatings offer superior ponding water resistance and long-term reflectivity, allowing for higher profit margins compared to standard acrylic systems.',
+    faqs: [
       { 
         question: "What is the average profit margin for a silicone roof coating project?", 
         answer: "Professional coatings typically carry 50%–60% margins. Since the labor is primarily power-washing and liquid application, you can achieve high daily revenue per crew member compared to traditional heavy tear-off projects." 
