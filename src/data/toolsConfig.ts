@@ -54,16 +54,16 @@ export const toolsConfig: ToolConfig[] = [
     },
     faqs: [
       { 
-        question: "How can I optimize my company's shingle waste factor for standard gable projects?", 
-        answer: "For simple gable roofs, professional estimators should aim for a 10%–12% waste factor. This provides enough material for starter courses and ridge caps while maintaining lean inventory to maximize project profit margins." 
+        question: "How do I adjust my waste factor for Hip vs. Gable roof geometries?", 
+        answer: "For professional estimation, use a baseline 10% for simple gables. However, Hip roofs significantly increase scrap due to diagonal cuts; a 15% waste factor is the industry standard for Hips to ensure you aren't one bundle short at the ridge." 
       },
       { 
-        question: "What waste percentage should I quote for complex roofs with multiple valleys?", 
-        answer: "Complex designs with multiple valleys and dormers require a 15%–20% waste buffer. Accurately quoting this at the estimate stage prevents your crew from running short and the company from eating the cost of an emergency material 'hot run'." 
+        question: "Why is a 10% waste factor often insufficient for complex valleys?", 
+        answer: "Woven or closed-cut valleys require more overlapping material and generate more unusable triangles. If your roof has multiple dormers or valleys, bumping your waste factor to 17–20% protects your margin from mid-project material runs." 
       },
       { 
-        question: "How does roof pitch impact shingle waste in a commercial estimate?", 
-        answer: "Steep-slope projects (8/12 pitch and up) should include an additional 3% 'handling waste.' This accounts for the increased breakage rate and safety-related material loss common when crews are working on steep inclines." 
+        question: "How does roof pitch impact my total material waste?", 
+        answer: "Steeper pitches (over 8/12) increase handling difficulty and cut errors. High-pitch projects typically require an additional 2–3% 'Handling Waste' on top of your geometric waste calculation to account for the physical constraints of the site." 
       }
     ]
   },
@@ -169,16 +169,16 @@ ${values.companyName || 'The Team'}
     },
     faqs: [
       { 
-        question: "How should I calculate my base rate for metal roofing in a volatile market?", 
-        answer: "In 2026, set your base rate for standard 26G metal at $900–$1,100 per square. Adjust this monthly based on steel index changes to ensure your material cost-of-goods-sold (COGS) doesn't erode your final project margin." 
+        question: "How do I estimate waste for Standing Seam vs. Exposed Fastener panels?", 
+        answer: "Exposed fastener panels (R-panels) typically have a 5–7% waste factor because they can be easily lapped and reused. Standing seam requires a 10–12% waste factor due to the non-reversible nature of the proprietary locking systems and precision flashing requirements." 
       },
       { 
-        question: "What is the sales ROI for pitching aluminum over galvanized steel?", 
-        answer: "Pitching aluminum in coastal regions offers a 2x ROI on customer satisfaction and reduced warranty calls. While the material cost is 15-20% higher, the corrosion resistance allows you to command a premium price and eliminate salt-air rust disputes." 
+        question: "What is the industry standard for estimating metal roofing trim linear footage?", 
+        answer: "Rule of thumb is to order 1.1x the total perimeter for drip edge and rake trim. For valleys and ridges, use a 1.15 multiplier to account for miter cuts and overlaps at junctions, which are the most common source of metal-roof 'shortages'." 
       },
       { 
-        question: "How much should I mark up labor for complex metal roof designs?", 
-        answer: "Difficult designs with multiple hips and valleys should carry a 25%–40% labor markup. The precision required for custom trim and flashing in metal roofing is significantly higher than asphalt, requiring more expert man-hours." 
+        question: "How do I calculate the required fastener count per square for metal panels?", 
+        answer: "For standard AG/R-panels, use 80 fasteners per 100 sq. ft. For high-wind zones, increase to 120 fasteners per square. Fasteners should be ordered in bulk bags (typically 250 count) to protect against job-site loss and ensuring a uniform seal." 
       }
     ]
   },
@@ -201,16 +201,16 @@ ${values.companyName || 'The Team'}
     },
     faqs: [
       { 
-        question: "How can I prevent inventory bloat when ordering by the bundle?", 
-        answer: "Use the '3-bundle rule' (3 bundles = 1 square) for consistent ordering. Rounding up to the nearest bundle for every hip and valley cut prevents excess material left in the warehouse while ensuring my crew finishes the job on time." 
+        question: "When is a 6-nail fastening pattern legally required by the IRC?", 
+        answer: "A 6-nail pattern is mandatory in 'High Wind' zones where the design wind speed exceeds 110 mph. Using 6 nails instead of 4 increases the shingles' wind-uplift rating (often to 130 mph), protecting your company from storm-related liability claims." 
       },
       { 
-        question: "What is the margin difference between ordering 3-tab vs. architectural shingle bundles?", 
-        answer: "Architectural shingles often have a higher net profit margin due to perceived homeowner value, even though the labor cost is nearly identical to 3-tab. Always lead your sales pitch with the 'Dimensional' bundle upgrade." 
+        question: "How does 'High-Nailing' impact my workmanship warranty?", 
+        answer: "Nailing above the designated strip ('High-Nailing') is the leading cause of shingle blow-offs and automatically voids the manufacturer's warranty. Enforcing a strict 'Nail in the Zone' policy for your crews is the best way to prevent insurance disputes." 
       },
       { 
-        question: "Should I order separate bundles for starter shingles and ridge caps?", 
-        answer: "Yes; for professional results and full manufacturer warranty compliance, always order designated starter and ridge bundles. Avoid the practice of cutting field shingles for these zones to save time and reduce wasted man-hours." 
+        question: "What is the material cost-to-risk benefit of using 3,000 nails vs. 2,000 per project?", 
+        answer: "The cost difference for an extra thousand nails is less than $30. For a roofing business, this is the cheapest 'insurance policy' available. A 6-nail pattern drastically reduces callbacks for wind damage, which can cost $500+ in labor alone." 
       }
     ]
   },
@@ -232,16 +232,16 @@ ${values.companyName || 'The Team'}
     },
     faqs: [
       { 
-        question: "How can I explain the pitch multiplier to a client to justify material costs?", 
-        answer: "Frame it as the 'true surface area' conversation. A 1,000 sq. ft. footprint on a 4/12 pitch is actually ~1,054 sq. ft. of roofing surface. Showing clients the multiplier data builds trust and prevents disputes when your estimate reflects more squares than the floor plan suggest." 
+        question: "Why is the pitch multiplier essential for ground-level measurements?", 
+        answer: "A pitch multiplier converts a 2D 'footprint' (measured from the ground or aerial report) into the actual 3D sloped surface area. Without this factor, you will be under-ordering materials by 5% (for 4/12) to over 40% (for 12/12 pitch)." 
       },
       { 
-        question: "What is the risk of not using a precise pitch multiplier during estimation?", 
-        answer: "Inaccurate multipliers lead to 'short-orders.' Forgetting the 1.2019 multiplier on an 8/12 roof can leave your crew 20% short on shingles, forcing expensive job site delays and potentially leading to color-match issues with a second material order." 
+        question: "How does roof pitch affect labor risk and 'Steep Charges'?", 
+        answer: "Industry standard 'Steep Charges' typically trigger at 7/12 pitch. These premiums reflect the increased labor time for harness resets, slower material staging, and the physical fatigue of working on high-slope planes." 
       },
       { 
-        question: "Do pitch multipliers change for hip roofs vs. gable roofs?", 
-        answer: "The multiplier for surface area remains the same based on the slope; however, you must add an extra 3%–5% to your waste factor for hip roofs to account for the triangular cuts required along the hip lines, even if using an accurate pitch multiplier." 
+        question: "Should I use the same multiplier for shingles and underlayment?", 
+        answer: "Yes. Both follow the surface geometry of the roof. However, always calculate your drip edge and flashing linearly (without the multiplier) as they follow the absolute perimeter of the eave and rake." 
       }
     ]
   },
@@ -267,16 +267,16 @@ ${values.companyName || 'The Team'}
     },
     faqs: [
       { 
-        question: "How should I scope TPO membrane thickness for maximum project longevity?", 
-        answer: "Always lead with 60-mil or 80-mil TPO for commercial bids. While 45-mil is cheaper, the increased puncture resistance of thicker membranes reduces your 10-year warranty liability and provides a more 'premium' positioning for your bid." 
+        question: "Why is 60-mil TPO the industry standard for 20-year commercial NDL warranties?", 
+        answer: "Most major manufacturers require a minimum of 60-mil thickness to qualify for a 'No Dollar Limit' (NDL) warranty. While 45-mil is cheaper, the 60-mil membrane offers superior puncture resistance and UV stability, which drastically reduces your long-term maintenance liability." 
       },
       { 
-        question: "What are the profit implications of a fully adhered TPO system vs. mechanically fastened?", 
-        answer: "Fully adhered systems require significantly more labor and adhesive costs, adding ~$1.50–$2.25 per sq. ft. to the baseline. However, they offer superior wind-uplift ratings, allowing you to charge a higher premium for high-wind-zone commercial building owners." 
+        question: "What are the labor cost implications of 'Fully Adhered' vs. 'Mechanically Fastened' TPO?", 
+        answer: "Fully adhered systems require ~30% more labor and significant adhesive costs ($1.50+ sq/ft). However, they eliminate 'membrane flutter' and offer the highest wind-uplift ratings. Use 'Mechanically Fastened' for budget-conscious box retail and 'Fully Adhered' for premium office space." 
       },
       { 
-        question: "When should I recommend a tapered insulation system to a commercial client?", 
-        answer: "If the property has 'ponding water' issues on a flat deck, a tapered system is mandatory. Explain to the client that while the upfront cost is higher, it prevents premature membrane failure and is the only way to meet most 20-year NDL (No Dollar Limit) warranty requirements." 
+        question: "How much extra membrane should I order for parapet walls and 6-inch seams?", 
+        answer: "Always add 15-20% to the field square footage for TPO projects. This covers the mandatory 6-inch seam overlaps, 12-inch parapet wall flashing, and curb detailing. Underestimating these 'details' is the #1 reason commercial roofing bids lose margin." 
       }
     ]
   },
@@ -340,16 +340,16 @@ This system comes with our industry-leading ${values.warranty || 'lifetime'} yea
     },
     faqs: [
       { 
-        question: "What is the professional standard for downspout spacing to prevent callbacks?", 
-        answer: "Install one downspout for every 30–40 linear feet. Reducing this to 20 feet for steep-slope or large-area roofs prevents overflows, protecting your business from water damage liability and customer complaints during heavy deluges." 
+        question: "When should I specify 6-inch gutters over the 5-inch residential standard?", 
+        answer: "Specify 6-inch gutters for steep roofs (7/12+) or long runs over 40 feet. Larger gutters have 50% more capacity, which prevents water from 'overshooting' the edge during high-intensity storms, protecting the customer's foundation and your reputation." 
       },
       { 
-        question: "Why should my crew always prioritize downspout discharge zones?", 
-        answer: "Improper discharge is the #1 cause of foundation disputes after a roof/gutter job. Ensuring downspouts discharge 5-10 feet away from the basement wall is a low-cost step that prevents massive legal headaches and negative reviews." 
+        question: "How do I calculate the 'Adjusted Square Footage' for gutter capacity?", 
+        answer: "Use the pitch factor to increase your plan-view area. A 12/12 pitch roof shed water 40% faster than a 4/12 roof. Adjusting your capacity calculation for speed (not just volume) ensures you don't install an undersized system on a steep custom home." 
       },
       { 
-        question: "Should I upsell 6-inch gutters on all residential shingle projects?", 
-        answer: "Yes; 6-inch gutters handle ~50% more volume than 5-inch systems. Upselling the larger system as 'Commercial Grade Protection' for a residential home increases your project ticket size by $500–$1,200 with minimal additional labor cost." 
+        question: "Why is the 3x4 inch downspout the benchmark for professional drainage?", 
+        answer: "The downspout is the bottleneck. A 3x4 inch downspout provides nearly double the drainage area of the standard 2x3. For 6-inch gutter systems, 3x4 downspouts are mandatory to handle the increased volume and prevent ice-heave in winter." 
       }
     ]
   },
@@ -371,16 +371,16 @@ This system comes with our industry-leading ${values.warranty || 'lifetime'} yea
     },
     faqs: [
       { 
-        question: "How can I explain the 1:150 vs 1:300 rule to a client during an upsell?", 
-        answer: "Frame it as 'Attic Health.' Explain that properly balancing intake and exhaust (the 1:300 rule) is required by shingle manufacturers to maintain the lifetime warranty. This justification makes it much easier to include high-margin ridge vents and soffit intakes in your bid." 
+        question: "What is the 1/300 Ventilation Rule and how do I qualify for it?", 
+        answer: "The 1/300 code allows you to reduce required venting if the system is 'balanced' (50% intake at soffit, 50% exhaust at ridge). Proving a balanced system allows you to avoid over-venting, which can trap moisture if not designed correctly." 
       },
       { 
-        question: "What are the common liability risks of unbalanced intake and exhaust?", 
-        answer: "Unbalanced systems create a 'vacuum' that sucks conditioned air into the attic, causing ice dams in winter and shingle 'cooking' in summer. Ensuring a 50/50 split protects you from shingles-failure warranty claims and keeps the homeowner's energy bills low." 
+        question: "How do I calculate Net Free Area (NFA) for ridge vents vs. static pods?", 
+        answer: "NFA represents the actual airflow capacity after subtracting the vent's structure. For ridge vents, the industry standard is 18 sq. inches per linear foot. Always calculate on NFA, not vent size, to ensure you meet IRC residential codes." 
       },
       { 
-        question: "Should I replace old-style box vents with a ridge vent system on every job?", 
-        answer: "In most cases, yes. Continuous ridge ventilation provides much more uniform airflow than box vents and is a cleaner aesthetic look. It’s a standard 'Best Practice' upgrade that allows you to offer a premium workmanship guarantee." 
+        question: "Why is balanced intake and exhaust critical for meeting shingle warranties?", 
+        answer: "Thermal transfer is the enemy. Unbalanced ventilation (too much exhaust, not enough intake) creates a vacuum that pulls moisture into the attic. Maintaining a 1:1 ratio protects the shingle warranty and prevents premature granule loss from heat buildup." 
       }
     ]
   },
@@ -1278,8 +1278,12 @@ Please provide the necessary claim packet and instructions for submitting physic
     type: 'text-generator',
     resultLabel: 'SMS Message Content',
     inputs: [
-      { id: 'clientName', label: 'Homeowner Name', type: 'text' },
-},
+      { id: 'clientName', label: 'Homeowner Name', type: 'text' }
+    ],
+    compute: (values) => {
+      return `Hi ${values.clientName || 'there'}, thanks for choosing us for your roof! We're a local business and your feedback helps us grow. Would you mind leaving us a quick 5-star review here? [Link]`;
+    },
+    faqs: [
       { 
         question: "What is the 'Golden Window' to send an SMS review request and why?", 
         answer: "Send the text within 1 hour of the crew leaving the site. The homeowner's emotional satisfaction is at its peak right after the visual 'wow' factor of the transformation and the clean yard. High-speed review capture is the #1 way to dominate local SEO rankings." 
