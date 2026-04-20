@@ -11,6 +11,8 @@ import { SupportButton } from '@/components/SupportModal'
 import { SidebarUpgradeCard } from '@/components/SidebarUpgradeCard'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Button, buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
+
 
 interface DashboardLayoutClientProps {
   children: ReactNode

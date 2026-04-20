@@ -21,6 +21,7 @@ import {
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { buttonVariants } from '@/components/ui/button';
 import { notFound } from 'next/navigation';
 
 export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { question: string, answer: string }[] }) {
