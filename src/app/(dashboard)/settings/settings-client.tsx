@@ -66,7 +66,18 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
   const handleSave = async () => {
     setIsSaving(true)
     try {
-      let finalLogoUrl = formData.company_logo_url
+      // Create a sanitized copy of the form data for URLs
+      const sanitizedData = { ...formData }
+      const urlFields = ['website', 'facebook_url', 'linkedin_url', 'instagram_url', 'webhook_url']
+      
+      urlFields.forEach(field => {
+        const val = (sanitizedData as any)[field]
+        if (val && val.trim() !== "" && !val.startsWith('http://') && !val.startsWith('https://')) {
+          (sanitizedData as any)[field] = `https://${val.trim()}`
+        }
+      })
+
+      let finalLogoUrl = sanitizedData.company_logo_url
 
       // 1. Upload logo if a new one is selected
       if (selectedFile) {
@@ -95,11 +106,11 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
 
       // 2. Update profile with everything
       await updateUserProfile({
-        ...formData,
+        ...sanitizedData,
         company_logo_url: finalLogoUrl
       })
 
-      setFormData(prev => ({ ...prev, company_logo_url: finalLogoUrl }))
+      setFormData({ ...sanitizedData, company_logo_url: finalLogoUrl })
       setSaved(true)
       setTimeout(() => setSaved(false), 2500)
     } catch (err: any) {

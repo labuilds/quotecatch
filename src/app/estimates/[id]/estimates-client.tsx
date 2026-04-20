@@ -344,11 +344,13 @@ export default function EstimatesClient({
             *Please be advised that this is only an estimate. Final prices will vary upon onsite assessment.
           </p>
 
-          <div className="flex items-center gap-2 grayscale opacity-20">
+          <div className="flex items-center gap-2 grayscale opacity-20 group/brand">
              <div className="w-5 h-5 bg-slate-900 rounded flex items-center justify-center">
                 <div className="w-1.5 h-1.5 bg-white rounded-full" />
              </div>
-             <span className="text-[11px] font-black uppercase tracking-widest text-slate-900">Powered by QuoteCatch</span>
+             <span className="text-[11px] font-black uppercase tracking-widest text-slate-900">
+                Powered by <a href="https://getquotecatch.com" target="_blank" rel="noopener noreferrer" className="hover:text-red-700 transition-colors">QuoteCatch</a>
+             </span>
           </div>
         </div>
       </div>

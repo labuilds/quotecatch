@@ -65,7 +65,7 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
   }
 
   const origin = typeof window !== 'undefined' ? window.location.origin : 'https://getquotecatch.com'
-  const embedCode = `<iframe src="${origin}/widget/${calc.id}" width="100%" height="640" style="border:none; border-radius: 24px; overflow:hidden;" title="Roofing Estimate"></iframe>`
+  const embedCode = `<iframe src="${origin}/widget/${calc.id}" width="100%" height="700" scrolling="no" style="border:none; border-radius: 24px; overflow:hidden;" title="Roofing Estimate"></iframe>`
 
   const handleCopy = () => {
     navigator.clipboard.writeText(embedCode)

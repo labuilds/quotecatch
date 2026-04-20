@@ -12,11 +12,10 @@ const tiers = [
     description: "Start capturing homeowner info and giving instant ballparks without lifting a finger.",
     features: [
       "Unlimited lead capture",
-      "Manual square-footage estimates",
-      "Basic email lead notifications",
+      "Manual roof-size estimates",
       "1 Active Pricing Engine",
-      "Standard Dashboard access",
-      "Powered by QuoteCatch badge"
+      "Email lead notifications",
+      "Analytics & Conversion insights"
     ],
     buttonText: "Current Plan",
     buttonVariant: "outline" as const,
@@ -31,11 +30,10 @@ const tiers = [
     period: "/mo",
     description: "Stop climbing roofs for free. Measure homes from your truck and automate your sales.",
     features: [
-      "Unlimited leads & calculators",
+      "Everything in Basic, plus:",
       "Instant satellite roof measurements",
-      "Zapier & Webhook integrations",
-      "Analytics & Conversion insights",
-      "Remove 'Powered by' branding"
+      "Unlimited active pricing engines",
+      "Zapier & Webhook integrations"
     ],
     buttonText: "Upgrade to Pro Satellite",
     buttonVariant: "default" as const,
@@ -93,21 +91,34 @@ export function PricingSection({ onUpgrade, showButton = true }: PricingSectionP
           </div>
 
           <div className="space-y-4 mb-12 flex-1">
-            {tier.features.map((feature) => (
-              <div key={feature} className="flex items-center gap-3">
-                <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${tier.highlight ? "bg-red-500/20" : "bg-emerald-50"}`}>
-                  <Check className={`w-3 h-3 ${tier.highlight ? "text-red-400" : "text-emerald-500"}`} />
+            {tier.features.map((feature) => {
+              const isEverythingIn = feature.startsWith("Everything in");
+              return (
+                <div key={feature} className="flex items-center gap-3">
+                  <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${tier.highlight
+                      ? (isEverythingIn ? "bg-amber-400/20" : "bg-red-500/20")
+                      : "bg-emerald-50"
+                    }`}>
+                    {isEverythingIn ? (
+                      <Star className={`w-3 h-3 ${tier.highlight ? "text-amber-400" : "text-amber-500"}`} />
+                    ) : (
+                      <Check className={`w-3 h-3 ${tier.highlight ? "text-red-400" : "text-emerald-500"}`} />
+                    )}
+                  </div>
+                  <span className={`text-[15px] font-bold ${isEverythingIn
+                      ? (tier.highlight ? "text-white opacity-100" : "text-slate-900")
+                      : (tier.highlight ? "text-slate-200" : "text-slate-600")
+                    }`}>
+                    {feature}
+                  </span>
                 </div>
-                <span className={`text-[15px] font-bold ${tier.highlight ? "text-slate-200" : "text-slate-600"}`}>
-                  {feature}
-                </span>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {showButton && (
-            <Link 
-              href={tier.highlight && !onUpgrade ? "/login?intent=pro" : "#"} 
+            <Link
+              href={tier.highlight && !onUpgrade ? "/login?intent=pro" : "#"}
               className="contents"
               onClick={(e) => {
                 if (onUpgrade) {

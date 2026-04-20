@@ -7,7 +7,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 
-const sendNotificationEmails = async (lead: any, request: Request, isDemo: boolean = false) => {
+const sendNotificationEmails = async (lead: any, request: Request, recipientEmail: string, isDemo: boolean = false) => {
   const resendApiKey = process.env.RESEND_API_KEY;
   if (!resendApiKey) return;
 
@@ -16,7 +16,7 @@ const sendNotificationEmails = async (lead: any, request: Request, isDemo: boole
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || `${protocol}://${host}`;
 
   try {
-    // 1. Notify Founder
+    // 1. Notify Recipient (Founder or Roofer)
     await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -25,7 +25,7 @@ const sendNotificationEmails = async (lead: any, request: Request, isDemo: boole
       },
       body: JSON.stringify({
         from: 'leads@getquotecatch.com',
-        to: ['founder@getquotecatch.com'],
+        to: [recipientEmail],
         subject: `New Lead Captured: ${lead.homeowner_name}`,
         html: `
           <div style="font-family: sans-serif; padding: 20px;">
@@ -211,7 +211,30 @@ export async function POST(request: Request) {
     // Fire-and-forget email notifications
     if (finalData?.[0]) {
       const isDemoLead = calculator_id === 'demo';
-      sendNotificationEmails({ ...finalData[0] }, request, isDemoLead).catch(console.error);
+      let recipientEmail: string | null = null;
+
+      // Only the landing page demo widget should notify the founder
+      if (isDemoLead) {
+        recipientEmail = 'founder@getquotecatch.com';
+      } else if (targetUserId) {
+        // For real users, fetch their actual email
+        const { data: userData } = await supabase
+          .from('users')
+          .select('email')
+          .eq('id', targetUserId)
+          .single();
+        
+        if (userData?.email) {
+          recipientEmail = userData.email;
+        }
+      }
+
+      // If we found a recipient, send the notifications
+      if (recipientEmail) {
+        sendNotificationEmails({ ...finalData[0] }, request, recipientEmail, isDemoLead).catch(console.error);
+      } else {
+        console.warn(`[Leads API] No recipient email found for ${isDemoLead ? 'demo' : 'user'} lead ${finalData[0].id}`);
+      }
     }
 
     return NextResponse.json({ success: true, id: finalData?.[0]?.id }, { status: 200, headers: corsHeaders });

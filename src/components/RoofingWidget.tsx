@@ -432,12 +432,13 @@ export default function RoofingWidget({
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
               </button>
 
-              <div className="mt-16 flex items-center gap-3 grayscale opacity-30 hover:opacity-100 transition-opacity">
-                <div className="w-6 h-6 bg-slate-200 rounded-md flex items-center justify-center">
-                  <span className="text-[10px] font-black text-slate-50 opacity-0 group-hover:opacity-100 transition-all">QC</span>
-                  <div className="w-2 h-2 bg-slate-400 rounded-full" />
-                </div>
-                <span className="text-[12px] font-bold tracking-widest text-slate-400 uppercase">Powered by QuoteCatch</span>
+              <div className="flex items-center gap-2 grayscale opacity-20 mt-16 group/brand">
+                 <div className="w-5 h-5 bg-slate-900 rounded flex items-center justify-center">
+                    <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                 </div>
+                 <span className="text-[11px] font-black uppercase tracking-widest text-slate-900">
+                    Powered by <a href="https://getquotecatch.com" target="_blank" rel="noopener noreferrer" className="hover:text-red-600 transition-colors">QuoteCatch</a>
+                 </span>
               </div>
             </div>
           </div>
