@@ -23,12 +23,12 @@ export interface ToolConfig {
 export const toolsConfig: ToolConfig[] = [
   {
     slug: 'shingle-waste-calculator',
-    title: 'Shingle Waste Calculator',
-    seoDescription: 'Accurately calculate how many extra squares of shingles you need based on roof complexity and valley types.',
+    title: 'Precision Waste Factor & Supplementation Estimator',
+    seoDescription: 'Professional waste factor calculator for roofing supplements, designed to reconcile EagleView SWF vs. carrier Xactimate estimates.',
     type: 'calculator',
-    resultLabel: 'Recommended Waste Percentage',
+    resultLabel: 'B2B Technical Waste Schedule',
     inputs: [
-      { id: 'squares', label: 'Total Roof Squares', type: 'number', placeholder: 'e.g. 30', description: 'Enter the total area of the roof in squares (100 sq. ft. each)' },
+      { id: 'squares', label: 'Field Squares (Aerial/Manual)', type: 'number', placeholder: 'e.g. 30', description: 'Enter the net area squares before waste.' },
       { 
         id: 'complexity', 
         label: 'Roof Complexity', 
@@ -54,25 +54,25 @@ export const toolsConfig: ToolConfig[] = [
     },
     faqs: [
       { 
-        question: "How do I adjust my waste factor for Hip vs. Gable roof geometries?", 
-        answer: "For professional estimation, use a baseline 10% for simple gables. However, Hip roofs significantly increase scrap due to diagonal cuts; a 15% waste factor is the industry standard for Hips to ensure you aren't one bundle short at the ridge." 
+        question: "How do I justify a 15% waste factor to State Farm adjusters?", 
+        answer: "Use this tool to generate an itemized complexity report. Cite the EagleView Suggested Waste Factor (SWF) as an objective third-party benchmark. If the carrier applies a flat 10% on a complex hip roof, supplement by documenting manufacturer-mandated starter/ridge courses that are physically independent of field waste." 
       },
       { 
-        question: "Why is a 10% waste factor often insufficient for complex valleys?", 
-        answer: "Woven or closed-cut valleys require more overlapping material and generate more unusable triangles. If your roof has multiple dormers or valleys, bumping your waste factor to 17–20% protects your margin from mid-project material runs." 
+        question: "Why does my manual waste calculation differ from Xactimate's default?", 
+        answer: "Xactimate often uses a 'minimized' waste algorithm that ignores specific hip/ridge profile depths. This tool provides a 'Net vs Gross' comparison, allowing you to prove the physical reality of shingle exposure requirements to a desk adjuster during the supplement process." 
       },
       { 
-        question: "How does roof pitch impact my total material waste?", 
-        answer: "Steeper pitches (over 8/12) increase handling difficulty and cut errors. High-pitch projects typically require an additional 2–3% 'Handling Waste' on top of your geometric waste calculation to account for the physical constraints of the site." 
+        question: "What is the impact of complexity multipliers on insurance supplements?", 
+        answer: "Roofs with 9/12+ pitches or 10+ facets require significantly more technical cuts. Documenting the specific facet count and slope transition linear footage is the #1 way to win a waste-factor appeal and protect your project's net profit margin." 
       }
     ]
   },
   {
     slug: 'storm-door-knocking-script',
-    title: 'Post-Storm Door Knocking Script',
-    seoDescription: 'The highest-converting script for roofing sales reps walking neighborhoods after a major hailstorm.',
+    title: 'Post-Storm Neighborhood Sales System',
+    seoDescription: 'High-conversion B2B sales script for canvassing teams and sales reps targeting hail-hit ZIP codes.',
     type: 'text-generator',
-    resultLabel: 'Your Custom Pitch Script',
+    resultLabel: 'Custom Sales Pitch script',
     inputs: [
       { id: 'repName', label: 'Sales Rep Name', type: 'text', placeholder: 'e.g. John', description: 'Your name or the name of the rep at the door.' },
       { id: 'neighborhood', label: 'Neighborhood Name', type: 'text', placeholder: 'e.g. Oak Creek', description: 'Used to build immediate local familiarity.' },
@@ -104,10 +104,10 @@ Would it be a total inconvenience if I took a quick look at your shingles while 
   },
   {
     slug: 'email-follow-up-template',
-    title: 'Simple Email Follow-Up Template',
-    seoDescription: 'Stop losing leads for "not getting back fast enough." Use this professional template to stay top-of-mind.',
+    title: 'Multi-Touch Sales Pipeline Follow-Up',
+    seoDescription: 'Professional follow-up templates designed to move roofing leads through the sales cycle from estimate to signed contract.',
     type: 'template',
-    resultLabel: 'Final Email Content',
+    resultLabel: 'Outbound Sales Content',
     inputs: [
       { id: 'clientName', label: 'Homeowner Name', type: 'text', placeholder: 'e.g. Mrs. Smith', description: 'The person you previously provided an estimate for.' },
       { id: 'jobType', label: 'Type of Job', type: 'select', options: ['Roof Replacement', 'Roof Repair', 'Gutter Install'], description: 'Matches the content to their specific project type.' },
@@ -145,10 +145,10 @@ ${values.companyName || 'The Team'}
   },
   {
     slug: 'metal-roofing-cost-calculator',
-    title: 'Metal Roofing Cost Calculator',
-    seoDescription: 'Estimation tool for metal roofing projects including material gauge and trim waste.',
+    title: 'Metal System Spec & Cost Estimator',
+    seoDescription: 'Technical estimation tool for metal roofing projects, factoring in gauge thickness and profile complexity.',
     type: 'calculator',
-    resultLabel: 'Estimated Project Cost',
+    resultLabel: 'System Estimate Total',
     inputs: [
       { id: 'area', label: 'Roof Area (Squares)', type: 'number', placeholder: 'e.g. 25' },
       { id: 'gauge', label: 'Metal Gauge', type: 'select', options: ['24 Gauge (Premium)', '26 Gauge (Standard)', '29 Gauge (Economy)'] },
@@ -184,10 +184,10 @@ ${values.companyName || 'The Team'}
   },
   {
     slug: 'shingle-bundle-calculator',
-    title: 'Roof Shingle Bundle Calculator',
-    seoDescription: 'Convert roof squares into exact bundle counts for asphalt shingles.',
+    title: 'Squares to Bundles (Precision Order Tool)',
+    seoDescription: 'Contractor conversion tool to translate roof squares (including waste) into exact bundle counts for ordering.',
     type: 'calculator',
-    resultLabel: 'Required Bundles',
+    resultLabel: 'Required Bundle Order',
     inputs: [
       { id: 'area', label: 'Roof Area (Squares)', type: 'number', placeholder: 'e.g. 20' },
       { id: 'waste', label: 'Waste Percentage', type: 'number', placeholder: 'e.g. 10' }
@@ -216,10 +216,10 @@ ${values.companyName || 'The Team'}
   },
   {
     slug: 'roof-pitch-multiplier-calculator',
-    title: 'Roof Pitch Multiplier Calculator',
-    seoDescription: 'Calculate the precise area multiplier based on your roof pitch for accurate estimating.',
+    title: 'Pitch Multiplier & Aerial Report Reconciler',
+    seoDescription: 'Professional tool for reconciling manual pitch measurements with EagleView/SkyMeasure reports to ensure accurate surface area multipliers in supplements.',
     type: 'calculator',
-    resultLabel: 'Pitch Multiplier',
+    resultLabel: 'Reconciled SAM Multiplier',
     inputs: [
       { id: 'rise', label: 'Rise (Vertical inches)', type: 'number', placeholder: 'e.g. 6' },
       { id: 'run', label: 'Run (Fixed at 12)', type: 'number', placeholder: '12', description: 'Horizontal distance is usually 12 inches for pitch.' }
@@ -232,25 +232,25 @@ ${values.companyName || 'The Team'}
     },
     faqs: [
       { 
-        question: "Why is the pitch multiplier essential for ground-level measurements?", 
-        answer: "A pitch multiplier converts a 2D 'footprint' (measured from the ground or aerial report) into the actual 3D sloped surface area. Without this factor, you will be under-ordering materials by 5% (for 4/12) to over 40% (for 12/12 pitch)." 
+        question: "How do I reconcile an EagleView pitch discrepancy in a supplement?", 
+        answer: "If your manual pitch gauge shows 10/12 but the aerial report lists 8/12, use this tool to calculate the SAM delta. Submit a time-stamped photo of your pitch gauge on a rafter to prove the structural reality and justify the increased material count." 
       },
       { 
-        question: "How does roof pitch affect labor risk and 'Steep Charges'?", 
-        answer: "Industry standard 'Steep Charges' typically trigger at 7/12 pitch. These premiums reflect the increased labor time for harness resets, slower material staging, and the physical fatigue of working on high-slope planes." 
+        question: "What is the 'Effective SAM' used for insurance supplements?", 
+        answer: "Insurance carriers often use flat-view multipliers that ignore the hypotenuse. This tool provides the exact decimal multiplier (e.g., 1.202 for 8/12) needed to justify your premium square count for high-complexity residential reroofs." 
       },
       { 
-        question: "Should I use the same multiplier for shingles and underlayment?", 
-        answer: "Yes. Both follow the surface geometry of the roof. However, always calculate your drip edge and flashing linearly (without the multiplier) as they follow the absolute perimeter of the eave and rake." 
+        question: "Why should my sales team always field-verify aerial pitch reports?", 
+        answer: "Aerial AI can be throw off by tree shadows and eave overhangs. Catching a 'Two-Pitch' error before the start date protects your margins from under-ordering and prevents project delays during the installation phase." 
       }
     ]
   },
   {
     slug: 'commercial-tpo-estimator',
-    title: 'Commercial TPO Roofing Estimator',
-    seoDescription: 'Low-slope commercial roofing cost calculator for TPO and EPDM systems.',
+    title: 'Commercial TPO & NDL Warranty Spec Estimator',
+    seoDescription: 'High-level commercial estimation tool for single-ply TPO systems, factoring in NDL warranty standards and mil-thickness.',
     type: 'calculator',
-    resultLabel: 'Total Commercial Estimate',
+    resultLabel: 'TPO Project Scope Estimate',
     inputs: [
       { id: 'sqft', label: 'Total Square Footage', type: 'number', placeholder: 'e.g. 10000' },
       { id: 'insulation', label: 'Insulation Type', type: 'select', options: ['None', '1.5" Iso', '3.0" Iso', 'Tapered System'] }
@@ -282,10 +282,10 @@ ${values.companyName || 'The Team'}
   },
   {
     slug: 'pro-roofing-proposal-generator',
-    title: 'Roofing Proposal Text Generator',
-    seoDescription: 'Create a professional, high-converting roofing proposal summary in seconds.',
+    title: 'Professional Roofing Scope & Proposal Builder',
+    seoDescription: 'Generate comprehensive project scopes including itemized materials and warranty language for professional client presentations.',
     type: 'template',
-    resultLabel: 'Proposal Summary',
+    resultLabel: 'Generated Project Scope',
     inputs: [
       { id: 'customer', label: 'Customer Name', type: 'text', placeholder: 'John Doe' },
       { id: 'material', label: 'Selected Material', type: 'select', options: ['Asphalt Shingles', 'Standing Seam Metal', 'Stone Coated Steel'] },
@@ -321,10 +321,10 @@ This system comes with our industry-leading ${values.warranty || 'lifetime'} yea
   },
   {
     slug: 'gutter-length-calculator',
-    title: 'Gutter & Downspout Calculator',
-    seoDescription: 'Estimate linear footage for gutters and necessary downspouts based on roof perimeter.',
+    title: 'Gutter & Downspout (Linear Footage) Estimator',
+    seoDescription: 'Precisely estimate linear footage for gutter systems, including corner miters and downspout drop factors.',
     type: 'calculator',
-    resultLabel: 'Gutter System Breakdown',
+    resultLabel: 'Material Linear Footage',
     inputs: [
       { id: 'perimeter', label: 'Roof Perimeter (Feet)', type: 'number', placeholder: 'e.g. 200' },
       { id: 'stories', label: 'Building Stories', type: 'select', options: ['1 Story', '2 Story', '3 Story'] }
@@ -355,10 +355,10 @@ This system comes with our industry-leading ${values.warranty || 'lifetime'} yea
   },
   {
     slug: 'roof-ventilation-calculator',
-    title: 'Attic Ventilation Calculator',
-    seoDescription: 'Ensure your roof stays cool. Calculate the Net Free Area (NFA) needed for your attic.',
+    title: 'NFA Balancing & Code Compliance Lead Machine',
+    seoDescription: 'Technical NFA tool for contractors to ensure 1:150 balancing to meet IRC building codes and prevent shingle warranty invalidation.',
     type: 'calculator',
-    resultLabel: 'Required NFA (sq. inches)',
+    resultLabel: 'Required NFA (Target Benchmark)',
     inputs: [
       { id: 'atticSqft', label: 'Attic Floor Square Footage', type: 'number', placeholder: 'e.g. 2000' },
       { id: 'ratio', label: 'Ventilation Ratio', type: 'select', options: ['1:150 (Standard)', '1:300 (With Vapor Barrier)'] }
@@ -386,10 +386,10 @@ This system comes with our industry-leading ${values.warranty || 'lifetime'} yea
   },
   {
     slug: 'roof-referral-request-generator',
-    title: 'Customer Referral Script Generator',
-    seoDescription: 'The best script for asking happy roofing customers for referrals and reviews.',
+    title: 'Customer Referral & Social Proof System',
+    seoDescription: 'Business tool for activating happy roofing customers to generate high-quality referrals and organic social proof.',
     type: 'text-generator',
-    resultLabel: 'Referral Script',
+    resultLabel: 'Referral Campaign Script',
     inputs: [
       { id: 'customerName', label: 'Customer Name', type: 'text' },
       { id: 'bonus', label: 'Referral Bonus ($)', type: 'number', placeholder: '100' }
@@ -416,10 +416,10 @@ I'd love to invite you into our "Refer-a-Neighbor" program where we'll send you 
   },
   {
     slug: 'insurance-denial-appeal-script',
-    title: 'Insurance Claim Appeal Script',
-    seoDescription: 'Generate a professional letter to appeal a denied roofing insurance claim.',
+    title: 'Insurance Technical Rebuttal & Appeal System',
+    seoDescription: 'Evidence-based appeal generator for contractors citing manufacturer installation specs (GAF/OC) and Appraisal Clause escalation language.',
     type: 'text-generator',
-    resultLabel: 'Appeal Letter Content',
+    resultLabel: 'Rebuttal Argument Language',
     inputs: [
       { id: 'carrier', label: 'Insurance Carrier', type: 'text', placeholder: 'State Farm' },
       { id: 'claimNum', label: 'Claim Number', type: 'text' },
@@ -437,25 +437,25 @@ We look forward to meeting your adjuster at the property to ensure the homeowner
     },
     faqs: [
       { 
-        question: "How should my sales team identify 'Appeatable' hail damage?", 
-        answer: "Look for 'Functional Damage'—fractures in the asphalt mat or bruises that compromise the waterproofing. Adjusters often deny 'cosmetic' hail, so your team must document how the impact reduces the roof's expected lifespan." 
+        question: "How do I cite manufacturer installation specs (Mat Fracture) in a rebuttal?", 
+        answer: "Focus on shingle mat integrity. If a carrier denies 'bruising' as cosmetic, generate a rebuttal citing GAF or Owens Corning specs that prove mat fracture reduces the roof's waterproofing performance—invalidating the denial under the policy's duty to repair." 
       },
       { 
-        question: "What are the key technical terms to use in a claim appeal letter?", 
-        answer: "Use industry-standard terms like 'granule loss leading to UV degradation,' 'creased shingles,' and 'compromised mat integrity.' These terms force the carrier to address the technical failure rather than dismissing it as an aesthetic issue." 
+        question: "What is the specific language for an 'Appraisal Clause' escalation?", 
+        answer: "When a carrier hits a technical deadlock, invoke the Appraisal Clause. The script generated by this tool uses the standard language: 'We hereby demand Appraisal under the terms of the policy to determine the amount of loss,' forcing a neutral umpire to resolve the dispute." 
       },
       { 
-        question: "How can my company build a relationship with local adjusters to increase approval rates?", 
-        answer: "Be at the property for the adjustment. Provide the adjuster with a pre-marked 'Damage Map' and high-res photos. Being helpful and professional rather than adversarial is the single fastest way to get your claims approved on the first try." 
+        question: "How can I prove 'Standard Waste' is insufficient for an insurance claim?", 
+        answer: "Submit an itemized complexity report from this tool showing hip/ridge linear footage vs. facet area. Proving that the 'Suggested Waste Factor' from EagleView exceeds the carrier's default 10% is the most effective way to win supplemental material payments." 
       }
     ]
   },
   {
     slug: 'roofing-lead-reactivation-script',
-    title: 'Aged Lead Reactivation Script',
-    seoDescription: 'Waking up cold leads with a compelling follow-up that gets them back on the phone.',
+    title: 'Aged Lead Reactivation & Price Protection Tool',
+    seoDescription: 'Strategic sales scripts designed to re-engage cold leads by leveraging material price increases and limited-time system upgrades.',
     type: 'text-generator',
-    resultLabel: 'Reactivation Message',
+    resultLabel: 'Reactivation Outreach',
     inputs: [
       { id: 'client', label: 'Lead Name', type: 'text' },
       { id: 'timeAgo', label: 'Months Since Quote', type: 'number', placeholder: '6' }
@@ -482,10 +482,10 @@ I'd love to see if we can still honor that old quote before the new pricing kick
   },
   {
     slug: 'vinyl-siding-cost-calculator',
-    title: 'Vinyl Siding Cost Calculator',
-    seoDescription: 'Accurately estimate the cost of vinyl siding installation for your home based on square footage and siding quality.',
+    title: 'Vinyl System Gauge & Profile Estimator',
+    seoDescription: 'Professional estimation tool for vinyl siding projects, factoring in material gauge thickness and profile premiums.',
     type: 'calculator',
-    resultLabel: 'Estimated Siding Cost',
+    resultLabel: 'Siding System Estimate',
     inputs: [
       { id: 'sqft', label: 'Wall Square Footage', type: 'number', placeholder: 'e.g. 2000' },
       { id: 'quality', label: 'Siding Quality', type: 'select', options: ['Standard (.040)', 'Premium (.044)', 'Insulated Vinyl'] }
@@ -516,10 +516,10 @@ I'd love to see if we can still honor that old quote before the new pricing kick
   },
   {
     slug: 'cedar-shake-roof-calculator',
-    title: 'Cedar Shake Roof Estimator',
-    seoDescription: 'Determine how many bundles of cedar shakes are required for a roof replacement.',
+    title: 'Cedar Shake Grade & Triple-Coverage Estimator',
+    seoDescription: 'Technical material estimator for cedar roofing, calculating bundle counts based on exposure and Blue Label vs. Red Label grading.',
     type: 'calculator',
-    resultLabel: 'Material Estimate',
+    resultLabel: 'Cedar Material Schedule',
     inputs: [
       { id: 'squares', label: 'Roof Squares', type: 'number', placeholder: 'e.g. 25' },
       { id: 'exposure', label: 'Exposure (Inches)', type: 'select', options: ['5 inch exposure', '7.5 inch exposure'] },
@@ -550,10 +550,10 @@ I'd love to see if we can still honor that old quote before the new pricing kick
   },
   {
     slug: 'roof-cleaning-cost-estimator',
-    title: 'Roof Cleaning Cost Estimator',
-    seoDescription: 'Calculate the cost of soft-washing or pressure cleaning a roof based on debris levels.',
+    title: 'Roof Maintenance & Soft-Wash Profit Estimator',
+    seoDescription: 'Business calculator for estimating margins on soft-wash roof cleaning services, including chemical costs and steep-slope premiums.',
     type: 'calculator',
-    resultLabel: 'Estimated Service Cost',
+    resultLabel: 'Estimated Service Quote',
     inputs: [
       { id: 'sqft', label: 'Roof Square Footage', type: 'number', placeholder: 'e.g. 2500' },
       { id: 'method', label: 'Cleaning Method', type: 'select', options: ['Soft Wash (Chemical)', 'Low Pressure Wash'] },
@@ -618,10 +618,10 @@ I'd love to see if we can still honor that old quote before the new pricing kick
   },
   {
     slug: 'solar-roof-capacity-calculator',
-    title: 'Solar Panel Capacity Calculator',
-    seoDescription: 'Find out how many solar panels can fit on your roof and the total kW output.',
+    title: 'PV Array & Solar Power Capacity Estimator',
+    seoDescription: 'Professional tool for contractors to estimate usable roof area for solar PV arrays, factoring in setbacks and fire code pathways.',
     type: 'calculator',
-    resultLabel: 'Estimated Power Capacity',
+    resultLabel: 'Projected Solar Capacity',
     inputs: [
       { id: 'area', label: 'Usable South-Facing Sqft', type: 'number', placeholder: 'e.g. 800' },
       { id: 'panelWattage', label: 'Panel Wattage', type: 'number', placeholder: '400' }
@@ -651,10 +651,10 @@ I'd love to see if we can still honor that old quote before the new pricing kick
   },
   {
     slug: 'labor-cost-with-overtime-calculator',
-    title: 'Roofing Labor Overtime Calculator',
-    seoDescription: 'Business tool for roofing contractors to calculate crew labor costs with overtime.',
+    title: 'Project Labor & Overtime Burden Calculator',
+    seoDescription: 'Business calculator for roofing owners to estimate total labor costs including overtime premiums and loaded payroll factors.',
     type: 'calculator',
-    resultLabel: 'Total Labor Expense',
+    resultLabel: 'Fully Burdened Labor Expense',
     inputs: [
       { id: 'crewSize', label: 'Crew Size', type: 'number', placeholder: '4' },
       { id: 'hourlyRate', label: 'Hourly Rate / Person ($)', type: 'number', placeholder: '25' },
@@ -688,10 +688,10 @@ I'd love to see if we can still honor that old quote before the new pricing kick
   },
   {
     slug: 'tile-roof-repair-estimator',
-    title: 'Broken Tile Repair Estimator',
-    seoDescription: 'Estimate the cost of replacing individual broken tiles on a concrete or clay roof.',
+    title: 'Clay/Concrete Tile Repair Service Estimator',
+    seoDescription: 'Technical tool for estimating specialty tile repairs, factoring in mobilization charges and profile-specific material costs.',
     type: 'calculator',
-    resultLabel: 'Repair Estimate',
+    resultLabel: 'Tile Repair System Estimate',
     inputs: [
       { id: 'brokenCount', label: 'Number of Broken Tiles', type: 'number', placeholder: '10' },
       { id: 'tileType', label: 'Tile Type', type: 'select', options: ['Concrete Flat', 'Clay S-Tile', 'Concrete Spanish'] }
@@ -722,10 +722,10 @@ I'd love to see if we can still honor that old quote before the new pricing kick
   },
   {
     slug: 'snow-guard-layout-calculator',
-    title: 'Snow Guard Layout Calculator',
-    seoDescription: 'Calculate how many snow guards you need for a metal or slate roof based on pitch.',
+    title: 'Snow Guard Spacing & Structural Load Tool',
+    seoDescription: 'Determine required snow guard layout patterns based on roof pitch, eave length, and staggering requirements.',
     type: 'calculator',
-    resultLabel: 'Required Snow Guards',
+    resultLabel: 'Required Component Schedule',
     inputs: [
       { id: 'length', label: 'Roof Length (Eave Feet)', type: 'number', placeholder: '50' },
       { id: 'pitch', label: 'Roof Pitch', type: 'select', options: ['Low (under 6/12)', 'Medium (6/12 to 10/12)', 'Steep (over 10/12)'] }
@@ -756,10 +756,10 @@ I'd love to see if we can still honor that old quote before the new pricing kick
   },
   {
     slug: 'fascia-soffit-cost-generator',
-    title: 'Fascia & Soffit Replacement Estimator',
-    seoDescription: 'Estimate the cost for replacing damaged wood fascia or aluminum soffit covers.',
+    title: 'Fascia & Soffit Component Estimator',
+    seoDescription: 'Estimate linear footage and material pricing for fascia and soffit systems, including PVC and aluminum wrap premiums.',
     type: 'calculator',
-    resultLabel: 'Fascia/Soffit Total',
+    resultLabel: 'Fascia/Soffit System Total',
     inputs: [
       { id: 'linearFeet', label: 'Total Linear Feet', type: 'number', placeholder: '150' },
       { id: 'material', label: 'Material', type: 'select', options: ['Aluminum Wrap', 'Primed Pine', 'High-End PVC (Azek)'] }
@@ -789,10 +789,10 @@ I'd love to see if we can still honor that old quote before the new pricing kick
   },
   {
     slug: 'subcontractor-agreement-generator',
-    title: 'Roofing Subcontractor Agreement',
-    seoDescription: 'Generate a standard scope of work and payment terms agreement for roofing subcontractors.',
+    title: 'Roofing Subcontractor Scope & Agreement Builder',
+    seoDescription: 'Generate professional project scope documents and payment agreements for roofing installation crews.',
     type: 'template',
-    resultLabel: 'Agreement Document',
+    resultLabel: 'Generated Sub Agreement',
     inputs: [
       { id: 'subName', label: 'Subcontractor Name', type: 'text' },
       { id: 'projectAddress', label: 'Project Address', type: 'text' },
@@ -829,10 +829,10 @@ Subcontractor must maintain active General Liability and Workers Compensation in
   },
   {
     slug: 'chimney-flashing-cost-estimator',
-    title: 'Chimney Flashing Estimator',
-    seoDescription: 'Calculate the cost to repair or replace specialized chimney flashing using copper or galvanized steel.',
+    title: 'Chimney Counter-Flashing & Cricket Estimator',
+    seoDescription: 'Technical estimation tool for specialized chimney masonry flashing and custom-bent metal crickets.',
     type: 'calculator',
-    resultLabel: 'Flashing Total',
+    resultLabel: 'Flashing System Estimate',
     inputs: [
       { id: 'size', label: 'Chimney Size', type: 'select', options: ['Small (2x2)', 'Medium (3x3)', 'Large (4x4+)'] },
       { id: 'material', label: 'Flashing Material', type: 'select', options: ['Galvanized Steel', 'Aluminum', 'Premium Copper'] }
@@ -864,10 +864,10 @@ Subcontractor must maintain active General Liability and Workers Compensation in
   },
   {
     slug: 'slate-roof-weight-calculator',
-    title: 'Slate Roof Weight Calculator',
-    seoDescription: 'Determine the total structural load of a slate roof to ensure the building can handle the weight.',
+    title: 'Slate Structural Load & Rafter Integrity Tool',
+    seoDescription: 'Structural tool for calculating the total load of natural slate roofing to verify rafter spacing and building integrity.',
     type: 'calculator',
-    resultLabel: 'Total Load (Tons)',
+    resultLabel: 'Total System Weight (Tons)',
     inputs: [
       { id: 'squares', label: 'Total Squares', type: 'number', placeholder: 'e.g. 20' },
       { id: 'thickness', label: 'Slate Thickness', type: 'select', options: ['1/4"', '3/8"', '1/2"', '3/4"'] }
@@ -900,10 +900,10 @@ Subcontractor must maintain active General Liability and Workers Compensation in
   },
   {
     slug: 'roof-deck-replacement-calculator',
-    title: 'Roof Deck (Sheathing) Calculator',
-    seoDescription: 'Estimate the cost and material count for replacing rotted roof decking with OSB or Plywood.',
+    title: 'Roof Decking (Sheathing) & Rot Factor Tool',
+    seoDescription: 'Professional estimator for roof deck replacement, factoring in OSB vs. CDX Plywood and technical install labor.',
     type: 'calculator',
-    resultLabel: 'Sheathing Estimate',
+    resultLabel: 'Sheathing Order Schedule',
     inputs: [
       { id: 'sheets', label: 'Number of 4x8 Sheets', type: 'number', placeholder: '10' },
       { id: 'material', label: 'Material Type', type: 'select', options: ['7/16" OSB', '1/2" CDX Plywood', '5/8" CDX Plywood'] }
@@ -934,10 +934,10 @@ Subcontractor must maintain active General Liability and Workers Compensation in
   },
   {
     slug: 'hoa-roofing-approval-generator',
-    title: 'HOA Roofing Approval Request',
-    seoDescription: 'Generate a professional request for HOA approval of your new roofing material and color.',
+    title: 'HOA Technical Spec & Approval Package Builder',
+    seoDescription: 'Generate professional HOA approval documents including material technical data and manufacturer spec sheets.',
     type: 'template',
-    resultLabel: 'HOA Request Content',
+    resultLabel: 'Technical Approval Content',
     inputs: [
       { id: 'hoaName', label: 'HOA Board Name', type: 'text' },
       { id: 'material', label: 'Proposed Material', type: 'text', placeholder: 'CertainTeed Landmark' },
@@ -969,10 +969,10 @@ I look forward to your timely approval so we can proceed with the installation.`
   },
   {
     slug: 'roof-ridge-vent-calculator',
-    title: 'Ridge Vent Linear Footage Tool',
-    seoDescription: 'Calculate how many pieces of ridge vent you need for your roof peaks.',
+    title: 'Ridge Vent Linear Footage & NFA Balancing Tool',
+    seoDescription: 'Calculate mandatory linear footage for ridge vents to achieve balanced NFA (Net Free Area) with soffit intake.',
     type: 'calculator',
-    resultLabel: 'Required Ridge Vents',
+    resultLabel: 'Calculated Ridge Component Schedule',
     inputs: [
       { id: 'linearFeet', label: 'Total Ridge Length (Feet)', type: 'number', placeholder: 'e.g. 80' },
       { id: 'ventType', label: 'Vent Profile', type: 'select', options: ['Standard Shingle-Over', 'High-Profile Aluminum', 'Metal Roof Z-Vent'] }
@@ -999,10 +999,10 @@ I look forward to your timely approval so we can proceed with the installation.`
   },
   {
     slug: 'ice-dam-prevention-checklist',
-    title: 'Ice Dam Prevention Checklist',
-    seoDescription: 'A systematic checklist to identify and mitigate ice dam risks before winter.',
+    title: 'Winterization Maintenance & Ice Dam Mitigation Scope',
+    seoDescription: 'Professional checklist for identifying and mitigating ice dam risks through ventilation and insulation technical assessments.',
     type: 'template',
-    resultLabel: 'Mitigation Checklist',
+    resultLabel: 'Mitigation Scope Report',
     inputs: [
       { id: 'atticNode', label: 'Attic Status', type: 'select', options: ['Insulated', 'Uninsulated / Drafty'] },
       { id: 'gutterNode', label: 'Gutter Status', type: 'select', options: ['Clean', 'Full of debris'] }
@@ -1032,10 +1032,10 @@ I look forward to your timely approval so we can proceed with the installation.`
   },
   {
     slug: 'metal-roof-screw-calculator',
-    title: 'Metal Roof Screw Count Calculator',
-    seoDescription: 'Calculate exactly how many fasteners you need for an exposed-fastener metal roof.',
+    title: 'Fastener Schedule & Wind-Uplift Estimator',
+    seoDescription: 'Calculate mandatory fastener patterns and component counts for exposed-fastener metal roofing systems.',
     type: 'calculator',
-    resultLabel: 'Fastener Count',
+    resultLabel: 'Fastener System Schedule',
     inputs: [
       { id: 'squares', label: 'Total Squares', type: 'number', placeholder: '15' },
       { id: 'spacing', label: 'Screw Spacing (Inches)', type: 'number', placeholder: '24' }
@@ -1064,10 +1064,10 @@ I look forward to your timely approval so we can proceed with the installation.`
   },
   {
     slug: 'roof-coating-estimate-tool',
-    title: 'Silicone Roof Coating Estimator',
-    seoDescription: 'Determine gallons of silicone or acrylic coating needed to waterproof a flat roof.',
+    title: 'Silicone/Cool-Roof Coating & Profit Margin Estimator',
+    seoDescription: 'Commercial tool for estimating liquid-applied silicone or acrylic roof coating systems and project profitability.',
     type: 'calculator',
-    resultLabel: 'Coating Required',
+    resultLabel: 'Coating System Estimate',
     inputs: [
       { id: 'sqft', label: 'Total Square Footage', type: 'number', placeholder: '5000' },
       { id: 'material', label: 'Coating Type', type: 'select', options: ['High-Solid Silicone', 'Acrylic', 'Urethane'] }
@@ -1097,10 +1097,10 @@ I look forward to your timely approval so we can proceed with the installation.`
   },
   {
     slug: 'stone-coated-steel-calculator',
-    title: 'Stone Coated Steel Calculator',
-    seoDescription: 'Estimate panels and trim for stone-coated steel (Decra/Tilcor) roofing systems.',
+    title: 'Stone-Coated Steel (Decra) System Spec & Waste Calculator',
+    seoDescription: 'Technical material estimator for stone-coated steel panels, including battens and profile-specific waste factors.',
     type: 'calculator',
-    resultLabel: 'Panel Estimate',
+    resultLabel: 'B2B Material Schedule',
     inputs: [
       { id: 'squares', label: 'Total Squares', type: 'number', placeholder: '20' },
       { id: 'profile', label: 'Panel Profile', type: 'select', options: ['Villa Tile', 'Shake Profile', 'Shingle Profile'] }
@@ -1129,10 +1129,10 @@ I look forward to your timely approval so we can proceed with the installation.`
   },
   {
     slug: 'roofing-warranty-claim-generator',
-    title: 'Manufacturer Warranty Claim Generator',
-    seoDescription: 'Generate a professional letter to initiate a manufacturer warranty claim for defective shingles.',
+    title: 'Manufacturer Defect Warranty Argument Generator',
+    seoDescription: 'Generate technical evidence-based appeals for shingle manufacturer warranty claims, focusing on material defects.',
     type: 'text-generator',
-    resultLabel: 'Claim Letter',
+    resultLabel: 'Warranty Argument Content',
     inputs: [
       { id: 'mnfr', label: 'Manufacturer Name', type: 'text', placeholder: 'GAF / Owens Corning' },
       { id: 'installDate', label: 'Installation Date', type: 'text' },
@@ -1164,10 +1164,10 @@ Please provide the necessary claim packet and instructions for submitting physic
   },
   {
     slug: 'roofing-financing-calculator',
-    title: 'Roofing Financing Calculator',
-    seoDescription: 'Calculate your monthly payments for a new roof based on loan amount, interest rate, and term length.',
+    title: 'Project Financing & Monthly Payment Sales Tool',
+    seoDescription: 'Sales tool for calculating monthly payments and financing ROI to increase project ticket sizes.',
     type: 'calculator',
-    resultLabel: 'Monthly Payment',
+    resultLabel: 'Monthly Payment Quote',
     inputs: [
       { id: 'amount', label: 'Loan Amount ($)', type: 'number', placeholder: '15000' },
       { id: 'apr', label: 'Interest Rate (APR %)', type: 'number', placeholder: '7.99' },
@@ -1199,10 +1199,10 @@ Please provide the necessary claim packet and instructions for submitting physic
   },
   {
     slug: 'roof-snow-load-calculator',
-    title: 'Roof Snow Load Calculator',
-    seoDescription: 'Estimate the weight of snow on your roof to determine if it exceeds structural safety limits.',
+    title: 'Roof Structural Snow Load & Safety Threshold Tool',
+    seoDescription: 'Determine the total structural weight of snow on a roof field to assess rafter load and collapse thresholds.',
     type: 'calculator',
-    resultLabel: 'Estimated Snow Weight',
+    resultLabel: 'Load Bearing Assessment',
     inputs: [
       { id: 'sqft', label: 'Roof Square Footage', type: 'number', placeholder: '2000' },
       { id: 'depth', label: 'Snow Depth (Inches)', type: 'number', placeholder: '12' },
@@ -1235,10 +1235,10 @@ Please provide the necessary claim packet and instructions for submitting physic
   },
   {
     slug: 'shingle-roof-age-estimator',
-    title: 'Roof Age & Health Estimator',
-    seoDescription: 'Determine the remaining life of your shingle roof based on visible wear and tear indicators.',
+    title: 'Technical Roof Lifecycle Assessment & Vulnerability Report',
+    seoDescription: 'Business tool for assessing shingle embrittlement, mat fracture, and granule loss to project system failure dates.',
     type: 'calculator',
-    resultLabel: 'Estimated Remaining Life',
+    resultLabel: 'Lifecycle Project Assessment',
     inputs: [
       { id: 'granules', label: 'Granule Loss', type: 'select', options: ['None', 'Light', 'Severe (Bald spots)'] },
       { id: 'curling', label: 'Shingle Curling', type: 'select', options: ['Flat', 'Slight edges', 'Significant curling'] },
@@ -1273,10 +1273,10 @@ Please provide the necessary claim packet and instructions for submitting physic
   },
   {
     slug: 'sms-review-request-generator',
-    title: 'Review Request SMS Generator',
-    seoDescription: 'Generate the perfect text message to send to homeowners to capture 5-star Google and Facebook reviews.',
+    title: 'Post-Project SMS Review & Social Proof System',
+    seoDescription: 'Automated outreach tool for capturing 5-star Google and Facebook reviews immediately following job completion.',
     type: 'text-generator',
-    resultLabel: 'SMS Message Content',
+    resultLabel: 'Review Request Script',
     inputs: [
       { id: 'clientName', label: 'Homeowner Name', type: 'text' }
     ],
@@ -1300,10 +1300,10 @@ Please provide the necessary claim packet and instructions for submitting physic
   },
   {
     slug: 'roof-drainage-scupper-calculator',
-    title: 'Roof Scupper Sizing Tool',
-    seoDescription: 'Calculate the required width and height for roof scuppers based on drainage area and local rainfall.',
+    title: 'Commercial Drainage Scupper & IBC Code Sizing Tool',
+    seoDescription: 'Technical sizing tool for parapet scuppers based on drainage area, rainfall intensity, and IBC code requirements.',
     type: 'calculator',
-    resultLabel: 'Recommended Scupper Size',
+    resultLabel: 'Required Scupper Spec',
     inputs: [
       { id: 'area', label: 'Drainage Area (Sqft)', type: 'number', placeholder: '5000' },
       { id: 'rainfall', label: 'Rain Intensity (Inches/Hr)', type: 'number', placeholder: '4' }
@@ -1332,10 +1332,10 @@ Please provide the necessary claim packet and instructions for submitting physic
   },
   {
     slug: 'attic-fan-savings-calculator',
-    title: 'Attic Fan Energy Savings Tool',
-    seoDescription: 'Find out how much an solar attic fan can save you on your monthly cooling bills.',
+    title: 'Active Ventilation ROI & Thermal Transfer Analyzer',
+    seoDescription: 'Calculate the energy impact of active solar ventilation vs. passive systems based on attic thermal transfer.',
     type: 'calculator',
-    resultLabel: 'Estimated Monthly Savings',
+    resultLabel: 'Thermal Efficiency Estimate',
     inputs: [
       { id: 'acBill', label: 'Current AC Bill ($)', type: 'number', placeholder: '300' },
       { id: 'insulation', label: 'Attic Insulation Level', type: 'select', options: ['Low (R-19)', 'Avg (R-38)', 'High (R-49+)'] }
@@ -1366,10 +1366,10 @@ Please provide the necessary claim packet and instructions for submitting physic
   },
   {
     slug: 'hail-damage-probability-tool',
-    title: 'Hail Damage Risk Probability',
-    seoDescription: 'Determine the likelihood of your roof having functional damage after a hail storm based on stone size.',
+    title: 'Mat Fracture & Impact Probability Inspection Tool',
+    seoDescription: 'Professional diagnostic tool for determining the risk of shingle mat fractures based on hailstone mechanical force.',
     type: 'template',
-    resultLabel: 'Damage Risk Level',
+    resultLabel: 'Impact Risk Analysis',
     inputs: [
       { id: 'size', label: 'Hailstone Size', type: 'select', options: ['Pea (0.25")', 'Nickel (0.88")', 'Quarter (1.00")', 'Golf Ball (1.75")', 'Baseball (2.75"+)'] },
       { id: 'age', label: 'Roof Age (Years)', type: 'number', placeholder: '10' }
@@ -1400,10 +1400,10 @@ Please provide the necessary claim packet and instructions for submitting physic
   },
   {
     slug: 'roofing-permit-fee-estimator',
-    title: 'Roofing Permit Fee Estimator',
-    seoDescription: 'Estimate local municipality permit fees based on the total contract value of your roofing project.',
+    title: 'Municipal Permit Fee & Compliance Budget Tool',
+    seoDescription: 'Project budget tool for estimating city/county permit fees based on contract value and project classification.',
     type: 'calculator',
-    resultLabel: 'Estimated Permit Cost',
+    resultLabel: 'Estimated Compliance Fee',
     inputs: [
       { id: 'contractValue', label: 'Total Contract Value ($)', type: 'number', placeholder: '15000' },
       { id: 'type', label: 'Project Type', type: 'select', options: ['Residential', 'Commercial'] }
@@ -1431,10 +1431,10 @@ Please provide the necessary claim packet and instructions for submitting physic
   },
   {
     slug: 'cool-roof-roi-calculator',
-    title: 'Cool Roof ROI Calculator',
-    seoDescription: 'Calculate the return on investment for high-reflectance (Cool Roof) systems compared to standard roofing.',
+    title: 'Title 24 Compliance & Reflective ROI Analyzer',
+    seoDescription: 'Technical ROI tool for SRI (Solar Reflectance Index) systems, factoring in energy credits and cooling equipment stress reduction.',
     type: 'calculator',
-    resultLabel: 'Estimated Payback Period',
+    resultLabel: 'Energy Payback Period',
     inputs: [
       { id: 'premium', label: 'Cool Roof Premium Cost ($)', type: 'number', placeholder: '2000' },
       { id: 'savings', label: 'Annual Energy Savings ($)', type: 'number', placeholder: '400' }
@@ -1462,10 +1462,10 @@ Please provide the necessary claim packet and instructions for submitting physic
   },
   {
     slug: 'roofing-safety-gear-cost',
-    title: 'OSHA Safety Gear Budget Tool',
-    seoDescription: 'Business tool for roofing owners to estimate the cost of providing OSHA-compliant safety gear for a crew.',
+    title: 'OSHA Compliance & Fall Protection Budget Tool',
+    seoDescription: 'Business operational tool for budgeting OSHA-certified fall protection systems, including harnesses and permanent anchors.',
     type: 'calculator',
-    resultLabel: 'Safety Gear Total',
+    resultLabel: 'OSHA Gear Budget',
     inputs: [
       { id: 'workers', label: 'Number of Workers', type: 'number', placeholder: '4' },
       { id: 'anchors', label: 'Number of Permanent Anchors', type: 'number', placeholder: '2' }
@@ -1491,6 +1491,46 @@ Please provide the necessary claim packet and instructions for submitting physic
       { 
         question: "Do permanent roof anchors add value to a residential roof replacement?", 
         answer: "Yes. Position them as a 'Lifetime Service Point.' They allow for safe future maintenance, gutter cleaning, and satellite installs. Framing a permanent anchor as a 'Professional Service Standard' demonstrates your company's superior attention to code and safety." 
+      }
+    ]
+  },
+  {
+    slug: 'roofing-profitability-burden-calculator',
+    title: 'Roofing Business Profitability & Burden Shield',
+    seoDescription: 'High-level financial tool for roofing owners to calculate true net profit by factoring in overhead burden, commission leakage, and material slippage.',
+    type: 'calculator',
+    resultLabel: 'True Net Profit (Projected)',
+    inputs: [
+      { id: 'contractTotal', label: 'Total Contract Value ($)', type: 'number', placeholder: '15000' },
+      { id: 'laborMaterial', label: 'Direct Costs (Labor + Mat)', type: 'number', placeholder: '9000' },
+      { id: 'commission', label: 'Sales Commission (%)', type: 'number', placeholder: '10' },
+      { id: 'overhead', label: 'Overhead Burden (%)', type: 'number', placeholder: '15', description: 'Internal ops, insurance, office, fuel.' }
+    ],
+    compute: (values) => {
+      const total = Number(values.contractTotal) || 0;
+      const direct = Number(values.laborMaterial) || 0;
+      const commPct = Number(values.commission) || 0;
+      const overheadPct = Number(values.overhead) || 0;
+      
+      const commAmount = total * (commPct / 100);
+      const overheadAmount = total * (overheadPct / 100);
+      const netProfit = total - direct - commAmount - overheadAmount;
+      const margin = (netProfit / total) * 100;
+      
+      return `$${netProfit.toLocaleString()} (${margin.toFixed(1)}% Net Margin)`;
+    },
+    faqs: [
+      { 
+        question: "What is 'Overhead Burden' and why should I include it in every roofing bid?", 
+        answer: "Overhead burden includes your non-job costs: office rent, insurance premiums (GL/WorkComp), administrative salaries, and fuel. Most contractors fail because they only track Labor and Materials. Facturing in a 15–20% burden ensures you aren't just 'trading dollars' but actually building business equity." 
+      },
+      { 
+        question: "How do I calculate 'Commission Leakage' in my sales pipeline?", 
+        answer: "Commission leakage occurs when sales reps over-promise or fail to account for supplemental material costs. By using a 'Net Profit' commission model (rather than a 'Gross Sale' model), you align your sales team's incentives with the company's bottom-line health." 
+      },
+      { 
+        question: "What is a healthy net profit margin for a residential roofing company?", 
+        answer: "Target a 20–30% gross margin and a 10–15% net profit margin. In a volume-based business, a 10% net profit is the 'Safe Zone.' If your net margin is consistently below 5%, your overhead burden is likely too high or your per-square labor rates are outdated for the current market." 
       }
     ]
   }
