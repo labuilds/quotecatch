@@ -189,7 +189,7 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
             </div>
           </CardContent>
 
-          <CardFooter className="p-8 pt-0 flex gap-3 relative z-10">
+          <CardFooter className="p-8 pt-6 flex gap-3 relative z-10">
             <Link
               href={`/calculators/${calc.id}`}
               className={cn(
