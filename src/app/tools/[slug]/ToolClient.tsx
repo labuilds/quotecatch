@@ -110,9 +110,9 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger 
                 render={
-                  <div role="button" className="h-10 w-10 flex items-center justify-center hover:bg-slate-50 rounded-xl transition-all cursor-pointer">
+                  <button type="button" className="h-10 w-10 flex items-center justify-center hover:bg-slate-50 rounded-xl transition-all cursor-pointer">
                     <Menu className="w-6 h-6" />
-                  </div>
+                  </button>
                 } 
               />
               <SheetContent side="top" className="w-full pt-20 pb-10">

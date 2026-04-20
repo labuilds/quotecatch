@@ -10,7 +10,7 @@ import { UserTierProvider } from '@/components/UserTierProvider'
 import { SupportButton } from '@/components/SupportModal'
 import { SidebarUpgradeCard } from '@/components/SidebarUpgradeCard'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 
 interface DashboardLayoutClientProps {
   children: ReactNode
@@ -105,9 +105,9 @@ export default function DashboardLayoutClient({ children, isPro, userEmail }: Da
         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
           <SheetTrigger
             render={
-              <Button variant="ghost" size="icon" className="text-slate-600">
+              <button type="button" className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "text-slate-600")}>
                 <Menu className="w-6 h-6" />
-              </Button>
+              </button>
             }
           />
           <SheetContent side="left" className="p-0 border-none w-[280px]">
