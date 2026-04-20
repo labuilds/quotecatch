@@ -14,7 +14,7 @@ export default async function LeadsPage() {
   const [profileResult, leadsResult] = await Promise.all([
     supabase.from('users').select('is_pro').eq('id', user.id).single(),
     supabase.from('leads')
-      .select(`id, homeowner_name, homeowner_email, homeowner_phone, estimated_price, address, calculators ( name )`)
+      .select(`id, created_at, homeowner_name, homeowner_email, homeowner_phone, estimated_price, address, notes, form_data, calculators ( name )`)
   ])
 
   const isPro = profileResult.data?.is_pro ?? false

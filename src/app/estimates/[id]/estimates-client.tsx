@@ -135,10 +135,10 @@ export default function EstimatesClient({
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Info Card */}
-          <div className="lg:col-span-2 bg-white rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col md:flex-row">
+          <div className="lg:col-span-2 bg-white rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col md:flex-row items-stretch md:items-start">
             {/* Image (Carousel-like) */}
-            <div className="md:w-1/2 relative h-[300px] md:h-auto min-h-[400px] overflow-hidden">
-               <img src={material.image} alt={material.title} className="absolute inset-0 w-full h-full object-cover" />
+            <div className="md:w-1/2 relative h-[180px] md:h-[500px] md:min-h-[500px] overflow-hidden shrink-0">
+               <img src={material.image} alt={material.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500" />
             </div>
 
             {/* Content */}
@@ -221,16 +221,52 @@ export default function EstimatesClient({
                   This is an estimate. Actual roof size will vary based on the exact slope (steepness) of your roof.
                 </p>
 
-                <div className="grid grid-cols-2 gap-8">
-                  <div className="space-y-1">
-                    <p className="text-[28px] lg:text-[34px] font-black">{sqFt === "under_1500" ? "< 1,500" : sqFt === "1500_2500" ? "2,000" : sqFt === "over_2500" ? "3,000+" : sqFt}</p>
-                    <p className="text-slate-500 font-black text-[14px] uppercase tracking-widest">Square feet</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
+                    <div className="space-y-1">
+                      <p className="text-[28px] lg:text-[34px] font-black">{sqFt === "under_1500" ? "< 1,500" : sqFt === "1500_2500" ? "2,000" : sqFt === "over_2500" ? "3,000+" : sqFt}</p>
+                      <p className="text-slate-500 font-black text-[14px] uppercase tracking-widest">Square feet</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[28px] lg:text-[34px] font-black">{pitchLabel}</p>
+                      <p className="text-slate-500 font-black text-[14px] uppercase tracking-widest">Slope</p>
+                    </div>
+                    {formData.buildingType && (
+                      <div className="space-y-1">
+                        <p className="text-[28px] lg:text-[34px] font-black capitalize">{formData.buildingType}</p>
+                        <p className="text-slate-500 font-black text-[14px] uppercase tracking-widest">Building</p>
+                      </div>
+                    )}
+                    {formData.material && (
+                      <div className="space-y-1">
+                        <p className="text-[28px] lg:text-[34px] font-black capitalize">{formData.material}</p>
+                        <p className="text-slate-500 font-black text-[14px] uppercase tracking-widest">Existing Roof</p>
+                      </div>
+                    )}
+                    {formData.timeline && (
+                      <div className="space-y-1">
+                        <p className="text-[28px] lg:text-[34px] font-black capitalize">{formData.timeline.replace('-', ' to ')}</p>
+                        <p className="text-slate-500 font-black text-[14px] uppercase tracking-widest">Timeline</p>
+                      </div>
+                    )}
+                    {formData.financing && (
+                      <div className="space-y-1">
+                        <p className="text-[28px] lg:text-[34px] font-black capitalize">{formData.financing}</p>
+                        <p className="text-slate-500 font-black text-[14px] uppercase tracking-widest">Financing</p>
+                      </div>
+                    )}
                   </div>
-                  <div className="space-y-1">
-                    <p className="text-[28px] lg:text-[34px] font-black">{pitchLabel}</p>
-                    <p className="text-slate-500 font-black text-[14px] uppercase tracking-widest">Slope</p>
-                  </div>
-                </div>
+
+                  {lead.notes && (
+                    <div className="pt-8 border-t border-slate-800 mt-4">
+                      <p className="text-slate-500 font-black text-[12px] uppercase tracking-widest mb-3 flex items-center gap-2">
+                        <Info className="w-4 h-4" />
+                        Homeowner Notes:
+                      </p>
+                      <p className="text-slate-300 font-medium italic text-[16px] leading-relaxed">
+                        "{lead.notes}"
+                      </p>
+                    </div>
+                  )}
               </div>
 
               {userProfile?.is_pro ? (

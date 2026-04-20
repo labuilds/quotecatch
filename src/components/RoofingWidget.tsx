@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -102,6 +103,8 @@ export default function RoofingWidget({
     address: isDemo ? "21345 Lassen St, Chatsworth, CA 91311" : "", 
     buildingType: "", material: "", desiredMaterial: "", pitch: "", timeline: "", financing: "", firstName: "", email: "", phone: "", notes: "",
   })
+  const [agreedToTerms, setAgreedToTerms] = useState(false)
+  const [agreedToMarketing, setAgreedToMarketing] = useState(false)
   const [estimatedPrice, setEstimatedPrice] = useState<number | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [loadingState, setLoadingState] = useState<string | null>(null)
@@ -747,9 +750,45 @@ export default function RoofingWidget({
               </div>
             </div>
 
+            <div className="space-y-4 pt-2">
+              <label className="flex items-start gap-4 group cursor-pointer select-none">
+                <div className="relative pt-0.5">
+                  <input 
+                    type="checkbox" 
+                    className="peer sr-only" 
+                    checked={agreedToTerms}
+                    onChange={(e) => setAgreedToTerms(e.target.checked)}
+                  />
+                  <div className="w-5 h-5 border-2 border-slate-200 rounded-lg bg-white peer-checked:bg-red-700 peer-checked:border-red-700 transition-all flex items-center justify-center">
+                    <div className="w-2 h-3 border-r-2 border-b-2 border-white rotate-45 mb-1 opacity-0 peer-checked:opacity-100 transition-opacity" />
+                  </div>
+                </div>
+                <span className="text-[13px] font-medium text-slate-500 leading-tight">
+                  I agree to <Link href="/terms" target="_blank" className="text-red-700 underline font-black">Terms of Service</Link> and <Link href="/privacy" target="_blank" className="text-red-700 underline font-black">Privacy Policy</Link>.*
+                </span>
+              </label>
+
+              <label className="flex items-start gap-4 group cursor-pointer select-none">
+                <div className="relative pt-0.5">
+                  <input 
+                    type="checkbox" 
+                    className="peer sr-only" 
+                    checked={agreedToMarketing}
+                    onChange={(e) => setAgreedToMarketing(e.target.checked)}
+                  />
+                  <div className="w-5 h-5 border-2 border-slate-200 rounded-lg bg-white peer-checked:bg-red-700 peer-checked:border-red-700 transition-all flex items-center justify-center">
+                    <div className="w-2 h-3 border-r-2 border-b-2 border-white rotate-45 mb-1 opacity-0 peer-checked:opacity-100 transition-opacity" />
+                  </div>
+                </div>
+                <span className="text-[11px] font-medium text-slate-400 leading-[1.6]">
+                  To ensure you’re getting the best offers and pricing, {companyName || "we"} may need to contact you by text/call. By checking this box, you agree to these communications, including marketing and promotional messages. Message and data rates may apply. You can reply STOP to opt-out of future messaging; reply HELP for messaging help. Message frequency may vary.*
+                </span>
+              </label>
+            </div>
+
             <button 
               onClick={handleCalculateAndRedirect} 
-              disabled={isSubmitting || !formData.email || !formData.firstName}
+              disabled={isSubmitting || !formData.email || !formData.firstName || !formData.phone || !agreedToTerms || !agreedToMarketing}
               className="w-full h-16 bg-red-700 hover:bg-black text-white rounded-[1.5rem] font-black text-[18px] transition-all shadow-xl shadow-red-100 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
             >
               {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Calculate My Estimate →"}

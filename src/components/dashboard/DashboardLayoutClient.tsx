@@ -50,12 +50,12 @@ export default function DashboardLayoutClient({ children, isPro, userEmail }: Da
 
       {/* Nav */}
       <nav className="flex-1 px-4 space-y-1 mt-4 overflow-y-auto">
-        <div className="text-[13px] font-bold text-slate-400 uppercase tracking-widest px-4 mb-3">Menu</div>
+        <div className="text-[14px] font-black text-slate-400 uppercase tracking-widest px-4 mb-4">Menu</div>
         {navItems.map(({ href, icon: Icon, label }) => (
           <Link
             key={href}
             href={href}
-            className={`flex items-center gap-3 px-4 py-3 font-bold rounded-2xl transition-all duration-200 group text-[16px] ${
+            className={`flex items-center gap-3.5 px-5 py-3.5 font-black rounded-2xl transition-all duration-200 group text-[18px] ${
               pathname === href 
                 ? 'bg-slate-50 text-[#0F172A]' 
                 : 'text-slate-500 hover:bg-slate-50 hover:text-[#0F172A]'
@@ -67,7 +67,7 @@ export default function DashboardLayoutClient({ children, isPro, userEmail }: Da
         ))}
         
         <div className="pt-6">
-          <div className="text-[13px] font-bold text-slate-400 uppercase tracking-widest px-4 mb-3">Support</div>
+          <div className="text-[14px] font-black text-slate-400 uppercase tracking-widest px-4 mb-4">Support</div>
           <SupportButton />
         </div>
       </nav>

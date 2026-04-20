@@ -15,7 +15,12 @@ import {
   Trash2,
   X,
   Building,
-  Zap
+  Zap,
+  Maximize,
+  Layers,
+  FileText,
+  CreditCard,
+  Target
 } from 'lucide-react'
 import Link from 'next/link'
 import { UpgradeModal } from "@/components/UpgradeModal"
@@ -329,6 +334,106 @@ export default function LeadsDashboard({ initialLeads, initialIsPro }: LeadsDash
                       </div>
                     </div>
                   </div>
+
+                  {(selectedLead.form_data && Object.keys(selectedLead.form_data).length > 0 || selectedLead.notes) ? (
+                    <div className="space-y-4">
+                      <h4 className="text-[14px] font-black text-slate-400 uppercase tracking-widest px-1">Captured Information</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {selectedLead.form_data?.sqFt && (
+                          <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Maximize className="w-3.5 h-3.5 text-slate-400" />
+                              <p className="text-[11px] font-black text-slate-400 uppercase tracking-wider">Property Size</p>
+                            </div>
+                            <p className="text-[15px] font-black text-slate-900">
+                              {String(selectedLead.form_data.sqFt).includes('_') 
+                                ? String(selectedLead.form_data.sqFt).replace('_', ' - ').replace('under', 'Under').replace('over', 'Over') + ' sq ft'
+                                : parseInt(selectedLead.form_data.sqFt).toLocaleString() + ' sq ft'}
+                            </p>
+                          </div>
+                        )}
+                        {selectedLead.form_data?.buildingType && (
+                          <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Building className="w-3.5 h-3.5 text-slate-400" />
+                              <p className="text-[11px] font-black text-slate-400 uppercase tracking-wider">Building Type</p>
+                            </div>
+                            <p className="text-[15px] font-black text-slate-900 capitalize">{selectedLead.form_data.buildingType}</p>
+                          </div>
+                        )}
+                        {selectedLead.form_data?.material && (
+                          <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Layers className="w-3.5 h-3.5 text-slate-400" />
+                              <p className="text-[11px] font-black text-slate-400 uppercase tracking-wider">Existing Material</p>
+                            </div>
+                            <p className="text-[15px] font-black text-slate-900 capitalize">{selectedLead.form_data.material}</p>
+                          </div>
+                        )}
+                        {selectedLead.form_data?.desiredMaterial && (
+                          <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Target className="w-3.5 h-3.5 text-slate-400" />
+                              <p className="text-[11px] font-black text-slate-400 uppercase tracking-wider">Desired Material</p>
+                            </div>
+                            <p className="text-[15px] font-black text-slate-900 capitalize">{selectedLead.form_data.desiredMaterial}</p>
+                          </div>
+                        )}
+                        {selectedLead.form_data?.pitch && (
+                          <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Zap className="w-3.5 h-3.5 text-slate-400" />
+                              <p className="text-[11px] font-black text-slate-400 uppercase tracking-wider">Roof Pitch</p>
+                            </div>
+                            <p className="text-[15px] font-black text-slate-900 capitalize">{selectedLead.form_data.pitch}</p>
+                          </div>
+                        )}
+                        {selectedLead.form_data?.timeline && (
+                          <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Clock className="w-3.5 h-3.5 text-slate-400" />
+                              <p className="text-[11px] font-black text-slate-400 uppercase tracking-wider">Timeline</p>
+                            </div>
+                            <p className="text-[15px] font-black text-slate-900 capitalize">{selectedLead.form_data.timeline.replace('-', ' to ')}</p>
+                          </div>
+                        )}
+                        {selectedLead.form_data?.financing && (
+                          <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl">
+                            <div className="flex items-center gap-2 mb-1">
+                              <CreditCard className="w-3.5 h-3.5 text-slate-400" />
+                              <p className="text-[11px] font-black text-slate-400 uppercase tracking-wider">Financing</p>
+                            </div>
+                            <p className="text-[15px] font-black text-slate-900 capitalize">{selectedLead.form_data.financing}</p>
+                          </div>
+                        )}
+                      </div>
+
+                      {selectedLead.notes && (
+                        <div className="p-5 bg-amber-50 border border-amber-100 rounded-2xl">
+                          <div className="flex items-center gap-2 mb-2">
+                            <FileText className="w-4 h-4 text-amber-600" />
+                            <p className="text-[12px] font-black text-amber-600 uppercase tracking-widest">Additional Notes</p>
+                          </div>
+                          <p className="text-[15px] font-medium text-amber-900 leading-relaxed italic">
+                            "{selectedLead.notes}"
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div className="p-8 border-2 border-dashed border-slate-100 rounded-[2rem] flex flex-col items-center justify-center text-center space-y-3">
+                      <div className="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center">
+                        <FileText className="w-6 h-6 text-slate-300" />
+                      </div>
+                      <div className="space-y-1">
+                        <p className="text-[15px] font-black text-slate-400 uppercase tracking-tight">No detailed info</p>
+                        <p className="text-[13px] font-medium text-slate-400 leading-relaxed max-w-[200px]">
+                          This lead was captured before the detailed insight update.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
                 </div>
               </div>
 

@@ -35,7 +35,6 @@ export default function Home() {
     <>
       <a href="/#features" className="hover:text-slate-900 transition-colors">Features</a>
       <a href="/#pricing" className="hover:text-slate-900 transition-colors">Pricing</a>
-      <Link href="/tools" className="text-red-600 hover:text-red-700 transition-colors">Free Tools</Link>
     </>
   )
 
@@ -50,21 +49,21 @@ export default function Home() {
           <span className="text-[18px] lg:text-[20px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
         </div>
 
-        <div className="hidden lg:flex items-center gap-10 text-[14px] font-bold text-slate-500">
+        <div className="hidden lg:flex items-center gap-10 text-[16px] font-black text-slate-500">
           <NavLinks />
         </div>
 
         <div className="flex items-center gap-2 sm:gap-4">
           {user ? (
-            <Link href="/calculators" className="bg-[#0F172A] text-white text-[12px] sm:text-[14px] font-black px-4 sm:px-6 py-2.5 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
+            <Link href="/calculators" className="bg-[#0F172A] text-white text-[12px] sm:text-[16px] font-black px-4 sm:px-7 py-3 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
               Go to Dashboard
             </Link>
           ) : (
             <>
-              <Link href="/login" className="hidden sm:inline-flex text-[14px] font-bold text-slate-900 px-4 lg:px-6 py-2.5 hover:bg-slate-50 rounded-xl transition-all">
+              <Link href="/login" className="hidden sm:inline-flex text-[16px] font-black text-slate-900 px-4 lg:px-6 py-3 hover:bg-slate-50 rounded-xl transition-all">
                 Login
               </Link>
-              <Link href="/login?tab=signup" className="bg-[#0F172A] text-white text-[12px] sm:text-[14px] font-black px-4 sm:px-6 py-2.5 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
+              <Link href="/login?tab=signup" className="bg-[#0F172A] text-white text-[12px] sm:text-[16px] font-black px-4 sm:px-7 py-3 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
                 Get Started
               </Link>
             </>
@@ -144,7 +143,7 @@ export default function Home() {
       </header>
 
       {/* The 4-Step Lead Machine Section */}
-      <section className="py-20 lg:py-32 px-4 sm:px-6 bg-[#0F172A] relative overflow-hidden">
+      <section id="features" className="py-20 lg:py-32 px-4 sm:px-6 bg-[#0F172A] relative overflow-hidden">
         {/* Subtle decorative elements */}
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-red-900/10 rounded-full blur-[120px] -z-0" />
         <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[120px] -z-0" />

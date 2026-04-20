@@ -12,7 +12,7 @@ export function SupportButton() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-3 w-full px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-slate-50 rounded-2xl transition-all duration-150 font-bold text-[16px] group cursor-pointer"
+        className="flex items-center gap-3.5 w-full px-5 py-3.5 text-slate-500 hover:text-slate-900 hover:bg-slate-50 rounded-2xl transition-all duration-150 font-black text-[18px] group cursor-pointer"
       >
         <MessageSquare className="w-[20px] h-[20px] shrink-0 group-hover:text-red-700 transition-colors" />
         Contact Support
