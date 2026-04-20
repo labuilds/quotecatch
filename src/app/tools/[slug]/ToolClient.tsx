@@ -14,15 +14,14 @@ import {
    ChevronRight,
   Sparkles,
   ArrowUpRight,
-  Menu,
-  X,
   ArrowDown
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { buttonVariants } from '@/components/ui/button';
 import { notFound } from 'next/navigation';
+
+import { Navbar } from '@/components/marketing/Navbar';
 
 export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { question: string, answer: string }[] }) {
   const tool = toolsConfig.find((t) => t.slug === slug);
@@ -32,7 +31,6 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
   }
   const [inputValues, setInputValues] = useState<Record<string, any>>({});
   const [result, setResult] = useState<string | number | null>(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const supabase = createClient();
 
@@ -75,62 +73,8 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
 
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-red-100 selection:text-red-900 pb-20">
-      {/* Navigation - Landing Page Style */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 lg:bg-white/80 backdrop-blur-md lg:backdrop-blur-xl border-b border-slate-100 px-4 sm:px-6 h-16 lg:h-20 flex items-center justify-between transition-all">
-        <div className="flex items-center gap-2.5 sm:gap-3">
-          <Link href="/" className="flex items-center gap-2.5 sm:gap-3">
-            <div className="w-8 h-8 lg:w-10 lg:h-10 bg-slate-50 rounded-xl flex items-center justify-center transition-all">
-              <QCLogo size={20} />
-            </div>
-            <span className="text-[18px] lg:text-[20px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
-          </Link>
-        </div>
-
-        <div className="hidden lg:flex items-center gap-10 text-[14px] font-bold text-slate-500">
-          <Link href="/#features" className="hover:text-slate-900 transition-colors">Features</Link>
-          <Link href="/#pricing" className="hover:text-slate-900 transition-colors">Pricing</Link>
-        </div>
-
-        <div className="flex items-center gap-2 sm:gap-4">
-          {user ? (
-            <Link href="/calculators" className="bg-[#0F172A] text-white text-[12px] sm:text-[14px] font-black px-4 sm:px-6 py-2.5 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
-              Dashboard
-            </Link>
-          ) : (
-            <>
-              <Link href="/login" className="hidden sm:inline-flex text-[14px] font-bold text-slate-900 px-4 lg:px-6 py-2.5 hover:bg-slate-50 rounded-xl transition-all">
-                Login
-              </Link>
-              <Link href="/login?tab=signup" className="bg-[#0F172A] text-white text-[12px] sm:text-[14px] font-black px-4 sm:px-6 py-2.5 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
-                Get Started
-              </Link>
-            </>
-          )}
-
-          <div className="lg:hidden">
-            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-              <SheetTrigger 
-                render={
-                  <button type="button" className="h-10 w-10 flex items-center justify-center hover:bg-slate-50 rounded-xl transition-all cursor-pointer">
-                    <Menu className="w-6 h-6" />
-                  </button>
-                } 
-              />
-              <SheetContent side="top" className="w-full pt-20 pb-10">
-                <div className="flex flex-col items-center gap-8 text-[18px] font-black text-slate-900">
-                  <Link href="/#features" onClick={() => setIsMenuOpen(false)}>Features</Link>
-                  <Link href="/#pricing" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
-                  {user ? (
-                    <Link href="/calculators" onClick={() => setIsMenuOpen(false)}>Dashboard</Link>
-                  ) : (
-                    <Link href="/login" onClick={() => setIsMenuOpen(false)}>Login</Link>
-                  )}
-                </div>
-              </SheetContent>
-            </Sheet>
-          </div>
-        </div>
-      </nav>
+      {/* Navigation */}
+      <Navbar />
 
       {/* Hero Section - Maximum SiteGPT Accuracy */}
       <header className="pt-32 lg:pt-48 pb-12 px-6 text-center max-w-4xl mx-auto flex flex-col items-center">

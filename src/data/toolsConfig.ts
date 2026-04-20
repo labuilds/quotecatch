@@ -321,119 +321,105 @@ This system comes with our industry-leading ${values.warranty || 'lifetime'} yea
   },
   {
     slug: 'gutter-length-calculator',
-    title: 'Gutter & Downspout (Linear Footage) Estimator',
-    seoDescription: 'Precisely estimate linear footage for gutter systems, including corner miters and downspout drop factors.',
+    title: 'Gutter Linear Footage & Miter Estimator',
+    seoDescription: 'Calculate total linear footage for gutters and downspouts. Factor in miter counts and capacity requirements for 5" vs 6" K-style systems.',
     type: 'calculator',
-    resultLabel: 'Material Linear Footage',
+    resultLabel: 'Linear Footage & Downspout Count',
     inputs: [
-      { id: 'perimeter', label: 'Roof Perimeter (Feet)', type: 'number', placeholder: 'e.g. 200' },
-      { id: 'stories', label: 'Building Stories', type: 'select', options: ['1 Story', '2 Story', '3 Story'] }
+      { id: 'eaveLength', label: 'Total Eave Length (ft)', type: 'number', placeholder: '150' },
+      { id: 'stories', label: 'Number of Stories', type: 'select', options: ['1 Story', '2 Stories', '3 Stories'] },
+      { id: 'miters', label: 'Number of Corners (Miters)', type: 'number', placeholder: '4' }
     ],
     compute: (values) => {
-      const feet = Number(values.perimeter) || 0;
-      const downspouts = Math.ceil(feet / 30);
-      let dsLength = 10;
-      if (values.stories === '2 Story') dsLength = 20;
-      if (values.stories === '3 Story') dsLength = 30;
-      
-      return `${feet}lf Gutter, ${downspouts} Downspouts (~${downspouts * dsLength} total vertical feet)`;
+      const ft = Number(values.eaveLength) || 0;
+      const stories = values.stories === '1 Story' ? 1 : values.stories === '2 Stories' ? 2 : 3;
+      const miters = Number(values.miters) || 0;
+      const downspouts = Math.ceil(ft / 25);
+      const dsLength = downspouts * (stories * 12);
+      return `${ft} ft Gutter, ${downspouts} Downspouts (~${dsLength} ft total)`;
     },
+    informationalText: 'Determine the exact linear footage for your gutter runs. A proper takeoff includes miter counts for every corner and downspout drops. Most residential installs use 5-inch K-style, but high-volume roofs require 6-inch capacity to prevent overflow callbacks.',
     faqs: [
       { 
-        question: "When should I specify 6-inch gutters over the 5-inch residential standard?", 
-        answer: "Specify 6-inch gutters for steep roofs (7/12+) or long runs over 40 feet. Larger gutters have 50% more capacity, which prevents water from 'overshooting' the edge during high-intensity storms, protecting the customer's foundation and your reputation." 
-      },
-      { 
-        question: "How do I calculate the 'Adjusted Square Footage' for gutter capacity?", 
-        answer: "Use the pitch factor to increase your plan-view area. A 12/12 pitch roof shed water 40% faster than a 4/12 roof. Adjusting your capacity calculation for speed (not just volume) ensures you don't install an undersized system on a steep custom home." 
-      },
-      { 
-        question: "Why is the 3x4 inch downspout the benchmark for professional drainage?", 
-        answer: "The downspout is the bottleneck. A 3x4 inch downspout provides nearly double the drainage area of the standard 2x3. For 6-inch gutter systems, 3x4 downspouts are mandatory to handle the increased volume and prevent ice-heave in winter." 
+        question: "What is the 'Rule of Thumb' for downspout spacing on high-volume residential roofs?", 
+{ 
+        question: "When is a 6-inch gutter mandatory for a residential contract?", 
+        answer: "If the roof pitch is 8/12 or steeper, or if the roof surface area feeding into a single run exceeds 1,500 sq. ft., 5-inch gutters will likely overshoot during heavy downpours. Specifying 6-inch gutters in your bid demonstrates technical superiority and prevents future warranty calls for foundation erosion." 
       }
     ]
   },
   {
     slug: 'roof-ventilation-calculator',
-    title: 'NFA Balancing & Code Compliance Lead Machine',
-    seoDescription: 'Technical NFA tool for contractors to ensure 1:150 balancing to meet IRC building codes and prevent shingle warranty invalidation.',
+    title: 'NFA Balancing & Venting Machine',
+    seoDescription: 'Professional NFA calculation tool for balancing intake and exhaust. Ensure 50/50 airflow to prevent code failure and shingle blistering.',
     type: 'calculator',
-    resultLabel: 'Required NFA (Target Benchmark)',
+    resultLabel: 'Required Net Free Area (Total)',
     inputs: [
-      { id: 'atticSqft', label: 'Attic Floor Square Footage', type: 'number', placeholder: 'e.g. 2000' },
-      { id: 'ratio', label: 'Ventilation Ratio', type: 'select', options: ['1:150 (Standard)', '1:300 (With Vapor Barrier)'] }
+      { id: 'atticSqft', label: 'Attic Floor Area (sq ft)', type: 'number', placeholder: '1500' },
+      { id: 'isVaporBarrier', label: 'Vapor Barrier Present?', type: 'select', options: ['No (1:150)', 'Yes (1:300)'] }
     ],
     compute: (values) => {
-      const sqft = Number(values.atticSqft) || 0;
-      const ratio = values.ratio === '1:300 (With Vapor Barrier)' ? 300 : 150;
-      const totalNfaNeeded = (sqft / ratio) * 144; // sqft to sq inches
-      return `${Math.ceil(totalNfaNeeded)} sq. inches (Split 50/50 Intake/Exhaust)`;
+      const area = Number(values.atticSqft) || 0;
+      const ratio = values.isVaporBarrier === 'Yes (1:300)' ? 300 : 150;
+      const nfaRequired = (area / ratio) * 144;
+      return `${nfaRequired.toFixed(0)} sq inches NFA (Balanced: ${(nfaRequired / 2).toFixed(0)} Intake / ${(nfaRequired / 2).toFixed(0)} Exhaust)`;
     },
     faqs: [
       { 
-        question: "What is the 1/300 Ventilation Rule and how do I qualify for it?", 
-        answer: "The 1/300 code allows you to reduce required venting if the system is 'balanced' (50% intake at soffit, 50% exhaust at ridge). Proving a balanced system allows you to avoid over-venting, which can trap moisture if not designed correctly." 
+        question: "Why should I strictly enforce a 50/50 NFA balance between intake and exhaust?", 
+        answer: "Balanced ventilation prevents 'Negative Pressure.' If exhaust exceeds intake, the system will pull conditioned air from the house or moisture from the crawlspace into the attic, leading to mold growth and potentially voiding the shingle manufacturer's warranty." 
       },
       { 
-        question: "How do I calculate Net Free Area (NFA) for ridge vents vs. static pods?", 
-        answer: "NFA represents the actual airflow capacity after subtracting the vent's structure. For ridge vents, the industry standard is 18 sq. inches per linear foot. Always calculate on NFA, not vent size, to ensure you meet IRC residential codes." 
-      },
-      { 
-        question: "Why is balanced intake and exhaust critical for meeting shingle warranties?", 
-        answer: "Thermal transfer is the enemy. Unbalanced ventilation (too much exhaust, not enough intake) creates a vacuum that pulls moisture into the attic. Maintaining a 1:1 ratio protects the shingle warranty and prevents premature granule loss from heat buildup." 
+        question: "How do I calculate NFA for 'Soffit-to-Ridge' systems?", 
+        answer: "Calculate total ridge length and attic floor area. Use this tool to find the required NFA, then ensure your soffit intake exceeds or matches the ridge exhaust. A 1:150 ratio is the standard IRC requirement for roofs without a dedicated vapor barrier." 
       }
     ]
   },
   {
-    slug: 'roof-referral-request-generator',
-    title: 'Customer Referral & Social Proof System',
-    seoDescription: 'Business tool for activating happy roofing customers to generate high-quality referrals and organic social proof.',
-    type: 'text-generator',
-    resultLabel: 'Referral Campaign Script',
+    slug: 'referral-system-builder',
+    title: 'Professional Referral Pipeline & Loyalty System',
+    seoDescription: 'Strategic referral tracking system for roofing contractors to increase organic lead volume through professional networking.',
+    type: 'template',
+    resultLabel: 'Referral Program Structure',
     inputs: [
-      { id: 'customerName', label: 'Customer Name', type: 'text' },
-      { id: 'bonus', label: 'Referral Bonus ($)', type: 'number', placeholder: '100' }
+      { id: 'reward', label: 'Referral Fee ($)', type: 'number', placeholder: '250' },
+      { id: 'partnerType', label: 'Partner Type', type: 'select', options: ['Neighbor', 'Realtor', 'Insurance Agent'] }
     ],
     compute: (values) => {
-      return `Hi ${values.customerName || 'there'}, I'm so glad we could get your roof handled! Since we're a local company, most of our work comes from neighbors like you. 
+      return `ROOFING REFERRAL PARTNER PLAN:
+      
+Target Partner: ${values.partnerType || 'Strategic Contact'}
+Reward Structure: $${values.reward || '250'} per signed contract.
 
-I'd love to invite you into our "Refer-a-Neighbor" program where we'll send you a $${values.bonus || '100'} gift card for every lead that turns into a roof. Would you mind if I checked in with you in a week to see if any of your friends were asking about the new look?`;
+Key Messaging: "At our company, we don't spend money on billboards; we invest in our community. When you help a neighbor protect their home with a professional roof, we want to thank you with a direct reward."`;
     },
     faqs: [
       { 
-        question: "How can I use a referral program to reduce my average cost-per-lead?", 
-        answer: "Referrals are your lowest-cost lead source. By offering a $100–$250 'Refer-a-Neighbor' bonus, you can acquire high-converting leads for a fraction of the cost of Google Ads or door-knocking labor, significantly padding your net profits." 
+        question: "How can I build a high-volume referral network with local Realtors?", 
+        answer: "Position your company as the 'Closing Saver.' Offer Realtors priority 24-hour inspections for homes under contract. When you identify a roof issue and provide a fast, reliable estimate that keeps a deal moving, you become their go-to contractor for every future listing." 
       },
       { 
-        question: "What is the best way to ask a 'High-NPS' client for a written review or referral?", 
-        answer: "Ask during the final walkthrough while the yard is clean and the new roof look is fresh. Use a script that positions their referral as 'helping their neighbors work with a licensed pro' rather than just making you more money." 
-      },
-      { 
-        question: "How often should I follow up with former clients for new referrals?", 
-        answer: "Schedule a '1-Year Wellness Check' email. Ask how the roof is holding up and remind them of your referral incentive. This keeps your brand top-of-mind just as their friends and family might be starting their own home projects." 
+        question: "What is the optimal referral bonus for a $20,000 roofing contract?", 
+        answer: "Standard referral fees range from $250 to $500. This is significantly lower than the $1,500+ you would spend on Google Ads to acquire the same customer. Treat your referral partners as your most cost-effective sales force." 
       }
     ]
   },
   {
-    slug: 'insurance-denial-appeal-script',
-    title: 'Insurance Technical Rebuttal & Appeal System',
-    seoDescription: 'Evidence-based appeal generator for contractors citing manufacturer installation specs (GAF/OC) and Appraisal Clause escalation language.',
+    slug: 'insurance-appeal-rebuttal-generator',
+    title: 'Insurance Claim Rebuttal & Appraisal Demand',
+    seoDescription: 'Generate technical evidence-based rebuttals for insurance claim denials, citing IRC code and manufacturer installation specs.',
     type: 'text-generator',
-    resultLabel: 'Rebuttal Argument Language',
+    resultLabel: 'Professional Rebuttal Content',
     inputs: [
-      { id: 'carrier', label: 'Insurance Carrier', type: 'text', placeholder: 'State Farm' },
-      { id: 'claimNum', label: 'Claim Number', type: 'text' },
-      { id: 'date', label: 'Date of Loss', type: 'text' }
+      { id: 'denialReason', label: 'Carrier Denial Reason', type: 'text', placeholder: 'Cosmetic damage only' },
+      { id: 'codeSection', label: 'Relevant Code/Spec', type: 'text', placeholder: 'R905.2.1 (IRC)' }
     ],
     compute: (values) => {
-      return `RE: Appeal of Claim #${values.claimNum || '[CLAIM #]'}
-Date of Loss: ${values.date || '[DATE]'}
+      return `FORMAL TECHNICAL REBUTTAL:
+      
+Regarding the denial based on "${values.denialReason || 'Cosmetic issue'}", we formally cite ${values.codeSection || 'manufacturer installation requirements'}. 
 
-To whom it may concern at ${values.carrier || '[CARRIER]'},
-
-We are formally requesting a re-inspection of the property located at the address on file. Our licensed roofing contractor has identified significant functional damage to the ${values.date || 'subject'} storm event that was not adequately addressed in the initial adjustment. Specifically, we have found material loss and creased shingles that pose an immediate risk to the structural integrity of the home. 
-
-We look forward to meeting your adjuster at the property to ensure the homeowner receives the full coverage they are entitled to under their policy.`;
+The observed shingle bruising constitutes a functional 'Mat Fracture' which voids the manufacturer's waterproofing warranty. We look forward to meeting your adjuster at the property to ensure the homeowner receives the full coverage they are entitled to under their policy.`;
     },
     faqs: [
       { 
@@ -443,10 +429,6 @@ We look forward to meeting your adjuster at the property to ensure the homeowner
       { 
         question: "What is the specific language for an 'Appraisal Clause' escalation?", 
         answer: "When a carrier hits a technical deadlock, invoke the Appraisal Clause. The script generated by this tool uses the standard language: 'We hereby demand Appraisal under the terms of the policy to determine the amount of loss,' forcing a neutral umpire to resolve the dispute." 
-      },
-      { 
-        question: "How can I prove 'Standard Waste' is insufficient for an insurance claim?", 
-        answer: "Submit an itemized complexity report from this tool showing hip/ridge linear footage vs. facet area. Proving that the 'Suggested Waste Factor' from EagleView exceeds the carrier's default 10% is the most effective way to win supplemental material payments." 
       }
     ]
   },
@@ -492,265 +474,265 @@ I'd love to see if we can still honor that old quote before the new pricing kick
     ],
     compute: (values) => {
       const sqft = Number(values.sqft) || 0;
-      let pricePerSqft = 4.50;
-      if (values.quality === 'Premium (.044)') pricePerSqft = 6.25;
-      if (values.quality === 'Insulated Vinyl') pricePerSqft = 8.50;
-      
-      const total = sqft * pricePerSqft;
+      let price = 5.50; // standard install
+      if (values.quality === 'Premium (.044)') price = 7.50;
+      if (values.quality === 'Insulated Vinyl') price = 11.00;
+      const total = sqft * price;
       return `$${total.toLocaleString()}`;
     },
     faqs: [
       { 
-        question: "How should I set my labor rate for vertical Board & Batten siding installation?", 
-        answer: "Always add a 15%–20% labor premium for vertical siding. The requirement for extra furring strips and more complex trimming at the eaves significantly increases man-hours compared to standard horizontal laps." 
+        question: "Why does '.044 Gauge' vinyl siding command a 30% price premium?", 
+        answer: "Thicker gauge siding offers superior impact resistance and won't 'oil-can' (warp) as easily in high-heat environments. Positioning .044 gauge as 'The Commercial Standard' allows you to upsell homeowners who want a lifetime siding solution rather than a budget fix." 
       },
       { 
-        question: "What is the sales ROI of upselling insulated vinyl siding to homeowners?", 
-        answer: "Insulated vinyl allows you to position the project as an 'Energy Upgrade' rather than just an aesthetic change. Though the material costs 40% more, it supports a much higher markup and reduces call-backs related to panel 'noise' and expansion warping." 
+        question: "How do I price 'Insulated Vinyl' siding for maximum profit?", 
+        answer: "Don't sell siding; sell 'Thermal Protection.' Insulated vinyl can increase the building's overall R-value by 2.0 to 3.0. Pitching the energy savings and R-value improvement justifies the $11–$15 per sq. ft. price point for a premium, high-margin install." 
+      }
+    ]
+  },
+  {
+    slug: 'vinyl-siding-waste-calculator',
+    title: 'Vinyl Siding Square & Waste Estimator',
+    seoDescription: 'Calculate the number of siding squares needed for your project. Factor in overlap, trim waste, and gable-end cuts for accurate material ordering.',
+    type: 'calculator',
+    resultLabel: 'Required Siding Squares',
+    inputs: [
+      { id: 'wallArea', label: 'Total Wall Surface (sq ft)', type: 'number', placeholder: '2000' },
+      { id: 'complexity', label: 'Wall Profile', type: 'select', options: ['Simple (10% Waste)', 'Average (12% Waste)', 'Difficult (15% Waste)'] }
+    ],
+    compute: (values) => {
+      const area = Number(values.wallArea) || 0;
+      let waste = 1.10;
+      if (values.complexity === 'Average (12% Waste)') waste = 1.12;
+      if (values.complexity === 'Difficult (15% Waste)') waste = 1.15;
+      const squares = (area * waste) / 100;
+      return `${squares.toFixed(2)} Squares`;
+    },
+    informationalText: 'Calculate total siding squares with realistic waste factors. Standard horizontal panels require a 10% waste factor, but complex gable ends and J-channel details can push your material takeoff to 15% to avoid "short-box" project delays.',
+    faqs: [
+      { 
+        question: "Why is 'Gable Waste' significantly higher than standard field wall waste?", 
+        answer: "When cutting horizontal siding for a gable end, you create unusable triangles at every course. While a standard flat wall only needs 5–7% waste for overlap and end-cuts, a roof with multiple gables and dormers requires a minimum of 12–15% waste to ensure you have enough material to complete the finish-trim." 
       },
       { 
-        question: "How can I maintain siding project margins during material price volatility?", 
-        answer: "Include a 30-day expiration on all siding quotes. Work with your local supplier to secure 'lock-in' pricing on popular colors (like charcoal or deep blues) to ensure you aren't eating price hikes between the estimate and the install date." 
+        question: "Is a 'Siding Square' measured differently than a 'Roofing Square'?", 
+        answer: "No, the unit is the same (100 square feet). However, siding is often sold 'per box,' which typically covers 2 squares. Always verify the manufacturer's packaging specs, as some premium vertical or cedar-shake-imitation panels are sold in 1-square or even 0.5-square boxes." 
       }
     ]
   },
   {
     slug: 'cedar-shake-roof-calculator',
-    title: 'Cedar Shake Grade & Triple-Coverage Estimator',
-    seoDescription: 'Technical material estimator for cedar roofing, calculating bundle counts based on exposure and Blue Label vs. Red Label grading.',
+    title: 'Cedar Shake Square & Exposure Estimator',
+    seoDescription: 'Technical estimation tool for cedar shake roofing. Calculate squares based on 7.5" and 10" exposures and grade-specific coverage.',
     type: 'calculator',
-    resultLabel: 'Cedar Material Schedule',
+    resultLabel: 'Total Cedar Squares (Projected)',
     inputs: [
-      { id: 'squares', label: 'Roof Squares', type: 'number', placeholder: 'e.g. 25' },
-      { id: 'exposure', label: 'Exposure (Inches)', type: 'select', options: ['5 inch exposure', '7.5 inch exposure'] },
+      { id: 'sqft', label: 'Roof Surface (sq ft)', type: 'number', placeholder: '2500' },
+      { id: 'exposure', label: 'Weather Exposure', type: 'select', options: ['7.5" (Standard)', '10" (Maximum)'] },
       { id: 'grade', label: 'Shake Grade', type: 'select', options: ['No. 1 Blue Label', 'No. 2 Red Label'] }
     ],
     compute: (values) => {
-      const squares = Number(values.squares) || 0;
-      const bundlesPerSquare = values.exposure === '5 inch exposure' ? 5 : 4;
-      const totalBundles = squares * bundlesPerSquare;
-      const basePrice = values.grade === 'No. 1 Blue Label' ? 120 : 90;
-      
-      return `${totalBundles} Bundles (~$${(totalBundles * basePrice).toLocaleString()} budget)`;
+      const area = Number(values.sqft) || 0;
+      let multiplier = 1.0;
+      if (values.exposure === '10" (Maximum)') multiplier = 0.8; // needs less material
+      const total = (area / 100) * multiplier;
+      return `${total.toFixed(2)} Squares`;
     },
+    informationalText: 'Calculate cedar shake squares based on your specified weather exposure. Grade-1 Blue Label shakes at a 7.5-inch exposure provide the standard 100 sq ft coverage, but altering exposure for aesthetics or snow-load will shift your total bundle count.',
     faqs: [
       { 
-        question: "Why should my company only quote 'Blue Label' cedar for primary structures?", 
-        answer: "No. 1 Blue Label shakes are 100% edge-grain and clear of knots. Recommending lower grades (Red Label) for a main roof creates a massive liability for leaks and warping, which will cost your company more in warranty calls than you save on material." 
+        question: "How does 'Weather Exposure' directly impact my cedar shake square count?", 
+        answer: "The 'exposure' is the amount of the shake that remains visible after installation. A standard 7.5-inch exposure provides the highest moisture protection but requires more material. Increasing to 10-inch exposure reduces material costs but is only recommended for steeper pitches (8/12+) and may impact the longevity of the underlying felt system." 
       },
       { 
-        question: "How can I explain bundle-per-square counts to justify a premium cedar bid?", 
-        answer: "Focus on 'Triple-Coverage.' Explain that at a 5-inch exposure, you are providing three layers of cedar at every point of the roof. This technical justification makes your high-bundle-count bid look like 'Superior Protection' compared to a low-exposure, cheaper competitor." 
-      },
-      { 
-        question: "What is the professional standard for cedar shake underlayment?", 
-        answer: "Always use a specialized breathable underlayment (like Cedar Breather) to prevent rot. Adding this $0.50–$0.75 per sq. ft. material prevents common moisture trap issues, allowing you to offer a much stronger 25-year workmanship warranty." 
+        question: "Why is the 'Double Starter' course mandatory for professional cedar shake bids?", 
+        answer: "The first course at the eave must have a double layer of shakes to prevent moisture from wicking up into the roof deck. If you omit the extra 'Starter Squares' in your estimate, you are significantly under-ordering and creating a massive liability for leaks at the bottom of the system." 
       }
     ]
   },
   {
     slug: 'roof-cleaning-cost-estimator',
-    title: 'Roof Maintenance & Soft-Wash Profit Estimator',
-    seoDescription: 'Business calculator for estimating margins on soft-wash roof cleaning services, including chemical costs and steep-slope premiums.',
+    title: 'Soft Wash & Roof Cleaning Profitability Tool',
+    seoDescription: 'Calculate roof cleaning rates per square. Factor in soft-wash chemical costs and steep-slope labor surcharges for high-margin service additions.',
     type: 'calculator',
-    resultLabel: 'Estimated Service Quote',
+    resultLabel: 'Projected Cleaning Revenue',
     inputs: [
-      { id: 'sqft', label: 'Roof Square Footage', type: 'number', placeholder: 'e.g. 2500' },
-      { id: 'method', label: 'Cleaning Method', type: 'select', options: ['Soft Wash (Chemical)', 'Low Pressure Wash'] },
-      { id: 'steepness', label: 'Roof Pitch', type: 'select', options: ['Walkable', 'Moderate', 'Steep (Harness required)'] }
+      { id: 'sq', label: 'Roof Squares', type: 'number', placeholder: '25' },
+      { id: 'method', label: 'Cleaning Method', type: 'select', options: ['Soft Wash (Premium)', 'Blower / Sweep (Low)'] },
+      { id: 'moss', label: 'Moss/Algae Level', type: 'select', options: ['Light', 'Medium', 'Heavy (Surcharge)'] }
     ],
     compute: (values) => {
-      const sqft = Number(values.sqft) || 0;
-      let rate = 0.35;
-      if (values.method === 'Low Pressure Wash') rate = 0.50;
-      if (values.steepness === 'Steep (Harness required)') rate += 0.15;
-      
-      const total = sqft * rate;
+      const sq = Number(values.sq) || 0;
+      let rate = 35;
+      if (values.method === 'Soft Wash (Premium)') rate = 65;
+      if (values.moss === 'Heavy (Surcharge)') rate += 20;
+      const total = sq * rate;
       return `$${total.toLocaleString()}`;
     },
+    informationalText: 'Estimate your per-square rates for professional roof cleaning. Whether it\'s blower cleaning or low-pressure soft washing, factoring in chemical burden and tech labor is the only way to treat cleaning as a profit center rather than a "favor" for the client.',
     faqs: [
       { 
-        question: "How can I add roof soft-washing as a high-margin service to my roofing business?", 
-        answer: "Soft-washing has a 70%–80% profit margin and is an easy 'maintenance upsell' after any inspection. Position it as a way to 'extend the life of your existing roof' for clients who aren't ready for a full $20,000 replacement yet." 
+        question: "What is the 'Going Rate' for a professional soft-wash per square in 2024?", 
+        answer: "Standard rates range from $30/sq for basic blower cleaning to $65–$95/sq for full soft-wash chemical treatments. For steep-slope roofs (8/12+) that require harness work, always apply a 20% 'Accessibility Surcharge' to protect your technician labor margins." 
       },
       { 
-        question: "What are the common liability pitfalls of pressure washing shingles?", 
-        answer: "Pressure washing is a massive liability. High-force water strips away protective granules, potentially voiding the manufacturer's warranty and shortening the roof's life. Only use soft-wash chemical systems to protect your business's reputation and avoid damage claims." 
-      },
-      { 
-        question: "Should I charge extra for moss removal on steep-slope roofs?", 
-        answer: "Yes; any roof requiring a harness safety system should carry a 20%–30% 'steep-slope premium.' The added time for anchoring and the increased risk to your technicians must be reflected in your service ticket to maintain target profitability." 
+        question: "How do I technically explain 'Gloeocapsa Magma' to a homeowner to justify a $500–$1,000 cleaning?", 
+        answer: "Don't sell 'cleanliness'; sell 'longevity.' Explain that the black streaks (Gloeocapsa Magma) are a bacteria that feeds on the limestone filler in their asphalt shingles. If left untreated, it leads to premature granule loss and shingle 'curling.' Position the cleaning as a $600 maintenance service that protects a $20,000 asset." 
       }
     ]
   },
   {
     slug: 'skylight-install-calculator',
-    title: 'Skylight Installation Calculator',
-    seoDescription: 'Estimate the cost to install or replace skylights during a roof replacement.',
+    title: 'Skylight Spec & Curb-Mount Estimator',
+    seoDescription: 'Calculate installation costs for Velux and custom skylights. Factor in curb-mounting labor, deck-mount flashing kits, and structural frame-out surcharges.',
     type: 'calculator',
-    resultLabel: 'Skylight Total',
+    resultLabel: 'Projected Install Bid',
     inputs: [
-      { id: 'count', label: 'Number of Skylights', type: 'number', placeholder: '1' },
-      { id: 'type', label: 'Skylight Type', type: 'select', options: ['Fixed (No vent)', 'Manual Venting', 'Solar Powered Venting'] }
+      { id: 'size', label: 'Skylight Size', type: 'select', options: ['Small (22x22)', 'Medium (22x46)', 'Large (46x46)'] },
+      { id: 'mount', label: 'Mounting Type', type: 'select', options: ['Deck-Mount', 'Curb-Mount (Low Slope)'] },
+      { id: 'internal', label: 'Interior Light Tunnel?', type: 'select', options: ['No (Direct)', 'Yes (Drywall Finish)'] }
     ],
     compute: (values) => {
-      const count = Number(values.count) || 0;
-      let unitPrice = 900;
-      if (values.type === 'Manual Venting') unitPrice = 1400;
-      if (values.type === 'Solar Powered Venting') unitPrice = 2200;
-      
-      return `$${(count * unitPrice).toLocaleString()}`;
+      let base = 800;
+      if (values.size === 'Medium (22x46)') base = 1200;
+      if (values.size === 'Large (46x46)') base = 1800;
+      if (values.mount === 'Curb-Mount (Low Slope)') base += 400;
+      if (values.internal === 'Yes (Drywall Finish)') base += 1500;
+      return `$${base.toLocaleString()}`;
     },
+    informationalText: 'Determine your bid for skylight installs by choosing between curb-mount and deck-mount systems. Curb-mounts require site-built wooden frames for low-slope roofs, while deck-mounts use integrated flashing kits. Always factor in structural header framing and internal drywall finishing to protect your project margin.',
     faqs: [
       { 
-        question: "How should I price skylight replacements during a full roof tear-off?", 
-        answer: "Since your crew is already doing the labor for flashing and shingle tie-ins, you can offer a $500–$800 discount on skylight replacements compared to standalone installs. This 'bundled price' makes the upsell nearly irresistible to homeowners during a reroof." 
+        question: "When is a 'Curb-Mount' mandatory for a professional reroofing project?", 
+        answer: "Curb-mounts are essential for flat or low-slope roofs (under 3:12 pitch) to ensure proper water shedding and flashing integration. Trying to use a deck-mount skylight on a low-slope roof is a major code violation and a guaranteed callback for leaks at the sill." 
       },
       { 
-        question: "What is the sales advantage of pitching solar-powered skylights?", 
-        answer: "Position the 26%-30% federal tax credit (Section 25D). Because the credit covers the entire cost of the unit and the installation labor, your client effectively gets an automated, solar-venting unit for the same price as a manual sky-light." 
-      },
-      { 
-        question: "How can I prevent leaks on low-slope skylight installations?", 
-        answer: "Always use curb-mounted skylights for roofs below a 3/12 pitch. Building a professional wooden curb ensures water flows around the unit rather than pooling on the frame—eliminating the #1 source of skylight callbacks for flat-roof TPO projects." 
+        question: "How do I factor 'Interior Drywall Burden' into a competitive skylight bid?", 
+        answer: "Don't just quote the roof work. If the home has an attic, you must frame a 'light tunnel' and finish it with drywall, tape, and paint. This interior labor often costs 2–3x more than the roof-side install. If you aren't line-iteming this burden, your skylight profit will vanish before the paint is dry." 
       }
     ]
   },
   {
     slug: 'solar-roof-capacity-calculator',
-    title: 'PV Array & Solar Power Capacity Estimator',
-    seoDescription: 'Professional tool for contractors to estimate usable roof area for solar PV arrays, factoring in setbacks and fire code pathways.',
+    title: 'Solar Dead-Load & Truss Capacity Analyzer',
+    seoDescription: 'Analyze roof load capacity for solar arrays. Factor in existing roofing PSF (asphalt vs tile) and point-load distribution for structural safety.',
     type: 'calculator',
-    resultLabel: 'Projected Solar Capacity',
+    resultLabel: 'Total Dead Load (PSF)',
     inputs: [
-      { id: 'area', label: 'Usable South-Facing Sqft', type: 'number', placeholder: 'e.g. 800' },
-      { id: 'panelWattage', label: 'Panel Wattage', type: 'number', placeholder: '400' }
+      { id: 'material', label: 'Current Roof Material', type: 'select', options: ['Asphalt Shingle (15 PSF)', 'Clay Tile (27 PSF)', 'Concrete Tile (32 PSF)'] },
+      { id: 'arraySize', label: 'Solar Array (kW)', type: 'number', placeholder: '6' }
     ],
     compute: (values) => {
-      const area = Number(values.area) || 0;
-      const wattage = Number(values.panelWattage) || 400;
-      const panels = Math.floor(area / 18); // Avg panel is ~18 sqft
-      const kw = (panels * wattage) / 1000;
-      
-      return `${panels} Panels (~${kw.toFixed(2)} kW System)`;
+      let base = 15;
+      if (values.material?.includes('Clay')) base = 27;
+      if (values.material?.includes('Concrete')) base = 32;
+      const solarAdd = 4; // average PSF for solar hardware
+      const total = base + solarAdd;
+      return `${total} PSF (Total Structural Load)`;
     },
+    informationalText: 'Analyze the structural impact of solar arrays by calculating the total Dead Load. Most arrays add 3-4 PSF, which when combined with heavy tile (27 PSF) or snow loads, can push trusses to their limit. Use this to determine if a structural engineer\'s PE stamp is required for the permit.',
     faqs: [
       { 
-        question: "How should I calculate 'usable' area for a solar-ready roof installation?", 
-        answer: "Always subtract 3-foot pathways from all ridges and eaves for fire code compliance. When pitching a reroof, show the client their 'Usable Solar Zone' vs. 'Setback Zone' to demonstrate your technical expertise in modern roofing standards." 
+        question: "How does 'Point-Load' affect asphalt shingle compression under solar racks?", 
+        answer: "Solar weight isn't evenly distributed; it's concentrated at the mounting 'L-feet.' On a hot day, this point-load can crush the shingle mat and lead to 'thermal pumping' leaks. Always spec premium flashing kits (like Quick Mount PV) to bridge the point-load across the rafter and preserve the shingle's integrity." 
       },
       { 
-        question: "What is the ROI potential for upselling 'Solar-Ready' underlayment?", 
-        answer: "High-temperature underlayment (like Grace Ice & Water Shield HT) is essential for roofs getting solar later. Upselling this premium product now protects the shingles from the extreme heat trapped under solar panels, allowing you to charge a $0.50–$1.00 per sq. ft. premium." 
-      },
-      { 
-        question: "How can a solar capacity estimate help me close higher roofing tickets?", 
-        answer: "By demonstrating how many kW their roof can produce, you position your roofing company as an energy consultant. This adds a 'high-tech' layer to your brand that local 'shingle slingers' can't match, allowing you to command higher margins." 
+        question: "What is the 'PE Stamp' threshold for residential solar arrays in high-snow zones?", 
+        answer: "Most jurisdictions require a structural engineer's seal (PE Stamp) if the cumulative dead load exceeds standard code limits (typically 20–30 PSF). If you're mounting solar on an existing tile roof in a snow region, the 'Live Load' + 'Dead Load' often exceeds truss capacity, necessitating structural sistering before the install can proceed." 
       }
     ]
   },
   {
     slug: 'labor-cost-with-overtime-calculator',
-    title: 'Project Labor & Overtime Burden Calculator',
-    seoDescription: 'Business calculator for roofing owners to estimate total labor costs including overtime premiums and loaded payroll factors.',
+    title: 'Fully-Burdened Labor & OT Profit Shield',
+    seoDescription: 'Calculate fully-burdened labor rates including Work Comp, FICA, and overtime. Protect your profit margins from labor-cost leakage.',
     type: 'calculator',
-    resultLabel: 'Fully Burdened Labor Expense',
+    resultLabel: 'Fully-Burdened Cost Per Hour',
     inputs: [
-      { id: 'crewSize', label: 'Crew Size', type: 'number', placeholder: '4' },
-      { id: 'hourlyRate', label: 'Hourly Rate / Person ($)', type: 'number', placeholder: '25' },
-      { id: 'hours', label: 'Total Hours Worked', type: 'number', placeholder: '50' }
+      { id: 'hourly', label: 'Crew Hourly Pay ($)', type: 'number', placeholder: '25' },
+      { id: 'burden', label: 'Tax & Insurance Burden (%)', type: 'number', placeholder: '25' },
+      { id: 'otHours', label: 'Overtime Hours Expected', type: 'number', placeholder: '10' }
     ],
     compute: (values) => {
-      const crew = Number(values.crewSize) || 0;
-      const rate = Number(values.hourlyRate) || 0;
-      const hours = Number(values.hours) || 0;
-      
-      const regularHours = Math.min(hours, 40);
-      const otHours = Math.max(hours - 40, 0);
-      
-      const totalPerPerson = (regularHours * rate) + (otHours * rate * 1.5);
-      return `$${(totalPerPerson * crew).toLocaleString()}`;
+      const pay = Number(values.hourly) || 0;
+      const burden = 1 + (Number(values.burden) || 0) / 100;
+      const ot = Number(values.otHours) || 0;
+      const regularPay = 40 * pay * burden;
+      const otPay = ot * (pay * 1.5) * burden;
+      const total = (regularPay + otPay) / (40 + ot);
+      return `$${total.toFixed(2)} / Man-Hour`;
     },
+    informationalText: 'Stop losing money on labor by calculating your true "Fully-Burdened" rate. This includes base pay plus Work Comp, PR taxes, and overtime premiums. If you bid based on a flat hourly wage, your net profit is being eaten by hidden payroll leakage.',
     faqs: [
       { 
-        question: "How can I ensure my piece-rate roofing crew is FLSA compliant for overtime?", 
-        answer: "By law, piece-rate workers are entitled to overtime pay based on their 'regular rate of pay' for that week. Calculate the total earnings divided by total hours; if they exceed 40, you must pay an additional half-time premium to avoid massive DOL back-wage penalties." 
+        question: "Why is my 'Bid Rate' often 30% higher than the crew's actual hourly pay?", 
+        answer: "You must factor in 'The Burden.' This is the non-negotiable cost of FICA, FUTA, SUTA, and high-risk Worker's Comp (which is often $15–$25 per $100 of roofing payroll). Ignoring the burden is the most common reason small roofing companies go out of business even while staying busy." 
       },
       { 
-        question: "What is the biggest labor liability for roofing companies using subcontractors?", 
-        answer: "Misclassification. If you control the crew's schedule, provide their tools, and dictate every movement, the IRS may classify them as W-2 employees. Using a robust 1099 subcontractor agreement is vital to prove their independent contractor status." 
-      },
-      { 
-        question: "How should I budget for workers' comp premiums in my labor estimates?", 
-        answer: "Roofing has some of the highest workers' comp rates in the industry (~$20–$40 per $100 of payroll). Ensure your labor quote includes this 'burdened' cost to protect your net profit from being eroded by end-of-year insurance audits." 
+        question: "How do I prevent 'OT Creep' from destroying my project margins?", 
+        answer: "High-complexity reroofs (8/12+ pitch) always take 20% longer than a standard 4/12 ranch. If your estimate doesn't account for this slowdown, you'll end up paying 1.5x labor rates for the last two days of the project—hours that come directly out of your net profit. Always bake 'Complexity OT' into your per-square labor bid." 
       }
     ]
   },
   {
     slug: 'tile-roof-repair-estimator',
-    title: 'Clay/Concrete Tile Repair Service Estimator',
-    seoDescription: 'Technical tool for estimating specialty tile repairs, factoring in mobilization charges and profile-specific material costs.',
+    title: 'Tile Repair & Underlayment Failure Estimator',
+    seoDescription: 'Estimate tile roof repair costs based on breakage counts and field underlayment failure. Factor in "Minimum Call-Out" fees for specialty clay/concrete work.',
     type: 'calculator',
-    resultLabel: 'Tile Repair System Estimate',
+    resultLabel: 'Recommended Repair Quote',
     inputs: [
-      { id: 'brokenCount', label: 'Number of Broken Tiles', type: 'number', placeholder: '10' },
-      { id: 'tileType', label: 'Tile Type', type: 'select', options: ['Concrete Flat', 'Clay S-Tile', 'Concrete Spanish'] }
+      { id: 'tiles', label: 'Number of Broken Tiles', type: 'number', placeholder: '5' },
+      { id: 'age', label: 'Age of Roof (Years)', type: 'number', placeholder: '20' },
+      { id: 'minimum', label: 'Call-Out Minimum ($)', type: 'number', placeholder: '500' }
     ],
     compute: (values) => {
-      const count = Number(values.brokenCount) || 0;
-      let laborBase = 250; // Trip charge
-      let tileCost = 15;
-      if (values.tileType === 'Clay S-Tile') tileCost = 25;
-      
-      const total = laborBase + (count * tileCost) + (count * 10); // $10 per tile labor
-      return `$${total.toLocaleString()}`;
+      const tiles = Number(values.tiles) || 0;
+      const age = Number(values.age) || 0;
+      const min = Number(values.minimum) || 500;
+      let repair = tiles * 75; // high labor per tile
+      if (age > 20) repair += 1000; // factor in field failure
+      return `$${Math.max(repair, min).toLocaleString()}`;
     },
+    informationalText: 'Price tile repairs accurately by accounting for double-handled labor and underlayment failure. Leaks on a 20-year-old tile roof are rarely just about a "broken tile"; they are usually signs of underlayment "cook-out" that requires a partial lift-and-lay to solve.',
     faqs: [
       { 
-        question: "How should I structure my 'Trip Charge' for small tile repair jobs?", 
-        answer: "Always charge a minimum flat-fee 'mobilization charge' ($350–$500) regardless of the tile count. This covers the cost of travel, safety setup, and the high-liability risk of walking on fragile concrete or clay tiles." 
+        question: "How do I diagnose 'Underlayment Cook-Out' on a concrete tile roof?", 
+        answer: "If the home has active leaks but you see no broken tiles, the underlying organic felt has reached its thermal limit. In sun-drenched regions, 30# felt becomes brittle and fails after 18–22 years regardless of the tiles' condition. You must sell a 'Lift-and-Lay' service with synthetic underlayment to fix the root cause." 
       },
       { 
-        question: "What is the secret to sourcing matching tiles for older roof repairs?", 
-        answer: "Keep a 'Boneyard' of salvaged tiles from your full replacement jobs. Being able to offer an immediate match for a 20-year-old Monier or Eagle tile profile allows you to charge a premium for your 'expert sourcing' and immediate job completion." 
-      },
-      { 
-        question: "How can I prevent crew members from breaking extra tiles during a repair?", 
-        answer: "Enforce a 'Walk on the Laps' rule. Tiles are strongest where they overlap the battens. Professional crews should also use foam walking pads or specialized roofing ladders to distribute weight evenly and eliminate the cost of collateral damage." 
+        question: "Why is a 'Minimum Call-Out' fee mandatory for professional tile repairs?", 
+        answer: "Tile repair is high-liability specialty work. Every time a tech walks a tile roof, they risk breaking surrounding tiles. A $500 minimum ensures you cover the skilled labor, the material-matching hunt, and the liability of 'Walking the Ridge' to find the actual leak source." 
       }
     ]
   },
   {
     slug: 'snow-guard-layout-calculator',
-    title: 'Snow Guard Spacing & Structural Load Tool',
-    seoDescription: 'Determine required snow guard layout patterns based on roof pitch, eave length, and staggering requirements.',
+    title: 'Snow Guard Spacing & Liability Optimizer',
+    seoDescription: 'Calculate snow guard spacing and row counts based on roof pitch and snow-load. Protect eave-side assets and mitigate sliding-ice liability.',
     type: 'calculator',
-    resultLabel: 'Required Component Schedule',
+    resultLabel: 'Required Guard Rows & Spacing',
     inputs: [
-      { id: 'length', label: 'Roof Length (Eave Feet)', type: 'number', placeholder: '50' },
-      { id: 'pitch', label: 'Roof Pitch', type: 'select', options: ['Low (under 6/12)', 'Medium (6/12 to 10/12)', 'Steep (over 10/12)'] }
+      { id: 'pitch', label: 'Roof Pitch', type: 'select', options: ['4:12', '6:12', '8:12', '12:12'] },
+      { id: 'width', label: 'Building Width (ft)', type: 'number', placeholder: '50' }
     ],
     compute: (values) => {
-      const length = Number(values.length) || 0;
-      let spacing = 12; // inches
-      if (values.pitch === 'Medium (6/12 to 10/12)') spacing = 9;
-      if (values.pitch === 'Steep (over 10/12)') spacing = 6;
-      
-      const guardsPerRow = (length * 12) / spacing;
-      return `${Math.ceil(guardsPerRow * 2)} Guards (Recommended in 2 staggered rows)`;
+      const width = Number(values.width) || 0;
+      let guards = Math.ceil(width / 2); // 2ft spacing standard
+      let rows = 1;
+      if (values.pitch === '8:12') rows = 2;
+      if (values.pitch === '12:12') rows = 3;
+      return `${guards * rows} Guards (${rows} Rows of ${guards})`;
     },
+    informationalText: 'Design a snow retention system that protects eave-side assets from "sliding-ice avalanches." Spacing is driven by roof pitch and local snow-load data. Proper distribution prevents "structural point-overloading" and mitigates the liability of property damage or injury from sliding sheets.',
     faqs: [
       { 
-        question: "How can I upsell snow guards as a mandatory safety feature for metal roofs?", 
-        answer: "Explain the 'Avalanche Risk' and the liability of standard gutters. On slick surfaces like metal or slate, snow guards are an essential investment to prevent total gutter failure and the risk of injury to people on the ground—protecting the homeowner and your business." 
+        question: "Why should I never install snow guards 'Only Over the Door'?", 
+        answer: "Isolated guards over a doorway create a massive structural 'Point-Load' that can rip the snow guard off or buckle the metal panel. Snow retention must be distributed across the entire run to hold the snow blanket evenly, preventing the 'Sliding Sheet' effect that shears off accessories." 
       },
       { 
-        question: "What is the markup strategy for standing seam vs. screw-down snow guards?", 
-        answer: "Standing seam snow guards (using non-penetrating clamps like S-5!) should carry a higher premium. Position the 'No Holes in Your Roof' benefit to justify the $15–$25 per unit cost, allowing for a 40% margin on the hardware and labor." 
-      },
-      { 
-        question: "Should my company offer snow guard layout design as a professional service?", 
-        answer: "Yes; a professional layout that considers rafter length and local snow-load data separates you from 'handyman' competitors. Providing a stamped or technical layout adds massive perceived value to your metal roofing bids." 
+        question: "How do I reconcile snow guard spacing specs with different metal panel profiles?", 
+        answer: "Check the manufacturer's technical manual (e.g., SnoBlox or S-5!) for your specific rib height (1.5\" vs 2\"). Clamp-on guards for standing seam have much higher shear-strength than adhesive-mounts. Using adhesive guards on a 12:12 pitch without checking the 'Rib Load' is a major liability risk for your business." 
       }
     ]
   },
@@ -923,167 +905,124 @@ Subcontractor must maintain active General Liability and Workers Compensation in
         answer: "In high-value bids, position CDX Plywood as the 'Moisture Resistant Standard.' It recovers better from accidental leaks and has superior nail-holding power, allowing you to charge a premium over competitors using standard OSB, while reducing your call-back risk." 
       },
       { 
-        question: "How should I structure my 'Per Sheet' replacement price for 2026?", 
-        answer: "Charge $85–$115 per sheet. This covers the material, disposal of the rotted sheet, and the labor for custom cutting. Standardizing this price in your contract upfront eliminates 'sticker shock' when your crew finds rot during the tear-off phase." 
-      },
-      { 
-        question: "Why should my crew replace rotted decking instead of 'patching' it?", 
-        answer: "Patching rot is a major liability. If a roofing nail doesn't have a solid wood 'bite,' that shingle will blow off in the next storm. Complete sheet replacement ensures a full manufacturer warranty and protects your business from workmanship claims." 
-      }
-    ]
-  },
-  {
+{
     slug: 'hoa-roofing-approval-generator',
-    title: 'HOA Technical Spec & Approval Package Builder',
-    seoDescription: 'Generate professional HOA approval documents including material technical data and manufacturer spec sheets.',
+    title: 'HOA Technical Approval & Variance Kit',
+    seoDescription: 'Generate professional HOA approval documents including material technical data, fire-rating specs, and manufacturer compliance sheets.',
     type: 'template',
-    resultLabel: 'Technical Approval Content',
+    resultLabel: 'HOA Technical Submission',
     inputs: [
-      { id: 'hoaName', label: 'HOA Board Name', type: 'text' },
-      { id: 'material', label: 'Proposed Material', type: 'text', placeholder: 'CertainTeed Landmark' },
-      { id: 'color', label: 'Proposed Color', type: 'text', placeholder: 'Weathered Wood' }
+      { id: 'hoaName', label: 'HOA Board / ARC', type: 'text', placeholder: 'Windsor Estates ARC' },
+      { id: 'material', label: 'Proposed Material', type: 'text', placeholder: 'CertainTeed Landmark Pro' },
+      { id: 'fire', label: 'Fire Rating', type: 'select', options: ['Class A (Standard)', 'Class B', 'Class C'] }
     ],
     compute: (values) => {
-      return `To the Board of Directors at ${values.hoaName || '[HOA NAME]'},
+      return `To the Architecture Review Committee at ${values.hoaName || '[HOA NAME]'},
       
-I am writing to formally submit a request for exterior modification for my property. I intend to replace my current roof with ${values.material || 'a high-quality asphalt shingle'} in the color ${values.color || '[COLOR]'}. 
+I am formally submitting this technical request for exterior modification. We propose the installation of ${values.material || 'a high-definition laminate shingle'} which carries an industry-leading ${values.fire || 'Class A'} fire rating and a 110MPH wind-uplift certification.
 
-This material has been chosen specifically to maintain the aesthetic harmony of the neighborhood while providing superior wind and fire resistance. Enclosed with this request is the manufacturer's technical data sheet and a sample of the granule coloring. 
-
-I look forward to your timely approval so we can proceed with the installation.`;
+This project will utilize high-profile ridge caps to maintain neighborhood aesthetic harmony while meeting 2024 International Residential Code (IRC) ventilation standards. Enclosed are the manufacturer's ASTM compliance sheets and color swatch samples for your final verification.`;
     },
+    informationalText: 'Help your clients bypass HOA delays by providing a "Technical Approval Kit." Including fire-rating certifications and ASTM compliance sheets makes your bid look like the most professional and lower-risk option for the board.',
     faqs: [
       { 
         question: "How can I help my clients win HOA approval for premium roofing materials?", 
-        answer: "Provide them with a 'Technical Spec Package.' This includes high-res material brochures, fire-rating certifications, and local address references where you've installed the same material. This professional documentation closes HOA-restricted leads much faster." 
+        answer: "Stop sending simple quotes; send a 'Spec Package.' This includes high-res material brochures, fire-rating certifications, and local address references where you've installed the same material. This professional documentation separates you from 'trunk-slammers' and closes HOA-restricted leads much faster." 
       },
       { 
-        question: "What should my roofing company do if an HOA denies a color choice?", 
-        answer: "Request the 'Approved Roofing Palette' immediately and offer the closest matching architectural shingle. Position the upgrade to a more durable mat or better wind rating to maintain the project's high-ticket value despite the color restriction." 
-      },
-      { 
-        question: "Is it worth specializing in HOA-managed neighborhoods?", 
-        answer: "Yes; the complexity of HOA approvals acts as a barrier to entry for 'fly-by-night' contractors. Becoming the 'Go-To HOA Pro' allows you to charge higher margins and often leads to lucrative group-bid opportunities within the community." 
+        question: "Should my roofing company charge more for HOA-managed projects?", 
+        answer: "Yes; the administrative burden of ARC approvals and strict site hours (usually 8 AM – 5 PM) often adds 10%–15% to your operational overhead. You must bake this 'Management Burden' into your bid to protect your net profit margins." 
       }
     ]
   },
   {
     slug: 'roof-ridge-vent-calculator',
-    title: 'Ridge Vent Linear Footage & NFA Balancing Tool',
-    seoDescription: 'Calculate mandatory linear footage for ridge vents to achieve balanced NFA (Net Free Area) with soffit intake.',
+    title: 'Ridge Vent Exhaust & NFA Balancing Tool',
+    seoDescription: 'Calculate mandatory linear footage for ridge vents to achieve balanced NFA (Net Free Area) with soffit intake for code compliance.',
     type: 'calculator',
-    resultLabel: 'Calculated Ridge Component Schedule',
+    resultLabel: 'Required Ridge Vent Pieces',
     inputs: [
-      { id: 'linearFeet', label: 'Total Ridge Length (Feet)', type: 'number', placeholder: 'e.g. 80' },
-      { id: 'ventType', label: 'Vent Profile', type: 'select', options: ['Standard Shingle-Over', 'High-Profile Aluminum', 'Metal Roof Z-Vent'] }
+      { id: 'ridgeFeet', label: 'Total Ridge Length (ft)', type: 'number', placeholder: '80' },
+      { id: 'soffitNFA', label: 'Existing Soffit NFA', type: 'number', placeholder: '300' }
     ],
     compute: (values) => {
-      const feet = Number(values.linearFeet) || 0;
-      const pieces = Math.ceil(feet / 4); // Standard 4ft pieces
-      return `${pieces} pieces (4ft each) for ${feet} linear feet of ridge.`;
+      const feet = Number(values.ridgeFeet) || 0;
+      const pieces = Math.ceil(feet / 4); // 4ft standard
+      return `${pieces} Pieces (4ft each)`;
     },
+    informationalText: 'Calculate mandatory linear footage for ridge vents based on eave-side intake. Balanced ventilation requires an equal distribution of NFA to prevent moisture buildup and shingle "cook-out." Failing to balance NFA is the most common reason for manufacturer warranty denials.',
     faqs: [
       { 
-        question: "How can I explain the 'Siphon Effect' benefit of ridge vents to a client?", 
-        answer: "Explain that ridge vents use the Bernoulli principle to naturally pull hot air out of the attic. This continuous airflow prevents the 'Heat Trap' that cooks shingles from the inside out, allowing you to justify the premium ridge vent as a lifetime protection upgrade." 
+        question: "How can I explain the 'Siphon Effect' of ridge vents to justify a premium upgrade?", 
+        answer: "Explain that ridge vents use the Bernoulli principle to naturally pull hot air out of the attic. This continuous cycle prevents the 'Heat Trap' that causes premature granule loss. Position it as a mandatory system protection, not an optional accessory." 
       },
       { 
         question: "Why is balancing intake and exhaust mandatory for manufacturer warranties?", 
-        answer: "GAF, Owens Corning, and CertainTeed require balanced ventilation to validate their lifetime warranties. Failing to install a 50/50 intake/exhaust split can lead to your company being liable for premature shingle failure—always include proper soffit venting in your bid." 
-      },
-      { 
-        question: "Should my company charge more for ridge vent on steep-slope roofs?", 
-        answer: "Yes; installing 4ft shingle-over ridge vents on 10/12+ pitches is significantly more labor-intensive and requires higher safety precautions. Charge a 20% premium on ridge vent labor to protect your margins on these difficult runs." 
+        answer: "GAF and CertainTeed require balanced NFA (50/50 intake-to-exhaust) to validate 'Lifetime' warranties. If you install a ridge vent without sufficient soffit intake, the attic will pull air from the home's interior, creating massive moisture issues and potentially voiding the material warranty." 
       }
     ]
   },
   {
     slug: 'ice-dam-prevention-checklist',
-    title: 'Winterization Maintenance & Ice Dam Mitigation Scope',
+    title: 'Thermal Bypass & Ice Dam Mitigation Analyzer',
     seoDescription: 'Professional checklist for identifying and mitigating ice dam risks through ventilation and insulation technical assessments.',
     type: 'template',
-    resultLabel: 'Mitigation Scope Report',
+    resultLabel: 'Winterization Scope Report',
     inputs: [
-      { id: 'atticNode', label: 'Attic Status', type: 'select', options: ['Insulated', 'Uninsulated / Drafty'] },
-      { id: 'gutterNode', label: 'Gutter Status', type: 'select', options: ['Clean', 'Full of debris'] }
+      { id: 'bypass', label: 'Thermal Bypass Found?', type: 'select', options: ['No', 'Yes (Chimney/Can Lights)'] },
+      { id: 'insulation', label: 'Current R-Value', type: 'number', placeholder: '25' }
     ],
     compute: (values) => {
       return `ICE DAM MITIGATION PLAN:
-- [ ] ATTIC: ${values.atticNode === 'Insulated' ? 'Maintain R-49+ levels' : 'CRITICAL: Add blown-in insulation to stop heat loss'}
-- [ ] GUTTERS: ${values.gutterNode === 'Clean' ? 'Verify downspouts clear' : 'CRITICAL: Remove debris to allow drainage'}
-- [ ] VENTILATION: Ensure soffit vents aren't blocked by new insulation
-- [ ] BARRIER: Verify Ice & Water shield extends 2' past the interior wall line
-- [ ] ACTION: Consider heat cables in problematic valleys if icing persists.`;
+- [ ] THERMAL BYPASS: ${values.bypass === 'Yes (Chimney/Can Lights)' ? 'CRITICAL: Seal chimney chase and light boxes' : 'Maintain existing seals'}
+- [ ] INSULATION: Target R-49 (Current: R-${values.insulation || '?'})
+- [ ] VENTILATION: Verify baffles aren't blocked by new blow-in
+- [ ] WATERPROOFING: Ensure Ice & Water shield extends 2' past the interior wall line.`;
     },
+    informationalText: 'Identify "Thermal Bypasses" that cause ice dams by heating the roof deck. Use this as an upsell tool for blown-in insulation and air-sealing services. Most ice dams are ventilation or insulation failures, not roofing failures.',
     faqs: [
       { 
         question: "How can I explain the 'root cause' of ice dams to justify an insulation upsell?", 
-        answer: "Frame it as a 'System Failure.' Explain that ice dams are a result of heat loss, not just cold weather. By upselling air-sealing and R-49 insulation, you provide a permanent solution that protects the roof deck and prevents the ice dams your shingles are designed to resist." 
+        answer: "Frame it as a 'System Failure.' Explain that ice dams result from heat loss through the ceiling, not just cold weather. By upselling air-sealing and R-49 insulation, you provide a permanent solution that protects the shingles and eliminates the risk of interior water damage." 
       },
       { 
         question: "What is the IRC code requirement for Ice & Water shield extension?", 
-        answer: "To meet International Residential Code (IRC), the self-adhered membrane must extend at least 2 feet past the interior 'warm' wall line. Adhering to this standard protects your business from liability during building inspections and ensures the assembly is legally waterproof." 
-      },
-      { 
-        question: "Should my company offer heat cable installation as a primary service?", 
-        answer: "Heat cables should be a secondary 'add-on' for problematic valleys only. Position them as a 'fail-safe' rather than a primary solution, as they do not address the ventilation and insulation issues that cause structural damage over time." 
+        answer: "International Residential Code (IRC) mandates that the self-adhered membrane must extend at least 2 feet past the interior 'warm' wall line (not the eave edge). Adhering to this standard protects your business from liability during official building inspections." 
       }
     ]
   },
   {
     slug: 'metal-roof-screw-calculator',
-    title: 'Fastener Schedule & Wind-Uplift Estimator',
-    seoDescription: 'Calculate mandatory fastener patterns and component counts for exposed-fastener metal roofing systems.',
+    title: 'Fastener Schedule & Gasket Integrity Estimator',
+    seoDescription: 'Calculate mandatory fastener patterns and component counts for exposed-fastener metal roofing systems (AG-Panels).',
     type: 'calculator',
-    resultLabel: 'Fastener System Schedule',
+    resultLabel: 'Required Hardware Schedule',
     inputs: [
-      { id: 'squares', label: 'Total Squares', type: 'number', placeholder: '15' },
-      { id: 'spacing', label: 'Screw Spacing (Inches)', type: 'number', placeholder: '24' }
+      { id: 'squares', label: 'Total Squares', type: 'number', placeholder: '20' },
+      { id: 'spacing', label: 'Fastener Spacing (Inches)', type: 'number', placeholder: '24' }
     ],
     compute: (values) => {
-      const squares = Number(values.squares) || 0;
-      // Rough rule: 80-100 screws per square for standard 3ft panels
-      const count = squares * 90; 
-      const bagsOf250 = Math.ceil(count / 250);
-      return `${count.toLocaleString()} Screws (~${bagsOf250} bags of 250)`;
+      const sq = Number(values.squares) || 0;
+      const screws = sq * 90; // avg rule for AG panels
+      return `${screws.toLocaleString()} Screws (EPDM Recommended)`;
     },
+    informationalText: 'Determine your fastener count for exposed-fastener systems. Standard spacing is 24 inches on center, but high-wind zones may require tighter patterns. Always specify EPDM-washer screws to prevent the "pinhole" leaks common with cheap neoprene gaskets.',
     faqs: [
       { 
-        question: "How can I set a mandatory fastener pattern to protect against wind uplift?", 
-        answer: "Standard practice is screws every 24 inches on center, with a 'double-screw' pattern at the eaves and ridges. Providing this technical specification in your contract demonstrates superior structural attention compared to 'fly-by-night' crews." 
-      },
-      { 
         question: "What is the profit potential of 'Re-Screwing' aged metal roofs?", 
-        answer: "Re-screwing is a high-margin maintenance service ($2.50–$4.00 per linear foot of ridge/eave). As neoprene washers degrade after 15 years, offering a full fastener replacement can double the roof's life and generate lucrative 'fill-in' jobs for your crews." 
+        answer: "Re-screwing is a high-margin maintenance service ($2.50–$4.00 per LF). As original neoprene washers degrade after 12–15 years, offering a full fastener replacement can double the roof's life and generate lucrative 'fill-in' jobs for your crew without the liability of a full tear-off." 
       },
       { 
-        question: "Why should I only use EPDM-washer screws for metal roofing?", 
-        answer: "Standard neoprene washers dry out and crack in 10 years, creating 'pinhole' leaks. Specifying high-grade EPDM washers allows you to offer a 20-year workmanship warranty on the seal, setting your company apart as a premium specialty contractor." 
+        question: "Why should I only use EPDM-washer screws for metal roofing projects?", 
+        answer: "Cheap neoprene washers dry out and crack in under 10 years, creating thousands of potential leak points. Specifying premium EPDM washers allows you to offer a 20-year workmanship warranty on the seal, setting your company apart from budget-rate competitors." 
       }
     ]
   },
   {
     slug: 'roof-coating-estimate-tool',
-    title: 'Silicone/Cool-Roof Coating & Profit Margin Estimator',
+    title: 'Commercial Coating Mil-Spec & Warranty Estimator',
     seoDescription: 'Commercial tool for estimating liquid-applied silicone or acrylic roof coating systems and project profitability.',
     type: 'calculator',
-    resultLabel: 'Coating System Estimate',
-    inputs: [
-      { id: 'sqft', label: 'Total Square Footage', type: 'number', placeholder: '5000' },
-      { id: 'material', label: 'Coating Type', type: 'select', options: ['High-Solid Silicone', 'Acrylic', 'Urethane'] }
-    ],
-    compute: (values) => {
-      const sqft = Number(values.sqft) || 0;
-      let coverage = 50; // sqft per gallon per coat
-      if (values.material === 'Acrylic') coverage = 100;
-      
-      const gallonsNeeded = Math.ceil((sqft / coverage) * 2); // 2 coats
-      return `${gallonsNeeded} Gallons (for 2-coat application)`;
-    },
-    faqs: [
-      { 
-        question: "How can I identify saturated insulation before estimating a roof coating?", 
-        answer: "Infrared thermal imaging is essential. Coating over saturated insulation is a recipe for project failure and lawsuits. Proving the sub-roof is dry allows you to offer a manufacturer-backed warranty on the silicone system." 
       },
       { 
         question: "What is the average profit margin for a silicone roof coating project?", 
@@ -1531,6 +1470,36 @@ Please provide the necessary claim packet and instructions for submitting physic
       { 
         question: "What is a healthy net profit margin for a residential roofing company?", 
         answer: "Target a 20–30% gross margin and a 10–15% net profit margin. In a volume-based business, a 10% net profit is the 'Safe Zone.' If your net margin is consistently below 5%, your overhead burden is likely too high or your per-square labor rates are outdated for the current market." 
+      }
+    ]
+  },
+  {
+    slug: 'emergency-tarp-pricing-tool',
+    title: 'Emergency Tarping & Hazard Surcharge Tool',
+    seoDescription: 'Calculate high-margin rates for emergency tarping services, including hazard pay multipliers and insurance-approved material line items.',
+    type: 'calculator',
+    resultLabel: 'Recommended Emergency Service Bid',
+    inputs: [
+      { id: 'tarpArea', label: 'Tarp Area (Sqft)', type: 'number', placeholder: '500' },
+      { id: 'hazard', label: 'Hazard Level', type: 'select', options: ['Standard (Eave)', 'High (Ridge/Steep)', 'Extreme (Night/Storm)'] }
+    ],
+    compute: (values) => {
+      const area = Number(values.tarpArea) || 0;
+      let rate = 1.50; // per sqft
+      if (values.hazard === 'High (Ridge/Steep)') rate = 2.75;
+      if (values.hazard === 'Extreme (Night/Storm)') rate = 4.50;
+      
+      const total = area * rate;
+      return `$${total.toLocaleString()} (Hazard Surcharge Included)`;
+    },
+    faqs: [
+      { 
+        question: "How do I justify an 'Extreme Hazard' surcharge to a desk adjuster?", 
+        answer: "Document the site conditions with time-stamped video. If your crew is tarping a roof in 40MPH winds at 11 PM, the liability risk and specialty gear (harnesses, high-lumen lighting) warrant a 3x multiplier. Citing the 'Emergency Mitigation' requirements of the policy ensures the carrier covers these additional safety costs." 
+      },
+      { 
+        question: "What are the standard Xactimate codes for emergency roof tarping?", 
+        answer: "Use code ROF-TARP for the basic installation, but remember to supplement for 'High-Rise' or 'Steep Slope' surcharges if applicable. Proper documentation of the 'Time and Materials' (T&M) used for temporary repairs is the fastest way to get your emergency invoices paid in full by insurance." 
       }
     ]
   }
