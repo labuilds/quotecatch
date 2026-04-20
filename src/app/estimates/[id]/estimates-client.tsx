@@ -47,9 +47,35 @@ const MATERIAL_INFO: Record<string, { title: string; desc: string; image: string
   }
 }
 
-const ensureExternal = (url: string) => {
-  if (!url) return "#"
-  return url.startsWith("http") ? url : `https://${url}`
+const normalizeSocialLink = (url: string, platform: 'facebook' | 'instagram' | 'linkedin' | 'website') => {
+  if (!url) return "#";
+  
+  let clean = url.trim();
+  if (!clean) return "#";
+  
+  // If it's already a full URL with protocol, just ensure it's validish
+  if (clean.startsWith('http')) return clean;
+  
+  // Define platform bases
+  const bases: Record<string, string> = {
+    facebook: 'facebook.com/',
+    instagram: 'instagram.com/',
+    linkedin: 'linkedin.com/in/'
+  };
+
+  const base = bases[platform as keyof typeof bases];
+
+  if (base) {
+    // If they already included the domain but no protocol
+    if (clean.includes(base.split('/')[0])) {
+      return `https://${clean}`;
+    }
+    // If it's just a handle, prefix it
+    return `https://${base}${clean.replace(/^@/, '')}`;
+  }
+  
+  // Default for website or if no platform matches
+  return clean.startsWith('http') ? clean : `https://${clean}`;
 }
 
 const PITCH_LABELS: Record<string, string> = {
@@ -194,7 +220,7 @@ export default function EstimatesClient({
 
             <div className="flex gap-4">
               {userProfile?.website && (
-                <a href={ensureExternal(userProfile.website)} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center hover:bg-slate-50 transition-all text-slate-400">
+                <a href={normalizeSocialLink(userProfile.website, 'website')} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center hover:bg-slate-50 transition-all text-slate-400">
                   <Globe className="w-5 h-5" />
                 </a>
               )}
@@ -303,14 +329,14 @@ export default function EstimatesClient({
           
           <div className="flex items-center gap-6 mb-20">
             {userProfile?.facebook_url && (
-              <a href={ensureExternal(userProfile.facebook_url)} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center border border-slate-100 hover:bg-slate-50 transition-all text-slate-400">
+              <a href={normalizeSocialLink(userProfile.facebook_url, 'facebook')} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center border border-slate-100 hover:bg-slate-50 transition-all text-slate-400">
                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                 </svg>
               </a>
             )}
             {userProfile?.instagram_url && (
-              <a href={ensureExternal(userProfile.instagram_url)} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center border border-slate-100 hover:bg-slate-50 transition-all text-slate-400">
+              <a href={normalizeSocialLink(userProfile.instagram_url, 'instagram')} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center border border-slate-100 hover:bg-slate-50 transition-all text-slate-400">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                   <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
@@ -319,7 +345,7 @@ export default function EstimatesClient({
               </a>
             )}
             {userProfile?.linkedin_url && (
-              <a href={ensureExternal(userProfile.linkedin_url)} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center border border-slate-100 hover:bg-slate-50 transition-all text-slate-400">
+              <a href={normalizeSocialLink(userProfile.linkedin_url, 'linkedin')} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center border border-slate-100 hover:bg-slate-50 transition-all text-slate-400">
                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>

@@ -68,12 +68,32 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
     try {
       // Create a sanitized copy of the form data for URLs
       const sanitizedData = { ...formData }
-      const urlFields = ['website', 'facebook_url', 'linkedin_url', 'instagram_url', 'webhook_url']
+      const standardUrlFields = ['website', 'webhook_url']
+      const socialFields = {
+        facebook_url: 'facebook.com/',
+        instagram_url: 'instagram.com/',
+        linkedin_url: 'linkedin.com/in/'
+      }
       
-      urlFields.forEach(field => {
+      standardUrlFields.forEach(field => {
         const val = (sanitizedData as any)[field]
         if (val && val.trim() !== "" && !val.startsWith('http://') && !val.startsWith('https://')) {
           (sanitizedData as any)[field] = `https://${val.trim()}`
+        }
+      })
+
+      Object.entries(socialFields).forEach(([field, domain]) => {
+        let val = (sanitizedData as any)[field]
+        if (val && val.trim() !== "") {
+          val = val.trim()
+          if (val.startsWith('http')) {
+            (sanitizedData as any)[field] = val
+          } else if (val.includes(domain.split('/')[0])) {
+            (sanitizedData as any)[field] = `https://${val}`
+          } else {
+            // It's a handle
+            (sanitizedData as any)[field] = `https://${domain}${val.replace(/^@/, '')}`
+          }
         }
       })
 
