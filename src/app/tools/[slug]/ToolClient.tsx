@@ -87,7 +87,6 @@ export default function ToolClient({ slug }: { slug: string }) {
         <div className="hidden lg:flex items-center gap-10 text-[14px] font-bold text-slate-500">
           <Link href="/#features" className="hover:text-slate-900 transition-colors">Features</Link>
           <Link href="/#pricing" className="hover:text-slate-900 transition-colors">Pricing</Link>
-          <Link href="/tools" className="text-red-600 hover:text-red-700 font-bold transition-colors">Free Tools</Link>
         </div>
 
         <div className="flex items-center gap-2 sm:gap-4">
@@ -119,7 +118,6 @@ export default function ToolClient({ slug }: { slug: string }) {
                 <div className="flex flex-col items-center gap-8 text-[18px] font-black text-slate-900">
                   <Link href="/#features" onClick={() => setIsMenuOpen(false)}>Features</Link>
                   <Link href="/#pricing" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
-                  <Link href="/tools" onClick={() => setIsMenuOpen(false)} className="text-red-600">Free Tools</Link>
                   {user ? (
                     <Link href="/calculators" onClick={() => setIsMenuOpen(false)}>Dashboard</Link>
                   ) : (
@@ -324,14 +322,65 @@ export default function ToolClient({ slug }: { slug: string }) {
       </section>
 
       {/* Simple Footer Back Link */}
-      <footer className="text-center py-20 bg-white border-t border-slate-50">
-        <Link href="/" className="flex items-center justify-center gap-3 mb-8">
-          <QCLogo size={24} />
-          <span className="text-lg font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
-        </Link>
-        <Link href="/tools" className="text-[11px] font-black text-slate-400 uppercase tracking-widest hover:text-red-500 transition-all">
-          ← Back to Tools Hub
-        </Link>
+      <footer className="py-16 lg:py-24 border-t border-slate-100 px-4 sm:px-6 bg-white shrink-0 mt-auto">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-20 mb-16 lg:mb-24">
+            {/* Brand Column */}
+            <div className="col-span-2 md:col-span-1 space-y-6">
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-slate-50 rounded-xl flex items-center justify-center transition-all">
+                  <QCLogo size={20} />
+                </div>
+                <span className="text-[18px] lg:text-[20px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
+              </div>
+              <p className="text-[14px] text-slate-500 font-medium leading-relaxed italic">
+                Empowering roofing contractors with satellite-powered lead capture and programmatic SEO tools.
+              </p>
+            </div>
+
+            {/* Product Column */}
+            <div className="space-y-6">
+              <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400">Product</h4>
+              <nav className="flex flex-col gap-4 text-[14px] font-bold text-slate-600">
+                <Link href="/#features" className="hover:text-red-600 transition-colors">Features</Link>
+                <Link href="/#pricing" className="hover:text-red-600 transition-colors">Pricing</Link>
+                <Link href="/login" className="hover:text-red-600 transition-colors">Sign In</Link>
+                <Link href="/login?tab=signup" className="hover:text-red-600 transition-colors">Register</Link>
+              </nav>
+            </div>
+
+            {/* Free Tools Column */}
+            <div className="space-y-6">
+              <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400">Free Tools</h4>
+              <nav className="flex flex-col gap-4 text-[14px] font-bold text-slate-600">
+                <Link href="/tools/shingle-waste-calculator" className="hover:text-red-600 transition-colors">Waste Calculator</Link>
+                <Link href="/tools/roofing-financing-calculator" className="hover:text-red-600 transition-colors">Financing Calc</Link>
+                <Link href="/tools/storm-door-knocking-script" className="hover:text-red-600 transition-colors">Storm Script</Link>
+                <Link href="/tools/chimney-flashing-cost-estimator" className="hover:text-red-600 transition-colors">Flashing Tool</Link>
+                <Link href="/tools/hoa-roofing-approval-generator" className="hover:text-red-600 transition-colors">HOA Template</Link>
+                <Link href="/tools" className="text-red-600 font-black hover:text-red-700 transition-colors">View All →</Link>
+              </nav>
+            </div>
+
+            {/* Support Column */}
+            <div className="space-y-6">
+              <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400">Support</h4>
+              <nav className="flex flex-col gap-4 text-[14px] font-bold text-slate-600">
+                <Link href="/terms" className="hover:text-red-600 transition-colors">Terms of Service</Link>
+                <Link href="/privacy" className="hover:text-red-600 transition-colors">Privacy Policy</Link>
+              </nav>
+            </div>
+          </div>
+
+          <div className="pt-10 border-t border-slate-50 flex flex-col md:flex-row items-center justify-between gap-6">
+            <p className="text-[12px] lg:text-[14px] text-slate-400 font-bold">
+              © {new Date().getFullYear()} QuoteCatch. All rights reserved.
+            </p>
+            <Link href="/tools" className="text-[11px] font-black text-slate-400 uppercase tracking-widest hover:text-red-500 transition-all">
+              ← Back to Tools Hub
+            </Link>
+          </div>
+        </div>
       </footer>
     </div>
   );

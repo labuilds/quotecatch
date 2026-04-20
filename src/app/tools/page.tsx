@@ -6,11 +6,9 @@ import { toolsConfig } from '@/data/toolsConfig';
 import { createClient } from '@/utils/supabase/client';
 import { QCLogo } from '@/components/QCLogo';
 import { 
-  ArrowRight, 
   Calculator, 
   Zap, 
   Mail, 
-  LayoutGrid,
   Menu,
   ChevronRight
 } from 'lucide-react';
@@ -38,7 +36,7 @@ export default function ToolsIndexPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white font-sans selection:bg-red-100 selection:text-red-900 overflow-x-hidden">
+    <div className="min-h-screen bg-white font-sans selection:bg-red-100 selection:text-red-900 overflow-x-hidden flex flex-col">
       {/* Navigation - Landing Page Style */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 lg:bg-white/80 backdrop-blur-md lg:backdrop-blur-xl border-b border-slate-100 px-4 sm:px-6 h-16 lg:h-20 flex items-center justify-between transition-all">
         <div className="flex items-center gap-2.5 sm:gap-3">
@@ -53,7 +51,6 @@ export default function ToolsIndexPage() {
         <div className="hidden lg:flex items-center gap-10 text-[14px] font-bold text-slate-500">
           <Link href="/#features" className="hover:text-slate-900 transition-colors">Features</Link>
           <Link href="/#pricing" className="hover:text-slate-900 transition-colors">Pricing</Link>
-          <Link href="/tools" className="text-red-600 hover:text-red-700 font-bold transition-colors">Free Tools</Link>
         </div>
 
         <div className="flex items-center gap-2 sm:gap-4">
@@ -74,14 +71,17 @@ export default function ToolsIndexPage() {
 
           <div className="lg:hidden">
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-              <SheetTrigger className="h-10 w-10 flex items-center justify-center hover:bg-slate-50 rounded-xl transition-all">
-                <Menu className="w-6 h-6" />
-              </SheetTrigger>
+              <SheetTrigger 
+                render={
+                  <div role="button" className="h-10 w-10 flex items-center justify-center hover:bg-slate-50 rounded-xl transition-all">
+                    <Menu className="w-6 h-6" />
+                  </div>
+                } 
+              />
               <SheetContent side="top" className="w-full pt-20 pb-10">
                 <div className="flex flex-col items-center gap-8 text-[18px] font-black text-slate-900">
                   <Link href="/#features" onClick={() => setIsMenuOpen(false)}>Features</Link>
                   <Link href="/#pricing" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
-                  <Link href="/tools" onClick={() => setIsMenuOpen(false)} className="text-red-600">Free Tools</Link>
                   {user ? (
                     <Link href="/calculators" onClick={() => setIsMenuOpen(false)}>Dashboard</Link>
                   ) : (
@@ -165,6 +165,64 @@ export default function ToolsIndexPage() {
           </div>
         </div>
       </section>
+
+      <footer className="py-16 lg:py-24 border-t border-slate-100 px-4 sm:px-6 bg-white shrink-0 mt-auto">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-20 mb-16 lg:mb-24">
+            {/* Brand Column */}
+            <div className="col-span-2 md:col-span-1 space-y-6">
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-slate-50 rounded-xl flex items-center justify-center transition-all">
+                  <QCLogo size={20} />
+                </div>
+                <span className="text-[18px] lg:text-[20px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
+              </div>
+              <p className="text-[14px] text-slate-500 font-medium leading-relaxed italic">
+                Empowering roofing contractors with satellite-powered lead capture and programmatic SEO tools.
+              </p>
+            </div>
+
+            {/* Product Column */}
+            <div className="space-y-6">
+              <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400">Product</h4>
+              <nav className="flex flex-col gap-4 text-[14px] font-bold text-slate-600">
+                <Link href="/#features" className="hover:text-red-600 transition-colors">Features</Link>
+                <Link href="/#pricing" className="hover:text-red-600 transition-colors">Pricing</Link>
+                <Link href="/login" className="hover:text-red-600 transition-colors">Sign In</Link>
+                <Link href="/login?tab=signup" className="hover:text-red-600 transition-colors">Register</Link>
+              </nav>
+            </div>
+
+            {/* Free Tools Column */}
+            <div className="space-y-6">
+              <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400">Free Tools</h4>
+              <nav className="flex flex-col gap-4 text-[14px] font-bold text-slate-600">
+                <Link href="/tools/shingle-waste-calculator" className="hover:text-red-600 transition-colors">Waste Calculator</Link>
+                <Link href="/tools/roofing-financing-calculator" className="hover:text-red-600 transition-colors">Financing Calc</Link>
+                <Link href="/tools/storm-door-knocking-script" className="hover:text-red-600 transition-colors">Storm Script</Link>
+                <Link href="/tools/chimney-flashing-cost-estimator" className="hover:text-red-600 transition-colors">Flashing Tool</Link>
+                <Link href="/tools/hoa-roofing-approval-generator" className="hover:text-red-600 transition-colors">HOA Template</Link>
+                <Link href="/tools" className="text-red-600 font-black hover:text-red-700 transition-colors">View All →</Link>
+              </nav>
+            </div>
+
+            {/* Support Column */}
+            <div className="space-y-6">
+              <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400">Support</h4>
+              <nav className="flex flex-col gap-4 text-[14px] font-bold text-slate-600">
+                <Link href="/terms" className="hover:text-red-600 transition-colors">Terms of Service</Link>
+                <Link href="/privacy" className="hover:text-red-600 transition-colors">Privacy Policy</Link>
+              </nav>
+            </div>
+          </div>
+
+          <div className="pt-10 border-t border-slate-50 flex flex-col md:flex-row items-center justify-between gap-6">
+            <p className="text-[12px] lg:text-[14px] text-slate-400 font-bold">
+              © {new Date().getFullYear()} QuoteCatch. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
