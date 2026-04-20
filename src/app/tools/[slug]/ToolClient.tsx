@@ -108,11 +108,13 @@ export default function ToolClient({ slug }: { slug: string }) {
 
           <div className="lg:hidden">
             <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-              <SheetTrigger asChild>
-                <div role="button" className="h-10 w-10 flex items-center justify-center hover:bg-slate-50 rounded-xl transition-all cursor-pointer">
-                  <Menu className="w-6 h-6" />
-                </div>
-              </SheetTrigger>
+              <SheetTrigger 
+                render={
+                  <div role="button" className="h-10 w-10 flex items-center justify-center hover:bg-slate-50 rounded-xl transition-all cursor-pointer">
+                    <Menu className="w-6 h-6" />
+                  </div>
+                } 
+              />
               <SheetContent side="top" className="w-full pt-20 pb-10">
                 <div className="flex flex-col items-center gap-8 text-[18px] font-black text-slate-900">
                   <Link href="/#features" onClick={() => setIsMenuOpen(false)}>Features</Link>
