@@ -48,15 +48,15 @@ export const toolsConfig: ToolConfig[] = [
     faqs: [
       { 
         question: "What is the standard waste percentage for a simple gable roof?", 
-        answer: "For a straightforward gable roof with minimal penetrations, a 10% waste factor is industry standard. This covers starter strips, ridge caps, and typical shingle cuts." 
+        answer: "A typical waste factor for a simple gable roof takes between 10% and 12%. This accounts for the standard overlaps and the relatively small amount of cutting required at the edges and ridges." 
       },
       { 
-        question: "Do hip roofs require more shingle waste than gable roofs?", 
-        answer: "Yes, hip roofs typically require 12-15% waste because of the additional diagonal cuts needed along the hips and valleys." 
+        question: "How much waste should I add for complex roofs with valleys and dormers?", 
+        answer: "For complex roofs, including hip designs or those with multiple dormers and valleys, you should increase your waste factor to 15%–20%. The diagonal cuts required in valleys significantly increase material loss compared to straight eave cuts." 
       },
       { 
-        question: "How do I calculate waste for a complex roof with multiple valleys?", 
-        answer: "For complex roofs, we recommend a minimum of 15% waste. Each valley adds significant cutting waste, and you'll need extra shingles for double-coverage in these high-flow water areas." 
+        question: "Does the roof pitch affect how much shingle waste I should order?", 
+        answer: "Yes, steep-slope roofs (8/12 pitch or higher) usually require an additional 2%–3% in waste. This compensates for the difficulty of handling materials on a vertical surface and the increased likelihood of shingle damage during installation." 
       }
     ]
   },
@@ -82,12 +82,16 @@ Would it be a total inconvenience if I took a quick look at your shingles while 
     },
     faqs: [
       { 
-        question: "What is the best time of day for door knocking in roofing sales?", 
-        answer: "The 'Golden Hour' for door knocking is typically between 4:00 PM and 7:30 PM on weekdays, or Saturdays from 10:00 AM to 4:00 PM, when homeowners are most likely to be present but not yet busy with dinner." 
+        question: "What are the best hours for door knocking on roofing prospective leads?", 
+        answer: "The most effective times are typically 'The Golden Hour' between 4:00 PM and 7:30 PM on weekdays, or Saturdays from 10:00 AM to 4:00 PM. This is when homeowners are most likely to be home and available to discuss their property's health after a storm." 
       },
       { 
-        question: "How do I handle homeowners who aren't interested in an inspection?", 
-        answer: "Always lead with value. If they decline a full inspection, offer a 'structural health check' of just the gutters or downspouts to identify immediate debris/hail clues without needing to get on the roof right away." 
+        question: "How do I start a conversation using a door-knocking script effectively?", 
+        answer: "Use the 'SLAP' formula: Start with a friendly greeting, Let them know why you're there (mention a neighbor's roof or recent storm activity), Ask an open-ended question about their roof, and Present a low-risk offer like a free inspection." 
+      },
+      { 
+        question: "What should I do if a homeowner says no to a full roof inspection?", 
+        answer: "Focus on providing immediate, low-stakes value. Offer a quick 'structural health check' of their gutters or downspouts to look for hail clues, which can often lead to a deeper conversation about the roof without feeling pushy." 
       }
     ]
   },
@@ -116,7 +120,21 @@ Looking forward to potentially working with you!
 Best regards,
 ${values.companyName || 'The Team'}
 `;
-    }
+    },
+    faqs: [
+      { 
+        question: "How many days should I wait before sending a follow-up email after an estimate?", 
+        answer: "A good rule of thumb is to send your first follow-up email 2–3 days after providing the estimate. This keeps your company top-of-mind while they are still in the decision-making phase without being overwhelming." 
+      },
+      { 
+        question: "What is the most effective subject line for a roofing estimate follow-up?", 
+        answer: "The highest-performing subject lines are personal and direct, such as 'Quick question about your roofing project' or 'Checking in on your roofing estimate.' Avoid sales-heavy language that might trigger spam filters or homeowner 'blindness'." 
+      },
+      { 
+        question: "How many times should I follow up on a roofing lead before stopping?", 
+        answer: "Most successful contractors follow up 3–5 times over the course of two weeks. If you haven't received a response after the 10-day mark, send a 'Gentle Nudge' email asking if they've made other arrangements." 
+      }
+    ]
   },
   {
     slug: 'metal-roofing-cost-calculator',
@@ -141,7 +159,21 @@ ${values.companyName || 'The Team'}
       
       const total = area * pricePerSquare * mult;
       return `$${total.toLocaleString()}`;
-    }
+    },
+    faqs: [
+      { 
+        question: "How much does metal roofing cost per square in 2026?", 
+        answer: "As of 2026, metal roofing typically costs between $700 and $2,900 per square (100 sq. ft.) installed. The wide range is due to the difference between affordable corrugated panels and premium standing seam or copper options." 
+      },
+      { 
+        question: "Which metal roofing material provides the best value for the money?", 
+        answer: "Galvanized steel and aluminum are the best value options, typically costing $400–$1,400 per square for materials. Aluminum is particularly favored in coastal areas because it doesn't rust, significantly increasing its lifespan and ROI." 
+      },
+      { 
+        question: "Does the design of a metal roof increase the labor cost significantly?", 
+        answer: "Yes, complex designs with many hips, valleys, or dormers can increase labor costs by 15%–25%. Specialized trim and flashing requirements for these features require much more precision work than a standard asphalt install." 
+      }
+    ]
   },
   {
     slug: 'shingle-bundle-calculator',
@@ -150,16 +182,30 @@ ${values.companyName || 'The Team'}
     type: 'calculator',
     resultLabel: 'Required Bundles',
     inputs: [
-      { id: 'squares', label: 'Total Squares', type: 'number', placeholder: 'e.g. 30' },
+      { id: 'area', label: 'Roof Area (Squares)', type: 'number', placeholder: 'e.g. 20' },
       { id: 'waste', label: 'Waste Percentage', type: 'number', placeholder: 'e.g. 10' }
     ],
     compute: (values) => {
-      const squares = Number(values.squares) || 0;
+      const area = Number(values.area) || 0;
       const waste = Number(values.waste) || 10;
-      const totalSquares = squares * (1 + waste/100);
+      const totalSquares = area * (1 + waste / 100);
       const bundles = Math.ceil(totalSquares * 3);
-      return `${bundles} Bundles (${(bundles/3).toFixed(1)} Squares)`;
-    }
+      return `${bundles} Bundles (${totalSquares.toFixed(1)} Total Squares)`;
+    },
+    faqs: [
+      { 
+        question: "How many shingle bundles do I need to cover one roofing square?", 
+        answer: "It takes exactly 3 standard bundles of asphalt shingles to cover one roofing square (100 square feet). Each bundle typically covers 33.3 square feet, so ordering by the '3-bundle rule' ensures you match your measured area perfectly." 
+      },
+      { 
+        question: "How many shingles are in a standard bundle for 3-tab vs. architectural shingles?", 
+        answer: "A bundle of 3-tab shingles typically contains 26–29 pieces, while architectural (dimensional) shingles usually have 20–24 pieces. This is because architectural shingles are thicker and heavier per piece, covering more area with fewer physical units." 
+      },
+      { 
+        question: "How many bundles should I order for a 20 square roof including waste?", 
+        answer: "For a 20 square roof, you should order 66 bundles if using a 10% waste factor (20 squares + 2 waste squares = 22 squares total). This gives you 60 bundles for the main field and 6 extra for starter courses, ridges, and cuts." 
+      }
+    ]
   },
   {
     slug: 'roof-pitch-multiplier-calculator',
