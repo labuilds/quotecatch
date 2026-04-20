@@ -35,8 +35,37 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ToolPage({ params }: Props) {
   const { slug } = await params;
+  const tool = toolsConfig.find((t) => t.slug === slug);
 
-  return <ToolClient slug={slug} />;
+  if (!tool) {
+    notFound();
+  }
+
+  // Create JSON-LD FAQ Schema
+  const faqSchema = tool.faqs ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": tool.faqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  } : null;
+
+  return (
+    <>
+      {faqSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+      <ToolClient slug={slug} faqs={tool.faqs} />
+    </>
+  );
 }
 
 export async function generateStaticParams() {

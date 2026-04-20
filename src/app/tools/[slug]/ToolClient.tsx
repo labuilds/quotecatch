@@ -11,18 +11,19 @@ import {
   Calculator as CalcIcon, 
   Zap, 
   Mail, 
-  ChevronRight,
+   ChevronRight,
   Sparkles,
   ArrowUpRight,
   Menu,
-  X
+  X,
+  ArrowDown
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { notFound } from 'next/navigation';
 
-export default function ToolClient({ slug }: { slug: string }) {
+export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { question: string, answer: string }[] }) {
   const tool = toolsConfig.find((t) => t.slug === slug);
 
   if (!tool) {
@@ -271,6 +272,31 @@ export default function ToolClient({ slug }: { slug: string }) {
           </div>
         </div>
       </main>
+
+      {/* FAQ Section - SEO Content */}
+      {faqs && faqs.length > 0 && (
+        <section className="max-w-4xl mx-auto px-6 pb-32">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-4">Frequently Asked Questions</h2>
+            <p className="text-slate-500 font-medium italic">Everything you need to know about this {slug.replace(/-/g, ' ')} tool.</p>
+          </div>
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <details key={index} className="group bg-slate-50 border border-slate-100 rounded-2xl overflow-hidden transition-all duration-300 open:bg-white open:shadow-xl open:shadow-slate-200/50">
+                <summary className="flex items-center justify-between p-6 lg:p-8 cursor-pointer list-none font-bold text-slate-900 group-open:text-red-600 transition-colors">
+                  <span className="pr-4">{faq.question}</span>
+                  <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center group-open:rotate-180 transition-transform duration-300">
+                    <ArrowDown className="w-4 h-4 text-slate-400 group-open:text-red-600" />
+                  </div>
+                </summary>
+                <div className="px-6 lg:px-8 pb-6 lg:pb-8 text-slate-600 leading-relaxed font-medium mt-[-0.5rem]">
+                  {faq.answer}
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Suggested Tools Section - SiteGPT Style */}
       <section className="bg-slate-50/50 pt-20 pb-32 border-t border-slate-100">

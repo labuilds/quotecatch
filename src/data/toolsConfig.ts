@@ -9,15 +9,8 @@ export interface ToolInput {
   options?: string[];
 }
 
-export interface ToolConfig {
-  slug: string;
-  title: string;
-  seoDescription: string;
-  type: ToolType;
-  inputs: ToolInput[];
-  compute: (values: Record<string, any>) => string | number;
-  resultLabel: string;
   iconName?: string;
+  faqs?: { question: string; answer: string }[];
 }
 
 export const toolsConfig: ToolConfig[] = [
@@ -51,7 +44,21 @@ export const toolsConfig: ToolConfig[] = [
       const totalSquares = squares * (1 + totalWaste / 100);
       
       return `${totalWaste}% (${totalSquares.toFixed(2)} Total Squares)`;
-    }
+    },
+    faqs: [
+      { 
+        question: "What is the standard waste percentage for a simple gable roof?", 
+        answer: "For a straightforward gable roof with minimal penetrations, a 10% waste factor is industry standard. This covers starter strips, ridge caps, and typical shingle cuts." 
+      },
+      { 
+        question: "Do hip roofs require more shingle waste than gable roofs?", 
+        answer: "Yes, hip roofs typically require 12-15% waste because of the additional diagonal cuts needed along the hips and valleys." 
+      },
+      { 
+        question: "How do I calculate waste for a complex roof with multiple valleys?", 
+        answer: "For complex roofs, we recommend a minimum of 15% waste. Each valley adds significant cutting waste, and you'll need extra shingles for double-coverage in these high-flow water areas." 
+      }
+    ]
   },
   {
     slug: 'storm-door-knocking-script',
@@ -72,7 +79,17 @@ I was just finishing up an inspection for your neighbor over at the end of ${val
 Since I'm already in the area with my ladder, I'm doing complimentary 15-minute structural health checks for the rest of the block today. Most of your neighbors are finding that their insurance covers a full replacement if we find the right type of impact. 
 
 Would it be a total inconvenience if I took a quick look at your shingles while the sun is still up?`;
-    }
+    },
+    faqs: [
+      { 
+        question: "What is the best time of day for door knocking in roofing sales?", 
+        answer: "The 'Golden Hour' for door knocking is typically between 4:00 PM and 7:30 PM on weekdays, or Saturdays from 10:00 AM to 4:00 PM, when homeowners are most likely to be present but not yet busy with dinner." 
+      },
+      { 
+        question: "How do I handle homeowners who aren't interested in an inspection?", 
+        answer: "Always lead with value. If they decline a full inspection, offer a 'structural health check' of just the gutters or downspouts to identify immediate debris/hail clues without needing to get on the roof right away." 
+      }
+    ]
   },
   {
     slug: 'email-follow-up-template',
