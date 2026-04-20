@@ -1,4 +1,4 @@
-import { createClient } from '@/utils/supabase/server';
+import { createAdminClient } from '@/utils/supabase/server';
 import RoofingWidget from "@/components/RoofingWidget";
 import { ShieldAlert } from 'lucide-react';
 import { PricingConfig } from "@/lib/pricingEngine";
@@ -12,7 +12,7 @@ export default async function WidgetPage({ params }: { params: Promise<{ id: str
       return null;
   }
 
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
 
   const { data: calc } = await supabase
     .from('calculators')
