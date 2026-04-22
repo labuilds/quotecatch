@@ -41,7 +41,7 @@ export const DEFAULT_PRICING_CONFIG: PricingConfig = {
     medium: 2500,
     large: 4000
   },
-  offered_materials: ['asphalt', 'tile']
+  offered_materials: ['asphalt', 'tile', 'metal', 'cedar']
 }
 
 export function calculateEstimate(inputs: EstimateInputs, config: PricingConfig): number {

@@ -14,7 +14,9 @@ A contractor will describe their pricing in plain English. You must extract and 
 {
   "materials": {
     "asphalt": <number, price per sq ft>,
-    "tile": <number, price per sq ft>
+    "tile": <number, price per sq ft>,
+    "metal": <number, price per sq ft>,
+    "cedar": <number, price per sq ft>
   },
   "modifiers": {
     "pitch": {
@@ -28,11 +30,12 @@ A contractor will describe their pricing in plain English. You must extract and 
     "under_1500": <number, avg total for homes under 1500 sqft>,
     "1500_2500": <number, avg total for homes 1500-2500 sqft>,
     "over_2500": <number, avg total for homes over 2500 sqft>
-  }
+  },
+  "offered_materials": ["asphalt", "tile", "metal", "cedar"]
 }
 
 Rules:
-- If a material price isn't mentioned, use industry standard defaults: asphalt=$4.50, tile=$11.00
+- If a material price isn't mentioned, use industry standard defaults: asphalt=$5.50, tile=$14.00, metal=$11.00, cedar=$15.00
 - If flat fee isn't mentioned, default to $500
 - Pitch multipliers: flat=1.0, standard=1.0, steep=1.2 unless specified
 - free_tier_averages = material_price * avg_sqft_for_tier + flat_fees (avg sqft: 1200, 2000, 3200)
@@ -55,10 +58,11 @@ Rules:
     console.error('Gemini config generation failed, using defaults:', err)
     // Safe fallback
     return {
-      materials: { asphalt: 4.50, tile: 11.00 },
+      materials: { asphalt: 5.50, tile: 14.00, metal: 11.00, cedar: 15.00 },
       modifiers: { pitch: { flat: 1.0, standard: 1.0, steep: 1.2 } },
       flat_fees: 500,
-      free_tier_averages: { under_1500: 5900, "1500_2500": 9500, over_2500: 14900 }
+      free_tier_averages: { under_1500: 7100, "1500_2500": 11500, over_2500: 18100 },
+      offered_materials: ["asphalt", "tile", "metal", "cedar"]
     }
   }
 }
@@ -121,6 +125,8 @@ export async function generateQuickEdit(originalConfig: PricingConfig, prompt: s
   const partialNew = await generateConfigFromPrompt(prompt)
   if (prompt.toLowerCase().includes("tile")) newConfig.materials.tile = partialNew.materials.tile
   if (prompt.toLowerCase().includes("asphalt")) newConfig.materials.asphalt = partialNew.materials.asphalt
+  if (prompt.toLowerCase().includes("metal")) newConfig.materials.metal = partialNew.materials.metal
+  if (prompt.toLowerCase().includes("cedar")) newConfig.materials.cedar = partialNew.materials.cedar
   if (prompt.toLowerCase().includes("flat")) newConfig.flat_fees = partialNew.flat_fees
   return newConfig
 }

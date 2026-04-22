@@ -8,13 +8,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { CheckCircle, MapPin, Zap, ArrowLeft, ArrowRight, Home, Search, Loader2, ExternalLink, ChevronRight, X } from "lucide-react"
+import { CheckCircle, MapPin, Zap, ArrowLeft, ArrowRight, Home, Search, Loader2, ExternalLink, ChevronRight, X, Check } from "lucide-react"
 import { GoogleMap, Autocomplete, useJsApiLoader } from "@react-google-maps/api"
 
 import { PricingConfig, calculateEstimate } from "@/lib/pricingEngine"
 import { getRoofEstimation } from "@/app/actions/solar"
 import { triggerLeadWebhook } from "@/app/actions/integrations"
 import { getAddressSuggestions } from "@/app/actions/places"
+import { formatPhoneNumber } from "@/utils/format"
 
 const variants = {
   initial: { opacity: 0, y: 5 },
@@ -283,6 +284,8 @@ export default function RoofingWidget({
           phone: formData.phone,
           form_data: formData,
           estimated_price: price,
+          lat: mapCenter.lat,
+          lng: mapCenter.lng,
         }),
       })
 
@@ -313,12 +316,14 @@ export default function RoofingWidget({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           calculator_id: calculatorId,
-          estimated_price: price,
-          address: formData.address,
-          notes: formData.notes,
           homeowner_name: formData.firstName,
           homeowner_email: formData.email,
           homeowner_phone: formData.phone,
+          estimated_price: price,
+          address: formData.address,
+          notes: formData.notes,
+          lat: mapCenter.lat,
+          lng: mapCenter.lng,
           form_data: {
             ...formData,
             config: config
@@ -606,7 +611,7 @@ export default function RoofingWidget({
                 { id: "tile", label: "Tile", img: "/tiles.jpg" },
                 { id: "cedar", label: "Cedar", img: "/materials/cedar.png" }
               ]
-              .filter(item => (config.offered_materials ?? ['asphalt', 'tile']).includes(item.id))
+              .filter(item => (config.offered_materials ?? ['asphalt', 'tile', 'metal', 'cedar']).includes(item.id))
               .map((item) => {
                 const active = formData.desiredMaterial === item.id;
                 return (
@@ -745,7 +750,7 @@ export default function RoofingWidget({
                   placeholder="(555) 000-0000" 
                   type="tel"
                   value={formData.phone}
-                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                  onChange={(e) => setFormData({...formData, phone: formatPhoneNumber(e.target.value)})}
                   className="h-14 bg-slate-50 border-slate-100 rounded-2xl px-6 text-[16px] font-bold"
                 />
               </div>
@@ -761,7 +766,7 @@ export default function RoofingWidget({
                     onChange={(e) => setAgreedToTerms(e.target.checked)}
                   />
                   <div className="w-6 h-6 border-2 border-slate-200 rounded-lg bg-white peer-checked:border-red-600 transition-all flex items-center justify-center">
-                    <div className="w-2.5 h-3.5 border-r-[2.5px] border-b-[2.5px] border-red-600 rotate-45 mb-1 opacity-0 peer-checked:opacity-100 transition-opacity" />
+                    {agreedToTerms && <Check className="w-4 h-4 text-red-600" />}
                   </div>
                 </div>
                 <span className="text-[18px] font-bold text-slate-600 leading-tight">
@@ -778,7 +783,7 @@ export default function RoofingWidget({
                     onChange={(e) => setAgreedToMarketing(e.target.checked)}
                   />
                   <div className="w-6 h-6 border-2 border-slate-200 rounded-lg bg-white peer-checked:border-red-600 transition-all flex items-center justify-center">
-                    <div className="w-2.5 h-3.5 border-r-[2.5px] border-b-[2.5px] border-red-600 rotate-45 mb-1 opacity-0 peer-checked:opacity-100 transition-opacity" />
+                    {agreedToMarketing && <Check className="w-4 h-4 text-red-600" />}
                   </div>
                 </div>
                 <span className="text-[16px] font-medium text-slate-400 leading-[1.6]">

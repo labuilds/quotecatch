@@ -15,6 +15,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { formatPhoneNumber } from "@/utils/format"
 
 export default function LeadCaptureModal({ 
   leadId, 
@@ -120,7 +121,7 @@ export default function LeadCaptureModal({
                       type="tel"
                       className="h-14 pl-14 pr-6 rounded-2xl border-slate-100 bg-slate-50/50 text-[16px] font-normal text-slate-900 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all"
                       value={formData.phone}
-                      onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                      onChange={e => setFormData({ ...formData, phone: formatPhoneNumber(e.target.value) })}
                     />
                   </div>
                 </div>
@@ -136,8 +137,8 @@ export default function LeadCaptureModal({
                     checked={formData.agreeTerms}
                     onChange={e => setFormData({ ...formData, agreeTerms: e.target.checked })}
                   />
-                  <div className="w-6 h-6 rounded-lg border-2 border-slate-200 peer-checked:border-red-700 transition-all group-hover:border-slate-300 flex items-center justify-center">
-                    <CheckCircle className={`w-4 h-4 text-red-700 transition-opacity ${formData.agreeTerms ? 'opacity-100' : 'opacity-0'}`} />
+                  <div className="w-6 h-6 rounded-lg border-2 border-slate-200 peer-checked:border-red-700 bg-white transition-all group-hover:border-slate-300 flex items-center justify-center">
+                    {formData.agreeTerms && <CheckCircle2 className="w-4 h-4 text-red-700" />}
                   </div>
                 </div>
                 <p className="text-[16px] text-slate-500 font-medium leading-relaxed">
@@ -153,8 +154,8 @@ export default function LeadCaptureModal({
                     checked={formData.agreeMarketing}
                     onChange={e => setFormData({ ...formData, agreeMarketing: e.target.checked })}
                   />
-                  <div className="w-6 h-6 rounded-lg border-2 border-slate-200 peer-checked:border-red-700 transition-all group-hover:border-slate-300 flex items-center justify-center">
-                    <CheckCircle className={`w-4 h-4 text-red-700 transition-opacity ${formData.agreeMarketing ? 'opacity-100' : 'opacity-0'}`} />
+                  <div className="w-6 h-6 rounded-lg border-2 border-slate-200 peer-checked:border-red-700 bg-white transition-all group-hover:border-slate-300 flex items-center justify-center">
+                    {formData.agreeMarketing && <CheckCircle2 className="w-4 h-4 text-red-700" />}
                   </div>
                 </div>
                 <p className="text-[14px] text-slate-400 font-medium leading-relaxed">

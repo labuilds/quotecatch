@@ -92,7 +92,7 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
     }
   }
 
-  const offeredMaterials = calc.config_json?.offered_materials || [];
+  const offeredMaterials = calc.config_json?.offered_materials || ['asphalt', 'tile', 'metal', 'cedar'];
   const materialPricing = calc.config_json?.materials || {};
 
   return (
@@ -178,9 +178,14 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
                       </div>
                       <span className={cn(
                         "text-[15px] font-black",
-                        isEnabled ? "text-[#0F172A]" : "text-slate-400 font-bold"
+                        isEnabled ? "text-[#0F172A]" : "text-slate-300 font-bold"
                       )}>
-                        {price > 0 ? `$${price.toFixed(2)}/sq` : <span className="text-[11px] text-slate-400 lowercase italic font-medium">pending config</span>}
+                        {price > 0 
+                          ? `$${price.toFixed(2)}/sq` 
+                          : isEnabled 
+                            ? <span className="text-[11px] text-slate-400 lowercase italic font-medium">pending cost</span>
+                            : <span className="text-[10px] text-slate-300 uppercase tracking-widest font-black">Disabled</span>
+                        }
                       </span>
                     </div>
                   );

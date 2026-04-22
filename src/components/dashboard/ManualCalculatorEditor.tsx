@@ -124,6 +124,13 @@ export default function ManualCalculatorEditor({
 
   const [config, setConfig] = useState<PricingConfig>({
     ...calculator.config_json,
+    materials: {
+      asphalt: calculator.config_json.materials?.asphalt ?? 5.50,
+      tile: calculator.config_json.materials?.tile ?? 14.00,
+      metal: calculator.config_json.materials?.metal ?? 11.00,
+      cedar: calculator.config_json.materials?.cedar ?? 15.00,
+    },
+    offered_materials: calculator.config_json.offered_materials || ['asphalt', 'tile', 'metal', 'cedar'],
     free_tier_averages: {
       under_1500: calculator.config_json.free_tier_averages?.under_1500 || 1200,
       "1500_2500": calculator.config_json.free_tier_averages?.["1500_2500"] || 2000,
@@ -465,7 +472,7 @@ export default function ManualCalculatorEditor({
                         <button
                           key={item.id}
                           onClick={() => {
-                            const current = config.offered_materials ?? ['asphalt', 'tile']
+                            const current = config.offered_materials ?? ['asphalt', 'tile', 'metal', 'cedar']
                             const next = offered 
                               ? current.filter(m => m !== item.id)
                               : [...current, item.id]

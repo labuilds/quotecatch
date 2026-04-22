@@ -324,18 +324,25 @@ export default function EstimatesClient({
                       <img 
                         src={staticMapUrl} 
                         alt="Satellite View" 
-                        className="absolute inset-0 w-full h-full object-cover relative z-10" 
+                        className="absolute inset-0 w-full h-full object-cover z-10" 
                         onError={(e) => {
+                          console.error("Satellite Image failed to load. URL:", staticMapUrl);
                           e.currentTarget.style.opacity = '0';
-                          e.currentTarget.parentElement?.querySelector('.fallback-msg')?.classList.remove('hidden');
                         }}
                       />
                     ) : null}
-                    <div className="absolute inset-0 flex items-center justify-center bg-slate-900 border border-slate-800 fallback-msg hidden">
+                    <div className="absolute inset-0 flex items-center justify-center bg-slate-900 border border-slate-800 fallback-msg">
                        <div className="text-center space-y-3">
                           <MapPin className="w-10 h-10 text-slate-700 mx-auto" />
-                          <p className="text-[12px] font-black text-slate-500 uppercase tracking-widest">Satellite Imagery Unavailable</p>
-                          <p className="text-[10px] text-slate-600 font-bold px-8 max-w-[240px]">High-resolution aerial scan could not be loaded for this location.</p>
+                          <p className="text-[12px] font-black text-slate-500 uppercase tracking-widest">
+                            {!staticMapUrl ? "Google Maps API Key Missing" : "Satellite Imagery Unavailable"}
+                          </p>
+                          <p className="text-[10px] text-slate-600 font-bold px-8 max-w-[240px]">
+                            {!staticMapUrl 
+                              ? "Check your .env.local file for GOOGLE_MAPS_API_KEY." 
+                              : "High-resolution aerial scan could not be loaded for this location."
+                            }
+                          </p>
                        </div>
                     </div>
                 </div>
