@@ -117,31 +117,32 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
             </div>
           </div>
 
-          <CardHeader className="pt-16 pb-4 px-8 relative z-10">
+          {/* Unified Content Area */}
+          <div className="pt-14 pb-4 px-8 space-y-5 relative z-10 flex flex-col">
             <div className="flex items-start justify-between">
-              <div className="space-y-1">
-                <CardTitle className="text-[22px] font-black tracking-tighter text-[#0F172A] group-hover:text-red-700 transition-colors duration-300">
+              <div className="min-w-0">
+                <h3 className="text-[22px] font-black tracking-tighter text-[#0F172A] group-hover:text-red-700 transition-colors duration-300 leading-none">
                   {calc.name}
-                </CardTitle>
-                <CardDescription className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
+                </h3>
+                <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mt-1.5 opacity-80">
                   Automated Capturing Engine
-                </CardDescription>
+                </p>
               </div>
               
               <DropdownMenu>
                 <DropdownMenuTrigger className={cn(
                   buttonVariants({ variant: "ghost", size: "icon" }),
-                  "h-10 w-10 rounded-2xl bg-slate-50 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-300 hover:bg-white border border-transparent hover:border-slate-100 shadow-sm flex items-center justify-center -mt-2"
+                  "h-10 w-10 rounded-2xl bg-slate-50 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all duration-300 hover:bg-white border border-transparent hover:border-slate-100 shadow-sm flex items-center justify-center -mt-2 shrink-0"
                 )}>
                   <MoreHorizontal className="w-4 h-4 text-slate-400" />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-52 p-2 rounded-2xl shadow-2xl border-slate-100 bg-white/95 backdrop-blur-xl font-sans">
-                  <DropdownMenuItem onClick={handleDuplicate} className="cursor-pointer py-3 font-bold text-slate-700 focus:bg-slate-50 focus:text-red-700 rounded-xl transition-colors">
+                  <DropdownMenuItem onClick={handleDuplicate} className="cursor-pointer py-3 font-bold text-slate-700 focus:bg-slate-50 focus:text-red-700 rounded-xl transition-colors text-xs">
                     <Copy className="w-4 h-4 mr-3 text-slate-400" /> Duplicate Machine
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-slate-100 my-1" />
                   <DropdownMenuItem 
-                    className="text-red-600 focus:text-red-700 focus:bg-red-50 cursor-pointer py-3 font-bold rounded-xl transition-colors" 
+                    className="text-red-600 focus:text-red-700 focus:bg-red-50 cursor-pointer py-3 font-bold rounded-xl transition-colors text-xs" 
                     onClick={() => setShowDelete(true)}
                   >
                     <Trash className="w-4 h-4 mr-3" /> Disable System
@@ -149,42 +150,39 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
-          </CardHeader>
 
-          <CardContent className="flex-1 p-8 pt-2 space-y-6 relative z-10">
-            <div className="space-y-3">
-              <h4 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] px-1">Live Inventory & Rates</h4>
-              <div className="bg-slate-50/50 rounded-3xl border border-slate-100 p-2 overflow-hidden hover:bg-white transition-colors">
+            <div className="pt-2">
+              <div className="bg-slate-50/50 rounded-3xl border border-slate-100 p-1.5 overflow-hidden hover:bg-white transition-colors">
                 {['asphalt', 'tile', 'metal', 'cedar'].map(key => {
                   const isEnabled = offeredMaterials.includes(key);
                   const price = materialPricing[key];
                   
                   return (
                     <div key={key} className={cn(
-                      "flex items-center justify-between px-4 py-3 rounded-2xl hover:bg-white transition-all group/row",
+                      "flex items-center justify-between px-3.5 py-2.5 rounded-2xl hover:bg-white transition-all group/row",
                       !isEnabled && "opacity-60"
                     )}>
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2.5">
                         <div className={cn(
-                          "w-2 h-2 rounded-full",
+                          "w-1.5 h-1.5 rounded-full",
                           isEnabled ? "bg-red-600" : "bg-slate-300"
                         )} />
                         <span className={cn(
-                          "text-[14px] font-bold capitalize",
+                          "text-[13px] font-bold capitalize",
                           isEnabled ? "text-[#0F172A]" : "text-slate-400"
                         )}>
                           {key.replace(/_/g, ' ')}
                         </span>
                       </div>
                       <span className={cn(
-                        "text-[15px] font-black",
+                        "text-[14px] font-black",
                         isEnabled ? "text-[#0F172A]" : "text-slate-300 font-bold"
                       )}>
                         {price > 0 
-                          ? `$${price.toFixed(2)}/sq` 
+                          ? `$${price.toFixed(2)}` 
                           : isEnabled 
-                            ? <span className="text-[11px] text-slate-400 lowercase italic font-medium">pending cost</span>
-                            : <span className="text-[10px] text-slate-300 uppercase tracking-widest font-black">Disabled</span>
+                            ? <span className="text-[10px] text-slate-400 lowercase italic font-medium">pending</span>
+                            : <span className="text-[9px] text-slate-300 uppercase tracking-widest font-black">off</span>
                         }
                       </span>
                     </div>
@@ -192,7 +190,9 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
                 })}
               </div>
             </div>
-          </CardContent>
+          </div>
+
+          <div className="flex-1" />
 
           <CardFooter className="p-8 pt-6 flex gap-3 relative z-10">
             <Link
