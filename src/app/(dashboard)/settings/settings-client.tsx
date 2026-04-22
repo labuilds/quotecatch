@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import {
   Crown, Check, Loader2, LogOut, User, CreditCard, Bot, Lock,
-  Camera, Globe, MessageSquare, Info, Type, X
+  Camera, Globe, MessageSquare, Info, Type, X, Phone
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -40,6 +40,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
     webhook_url: userProfile.webhook_url || "",
     company_logo_url: userProfile.company_logo_url || "",
     company_description: userProfile.company_description || "",
+    phone: userProfile.phone || "",
     facebook_url: userProfile.facebook_url || "",
     linkedin_url: userProfile.linkedin_url || "",
     instagram_url: userProfile.instagram_url || "",
@@ -305,16 +306,31 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
               />
             </div>
 
-            <div className="space-y-2">
-              <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">Business Website</Label>
-              <div className="relative">
-                <Globe className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <Input
-                  value={formData.website}
-                  onChange={(e) => setFormData(prev => ({ ...prev, website: e.target.value }))}
-                  placeholder="https://apexroofing.com"
-                  className="h-14 pl-12 pr-6 rounded-2xl border-slate-200 bg-white text-[16px] font-normal text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
-                />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">Business Phone</Label>
+                <div className="relative">
+                  <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <Input
+                    value={formData.phone}
+                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                    placeholder="(555) 000-0000"
+                    className="h-14 pl-12 pr-6 rounded-2xl border-slate-200 bg-white text-[16px] font-normal text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">Business Website</Label>
+                <div className="relative">
+                  <Globe className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <Input
+                    value={formData.website}
+                    onChange={(e) => setFormData(prev => ({ ...prev, website: e.target.value }))}
+                    placeholder="https://apexroofing.com"
+                    className="h-14 pl-12 pr-6 rounded-2xl border-slate-200 bg-white text-[16px] font-normal text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
+                  />
+                </div>
               </div>
             </div>
 

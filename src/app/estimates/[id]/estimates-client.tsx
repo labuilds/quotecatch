@@ -89,12 +89,14 @@ export default function EstimatesClient({
   lead, 
   companyName,
   userProfile,
-  isDemo = false
+  isDemo = false,
+  staticMapUrl = null
 }: { 
   lead: any, 
   companyName: string,
   userProfile?: any,
-  isDemo?: boolean
+  isDemo?: boolean,
+  staticMapUrl?: string | null
 }) {
   const [showResults, setShowResults] = useState(!!lead.homeowner_email)
   const [showFullDesc, setShowFullDesc] = useState(false)
@@ -126,9 +128,7 @@ export default function EstimatesClient({
   const pitchLabel = PITCH_LABELS[formData.pitch] || "Standard (4/12)"
 
 
-  const staticMapUrl = lead.address 
-    ? `https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(lead.address)}&zoom=20&size=600x400&maptype=satellite&key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ""}`
-    : null
+
 
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-red-100 selection:text-red-900 overflow-x-hidden pb-12">
@@ -157,7 +157,22 @@ export default function EstimatesClient({
           </div>
         )}
         
-        <h1 className="text-[32px] lg:text-[40px] font-black text-[#0F172A] mb-12 tracking-tight">Review your estimate</h1>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <h1 className="text-[32px] lg:text-[40px] font-black text-[#0F172A] tracking-tight leading-none">Review your estimate</h1>
+          <button 
+            onClick={handleCopyLink}
+            className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-slate-100 text-slate-600 hover:bg-slate-50 hover:border-slate-200 transition-all font-black text-[14px] shadow-sm self-start md:self-auto group active:scale-95"
+          >
+            {copied ? (
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 group-animate-in fade-in zoom-in duration-300" />
+            ) : (
+              <Share2 className="w-4 h-4 group-hover:text-red-600 transition-colors" />
+            )}
+            <span className={copied ? "text-emerald-700" : ""}>
+              {copied ? "Link Copied!" : "Share Estimate"}
+            </span>
+          </button>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Info Card */}
@@ -218,20 +233,27 @@ export default function EstimatesClient({
               {userProfile?.company_description || "Backed by years of experience, we specialize in roof repairs and replacements using premium materials. Protect your home with expert roofing you can count on."}
             </p>
 
-            <div className="flex gap-4">
-              {userProfile?.website && (
-                <a href={normalizeSocialLink(userProfile.website, 'website')} target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full border border-slate-100 flex items-center justify-center hover:bg-slate-50 transition-all text-slate-400">
-                  <Globe className="w-5 h-5" />
-                </a>
-              )}
+            <div className="flex flex-col items-center gap-6 w-full">
               {userProfile?.phone && (
-                <a href={`tel:${userProfile.phone}`} className="w-12 h-12 rounded-full border border-slate-100 bg-slate-50 flex items-center justify-center text-slate-400 hover:text-[#0F172A] transition-all shadow-sm">
-                  <Phone className="w-5 h-5" />
+                <a 
+                  href={`tel:${userProfile.phone}`} 
+                  className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-[#0F172A] text-white hover:bg-slate-900 transition-all shadow-xl shadow-slate-200 group w-full justify-center"
+                >
+                  <Phone className="w-4 h-4 text-red-500 group-hover:scale-110 transition-transform" />
+                  <span className="text-[15px] font-black">{userProfile.phone}</span>
                 </a>
               )}
-              <a href={`mailto:${lead.homeowner_email || ""}`} className="w-12 h-12 rounded-full border border-slate-100 bg-slate-50 flex items-center justify-center text-slate-400 hover:text-[#0F172A] transition-all shadow-sm">
-                <ExternalLink className="w-5 h-5" />
-              </a>
+
+              <div className="flex items-center justify-center gap-4">
+                {userProfile?.website && (
+                  <a href={normalizeSocialLink(userProfile.website, 'website')} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center hover:bg-slate-50 transition-all text-slate-400" title="Visit Website">
+                    <Globe className="w-5 h-5" />
+                  </a>
+                )}
+                <a href={`mailto:${lead.homeowner_email || ""}`} className="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-all" title="Send Email">
+                  <ExternalLink className="w-5 h-5" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -295,20 +317,27 @@ export default function EstimatesClient({
                   )}
               </div>
 
-              {userProfile?.is_pro ? (
+              {(userProfile?.is_pro || isDemo) ? (
                 <div className="relative h-[240px] lg:h-[300px] rounded-3xl overflow-hidden border-4 border-slate-800 shadow-2xl">
                    <div className="absolute inset-0 bg-slate-800 animate-pulse" />
-                   {staticMapUrl ? (
-                     <img src={staticMapUrl} alt="Satellite View" className="absolute inset-0 w-full h-full object-cover relative z-10" />
-                   ) : (
-                     <div className="absolute inset-0 flex items-center justify-center bg-slate-900 border border-slate-800">
-                        <div className="text-center space-y-3">
-                           <MapPin className="w-10 h-10 text-slate-700 mx-auto" />
-                           <p className="text-[12px] font-black text-slate-500 uppercase tracking-widest">Satellite Imagery Analysis</p>
-                           <p className="text-[10px] text-slate-600 font-bold px-8 max-w-[240px]">High-resolution aerial scan performed for {lead.address}</p>
-                        </div>
-                     </div>
-                   )}
+                    {staticMapUrl ? (
+                      <img 
+                        src={staticMapUrl} 
+                        alt="Satellite View" 
+                        className="absolute inset-0 w-full h-full object-cover relative z-10" 
+                        onError={(e) => {
+                          e.currentTarget.style.opacity = '0';
+                          e.currentTarget.parentElement?.querySelector('.fallback-msg')?.classList.remove('hidden');
+                        }}
+                      />
+                    ) : null}
+                    <div className="absolute inset-0 flex items-center justify-center bg-slate-900 border border-slate-800 fallback-msg hidden">
+                       <div className="text-center space-y-3">
+                          <MapPin className="w-10 h-10 text-slate-700 mx-auto" />
+                          <p className="text-[12px] font-black text-slate-500 uppercase tracking-widest">Satellite Imagery Unavailable</p>
+                          <p className="text-[10px] text-slate-600 font-bold px-8 max-w-[240px]">High-resolution aerial scan could not be loaded for this location.</p>
+                       </div>
+                    </div>
                 </div>
               ) : (
                 <div className="hidden lg:flex items-center justify-center bg-slate-900/50 rounded-3xl border border-dashed border-slate-800 p-12 text-center">

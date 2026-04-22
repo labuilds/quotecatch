@@ -65,12 +65,19 @@ export default async function EstimateResultPage({
 
   const isDemo = calculatorData?.name === 'Main Landing Page' || !lead.calculator_id
 
+  // 4. Generate Satellite Map URL (Server-side to ensure env vars are available)
+  const apiKey = process.env.GOOGLE_MAPS_API_KEY || process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ""
+  const staticMapUrl = lead.address && apiKey
+    ? `https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(lead.address)}&zoom=19&size=600x400&maptype=satellite&key=${apiKey}`
+    : null
+
   return (
     <EstimatesClient 
       lead={lead} 
       companyName={companyName} 
       userProfile={userProfile}
       isDemo={isDemo}
+      staticMapUrl={staticMapUrl}
     />
   )
 }

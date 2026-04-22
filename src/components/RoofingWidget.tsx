@@ -760,28 +760,28 @@ export default function RoofingWidget({
                     checked={agreedToTerms}
                     onChange={(e) => setAgreedToTerms(e.target.checked)}
                   />
-                  <div className="w-5 h-5 border-2 border-slate-200 rounded-lg bg-white peer-checked:bg-red-700 peer-checked:border-red-700 transition-all flex items-center justify-center">
-                    <div className="w-2 h-3 border-r-2 border-b-2 border-white rotate-45 mb-1 opacity-0 peer-checked:opacity-100 transition-opacity" />
+                  <div className="w-6 h-6 border-2 border-slate-200 rounded-lg bg-white peer-checked:border-red-600 transition-all flex items-center justify-center">
+                    <div className="w-2.5 h-3.5 border-r-[2.5px] border-b-[2.5px] border-red-600 rotate-45 mb-1 opacity-0 peer-checked:opacity-100 transition-opacity" />
                   </div>
                 </div>
-                <span className="text-[13px] font-medium text-slate-500 leading-tight">
+                <span className="text-[18px] font-bold text-slate-600 leading-tight">
                   I agree to <Link href="/terms" target="_blank" className="text-red-700 underline font-black">Terms of Service</Link> and <Link href="/privacy" target="_blank" className="text-red-700 underline font-black">Privacy Policy</Link>.*
                 </span>
               </label>
 
               <label className="flex items-start gap-4 group cursor-pointer select-none">
-                <div className="relative pt-0.5">
+                <div className="relative pt-1">
                   <input 
                     type="checkbox" 
                     className="peer sr-only" 
                     checked={agreedToMarketing}
                     onChange={(e) => setAgreedToMarketing(e.target.checked)}
                   />
-                  <div className="w-5 h-5 border-2 border-slate-200 rounded-lg bg-white peer-checked:bg-red-700 peer-checked:border-red-700 transition-all flex items-center justify-center">
-                    <div className="w-2 h-3 border-r-2 border-b-2 border-white rotate-45 mb-1 opacity-0 peer-checked:opacity-100 transition-opacity" />
+                  <div className="w-6 h-6 border-2 border-slate-200 rounded-lg bg-white peer-checked:border-red-600 transition-all flex items-center justify-center">
+                    <div className="w-2.5 h-3.5 border-r-[2.5px] border-b-[2.5px] border-red-600 rotate-45 mb-1 opacity-0 peer-checked:opacity-100 transition-opacity" />
                   </div>
                 </div>
-                <span className="text-[11px] font-medium text-slate-400 leading-[1.6]">
+                <span className="text-[16px] font-medium text-slate-400 leading-[1.6]">
                   To ensure you’re getting the best offers and pricing, {companyName || "we"} may need to contact you by text/call. By checking this box, you agree to these communications, including marketing and promotional messages. Message and data rates may apply. You can reply STOP to opt-out of future messaging; reply HELP for messaging help. Message frequency may vary.*
                 </span>
               </label>

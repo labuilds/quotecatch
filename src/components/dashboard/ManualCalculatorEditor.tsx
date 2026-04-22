@@ -20,7 +20,9 @@ import {
   ChevronUp,
   ChevronDown,
   Settings2,
-  Edit3
+  Edit3,
+  Info,
+  Trash2
 } from "lucide-react"
 import RoofingWidget from "@/components/RoofingWidget"
 import { useUserTier } from "@/components/UserTierProvider"
@@ -28,7 +30,7 @@ import { updateCalculatorConfig } from "@/app/actions/calculator"
 import { PricingConfig } from "@/lib/pricingEngine"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
 
 const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -138,14 +140,23 @@ export default function ManualCalculatorEditor({
     financing: calculator.config_json.steps?.financing ?? false,
   })
 
-  const originalConfig = calculator.config_json
-  const originalName = calculator.name
+  const [savedConfig, setSavedConfig] = useState(calculator.config_json)
+  const [savedName, setSavedName] = useState(calculator.name)
+  const [mobileView, setMobileView] = useState<'editor' | 'preview'>('editor')
 
   useEffect(() => {
     const currentFullConfig = { ...config, steps: stepToggles }
-    const isDifferent = JSON.stringify(currentFullConfig) !== JSON.stringify(originalConfig) || engineName !== originalName
+    // Ensure we are comparing clean objects
+    const savedFullConfig = { ...savedConfig, steps: savedConfig.steps || (calculator.config_json.steps ?? stepToggles) }
+    
+    const isDifferent = JSON.stringify(currentFullConfig) !== JSON.stringify(savedFullConfig) || 
+                       engineName !== savedName
+                       
     setHasChanges(isDifferent)
-  }, [config, stepToggles, originalConfig, engineName, originalName])
+    if (isDifferent) {
+      setShowSuccess(false)
+    }
+  }, [config, stepToggles, engineName, savedConfig, savedName, calculator.config_json.steps])
 
   const handleUpdateMaterial = (key: string, value: string) => {
     const numValue = value === "" ? 0 : parseFloat(value)
@@ -176,7 +187,12 @@ export default function ManualCalculatorEditor({
     try {
       const finalConfig = { ...config, steps: stepToggles }
       await updateCalculatorConfig(calculator.id, engineName, finalConfig)
+      
+      // Update local saved state immediately to clear 'hasChanges' indicator
+      setSavedConfig(finalConfig)
+      setSavedName(engineName)
       setHasChanges(false)
+
       setShowSuccess(true)
       router.refresh()
     } catch (err) {
@@ -188,8 +204,8 @@ export default function ManualCalculatorEditor({
   }
 
   const handleReset = () => {
-    setConfig(originalConfig)
-    setEngineName(originalName)
+    setConfig(savedConfig)
+    setEngineName(savedName)
   }
 
   const sizeOrder = [
@@ -199,12 +215,43 @@ export default function ManualCalculatorEditor({
   ]
 
   return (
-    <div className="flex flex-col lg:flex-row h-[calc(100vh)] w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-[#F8FAFC] overflow-hidden">
+    <div className="flex flex-col lg:flex-row h-screen w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-[#F8FAFC] overflow-hidden">
+      
+      {/* Mobile Perspective Toggle */}
+      <div className="lg:hidden shrink-0 p-4 bg-white border-b flex items-center justify-between z-20">
+        <Link href="/calculators" className="p-2 -ml-2 text-slate-400 hover:text-slate-900 transition-colors">
+          <ArrowLeft className="w-5 h-5" />
+        </Link>
+        <div className="flex bg-slate-100 p-1 rounded-xl w-48">
+          <button 
+            onClick={() => setMobileView('editor')}
+            className={cn(
+              "flex-1 py-1.5 rounded-lg text-[13px] font-black transition-all",
+              mobileView === 'editor' ? "bg-white text-slate-900 shadow-sm" : "text-slate-400"
+            )}
+          >
+            Editor
+          </button>
+          <button 
+            onClick={() => setMobileView('preview')}
+            className={cn(
+              "flex-1 py-1.5 rounded-lg text-[13px] font-black transition-all",
+              mobileView === 'preview' ? "bg-white text-slate-900 shadow-sm" : "text-slate-400"
+            )}
+          >
+            Preview
+          </button>
+        </div>
+        <div className="w-9" /> {/* Spacer for symmetry */}
+      </div>
 
       {/* Left Sidebar: Controls */}
-      <div className="w-full lg:w-[42%] h-full p-6 lg:p-10 overflow-y-auto border-b lg:border-b-0 lg:border-r bg-white flex flex-col shadow-2xl z-10 custom-scrollbar">
+      <div className={cn(
+        "w-full lg:w-[42%] h-full p-6 lg:p-10 overflow-y-auto border-b lg:border-b-0 lg:border-r bg-white flex flex-col shadow-2xl z-10 custom-scrollbar",
+        mobileView !== 'editor' && "hidden lg:flex"
+      )}>
 
-        <div className="flex items-center justify-between mb-10 shrink-0">
+        <div className="hidden lg:flex items-center justify-between mb-10 shrink-0">
           <Link href="/calculators" className="group inline-flex items-center text-xs font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-all">
             <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" /> Back
           </Link>
@@ -243,10 +290,79 @@ export default function ManualCalculatorEditor({
         </div>
 
         <div className="mb-10 shrink-0">
-          <h1 className="text-[32px] lg:text-[40px] font-black text-slate-900 tracking-tighter leading-[1.05]">
-            Control Your <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-700 to-red-500">Pricing Rules.</span>
-          </h1>
+          <div className="flex flex-col gap-4">
+            <h1 className="text-[32px] lg:text-[40px] font-black text-slate-900 tracking-tighter leading-[1.05]">
+              Control Your <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-700 to-red-500">Pricing Rules.</span>
+            </h1>
+            
+            <Dialog>
+              <DialogTrigger
+                render={
+                  <Button 
+                    variant="outline" 
+                    className="w-fit h-9 px-4 rounded-xl border-slate-200 text-slate-500 font-bold hover:bg-slate-50 gap-2 cursor-pointer transition-all hover:border-slate-300"
+                  >
+                    <Calculator className="w-3.5 h-3.5" />
+                    <span className="text-[12px] uppercase tracking-wider">Calculation Blueprint</span>
+                  </Button>
+                }
+              />
+
+              <DialogContent className="max-w-xl rounded-[2.5rem] border-slate-100 p-8 sm:p-12 shadow-3xl bg-white font-sans">
+                <DialogHeader className="mb-8">
+                  <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center mb-6">
+                    <Calculator className="w-6 h-6 text-slate-900" />
+                  </div>
+                  <DialogTitle className="text-[28px] font-black tracking-tight text-[#0F172A]">Pricing Physics</DialogTitle>
+                  <DialogDescription className="text-slate-400 font-bold text-sm uppercase tracking-widest pt-1">The Logic Behind Every Lead</DialogDescription>
+                </DialogHeader>
+
+                <div className="space-y-8">
+                  <div className="bg-slate-900 rounded-3xl p-8 text-center relative overflow-hidden group">
+                     <div className="relative z-10">
+                        <p className="text-slate-400 text-[11px] font-black uppercase tracking-[0.2em] mb-4">Master Formula</p>
+                        <div className="flex flex-wrap items-center justify-center gap-3 text-white">
+                           <span className="text-xl font-black px-3 py-1 bg-white/10 rounded-lg text-red-400">((SQFT</span>
+                           <span className="text-slate-500 font-black">×</span>
+                           <span className="text-xl font-black px-3 py-1 bg-white/10 rounded-lg text-amber-400">Rate)</span>
+                           <span className="text-slate-500 font-black">×</span>
+                           <span className="text-xl font-black px-3 py-1 bg-white/10 rounded-lg text-emerald-400">Pitch)</span>
+                           <span className="text-slate-500 font-black">+</span>
+                           <span className="text-xl font-black px-3 py-1 bg-white/10 rounded-lg text-blue-400">Fees</span>
+                        </div>
+                     </div>
+                     <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-red-500/10 rounded-full blur-3xl" />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-1">
+                      <p className="text-[12px] font-black text-red-500 uppercase tracking-widest">SQFT (Size)</p>
+                      <p className="text-[14px] text-slate-600 font-bold leading-tight">The 2D footprint of the roof area.</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[12px] font-black text-amber-500 uppercase tracking-widest">Rate (Material)</p>
+                      <p className="text-[14px] text-slate-600 font-bold leading-tight">Price per square foot based on chosen material.</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[12px] font-black text-emerald-500 uppercase tracking-widest">Pitch (Complexity)</p>
+                      <p className="text-[14px] text-slate-600 font-bold leading-tight">Steepness multiplier (e.g. 1.25x for moderate slope).</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[12px] font-black text-blue-500 uppercase tracking-widest">Fees (Fixed)</p>
+                      <p className="text-[14px] text-slate-600 font-bold leading-tight">Transportation, disposal, and mobilization fees.</p>
+                    </div>
+                  </div>
+
+                  <div className="pt-6 border-t border-slate-50">
+                    <p className="text-center text-[13px] text-slate-400 font-bold italic italic">
+                      "Mathematically precise. Professional confidence."
+                    </p>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
           <p className="text-slate-500 mt-4 text-[15px] font-medium leading-relaxed max-w-sm">
             No guesswork. You have 100% control over the numbers your homeowners see.
           </p>
@@ -543,7 +659,10 @@ export default function ManualCalculatorEditor({
       </div>
 
       {/* Right Content: Live Preview */}
-      <div className="w-full lg:flex-1 h-full bg-slate-100/50 flex flex-col items-center justify-start p-6 lg:pt-10 lg:px-10 lg:pb-4 overflow-y-auto relative">
+      <div className={cn(
+        "w-full lg:flex-1 h-full bg-slate-100/50 flex flex-col items-center justify-start p-6 lg:pt-10 lg:px-10 lg:pb-4 overflow-y-auto relative",
+        mobileView !== 'preview' && "hidden lg:flex"
+      )}>
 
         <div className="hidden lg:flex w-full max-w-xl justify-start gap-4 z-20 mb-8 shrink-0">
           <div className="bg-white/90 backdrop-blur-xl border border-slate-200 px-4 py-2.5 rounded-xl shadow-sm">
@@ -636,12 +755,13 @@ export default function ManualCalculatorEditor({
               </Button>
               <Button 
                 render={
-                  <Link href="/calculators">
-                    Back to Dashboard <ArrowLeft className="w-4 h-4 ml-2" />
+                  <Link href="/calculators" className="flex items-center justify-center gap-2">
+                    <ArrowLeft className="w-4 h-4" /> 
+                    <span>Back to Dashboard</span>
                   </Link>
                 }
                 nativeButton={false}
-                className="h-16 bg-[#0F172A] hover:bg-black text-white font-black rounded-2xl shadow-xl shadow-slate-200 border-none text-[16px]"
+                className="h-16 bg-[#0F172A] hover:bg-black text-white font-black rounded-2xl shadow-xl shadow-slate-200 border-none text-[16px] w-full"
               />
             </div>
           </div>

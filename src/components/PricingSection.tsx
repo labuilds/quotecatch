@@ -13,6 +13,7 @@ const tiers = [
     features: [
       "Unlimited lead capture",
       "Manual roof-size estimates",
+      "No expensive CRM required",
       "1 Active Pricing Engine",
       "Email lead notifications",
       "Analytics & Conversion insights"

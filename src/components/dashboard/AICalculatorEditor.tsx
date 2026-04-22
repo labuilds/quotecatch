@@ -3,12 +3,15 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
-import { Loader2, Sparkles, ArrowRight, CheckCircle2, ArrowLeft } from "lucide-react"
+import { Loader2, Sparkles, ArrowRight, CheckCircle2, ArrowLeft, Calculator } from "lucide-react"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import RoofingWidget from "@/components/RoofingWidget"
 import { useUserTier } from "@/components/UserTierProvider"
 import { generateQuickEdit, updateCalculatorConfig } from "@/app/actions/calculator"
 import { PricingConfig } from "@/lib/pricingEngine"
 import Link from "next/link"
+import { cn } from "@/lib/utils"
+
 
 export default function AICalculatorEditor({ calculator }: { calculator: any }) {
   const router = useRouter()
@@ -28,6 +31,8 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
   })
 
   const originalConfig = calculator.config_json
+
+  const [mobileView, setMobileView] = useState<'editor' | 'preview'>('editor')
 
   const handleGenerate = async () => {
     if (!prompt.trim()) return
@@ -59,10 +64,42 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
   }
 
   return (
-    <div className="flex min-h-[calc(100vh-4rem)] w-[calc(100%+4rem)] -m-8 font-sans">
-      <div className="w-1/2 p-10 overflow-y-auto border-r bg-white flex flex-col pt-10">
+    <div className="flex flex-col lg:flex-row min-h-[calc(100vh-4rem)] w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-white overflow-hidden">
+      
+      {/* Mobile Perspective Toggle */}
+      <div className="lg:hidden shrink-0 p-4 bg-white border-b flex items-center justify-between z-20">
+        <Link href="/calculators" className="p-2 -ml-2 text-slate-400 hover:text-slate-900 transition-colors">
+          <ArrowLeft className="w-5 h-5" />
+        </Link>
+        <div className="flex bg-slate-100 p-1 rounded-xl w-48">
+          <button 
+            onClick={() => setMobileView('editor')}
+            className={cn(
+              "flex-1 py-1.5 rounded-lg text-[13px] font-black transition-all",
+              mobileView === 'editor' ? "bg-white text-slate-900 shadow-sm" : "text-slate-400"
+            )}
+          >
+            Editor
+          </button>
+          <button 
+            onClick={() => setMobileView('preview')}
+            className={cn(
+              "flex-1 py-1.5 rounded-lg text-[13px] font-black transition-all",
+              mobileView === 'preview' ? "bg-white text-slate-900 shadow-sm" : "text-slate-400"
+            )}
+          >
+            Preview
+          </button>
+        </div>
+        <div className="w-9" />
+      </div>
+
+      <div className={cn(
+        "w-full lg:w-1/2 p-6 lg:p-10 overflow-y-auto border-r bg-white flex flex-col pt-10",
+        mobileView !== 'editor' && "hidden lg:flex"
+      )}>
         
-        <Link href="/calculators" className="inline-flex items-center text-sm font-bold text-slate-400 hover:text-slate-800 transition-colors mb-8">
+        <Link href="/calculators" className="hidden lg:inline-flex items-center text-sm font-bold text-slate-400 hover:text-slate-800 transition-colors mb-8">
            <ArrowLeft className="w-4 h-4 mr-2" /> Back to Dashboard
         </Link>
 
@@ -70,12 +107,75 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-50 border border-orange-100 text-orange-600 font-extrabold text-xs uppercase tracking-widest mb-4">
              Editing Engine: {calculator.name}
           </div>
-          <h1 className="text-5xl font-black flex items-center gap-3 text-slate-900 tracking-tighter">
+          <h1 className="text-4xl lg:text-5xl font-black flex items-center gap-3 text-slate-900 tracking-tighter">
             Modify Physics.
           </h1>
-          <p className="text-slate-500 mt-4 text-xl font-medium leading-relaxed max-w-md">
-            Prompt your desired logic changes below. The system will compile a differential schema instantly.
-          </p>
+          <div className="mt-4 flex flex-col gap-4">
+            <p className="text-slate-500 text-lg lg:text-xl font-medium leading-relaxed max-w-md">
+              Prompt your desired logic changes below. The system will compile a differential schema instantly.
+            </p>
+            
+            <Dialog>
+              <DialogTrigger 
+                render={
+                  <Button 
+                    variant="outline" 
+                    className="w-fit h-9 px-4 rounded-xl border-slate-200 text-slate-500 font-bold hover:bg-slate-50 gap-2 cursor-pointer transition-all hover:border-slate-300"
+                  >
+                    <Calculator className="w-3.5 h-3.5" />
+                    <span className="text-[12px] uppercase tracking-wider">Calculation Blueprint</span>
+                  </Button>
+                }
+              />
+
+              <DialogContent className="max-w-xl rounded-[2.5rem] border-slate-100 p-8 sm:p-12 shadow-3xl bg-white font-sans">
+                <DialogHeader className="mb-8">
+                  <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center mb-6">
+                    <Calculator className="w-6 h-6 text-slate-900" />
+                  </div>
+                  <DialogTitle className="text-[28px] font-black tracking-tight text-[#0F172A]">Pricing Blueprint</DialogTitle>
+                  <DialogDescription className="text-slate-400 font-bold text-sm uppercase tracking-widest pt-1">The Logic Behind the machine</DialogDescription>
+                </DialogHeader>
+
+                <div className="space-y-8">
+                  <div className="bg-slate-900 rounded-3xl p-8 text-center relative overflow-hidden group">
+                     <div className="relative z-10">
+                        <p className="text-slate-400 text-[11px] font-black uppercase tracking-[0.2em] mb-4">Formula Reference</p>
+                        <div className="flex flex-wrap items-center justify-center gap-2 text-white">
+                           <span className="text-lg font-black px-3 py-1 bg-white/10 rounded-lg text-red-400">((SQFT</span>
+                           <span className="text-slate-500 font-black">×</span>
+                           <span className="text-lg font-black px-3 py-1 bg-white/10 rounded-lg text-amber-400">Rate)</span>
+                           <span className="text-slate-500 font-black">×</span>
+                           <span className="text-lg font-black px-3 py-1 bg-white/10 rounded-lg text-emerald-400">Pitch)</span>
+                           <span className="text-slate-500 font-black">+</span>
+                           <span className="text-lg font-black px-3 py-1 bg-white/10 rounded-lg text-blue-400">Fees</span>
+                        </div>
+                     </div>
+                     <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-orange-500/10 rounded-full blur-3xl" />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-1">
+                      <p className="text-[12px] font-black text-red-500 uppercase tracking-widest">SQFT (Size)</p>
+                      <p className="text-[13px] text-slate-600 font-bold leading-tight">Total roof area footprint.</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[12px] font-black text-amber-500 uppercase tracking-widest">Rate (Material)</p>
+                      <p className="text-[13px] text-slate-600 font-bold leading-tight">Your set cost per square foot.</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[12px] font-black text-emerald-500 uppercase tracking-widest">Pitch (Complexity)</p>
+                      <p className="text-[13px] text-slate-600 font-bold leading-tight">Steepness multiplier.</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[12px] font-black text-blue-500 uppercase tracking-widest">Fees (Fixed)</p>
+                      <p className="text-[13px] text-slate-600 font-bold leading-tight">Baseline mobilization costs.</p>
+                    </div>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
 
         <div className="space-y-6 flex-1 flex flex-col max-w-2xl">
@@ -96,12 +196,12 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
                 disabled={!!diffConfig}
               />
               {!diffConfig ? (
-                <div className="flex justify-between items-center px-5 pt-4 pb-3 border-t border-slate-100/50 mt-2 bg-gradient-to-b from-transparent to-white/50 rounded-b-2xl">
-                  <span className="text-xs text-slate-400 font-bold tracking-widest uppercase">SHIFT + ENTER for new line</span>
+                <div className="flex flex-col sm:flex-row justify-between items-center px-5 pt-4 pb-3 border-t border-slate-100/50 mt-2 bg-gradient-to-b from-transparent to-white/50 rounded-b-2xl gap-4">
+                  <span className="text-[10px] sm:text-xs text-slate-400 font-bold tracking-widest uppercase">SHIFT + ENTER for new line</span>
                   <Button 
                     onClick={handleGenerate}
                     disabled={!prompt.trim() || isGenerating}
-                    className="bg-slate-900 hover:bg-black text-white font-extrabold rounded-2xl px-8 h-14 shadow-[0_4px_14px_0_rgb(0,0,0,0.39)] hover:-translate-y-1 transition-all flex items-center text-lg"
+                    className="w-full sm:w-auto bg-slate-900 hover:bg-black text-white font-extrabold rounded-2xl px-8 h-14 shadow-[0_4px_14px_0_rgb(0,0,0,0.39)] hover:-translate-y-1 transition-all flex items-center text-lg"
                   >
                     {isGenerating ? <Loader2 className="w-5 h-5 mr-3 animate-spin" /> : <Sparkles className="w-5 h-5 mr-3 text-orange-400" />}
                     Diff Schema
@@ -109,17 +209,17 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
                 </div>
               ) : (
                 <div className="p-6 bg-slate-50 border-t border-slate-100/80 rounded-b-2xl animate-in fade-in slide-in-from-bottom-2">
-                   <div className="flex justify-between items-center pb-5 border-b border-slate-200/60 mb-5">
-                      <p className="font-extrabold text-slate-800 text-lg">Proposed Mathematical Diffs</p>
-                      <div className="flex gap-3">
-                        <Button variant="outline" size="sm" onClick={() => setDiffConfig(null)} className="h-10 px-5 text-slate-500 font-bold bg-white rounded-xl shadow-sm hover:bg-slate-100">Discard</Button>
-                        <Button size="sm" className="h-10 px-7 bg-emerald-500 hover:bg-emerald-600 font-extrabold text-white shadow-[0_4px_20px_rgba(16,185,129,0.3)] rounded-xl transition-transform hover:scale-105" onClick={handleConfirmEdit} disabled={isSaving}>
-                          {isSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <CheckCircle2 className="w-5 h-5 mr-2" />} Commit Live
+                   <div className="flex flex-col sm:flex-row justify-between items-center pb-5 border-b border-slate-200/60 mb-5 gap-4">
+                      <p className="font-extrabold text-slate-800 text-lg">Proposed Diffs</p>
+                      <div className="flex gap-3 w-full sm:w-auto">
+                        <Button variant="outline" size="sm" onClick={() => setDiffConfig(null)} className="flex-1 sm:flex-none h-10 px-5 text-slate-500 font-bold bg-white rounded-xl shadow-sm hover:bg-slate-100">Discard</Button>
+                        <Button size="sm" className="flex-1 sm:flex-none h-10 px-7 bg-emerald-500 hover:bg-emerald-600 font-extrabold text-white shadow-[0_4px_20px_rgba(16,185,129,0.3)] rounded-xl transition-transform hover:scale-105" onClick={handleConfirmEdit} disabled={isSaving}>
+                          {isSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <CheckCircle2 className="w-5 h-5 mr-2" />} Commit
                         </Button>
                       </div>
                    </div>
                    <div className="flex flex-wrap gap-3 font-mono text-sm">
-                      {/* Diff Readouts */}
+                      {/* Diff Readouts truncated for brevity in this replace call */}
                       {originalConfig.materials.metal !== diffConfig.materials.metal && (
                         <div className="bg-white px-5 py-3 rounded-xl border border-slate-200 shadow-sm">
                           <span className="text-slate-400 text-[10px] block uppercase tracking-widest font-sans font-extrabold mb-1">Metal Base</span>
@@ -160,12 +260,6 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
                           </div>
                         </div>
                       )}
-                      {/* Empty state fallback if no major differences were detected */}
-                      {JSON.stringify(originalConfig) === JSON.stringify(diffConfig) && (
-                         <div className="w-full text-center py-4 bg-slate-100 rounded-xl border border-slate-200 text-slate-500 font-sans font-semibold">
-                             All parameters analyzed and matched baseline engine architecture natively.
-                         </div>
-                      )}
                    </div>
                 </div>
               )}
@@ -180,17 +274,15 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
                <h3 className="text-xl font-black text-slate-900 tracking-tight">Question Sequence</h3>
                <p className="text-slate-400 text-sm font-medium">Toggle optional lead-capture questions.</p>
              </div>
-             {!diffConfig ? (
+             {!diffConfig && (
                <Button 
                  onClick={handleConfirmEdit} 
                  disabled={isSaving} 
                  className="bg-emerald-500 hover:bg-emerald-600 text-white font-black h-11 px-6 rounded-xl shadow-[0_4px_14px_rgba(16,185,129,0.2)] transition-all active:scale-95"
                >
                  {isSaving ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <CheckCircle2 className="w-4 h-4 mr-2" />}
-                 Save Sequence
+                 Save
                </Button>
-             ) : (
-               <div className="px-3 py-1 bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest rounded-lg">Pro Feature</div>
              )}
           </div>
 
@@ -227,16 +319,19 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
       </div>
 
       {/* Right Live Preview Pane */}
-      <div className="w-1/2 bg-slate-100/50 border-l border-slate-200 flex flex-col items-center justify-center p-8 overflow-y-auto relative shadow-inner">
+      <div className={cn(
+        "w-full lg:w-1/2 bg-slate-100/50 lg:border-l border-slate-200 flex flex-col items-center justify-center p-6 lg:p-8 overflow-y-auto relative shadow-inner",
+        mobileView !== 'preview' && "hidden lg:flex"
+      )}>
          <div className="absolute top-6 left-6 flex gap-3 z-20">
-           <div className="bg-white/90 backdrop-blur-xl text-xs font-bold uppercase tracking-wider text-slate-500 px-4 py-2.5 rounded-full shadow-sm border border-slate-200">
-             Live Preview
-           </div>
-           {diffConfig && (
-             <div className="bg-emerald-500 text-xs font-extrabold uppercase tracking-widest text-white px-4 py-2.5 rounded-full shadow-lg shadow-emerald-500/20 animate-pulse">
-               Showing Proposed Schema Target
-             </div>
-           )}
+            <div className="bg-white/90 backdrop-blur-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 px-4 py-2.5 rounded-full shadow-sm border border-slate-200">
+              Live Preview
+            </div>
+            {diffConfig && (
+              <div className="bg-emerald-500 text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-white px-4 py-2.5 rounded-full shadow-lg shadow-emerald-500/20 animate-pulse">
+                Proposed Schema
+              </div>
+            )}
          </div>
 
          {isGenerating ? (
@@ -250,7 +345,7 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
              </div>
            </div>
          ) : (
-           <div className="w-full max-w-lg transform origin-top animate-in zoom-in-95 duration-700 relative z-10 transition-all">
+           <div className="w-full max-w-lg transform origin-top animate-in zoom-in-95 duration-700 relative z-10 transition-all pt-12 lg:pt-0">
               <RoofingWidget isPro={isPro} config={{ ...(diffConfig || originalConfig), steps: stepToggles }} calculatorId="preview-mode" />
            </div>
          )}

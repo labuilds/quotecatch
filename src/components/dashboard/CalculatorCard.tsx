@@ -239,21 +239,21 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
       {/* Share / Embed Dialog */}
       <Dialog open={showShare} onOpenChange={setShowShare}>
         <DialogContent 
-          className="w-[95vw] sm:w-[90vw] md:w-full max-w-3xl lg:max-w-5xl rounded-[2.5rem] lg:rounded-[3.5rem] border-slate-100 p-6 sm:p-10 lg:p-16 shadow-3xl bg-white font-sans overflow-y-auto max-h-[90vh]"
-          closeButtonClassName="top-8 right-8"
+          className="w-[calc(100%-2.5rem)] sm:w-[90vw] md:w-full max-w-3xl lg:max-w-5xl rounded-[2rem] sm:rounded-[2.5rem] lg:rounded-[3.5rem] border-slate-100 p-5 sm:p-10 lg:p-16 shadow-3xl bg-white font-sans overflow-y-auto max-h-[85vh] sm:max-h-[90vh]"
+          closeButtonClassName="top-4 right-4 sm:top-8 sm:right-8"
         >
-          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-red-50/50 rounded-full blur-3xl -z-10" />
+          <div className="absolute top-0 right-0 -mr-12 -mt-12 sm:-mr-20 sm:-mt-20 w-40 h-40 sm:w-80 sm:h-80 bg-red-50/50 rounded-full blur-2xl sm:blur-3xl -z-10" />
           
-          <DialogHeader>
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-[1.25rem] bg-slate-50 flex items-center justify-center">
-                <Share className="w-6 h-6 text-[#0F172A]" />
+          <DialogHeader className="text-left">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-[1rem] sm:rounded-[1.25rem] bg-slate-50 flex items-center justify-center shrink-0">
+                <Share className="w-5 h-5 sm:w-6 sm:h-6 text-[#0F172A]" />
               </div>
-              <div>
-                <DialogTitle className="text-[28px] font-black text-[#0F172A] tracking-tight">
+              <div className="min-w-0">
+                <DialogTitle className="text-[22px] sm:text-[28px] font-black text-[#0F172A] tracking-tight truncate">
                   Deploy Machine
                 </DialogTitle>
-                <DialogDescription className="text-[12px] font-black text-slate-400 uppercase tracking-[0.2em] pt-1">
+                <DialogDescription className="text-[10px] sm:text-[12px] font-black text-slate-400 uppercase tracking-[0.2em] pt-0.5 sm:pt-1 truncate">
                   {calc.name}
                 </DialogDescription>
               </div>
@@ -288,8 +288,8 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 w-full">
               <div className="flex flex-col h-full">
-                <label className="text-[11px] font-black text-slate-400 tracking-[0.2em] uppercase px-1 mb-4">Marketing QR Code</label>
-                <div className="flex-1 p-6 lg:p-10 bg-slate-50 border border-slate-200 rounded-[2.5rem] lg:rounded-[3rem] flex flex-col items-center justify-between gap-6 group hover:bg-white transition-all min-h-[360px] w-full">
+                <label className="text-[11px] font-black text-slate-400 tracking-[0.2em] uppercase px-1 mb-3 sm:mb-4">Marketing QR Code</label>
+                <div className="flex-1 p-5 sm:p-6 lg:p-10 bg-slate-50 border border-slate-200 rounded-[1.5rem] sm:rounded-[2.5rem] lg:rounded-[3rem] flex flex-col items-center justify-between gap-5 sm:gap-6 group hover:bg-white transition-all min-h-[320px] sm:min-h-[360px] w-full">
                   <div className="bg-white p-4 lg:p-6 rounded-[2rem] shadow-sm border border-slate-100 mt-2 shrink-0">
                     <img 
                       src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`${origin}/widget/${calc.id}`)}`} 
@@ -314,10 +314,10 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
               </div>
 
               <div className="flex flex-col h-full">
-                <label className="text-[11px] font-black text-slate-400 tracking-[0.2em] uppercase px-1 mb-4">Embed Component Code</label>
-                <div className="flex-1 p-6 lg:p-10 bg-slate-50 border border-slate-200 rounded-[2.5rem] lg:rounded-[3rem] flex flex-col items-center justify-between gap-6 min-h-[360px] group transition-all w-full">
+                <label className="text-[11px] font-black text-slate-400 tracking-[0.2em] uppercase px-1 mb-3 sm:mb-4">Embed Component Code</label>
+                <div className="flex-1 p-5 sm:p-6 lg:p-10 bg-slate-50 border border-slate-200 rounded-[1.5rem] sm:rounded-[2.5rem] lg:rounded-[3rem] flex flex-col items-center justify-between gap-5 sm:gap-6 min-h-[320px] sm:min-h-[360px] group transition-all w-full">
                   <div 
-                    className="w-full flex-1 relative cursor-pointer group/code mt-2 overflow-hidden rounded-[1.5rem] lg:rounded-[2rem] border-2 transition-all shrink-0 min-h-[180px]"
+                    className="w-full flex-1 relative cursor-pointer group/code mt-1 sm:mt-2 overflow-hidden rounded-[1.25rem] sm:rounded-[1.5rem] lg:rounded-[2rem] border-2 transition-all shrink-0 min-h-[160px] sm:min-h-[180px]"
                     onClick={handleCopy}
                   >
                     <textarea

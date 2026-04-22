@@ -46,16 +46,16 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-16">
             <div className="flex-1 text-center lg:text-left space-y-6 lg:space-y-8">
               <div className="inline-flex items-center gap-2 px-3 lg:px-4 py-1.5 lg:py-2 bg-red-50 border border-red-100 rounded-full">
-                <Star className="w-3.5 h-3.5 text-red-700 fill-red-700" />
-                <span className="text-[11px] lg:text-[13px] font-black text-red-800 uppercase tracking-widest">The #1 Roofing Engine</span>
+                <QCLogo size={14} />
+                <span className="text-[11px] lg:text-[13px] font-black text-red-800 uppercase tracking-widest">Built for Roofing Contractors</span>
               </div>
 
               <h1 className="text-[42px] sm:text-[54px] lg:text-[84px] font-black text-[#0F172A] tracking-tighter leading-[0.95] lg:leading-[0.9]">
                 Turn visitors into <span className="text-red-700">premium leads.</span>
               </h1>
 
-              <p className="text-[16px] lg:text-[22px] text-slate-500 font-medium max-w-2xl mx-auto lg:mx-0">
-                Replace boring contact forms with QuoteCatch. Qualify leads from your phone while you're in the field—via QR codes on your truck, social media, or door hangers.
+               <p className="text-[16px] lg:text-[22px] text-slate-500 font-medium max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                The lead capture solution designed specifically for roofers. Qualify jobs straight from your phone while you're in the field—no expensive CRM or complex tech required. Just real leads, ready to close.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 lg:gap-6 pt-2 lg:pt-4">

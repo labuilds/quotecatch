@@ -11,6 +11,8 @@ import { generateConfigFromPrompt, saveCalculator } from "@/app/actions/calculat
 import CalculatorCard from "@/components/dashboard/CalculatorCard"
 import { UpgradeModal } from "@/components/UpgradeModal"
 import { createDodoCheckoutSession } from "@/app/actions/billing"
+import { cn } from "@/lib/utils"
+
 
 export default function AICalculatorBuilder({ initialCalculators }: { initialCalculators: any[] }) {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
@@ -22,6 +24,8 @@ export default function AICalculatorBuilder({ initialCalculators }: { initialCal
   const [isGenerating, setIsGenerating] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [config, setConfig] = useState<PricingConfig | null>(null)
+
+  const [mobileView, setMobileView] = useState<'editor' | 'preview'>('editor')
 
   const handleUpgrade = async () => {
     try {
@@ -79,10 +83,42 @@ export default function AICalculatorBuilder({ initialCalculators }: { initialCal
 
   if (mode === "building") {
     return (
-      <div className="flex flex-col lg:flex-row min-h-[calc(100vh-4rem)] w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-white overflow-x-hidden">
+      <div className="flex flex-col lg:flex-row min-h-[calc(100vh-4rem)] w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-white overflow-hidden">
+        
+        {/* Mobile Perspective Toggle */}
+        <div className="lg:hidden shrink-0 p-4 bg-white border-b flex items-center justify-between z-20">
+          <button onClick={cancelBuild} className="p-2 -ml-2 text-slate-400 hover:text-slate-900 transition-colors">
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <div className="flex bg-slate-100 p-1 rounded-xl w-48">
+            <button 
+              onClick={() => setMobileView('editor')}
+              className={cn(
+                "flex-1 py-1.5 rounded-lg text-[13px] font-black transition-all",
+                mobileView === 'editor' ? "bg-white text-slate-900 shadow-sm" : "text-slate-400"
+              )}
+            >
+              Editor
+            </button>
+            <button 
+              onClick={() => setMobileView('preview')}
+              className={cn(
+                "flex-1 py-1.5 rounded-lg text-[13px] font-black transition-all",
+                mobileView === 'preview' ? "bg-white text-slate-900 shadow-sm" : "text-slate-400"
+              )}
+            >
+              Preview
+            </button>
+          </div>
+          <div className="w-9" />
+        </div>
+
         {/* Left: Config */}
-        <div className="w-full lg:w-[46%] bg-white p-6 lg:p-10 lg:overflow-y-auto border-r border-slate-100 flex flex-col pt-8 lg:pt-14 shadow-[inset_-1px_0_0_#f1f5f9]">
-          <button onClick={cancelBuild} className="lg:hidden flex items-center gap-2 text-slate-400 font-bold mb-6 hover:text-slate-900 transition-colors">
+        <div className={cn(
+          "w-full lg:w-[46%] bg-white p-6 lg:p-10 lg:overflow-y-auto border-r border-slate-100 flex flex-col pt-8 lg:pt-14 shadow-[inset_-1px_0_0_#f1f5f9]",
+          mobileView !== 'editor' && "hidden lg:flex"
+        )}>
+          <button onClick={cancelBuild} className="hidden lg:flex items-center gap-2 text-slate-400 font-bold mb-6 hover:text-slate-900 transition-colors">
             <ArrowLeft className="w-4 h-4" /> Back to Dashboard
           </button>
 
@@ -167,7 +203,10 @@ export default function AICalculatorBuilder({ initialCalculators }: { initialCal
         </div>
 
         {/* Right: Live Preview */}
-        <div className="w-full lg:w-[54%] bg-slate-50 flex flex-col items-center justify-center p-6 lg:p-8 lg:overflow-y-auto relative min-h-[500px] border-t lg:border-t-0 lg:border-l border-slate-100">
+        <div className={cn(
+          "w-full lg:w-[54%] bg-slate-50 flex flex-col items-center justify-center p-6 lg:p-8 lg:overflow-y-auto relative min-h-[500px] border-t lg:border-t-0 lg:border-l border-slate-100",
+          mobileView !== 'preview' && "hidden lg:flex"
+        )}>
           <div className="absolute top-6 left-6 bg-white text-[11px] font-black uppercase tracking-widest text-slate-400 px-4 py-1.5 rounded-full shadow-sm border border-slate-200 z-10">
             Live Preview
           </div>

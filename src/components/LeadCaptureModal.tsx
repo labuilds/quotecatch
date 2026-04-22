@@ -136,11 +136,11 @@ export default function LeadCaptureModal({
                     checked={formData.agreeTerms}
                     onChange={e => setFormData({ ...formData, agreeTerms: e.target.checked })}
                   />
-                  <div className="w-6 h-6 rounded-lg border-2 border-slate-200 peer-checked:bg-slate-900 peer-checked:border-slate-900 transition-all group-hover:border-slate-300 flex items-center justify-center">
-                    <CheckCircle className={`w-4 h-4 text-white transition-opacity ${formData.agreeTerms ? 'opacity-100' : 'opacity-0'}`} />
+                  <div className="w-6 h-6 rounded-lg border-2 border-slate-200 peer-checked:border-red-700 transition-all group-hover:border-slate-300 flex items-center justify-center">
+                    <CheckCircle className={`w-4 h-4 text-red-700 transition-opacity ${formData.agreeTerms ? 'opacity-100' : 'opacity-0'}`} />
                   </div>
                 </div>
-                <p className="text-[14px] text-slate-500 font-medium leading-relaxed">
+                <p className="text-[16px] text-slate-500 font-medium leading-relaxed">
                   I agree to <span className="text-slate-900 font-bold underline cursor-pointer hover:text-red-700 transition-colors">Terms of Service</span> and <span className="text-slate-900 font-bold underline cursor-pointer hover:text-red-700 transition-colors">Privacy Policy</span>.*
                 </p>
               </label>
@@ -153,11 +153,11 @@ export default function LeadCaptureModal({
                     checked={formData.agreeMarketing}
                     onChange={e => setFormData({ ...formData, agreeMarketing: e.target.checked })}
                   />
-                  <div className="w-6 h-6 rounded-lg border-2 border-slate-200 peer-checked:bg-slate-900 peer-checked:border-slate-900 transition-all group-hover:border-slate-300 flex items-center justify-center">
-                    <CheckCircle className={`w-4 h-4 text-white transition-opacity ${formData.agreeMarketing ? 'opacity-100' : 'opacity-0'}`} />
+                  <div className="w-6 h-6 rounded-lg border-2 border-slate-200 peer-checked:border-red-700 transition-all group-hover:border-slate-300 flex items-center justify-center">
+                    <CheckCircle className={`w-4 h-4 text-red-700 transition-opacity ${formData.agreeMarketing ? 'opacity-100' : 'opacity-0'}`} />
                   </div>
                 </div>
-                <p className="text-[13px] text-slate-400 font-medium leading-relaxed">
+                <p className="text-[14px] text-slate-400 font-medium leading-relaxed">
                   To ensure you’re getting the best offers and pricing, <span className="text-slate-900 font-bold">{companyName}</span> may need to contact you by text/call. By checking this box, you agree to these communications, including marketing and promotional messages. Message and data rates may apply. You can reply STOP to opt-out of future messaging; reply HELP for messaging help. Message frequency may vary.
                 </p>
               </label>
