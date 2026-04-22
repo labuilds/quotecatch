@@ -138,24 +138,25 @@ export default function LeadCaptureModal({
                     onChange={e => setFormData({ ...formData, agreeTerms: e.target.checked })}
                   />
                   <div className="w-6 h-6 rounded-lg border-2 border-slate-200 peer-checked:border-red-700 bg-white transition-all group-hover:border-slate-300 flex items-center justify-center">
-                    {formData.agreeTerms && <CheckCircle2 className="w-4 h-4 text-red-700" />}
+                    {formData.agreeTerms && <CheckCircle className="w-4 h-4 text-red-700" />}
                   </div>
                 </div>
                 <p className="text-[16px] text-slate-500 font-medium leading-relaxed">
-                  I agree to <span className="text-slate-900 font-bold underline cursor-pointer hover:text-red-700 transition-colors">Terms of Service</span> and <span className="text-slate-900 font-bold underline cursor-pointer hover:text-red-700 transition-colors">Privacy Policy</span>.*
+                  I agree to the <span className="text-slate-900 border-b border-slate-900/20 cursor-pointer">Terms of Service</span> and <span className="text-slate-900 border-b border-slate-900/20 cursor-pointer">Privacy Policy</span>.
                 </p>
               </label>
 
-              <label className="flex items-start gap-4 cursor-pointer group">
+              <label className="flex items-start gap-4 p-4 rounded-2xl border border-slate-100 hover:border-slate-200 hover:bg-slate-50/50 transition-all cursor-pointer group">
                 <div className="relative flex items-center mt-1">
                   <input 
                     type="checkbox" 
-                    className="peer hidden" 
+                    className="peer sr-only" 
+                    required
                     checked={formData.agreeMarketing}
                     onChange={e => setFormData({ ...formData, agreeMarketing: e.target.checked })}
                   />
                   <div className="w-6 h-6 rounded-lg border-2 border-slate-200 peer-checked:border-red-700 bg-white transition-all group-hover:border-slate-300 flex items-center justify-center">
-                    {formData.agreeMarketing && <CheckCircle2 className="w-4 h-4 text-red-700" />}
+                    {formData.agreeMarketing && <CheckCircle className="w-4 h-4 text-red-700" />}
                   </div>
                 </div>
                 <p className="text-[14px] text-slate-400 font-medium leading-relaxed">
