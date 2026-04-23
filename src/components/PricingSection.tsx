@@ -122,13 +122,13 @@ export function PricingSection({
             </div>
           </div>
 
-          <div className="flex flex-col gap-y-4 mb-14 w-full text-left">
+          <div className="flex flex-col gap-y-5 mb-14 w-full text-left">
             {ProPlan.features.map((feature) => (
               <div key={feature} className="flex items-center justify-start gap-4 group/feat text-left">
-                <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 bg-red-500/10 border border-red-500/20 group-hover/feat:bg-red-500/20 transition-colors">
-                  <Check className="w-3.5 h-3.5 text-red-400" />
+                <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 bg-white/5 border border-red-500/30 shadow-[0_2px_10px_rgba(239,68,68,0.15)] group-hover/feat:bg-red-500/10 transition-all duration-300">
+                  <Check className="w-4 h-4 text-red-500 stroke-[2.5px]" />
                 </div>
-                <span className="text-[17px] font-bold text-slate-200 text-left">
+                <span className="text-[17px] font-bold text-slate-200 text-left group-hover/feat:text-white transition-colors">
                   {feature}
                 </span>
               </div>
@@ -158,14 +158,18 @@ export function PricingSection({
           )}
 
           {!isTrialEnded && (
-            <div className="text-center space-y-5 pt-8">
+            <div className="text-center space-y-6 pt-8">
               <p className="text-slate-200 text-[16px] font-medium italic">
                 "Try the full satellite widget free for {trialDaysRemaining} days. No commitments."
               </p>
-              <p className="text-slate-300 text-[13px] font-bold uppercase tracking-widest flex items-center justify-center gap-2">
-                <Check className="w-4 h-4 text-emerald-400" />
-                Full access to Solar API & Measurements
-              </p>
+              <div className="flex items-center justify-center gap-3 py-3 px-6 bg-emerald-500/5 rounded-2xl border border-emerald-500/20 w-fit mx-auto">
+                <div className="w-6 h-6 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shadow-[0_2px_10px_rgba(16,185,129,0.1)]">
+                   <Check className="w-3.5 h-3.5 text-emerald-500 stroke-[2.5px]" />
+                </div>
+                <p className="text-emerald-500 text-[16px] font-bold tracking-tight">
+                  Get precision satellite measurements on every lead
+                </p>
+              </div>
             </div>
           )}
         </div>
