@@ -44,8 +44,8 @@ export default function MarketingPage({ params }: { params: Promise<{ vertical: 
         </div>
         <div className="flex items-center gap-3">
           <Button variant="ghost" className="hidden sm:flex text-slate-500 hover:text-slate-900 hover:bg-slate-100 font-semibold rounded-xl" onClick={() => router.push('/login')}>Log In</Button>
-          <Button className="bg-slate-900 hover:bg-black text-white font-bold rounded-xl px-5 shadow-[0_4px_14px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all" onClick={() => router.push('/login')}>
-            Get Started Free →
+          <Button className="bg-slate-900 hover:bg-black text-white font-bold rounded-xl px-5 shadow-[0_4px_14px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all" onClick={() => router.push('/login?tab=signup&intent=pro')}>
+            Start 14-Day Free Trial →
           </Button>
         </div>
       </nav>
@@ -79,9 +79,9 @@ export default function MarketingPage({ params }: { params: Promise<{ vertical: 
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
               <Button
                 className="h-14 px-8 text-[16px] font-bold bg-gradient-to-br from-orange-500 to-orange-600 hover:to-orange-700 text-white shadow-[0_8px_24px_rgba(249,115,22,0.3)] rounded-2xl transition-all hover:-translate-y-1 hover:shadow-[0_12px_32px_rgba(249,115,22,0.4)] border-none"
-                onClick={() => router.push('/login')}
+                onClick={() => router.push('/login?tab=signup&intent=pro')}
               >
-                Build Your Engine <ArrowRight className="ml-2 w-5 h-5" />
+                Start 14-Day Free Trial <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               <Button
                 variant="outline"
@@ -230,9 +230,9 @@ export default function MarketingPage({ params }: { params: Promise<{ vertical: 
           <p className="text-xl text-slate-500 font-medium">Skip the lead aggregators. Own your qualified funnel.</p>
           <Button
             className="h-16 px-12 text-lg font-bold bg-slate-900 hover:bg-black text-white shadow-[0_8px_30px_rgba(0,0,0,0.2)] rounded-2xl transition-all hover:scale-105 hover:-translate-y-1 border-none"
-            onClick={() => router.push('/login')}
+            onClick={() => router.push('/login?tab=signup&intent=pro')}
           >
-            Start for Free — No Card Required →
+            Start 14-Day Free Trial →
           </Button>
         </div>
       </section>

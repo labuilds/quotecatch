@@ -38,7 +38,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <header className="relative pt-28 lg:pt-40 pb-12 lg:pb-20 px-4 sm:px-6 overflow-hidden">
-        {/* Optimized background effects - reduced blur for mobile performance */}
+        {/* Optimized background effects */}
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-[300px] lg:w-[600px] h-[300px] lg:h-[600px] bg-red-100 rounded-full blur-[60px] lg:blur-[120px] opacity-30 lg:opacity-40 z-0 pointer-events-none" />
         <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-[300px] lg:w-[600px] h-[300px] lg:h-[600px] bg-indigo-100 rounded-full blur-[60px] lg:blur-[120px] opacity-30 lg:opacity-40 z-0 pointer-events-none" />
 
@@ -47,31 +47,31 @@ export default function Home() {
             <div className="flex-1 text-center lg:text-left space-y-6 lg:space-y-8">
               <div className="inline-flex items-center gap-2 px-3 lg:px-4 py-1.5 lg:py-2 bg-red-50 border border-red-100 rounded-full">
                 <QCLogo size={14} />
-                <span className="text-[11px] lg:text-[13px] font-black text-red-800 uppercase tracking-widest">Built for Roofing Contractors</span>
+                <span className="text-[11px] lg:text-[13px] font-black text-red-800 uppercase tracking-widest">Built for High-Growth Roofing Teams</span>
               </div>
 
               <h1 className="text-[42px] sm:text-[54px] lg:text-[84px] font-black text-[#0F172A] tracking-tighter leading-[0.95] lg:leading-[0.9]">
-                Turn visitors into <span className="text-red-700">premium leads.</span>
+                Stop climbing <br className="hidden lg:block" />
+                <span className="text-red-700">roofs for free.</span>
               </h1>
 
-               <p className="text-[16px] lg:text-[22px] text-slate-500 font-medium max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                The lead capture solution designed specifically for roofers. Qualify jobs straight from your phone while you're in the field—no expensive CRM or complex tech required. Just real leads, ready to close.
+              <p className="text-[16px] lg:text-[22px] text-slate-500 font-medium max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                Measure any home from your truck with instant satellite tech. Capture high-intent leads with exact square footage and qualified contact info. No more wasting gas on tire-kickers.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 lg:gap-6 pt-2 lg:pt-4">
-                <Link href="/login?tab=signup" className="w-full sm:w-auto group h-14 lg:h-16 px-8 lg:px-10 bg-[#0F172A] text-white flex items-center justify-center gap-3 rounded-2xl lg:rounded-[1.5rem] font-black text-[16px] lg:text-[18px] shadow-xl hover:bg-black hover:-translate-y-1 transition-all transition-duration-300">
-                  Launch Free Widget
+                <Link href="/login?tab=signup&intent=pro" className="w-full sm:w-auto group h-14 lg:h-16 px-8 lg:px-10 bg-[#0F172A] text-white flex items-center justify-center gap-3 rounded-2xl lg:rounded-[1.5rem] font-black text-[16px] lg:text-[18px] shadow-xl hover:bg-black hover:-translate-y-1 transition-all transition-duration-300">
+                  Start 14-Day Free Trial
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <div className="flex items-center gap-2.5 text-slate-400 font-bold text-[14px] lg:text-[16px]">
                   <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0" />
-                  No Credit Card Required
+                  No credit card required
                 </div>
               </div>
             </div>
 
             <div id="demo" className="flex-1 w-full max-w-[480px] relative mt-8 lg:mt-0 z-50">
-              {/* Label for the playable widget */}
               <div className="absolute -top-10 lg:-top-12 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-md border border-slate-100 px-4 lg:px-6 py-1.5 lg:py-2 rounded-full shadow-sm z-20 flex items-center gap-2 whitespace-nowrap">
                 <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
                 <span className="text-[10px] lg:text-[12px] font-black text-slate-400 uppercase tracking-widest">Live Playable Demo</span>
@@ -81,7 +81,6 @@ export default function Home() {
                 <RoofingWidget isPro={true} config={DEMO_CONFIG} calculatorId="demo" isDemo={true} />
               </div>
 
-              {/* Optimized decorative background */}
               <div className="absolute -inset-4 bg-gradient-to-br from-red-500/5 to-indigo-500/5 rounded-[4rem] blur-2xl lg:blur-3xl -z-10" />
             </div>
           </div>
@@ -91,45 +90,44 @@ export default function Home() {
 
       {/* The 4-Step Lead Machine Section */}
       <section id="features" className="py-20 lg:py-32 px-4 sm:px-6 bg-[#0F172A] relative overflow-hidden">
-        {/* Subtle decorative elements */}
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-red-900/10 rounded-full blur-[120px] -z-0" />
         <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-indigo-900/10 rounded-full blur-[120px] -z-0" />
-        
+
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-10 lg:mb-16">
             <h2 className="text-[36px] lg:text-[64px] font-black text-white tracking-tighter mb-2 lg:mb-3 leading-tight">
-              Win more with the <span className="text-red-500">Instant Lead Machine</span>
+              The <span className="text-red-500">Satellite-First</span> Lead Machine
             </h2>
             <p className="text-slate-400 text-[18px] lg:text-[24px] font-medium max-w-2xl mx-auto px-4">
-              We've digitized the roofing sales process so you can close deals faster than you can climb a ladder.
+              Stop guessing. Get the exact measurements you need to quote accurately, from Day 1. No more manual math or wasted site visits.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-14">
             {[
-              { 
-                step: "STEP 1", 
-                title: "Create & Customize", 
-                desc: "Pick your materials, set your labor rates, and add your brand. Your estimator reflects your real business math.", 
-                icon: <QCLogo size={32} isDark={false} /> 
+              {
+                step: "STEP 1",
+                title: "Setup in Minutes",
+                desc: "Pick your materials, set your labor rates, and drop in your logo. Your estimator is ready to work immediately.",
+                icon: <QCLogo size={32} isDark={false} />
               },
-              { 
-                step: "STEP 2", 
-                title: "Promote & Share", 
-                desc: "Put it everywhere. Share links on social media or download unique QR codes for your trucks, yard signs, and balloons.", 
-                icon: <Zap className="w-8 h-8 text-red-500" /> 
+              {
+                step: "STEP 2",
+                title: "Share it Anywhere",
+                desc: "Embed on your site, or share a direct link in SMS, marketing emails, and Google Ads. Capture leads 24/7 without answering a phone.",
+                icon: <Zap className="w-8 h-8 text-red-500" />
               },
-              { 
-                step: "STEP 3", 
-                title: "Capture & Qualify", 
-                desc: "Homeowners get a detailed price instantly. You get a qualified job card with timeline, roof size, and contact info.", 
-                icon: <CheckCircle className="w-8 h-8 text-red-500" /> 
+              {
+                step: "STEP 3",
+                title: "Satellite Precision",
+                desc: "Homeowners get a price based on real satellite measurements. You get the exact squares before you even leave your driveway.",
+                icon: <CheckCircle className="w-8 h-8 text-red-500" />
               },
-              { 
-                step: "STEP 4", 
-                title: "Connect & Close", 
-                desc: "Prioritize leads effortlessly. Move faster while you're in the field and strike while the iron's hot.", 
-                icon: <ArrowRight className="w-8 h-8 text-red-500" /> 
+              {
+                step: "STEP 4",
+                title: "Close Fast",
+                desc: "Stop chasing tire-kickers. Focus on qualified homeowners who already have your pricing and are ready to sign.",
+                icon: <ArrowRight className="w-8 h-8 text-red-500" />
               },
             ].map((s, i) => (
               <div key={i} className="flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
@@ -144,10 +142,10 @@ export default function Home() {
               </div>
             ))}
           </div>
-          
+
           <div className="mt-20 flex flex-col sm:flex-row items-center justify-center gap-6">
-            <Link href="/login?tab=signup" className="h-14 lg:h-16 px-10 bg-white text-[#0F172A] flex items-center justify-center gap-3 rounded-2xl font-black text-[16px] lg:text-[18px] hover:bg-slate-100 transition-all">
-              Try it now
+            <Link href="/login?tab=signup&intent=pro" className="h-14 lg:h-16 px-10 bg-white text-[#0F172A] flex items-center justify-center gap-3 rounded-2xl font-black text-[16px] lg:text-[18px] hover:bg-slate-100 transition-all transition-duration-300">
+              Start Your Free Trial
               <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
@@ -155,11 +153,11 @@ export default function Home() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-16 lg:py-24 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
+      <section id="pricing" className="py-20 lg:py-32 px-4 sm:px-6 bg-white relative">
+        <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-12 lg:mb-16">
-            <h2 className="text-[36px] lg:text-[48px] font-black text-[#0F172A] tracking-tight mb-4 leading-tight">Transparent Pricing.</h2>
-            <p className="text-slate-500 text-[16px] lg:text-[18px] font-medium px-4">Stop wasting gas. Start closing deals.</p>
+            <h2 className="text-[42px] lg:text-[64px] font-black text-[#0F172A] tracking-tighter mb-4 leading-tight">Simple, Powerful Pricing.</h2>
+            <p className="text-slate-500 text-[18px] lg:text-[22px] font-medium max-w-2xl mx-auto">One plan. Every tool. Zero risk.</p>
           </div>
           <PricingSection />
         </div>
@@ -170,15 +168,14 @@ export default function Home() {
         <div className="max-w-5xl mx-auto bg-[#0F172A] rounded-[2rem] lg:rounded-[3rem] p-10 sm:p-12 lg:p-20 text-center relative overflow-hidden shadow-2xl shadow-[#0F172A]/20">
           <div className="relative z-10 text-white space-y-6 lg:space-y-8">
             <h2 className="text-[36px] lg:text-[64px] font-black tracking-tighter leading-[1.1] lg:leading-none">Ready to catch every lead?</h2>
-            <p className="text-white/60 text-[16px] lg:text-[20px] font-medium max-w-xl mx-auto px-2">Join hundreds of contractors already using QuoteCatch to grow their business.</p>
+            <p className="text-white/60 text-[16px] lg:text-[20px] font-medium max-w-xl mx-auto px-2">Join the roofers who have stopped wasting time on manual measurements. Try it free for 14 days.</p>
             <div className="flex justify-center pt-2">
-              <Link href="/login?tab=signup" className="w-full sm:w-auto h-14 lg:h-16 px-8 lg:px-10 bg-red-700 text-white flex items-center justify-center gap-3 rounded-2xl font-black text-[16px] lg:text-[18px] hover:bg-red-800 transition-all shadow-xl shadow-red-700/20">
-                Get Started Free
+              <Link href="/login?tab=signup&intent=pro" className="w-full sm:w-auto h-14 lg:h-16 px-8 lg:px-10 bg-red-700 text-white flex items-center justify-center gap-3 rounded-2xl font-black text-[16px] lg:text-[18px] hover:bg-red-800 transition-all shadow-xl shadow-red-700/20">
+                Start 14-Day Free Trial
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </div>
           </div>
-          {/* Optimized decorative effect */}
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-red-500/10 rounded-full blur-3xl pointer-events-none" />
         </div>
       </section>
@@ -188,15 +185,17 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-20 mb-16 lg:mb-24">
             {/* Brand Column */}
             <div className="col-span-2 md:col-span-1 space-y-6">
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-slate-50 rounded-xl flex items-center justify-center transition-all">
-                  <QCLogo size={20} />
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 lg:w-12 lg:h-12 bg-slate-50 rounded-2xl flex items-center justify-center shrink-0 mt-1">
+                  <QCLogo size={24} />
                 </div>
-                <span className="text-[18px] lg:text-[20px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
+                <div className="flex flex-col">
+                  <span className="text-[20px] lg:text-[22px] font-black tracking-tight text-[#0F172A] leading-tight">QuoteCatch</span>
+                  <p className="text-[15px] lg:text-[16px] text-slate-500 font-medium leading-tight mt-1">
+                    Stop Chasing, Start Closing
+                  </p>
+                </div>
               </div>
-              <p className="text-[14px] text-slate-500 font-medium leading-relaxed italic">
-                Empowering roofing contractors with satellite-powered lead capture and programmatic SEO tools.
-              </p>
             </div>
 
             {/* Product Column */}
@@ -247,4 +246,3 @@ export default function Home() {
     </div>
   )
 }
-

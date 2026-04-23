@@ -22,12 +22,14 @@ import { motion } from "framer-motion"
 
 export default function CalculatorDashboard({ initialCalculators }: { initialCalculators: any[] }) {
   const router = useRouter()
-  const { isPro } = useUserTier()
+  const { isPro, trialDaysRemaining } = useUserTier()
+  const [mounted, setMounted] = useState(false)
   const [calculators, setCalculators] = useState(initialCalculators || [])
   const [isCreating, setIsCreating] = useState(false)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     if (initialCalculators) {
       setCalculators(initialCalculators)
     }
@@ -67,6 +69,10 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
     }
   }
 
+  if (!mounted) {
+    return <div className="min-h-screen bg-slate-50/50" />
+  }
+
   return (
     <div className="space-y-16 max-w-7xl mx-auto px-6 pb-20 font-sans relative">
       {/* Premium background effects */}
@@ -75,18 +81,9 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
 
       {/* Hero Section - High-End Premium */}
       <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-12 pt-8">
-        <div className="space-y-8 max-w-2xl">
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-white border border-slate-100 shadow-sm text-slate-500 font-black text-[11px] uppercase tracking-[0.2em]"
-          >
-            <div className="w-2 h-2 bg-red-600 rounded-full animate-pulse" />
-            Machine Dashboard v2.0
-          </motion.div>
-          
-          <div className="space-y-4">
-            <motion.h1 
+        <div className="max-w-2xl">
+          <div className="space-y-6 pt-16 pb-2">
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
@@ -95,7 +92,7 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
               Master Your Pricing. <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-600 to-red-500">Capture Leads.</span>
             </motion.h1>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -106,11 +103,11 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
           </div>
         </div>
 
-        <motion.div 
-           initial={{ opacity: 0, scale: 0.9 }}
-           animate={{ opacity: 1, scale: 1 }}
-           transition={{ delay: 0.3 }}
-           className="shrink-0 flex flex-col items-center lg:items-end gap-5"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3 }}
+          className="shrink-0 flex flex-col items-center lg:items-end gap-5"
         >
           <button
             onClick={handleCreateNew}
@@ -134,8 +131,8 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
       </div>
 
       {/* Grid Section */}
-      <div className="space-y-10">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-slate-50 pb-10 gap-6">
+      <div className="space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-slate-50 pb-1 gap-6">
           <div className="space-y-2">
             <h2 className="text-[36px] font-black tracking-tighter text-[#0F172A] leading-none">Global Network</h2>
             <p className="text-slate-400 font-bold text-[17px]">Manage and scale your active web-estimators.</p>
@@ -207,6 +204,7 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
         isOpen={showUpgradeModal}
         onClose={() => setShowUpgradeModal(false)}
         onUpgrade={handleUpgrade}
+        trialDaysRemaining={trialDaysRemaining}
       />
     </div>
   )

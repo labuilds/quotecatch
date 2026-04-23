@@ -26,6 +26,7 @@ import Link from 'next/link'
 import { UpgradeModal } from "@/components/UpgradeModal"
 import { createDodoCheckoutSession } from "@/app/actions/billing"
 import { createClient } from "@/utils/supabase/client"
+import { useUserTier } from "@/components/UserTierProvider"
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface LeadsDashboardProps {
@@ -35,7 +36,7 @@ interface LeadsDashboardProps {
 
 export default function LeadsDashboard({ initialLeads, initialIsPro }: LeadsDashboardProps) {
   const [leads, setLeads] = useState(initialLeads)
-  const [isPro] = useState(initialIsPro)
+  const { isPro, trialDaysRemaining } = useUserTier()
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
   const [selectedLead, setSelectedLead] = useState<any>(null)
 
@@ -91,14 +92,6 @@ export default function LeadsDashboard({ initialLeads, initialIsPro }: LeadsDash
             Manage your high-intent roofing prospects captured from your website.
           </p>
         </div>
-        {!isPro && (
-          <button
-            onClick={() => setShowUpgradeModal(true)}
-            className="flex items-center gap-2.5 px-6 py-3 bg-[#0F172A] text-white font-bold rounded-2xl text-[16px] shadow-[0_8px_20px_rgba(15,23,42,0.2)] hover:shadow-[0_12px_28px_rgba(15,23,42,0.25)] hover:-translate-y-0.5 transition-all duration-300 group cursor-pointer"
-          >
-            Upgrade to Pro <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </button>
-        )}
       </div>
 
       {/* Stats row */}
@@ -228,6 +221,7 @@ export default function LeadsDashboard({ initialLeads, initialIsPro }: LeadsDash
         isOpen={showUpgradeModal}
         onClose={() => setShowUpgradeModal(false)}
         onUpgrade={handleUpgrade}
+        trialDaysRemaining={trialDaysRemaining}
       />
 
       {/* Lead Detail Side Panel */}

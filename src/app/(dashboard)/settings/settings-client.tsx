@@ -256,7 +256,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                   </div>
                 </div>
                 <div className="flex-1 space-y-3">
-                  <p className="text-[13px] text-slate-500 font-bold leading-relaxed">
+                  <p className="text-[15px] text-slate-500 font-medium leading-relaxed">
                     Upload your company logo. This will be shown on your quotes and widgets.
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -411,34 +411,34 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
               <h3 className="text-[18px] font-black text-[#0F172A]">Current Plan</h3>
             </div>
 
-            <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-6 bg-slate-50 rounded-[24px] border border-slate-100">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <p className="text-[20px] font-black text-[#0F172A]">
-                    {isPro ? "Pro Satellite" : "Basic Estimator"}
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8 p-8 bg-slate-50/50 rounded-[28px] border border-slate-100/80">
+              <div className="space-y-2">
+                <div className="flex items-center gap-3">
+                  <p className="text-[22px] font-black text-[#0F172A] tracking-tight">
+                    {isPro ? "Pro Satellite Plan" : "14-Day Trial"}
                   </p>
                   <span
-                    className={`text-[12px] font-black uppercase tracking-widest px-2.5 py-1 rounded-full border ${
+                    className={`text-[11px] font-black uppercase tracking-[0.15em] px-3 py-1 rounded-full border ${
                       isPro
                         ? "bg-emerald-50 text-emerald-600 border-emerald-100"
-                        : "bg-white border-slate-200 text-slate-400"
+                        : "bg-red-50 text-red-600 border-red-100"
                     }`}
                   >
                     Active
                   </span>
                 </div>
-                <p className="text-[15px] text-slate-500 font-bold">
+                <p className="text-[16px] text-slate-500 font-medium max-w-md leading-relaxed">
                   {isPro
-                    ? "Unlimited Lead Machines · Pro Satellite Power · CRM Webhooks"
-                    : "Standard Lead Machine · Manual Estimations · Basic Analytics"}
+                    ? "You have full access to Unlimited Lead Machines, Pro Satellite Power, and CRM Webhooks."
+                    : "You are currently exploring all Pro features including Satellite Access and CRM Integrations."}
                 </p>
               </div>
               {!isPro && (
                 <Button
                   onClick={() => setShowUpgradeModal(true)}
-                  className="h-11 px-6 bg-red-700 text-white font-black rounded-xl text-[14px] shadow-lg shadow-red-200 hover:bg-red-800 hover:-translate-y-0.5 transition-all cursor-pointer"
+                  className="h-14 px-8 bg-red-700 text-white font-black rounded-2xl text-[16px] shadow-xl shadow-red-200 hover:bg-black hover:-translate-y-0.5 transition-all cursor-pointer whitespace-nowrap"
                 >
-                  Upgrade to Pro Satellite
+                  Activate Pro Now
                 </Button>
               )}
             </div>
@@ -470,7 +470,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
               )}
             </div>
 
-            <p className="text-[14px] text-slate-600 font-bold leading-relaxed">
+            <p className="text-[16px] text-slate-500 font-medium leading-relaxed">
               Automatically push new leads to Zapier, Make, or your CRM of choice.
             </p>
 
@@ -508,14 +508,14 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
               </div>
               <div>
                 <h3 className="text-[18px] font-black text-[#0F172A]">Danger Zone</h3>
-                <p className="text-[13px] text-red-600/60 font-medium italic">Proceed with absolute caution</p>
+                <p className="text-[15px] text-red-600/70 font-bold italic tracking-tight">Proceed with absolute caution</p>
               </div>
             </div>
 
             <div className="p-6 bg-white border border-red-100 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-              <div className="space-y-1">
+              <div className="space-y-2">
                 <p className="text-[16px] font-black text-[#0F172A]">Delete Your Account</p>
-                <p className="text-[13px] text-slate-500 font-bold max-w-sm">
+                <p className="text-[15px] text-slate-500 font-medium max-w-sm leading-relaxed">
                   Permanently remove all your lead machines, estimator data, and website integrations. This action is irreversible.
                 </p>
               </div>

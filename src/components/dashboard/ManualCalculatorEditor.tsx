@@ -120,7 +120,7 @@ export default function ManualCalculatorEditor({
   const [hasChanges, setHasChanges] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
 
-  const [activeTab, setActiveTab] = useState<'name' | 'sizing' | 'materials' | 'markups' | 'sequence'>('name')
+  const [activeTab, setActiveTab] = useState<'name' | 'materials' | 'markups' | 'sequence'>('name')
 
   const [config, setConfig] = useState<PricingConfig>({
     ...calculator.config_json,
@@ -328,7 +328,7 @@ export default function ManualCalculatorEditor({
                 <div className="space-y-8">
                   <div className="bg-slate-900 rounded-3xl p-8 text-center relative overflow-hidden group">
                      <div className="relative z-10">
-                        <p className="text-slate-400 text-[11px] font-black uppercase tracking-[0.2em] mb-4">Master Formula</p>
+                        <p className="text-slate-300 text-[11px] font-black uppercase tracking-[0.2em] mb-4">Master Formula</p>
                         <div className="flex flex-wrap items-center justify-center gap-3 text-white">
                            <span className="text-xl font-black px-3 py-1 bg-white/10 rounded-lg text-red-400">((SQFT</span>
                            <span className="text-slate-500 font-black">×</span>
@@ -383,12 +383,6 @@ export default function ManualCalculatorEditor({
             <Settings2 className="w-4 h-4" /> Name
           </button>
           <button
-            onClick={() => setActiveTab('sizing')}
-            className={`flex-1 min-w-[90px] flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'sizing' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
-          >
-            <Home className="w-4 h-4" /> Sizing
-          </button>
-          <button
             onClick={() => setActiveTab('materials')}
             className={`flex-1 min-w-[100px] flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'materials' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
           >
@@ -417,39 +411,6 @@ export default function ManualCalculatorEditor({
             transition={{ duration: 0.15 }}
             className="flex-1 pb-10"
           >
-            {/* TAB 1: Sizing */}
-            {activeTab === 'sizing' && (
-              <section className="space-y-4">
-                <div className="mb-6 px-1">
-                  <h3 className="text-lg font-black text-slate-900 tracking-tight">Manual Size Defaults</h3>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4">
-                  {sizeOrder.map(({ key, label }) => {
-                    const value = config.free_tier_averages[key as keyof typeof config.free_tier_averages]
-                    return (
-                      <div key={key} className="group bg-white border border-slate-100 hover:border-slate-200 rounded-2xl p-6 transition-all duration-300 shadow-sm flex items-center justify-between gap-6">
-                        <div className="flex-1">
-                          <Label className={LABEL_CLASS}>{label}</Label>
-                        </div>
-                        <PremiumInput
-                          value={value === 0 ? "" : value}
-                          placeholder="0"
-                          suffix="SQFT"
-                          onChange={(val: string) => {
-                            const num = parseInt(val) || 0
-                            setConfig(prev => ({
-                              ...prev,
-                              free_tier_averages: { ...prev.free_tier_averages, [key]: num }
-                            }))
-                          }}
-                        />
-                      </div>
-                    )
-                  })}
-                </div>
-              </section>
-            )}
 
             {/* TAB 1: Materials */}
             {activeTab === 'materials' && (

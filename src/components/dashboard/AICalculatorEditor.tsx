@@ -140,7 +140,7 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
                 <div className="space-y-8">
                   <div className="bg-slate-900 rounded-3xl p-8 text-center relative overflow-hidden group">
                      <div className="relative z-10">
-                        <p className="text-slate-400 text-[11px] font-black uppercase tracking-[0.2em] mb-4">Formula Reference</p>
+                        <p className="text-slate-300 text-[11px] font-black uppercase tracking-[0.2em] mb-4">Formula Reference</p>
                         <div className="flex flex-wrap items-center justify-center gap-2 text-white">
                            <span className="text-lg font-black px-3 py-1 bg-white/10 rounded-lg text-red-400">((SQFT</span>
                            <span className="text-slate-500 font-black">×</span>

@@ -227,11 +227,7 @@ export default function RoofingWidget({
 
       if (!result.success) {
         setLoadingState(null)
-        if (result.errorType === 'NO_DATA') {
-          setErrorMessage("Satellite scan unavailable for this specific property. Please enter manually.")
-        } else {
-          setErrorMessage(result.error || "Could not connect to satellite.")
-        }
+        setErrorMessage(result.error || "Could not connect to satellite.")
         return
       }
 
@@ -246,9 +242,7 @@ export default function RoofingWidget({
     } catch (error: any) {
       console.error("Widget Estimation Error:", error)
       setLoadingState(null)
-      // Only show error if we're not doing background work, 
-      // or if we want them to know it failed.
-      setErrorMessage("An unexpected error occurred. Please try manual entry.")
+      setErrorMessage("An unexpected error occurred. Please try again.")
     }
   }
 
@@ -452,99 +446,79 @@ export default function RoofingWidget({
         {/* Step: Address */}
         {currentStepId === 'ADDRESS' && (
           <div className="space-y-6 animate-in fade-in duration-500">
-            {isPro ? (
-              <div className="space-y-6">
-                <div className="space-y-1">
-                  <h1 className="text-3xl font-bold tracking-tight text-[#0F172A]">What’s your address?</h1>
-                </div>
+            <div className="space-y-6">
+              <div className="space-y-1">
+                <h1 className="text-3xl font-bold tracking-tight text-[#0F172A]">What’s your address?</h1>
+              </div>
 
-                <div className="bg-white rounded-xl overflow-hidden shadow-sm relative group border border-slate-100/50">
-                  <div className="w-full h-[450px] bg-slate-100 relative">
-                    {isLoaded ? (
-                      <GoogleMap
-                        mapContainerStyle={{ width: '100%', height: '100%' }}
-                        center={mapCenter}
-                        zoom={mapZoom}
-                        options={{ mapTypeId: 'satellite', disableDefaultUI: true, tilt: 45 }}
-                        onLoad={map => map.setTilt(45)}
-                      >
-                        <AnimatePresence>
-                          {addressConfirmed && (
-                            <motion.div initial={{ opacity: 0, scale: 2 }} animate={{ opacity: 1, scale: 1 }} className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                               <div className="w-14 h-14 border-2 border-white/50 rounded-full flex items-center justify-center backdrop-blur-[1px]">
-                                  <div className="w-2.5 h-2.5 bg-red-500 rounded-full shadow-[0_0_15px_rgba(239,68,68,1)]" />
-                               </div>
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
-                      </GoogleMap>
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-slate-50">
-                        <Loader2 className="w-8 h-8 text-slate-200 animate-spin" />
-                      </div>
-                    )}
-
-                    <div className="absolute top-4 left-4 right-4 z-20 flex items-start justify-between gap-4">
-                      <div className="flex-1 max-w-md">
-                        <div className="relative">
-                          {isLoaded && (
-                            <Autocomplete onLoad={setAutocomplete} onPlaceChanged={onPlaceChanged} options={{ types: ['address'] }}>
-                              <div className="relative">
-                                <Input 
-                                  type="text"
-                                  placeholder="1234 Street Name, City, State"
-                                  value={formData.address}
-                                  onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                                  className="h-12 pl-4 pr-10 rounded-lg border-none bg-white text-slate-900 shadow-xl font-medium text-[15px] focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-slate-400"
-                                />
-                                {formData.address && (
-                                  <button onClick={() => { setFormData({...formData, address: ""}); setAddressConfirmed(false); }} className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center text-slate-400 hover:text-slate-900 transition-colors">
-                                    <span className="text-lg">×</span>
-                                  </button>
-                                )}
-                              </div>
-                            </Autocomplete>
-                          )}
-                        </div>
-                      </div>
-
+              <div className="bg-white rounded-xl overflow-hidden shadow-sm relative group border border-slate-100/50">
+                <div className="w-full h-[450px] bg-slate-100 relative">
+                  {isLoaded ? (
+                    <GoogleMap
+                      mapContainerStyle={{ width: '100%', height: '100%' }}
+                      center={mapCenter}
+                      zoom={mapZoom}
+                      options={{ mapTypeId: 'satellite', disableDefaultUI: true, tilt: 45 }}
+                      onLoad={map => map.setTilt(45)}
+                    >
                       <AnimatePresence>
                         {addressConfirmed && (
-                          <motion.button initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} onClick={handleConfirmProperty} className="bg-white text-blue-600 border-2 border-blue-600 px-8 h-12 rounded-full font-bold shadow-xl hover:bg-blue-50 transition-all active:scale-95 flex items-center justify-center gap-2">
-                            Continue
-                          </motion.button>
+                          <motion.div initial={{ opacity: 0, scale: 2 }} animate={{ opacity: 1, scale: 1 }} className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                             <div className="w-14 h-14 border-2 border-white/50 rounded-full flex items-center justify-center backdrop-blur-[1px]">
+                                <div className="w-2.5 h-2.5 bg-red-500 rounded-full shadow-[0_0_15px_rgba(239,68,68,1)]" />
+                             </div>
+                          </motion.div>
                         )}
                       </AnimatePresence>
+                    </GoogleMap>
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-slate-50">
+                      <Loader2 className="w-8 h-8 text-slate-200 animate-spin" />
+                    </div>
+                  )}
+
+                  <div className="absolute top-4 left-4 right-4 z-20 flex items-start justify-between gap-4">
+                    <div className="flex-1 max-w-md">
+                      <div className="relative">
+                        {isLoaded && (
+                          <Autocomplete onLoad={setAutocomplete} onPlaceChanged={onPlaceChanged} options={{ types: ['address'] }}>
+                            <div className="relative">
+                              <Input 
+                                type="text"
+                                placeholder="1234 Street Name, City, State"
+                                value={formData.address}
+                                onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                                className="h-12 pl-4 pr-10 rounded-lg border-none bg-white text-slate-900 shadow-xl font-medium text-[15px] focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-slate-400"
+                              />
+                              {formData.address && (
+                                <button onClick={() => { setFormData({...formData, address: ""}); setAddressConfirmed(false); }} className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center text-slate-400 hover:text-slate-900 transition-colors">
+                                  <span className="text-lg">×</span>
+                                </button>
+                              )}
+                            </div>
+                          </Autocomplete>
+                        )}
+                      </div>
                     </div>
 
-                    <div className="absolute bottom-2 left-2 z-10 flex items-center gap-2">
-                       <div className="bg-white/80 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-slate-400 border border-slate-200/50">QUOTECATCH SATELLITE HD</div>
-                    </div>
+                    <AnimatePresence>
+                      {addressConfirmed && (
+                        <motion.button initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} onClick={handleConfirmProperty} className="bg-white text-blue-600 border-2 border-blue-600 px-8 h-12 rounded-full font-bold shadow-xl hover:bg-blue-50 transition-all active:scale-95 flex items-center justify-center gap-2">
+                          Continue
+                        </motion.button>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  <div className="absolute bottom-2 left-2 z-10 flex items-center gap-2">
+                     <div className="bg-white/80 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-bold text-slate-400 border border-slate-200/50">QUOTECATCH SATELLITE HD</div>
                   </div>
                 </div>
-                <p className="text-center text-[13px] text-slate-400 font-medium">
-                  {addressConfirmed ? "Property high-resolution scan ready for analysis." : "Enter your address to begin your instant satellite roof scan."}
-                </p>
               </div>
-            ) : (
-              <div className="space-y-6">
-                <div className="space-y-1">
-                  <h1 className="text-[28px] font-bold text-slate-900 tracking-tight leading-tight">Roof Size</h1>
-                  <p className="text-[15px] text-slate-500 font-medium">Approximate square footage of your home.</p>
-                </div>
-                <div className="grid gap-3">
-                  {[{ id: "under_1500", label: "Under 1,500 sq ft", sub: "Small or Single Story" }, { id: "1500_2500", label: "1,500 – 2,500 sq ft", sub: "Average Family Home" }, { id: "over_2500", label: "2,500+ sq ft", sub: "Large or Multi-Story" }].map((item) => {
-                    const active = formData.sqFt === item.id;
-                    return (
-                      <button key={item.id} onClick={() => handleSelect("sqFt", item.id)} className={`w-full p-5 rounded-3xl border-2 text-left group cursor-pointer ${active ? "border-red-700 bg-red-50/50 shadow-md" : "border-slate-100 bg-white hover:border-slate-200 hover:bg-slate-50/50"}`}>
-                        <p className={`text-[18px] font-bold transition-colors ${active ? "text-red-800" : "text-slate-900"}`}>{item.label}</p>
-                        <p className="text-[15px] text-slate-400 font-bold mt-0.5">{item.sub}</p>
-                      </button>
-                    )
-                  })}
-                </div>
-              </div>
-            )}
+              <p className="text-center text-[13px] text-slate-400 font-medium">
+                {addressConfirmed ? "Property high-resolution scan ready for analysis." : "Enter your address to begin your instant satellite roof scan."}
+              </p>
+            </div>
           </div>
         )}
 

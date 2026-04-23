@@ -20,19 +20,24 @@ async function getRoofEstimationInternal(address: string, calculatorId?: string)
     const isDemo = calculatorId === "demo"
     if (!user && !isDemo) return { success: false, error: "Unauthorized", errorType: 'UNAUTHORIZED' }
 
-    // Verify Pro Tier
-    let isPro = true
+    // Verify Pro Tier or Trial
+    let isAuthorized = true
     if (!isDemo && user) {
       const { data: profile } = await supabase
         .from('users')
-        .select('is_pro')
+        .select('is_pro, trial_ends_at, subscription_status')
         .eq('id', user.id)
         .single()
-      isPro = profile?.is_pro || false
+      
+      const isPastDue = profile?.subscription_status === 'past_due'
+      const trialExpired = profile?.trial_ends_at && new Date(profile.trial_ends_at) < new Date()
+      
+      // If payment status is active pro, OR if they are still in valid trial and not past due
+      isAuthorized = profile?.is_pro || (profile?.trial_ends_at && !trialExpired && !isPastDue)
     }
 
-    if (!isPro) {
-      return { success: false, error: "Pro subscription required", errorType: 'PRO_REQUIRED' }
+    if (!isAuthorized) {
+      return { success: false, error: "Active subscription or trial required", errorType: 'PRO_REQUIRED' }
     }
 
     if (!GOOGLE_MAPS_API_KEY || isDemo) {

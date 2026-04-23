@@ -298,15 +298,17 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-20 mb-16 lg:mb-24">
             {/* Brand Column */}
             <div className="col-span-2 md:col-span-1 space-y-6">
-              <div className="flex items-center gap-2.5 sm:gap-3">
-                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-slate-50 rounded-xl flex items-center justify-center transition-all">
-                  <QCLogo size={20} />
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 lg:w-12 lg:h-12 bg-slate-50 rounded-2xl flex items-center justify-center shrink-0 mt-1">
+                  <QCLogo size={24} />
                 </div>
-                <span className="text-[18px] lg:text-[20px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
+                <div className="flex flex-col">
+                  <span className="text-[20px] lg:text-[22px] font-black tracking-tight text-[#0F172A] leading-tight">QuoteCatch</span>
+                  <p className="text-[15px] lg:text-[16px] text-slate-500 font-medium leading-tight mt-1">
+                    Stop Chasing, Start Closing
+                  </p>
+                </div>
               </div>
-              <p className="text-[14px] text-slate-500 font-medium leading-relaxed italic">
-                Empowering roofing contractors with satellite-powered lead capture and programmatic SEO tools.
-              </p>
             </div>
 
             {/* Product Column */}

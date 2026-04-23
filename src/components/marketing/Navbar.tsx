@@ -52,8 +52,8 @@ export function Navbar() {
             <Link href="/login" className="hidden sm:inline-flex text-[16px] font-black text-slate-900 px-4 lg:px-6 py-3 hover:bg-slate-50 rounded-xl transition-all">
               Login
             </Link>
-            <Link href="/login?tab=signup" className="bg-[#0F172A] text-white text-[12px] sm:text-[16px] font-black px-4 sm:px-7 py-3 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
-              Get Started
+            <Link href="/login?tab=signup&intent=pro" className="bg-[#0F172A] text-white text-[12px] sm:text-[16px] font-black px-4 sm:px-7 py-3 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
+              Start Free Trial
             </Link>
           </>
         )}

@@ -1,7 +1,7 @@
 import { createDodoCheckoutSession } from "@/app/actions/billing"
 import { NextResponse } from "next/server"
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     const session = await createDodoCheckoutSession()
     
@@ -9,10 +9,14 @@ export async function GET() {
       return NextResponse.redirect(session.url)
     }
     
-    // If billing keys are missing or creation failed, fallback to dashboard
-    return NextResponse.redirect(new URL("/dashboard?error=billing_failed", process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"))
+    // If billing keys are missing or creation failed, fallback to landing page
+    const fallbackUrl = new URL("/", request.url)
+    fallbackUrl.searchParams.set("error", "billing_failed")
+    return NextResponse.redirect(fallbackUrl)
   } catch (error) {
     console.error("[Checkout Init Error]:", error)
-    return NextResponse.redirect(new URL("/dashboard?error=billing_failed", process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"))
+    const fallbackUrl = new URL("/", request.url)
+    fallbackUrl.searchParams.set("error", "billing_failed")
+    return NextResponse.redirect(fallbackUrl)
   }
 }

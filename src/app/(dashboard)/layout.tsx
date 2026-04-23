@@ -15,28 +15,62 @@ export default async function DashboardLayout({ children }: { children: ReactNod
 
   const admin = createAdminClient()
   
-  // 1. Fetch Plan Status (Essential)
+  // 1. Fetch Plan Status and Trial (Essential)
   let { data: profile, error: statusError } = await admin
     .from('users')
-    .select('is_pro')
+    .select('is_pro, trial_ends_at, subscription_status')
     .eq('id', user.id)
     .single()
 
-  // Self-heal logic if missing entirely
-  if (!profile && (statusError?.code === 'PGRST116' || !statusError)) {
-    const { data: newProfile } = await admin
+  console.log(`[DashboardLayout] User: ${user.email}, Pro: ${profile?.is_pro}, TrialEnds: ${profile?.trial_ends_at}, Status: ${profile?.subscription_status}`)
+
+  // Self-heal logic if missing entirely or missing trial info
+  if (!profile?.trial_ends_at) {
+    console.log(`[DashboardLayout] Initializing trial for ${user.email}`)
+    const trialEndsAt = new Date()
+    trialEndsAt.setDate(trialEndsAt.getDate() + 14)
+
+    const initialIsPro = profile?.is_pro ?? false
+    const initialStatus = profile?.subscription_status ?? 'trialing'
+
+    const { data: updatedProfile, error: upsertError } = await admin
       .from('users')
-      .upsert({ id: user.id, is_pro: false }, { onConflict: 'id' })
-      .select('is_pro')
+      .upsert({ 
+        id: user.id, 
+        email: user.email,
+        is_pro: initialIsPro, 
+        trial_ends_at: trialEndsAt.toISOString(),
+        subscription_status: initialStatus
+      }, { onConflict: 'id' })
+      .select('is_pro, trial_ends_at, subscription_status')
       .single()
-    profile = newProfile
+    
+    if (upsertError) {
+      console.error("[DashboardLayout] Upsert Error:", upsertError)
+    } else if (updatedProfile) {
+      profile = updatedProfile
+      console.log(`[DashboardLayout] Successfully initialized trial: ${profile.trial_ends_at}`)
+    }
   }
 
   const isPro = profile?.is_pro ?? false
+  const trialEndsAtString = profile?.trial_ends_at || null
+  const trialEndsAt = trialEndsAtString ? new Date(trialEndsAtString) : null
+  const isTrialExpired = trialEndsAt ? trialEndsAt < new Date() : false
+  const isPastDue = profile?.subscription_status === 'past_due'
+  
+  // Hard Lockout Logic (Day 15 or past_due)
+  const isLocked = !isPro && (isTrialExpired || isPastDue)
+
   const userEmail = user.email || ''
 
   return (
-    <DashboardLayoutClient isPro={isPro} userEmail={userEmail}>
+    <DashboardLayoutClient 
+      isPro={isPro} 
+      userEmail={userEmail}
+      trialEndsAt={profile?.trial_ends_at}
+      isLocked={isLocked}
+    >
       {children}
     </DashboardLayoutClient>
   )

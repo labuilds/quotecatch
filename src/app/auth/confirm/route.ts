@@ -21,15 +21,6 @@ export async function GET(request: NextRequest) {
     })
 
     if (!error) {
-      // Check for checkout intent cookie
-      const intent = request.cookies.get('checkout_intent')?.value
-
-      if (intent === 'pro') {
-        const response = NextResponse.redirect(`${origin}/api/checkout/init`)
-        response.cookies.set('checkout_intent', '', { maxAge: 0 })
-        return response
-      }
-
       // Verification successful, redirect to the dashboard or requested page
       return NextResponse.redirect(`${origin}${next}`)
     }
