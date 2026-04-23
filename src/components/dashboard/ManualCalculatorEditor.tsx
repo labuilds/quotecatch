@@ -224,8 +224,8 @@ export default function ManualCalculatorEditor({
   return (
     <div className="flex flex-col lg:flex-row lg:h-screen w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-[#F8FAFC] overflow-visible lg:overflow-hidden">
       
-      {/* Mobile Perspective Toggle */}
-      <div className="lg:hidden shrink-0 p-4 bg-white border-b flex items-center justify-between z-20">
+      {/* Mobile Perspective Toggle - Sticky beneath layout navbar */}
+      <div className="lg:hidden sticky top-0 shrink-0 p-4 bg-white/95 backdrop-blur-md border-b flex items-center justify-between z-30 shadow-sm">
         <Link href="/calculators" className="p-2 -ml-2 text-slate-400 hover:text-slate-900 transition-colors">
           <ArrowLeft className="w-5 h-5" />
         </Link>
@@ -688,7 +688,7 @@ export default function ManualCalculatorEditor({
               <Button
                 onClick={handleSave}
                 disabled={isSaving}
-                className="w-full lg:w-auto h-16 px-10 bg-[#0F172A] hover:bg-black text-white font-black rounded-2xl shadow-2xl shadow-slate-400/50 flex items-center justify-center gap-3 transition-transform active:scale-95 border-2 border-white lg:border-none"
+                className="w-full lg:w-auto h-16 px-10 bg-[#0F172A] hover:bg-black text-white font-black rounded-2xl shadow-2xl shadow-slate-400/50 flex items-center justify-center gap-3 transition-transform active:scale-95 border-2 border-white lg:border-none ring-4 ring-slate-900/5"
               >
                 {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                 Save Pricing Rules

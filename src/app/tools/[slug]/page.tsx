@@ -55,6 +55,21 @@ export default async function ToolPage({ params }: Props) {
     }))
   } : null;
 
+  // SoftwareApplication Schema
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": tool.title,
+    "description": tool.seoDescription,
+    "applicationCategory": tool.type === 'calculator' ? 'CalculatorApplication' : 'BusinessApplication',
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  };
+
   return (
     <>
       {faqSchema && (
@@ -63,6 +78,10 @@ export default async function ToolPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
       )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
       <ToolClient slug={slug} faqs={tool.faqs} />
     </>
   );

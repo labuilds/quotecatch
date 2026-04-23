@@ -85,8 +85,8 @@ export default function AICalculatorBuilder({ initialCalculators }: { initialCal
     return (
       <div className="flex flex-col lg:flex-row min-h-[calc(100vh-4rem)] w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-white overflow-hidden">
         
-        {/* Mobile Perspective Toggle */}
-        <div className="lg:hidden shrink-0 p-4 bg-white border-b flex items-center justify-between z-20">
+        {/* Mobile Perspective Toggle - Sticky beneath layout navbar */}
+        <div className="lg:hidden sticky top-0 shrink-0 p-4 bg-white/95 backdrop-blur-md border-b flex items-center justify-between z-30 shadow-sm">
           <button onClick={cancelBuild} className="p-2 -ml-2 text-slate-400 hover:text-slate-900 transition-colors">
             <ArrowLeft className="w-5 h-5" />
           </button>

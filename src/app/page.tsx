@@ -18,6 +18,7 @@ const DEMO_CONFIG: PricingConfig = {
 }
 
 import { Navbar } from '@/components/marketing/Navbar'
+import { Footer } from '@/components/marketing/Footer'
 
 export default function Home() {
   const [user, setUser] = useState<any>(null)
@@ -180,69 +181,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="py-16 lg:py-24 border-t border-slate-100 px-4 sm:px-6 bg-white shrink-0 mt-auto">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-20 mb-16 lg:mb-24">
-            {/* Brand Column */}
-            <div className="col-span-2 md:col-span-1 space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 lg:w-12 lg:h-12 bg-slate-50 rounded-2xl flex items-center justify-center shrink-0 mt-1">
-                  <QCLogo size={24} />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[20px] lg:text-[22px] font-black tracking-tight text-[#0F172A] leading-tight">QuoteCatch</span>
-                  <p className="text-[15px] lg:text-[16px] text-slate-500 font-medium leading-tight mt-1">
-                    Stop Chasing, Start Closing
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Product Column */}
-            <div className="space-y-6">
-              <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400">Product</h4>
-              <nav className="flex flex-col gap-4 text-[14px] font-bold text-slate-600">
-                <Link href="/#features" className="hover:text-red-600 transition-colors">Features</Link>
-                <Link href="/#pricing" className="hover:text-red-600 transition-colors">Pricing</Link>
-                <Link href="/login" className="hover:text-red-600 transition-colors">Sign In</Link>
-                <Link href="/login?tab=signup" className="hover:text-red-600 transition-colors">Register</Link>
-              </nav>
-            </div>
-
-            {/* Free Tools Column */}
-            <div className="space-y-6">
-              <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400">Free Tools</h4>
-              <nav className="flex flex-col gap-4 text-[14px] font-bold text-slate-600">
-                <Link href="/tools/shingle-waste-calculator" className="hover:text-red-600 transition-colors">Waste Calculator</Link>
-                <Link href="/tools/roofing-financing-calculator" className="hover:text-red-600 transition-colors">Financing Calc</Link>
-                <Link href="/tools/storm-door-knocking-script" className="hover:text-red-600 transition-colors">Storm Script</Link>
-                <Link href="/tools/chimney-flashing-cost-estimator" className="hover:text-red-600 transition-colors">Flashing Tool</Link>
-                <Link href="/tools/hoa-roofing-approval-generator" className="hover:text-red-600 transition-colors">HOA Template</Link>
-                <Link href="/tools" className="text-red-600 font-black hover:text-red-700 transition-colors">View All →</Link>
-              </nav>
-            </div>
-
-            {/* Support Column */}
-            <div className="space-y-6">
-              <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400">Support</h4>
-              <nav className="flex flex-col gap-4 text-[14px] font-bold text-slate-600">
-                <Link href="/terms" className="hover:text-red-600 transition-colors">Terms of Service</Link>
-                <Link href="/privacy" className="hover:text-red-600 transition-colors">Privacy Policy</Link>
-              </nav>
-            </div>
-          </div>
-
-          <div className="pt-10 border-t border-slate-50 flex flex-col md:flex-row items-center justify-between gap-6">
-            <p className="text-[12px] lg:text-[14px] text-slate-400 font-bold">
-              © {new Date().getFullYear()} QuoteCatch. All rights reserved.
-            </p>
-            <div className="flex items-center gap-2 text-slate-300">
-              <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-              <span className="text-[11px] font-black uppercase tracking-widest">Platform Operational</span>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

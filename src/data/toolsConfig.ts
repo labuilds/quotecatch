@@ -379,7 +379,7 @@ This system comes with our industry-leading ${values.warranty || 'lifetime'} yea
     ]
   },
   {
-    slug: 'referral-system-builder',
+    slug: 'roof-referral-request-generator',
     title: 'Professional Referral Pipeline & Loyalty System',
     seoDescription: 'Strategic referral tracking system for roofing contractors to increase organic lead volume through professional networking.',
     type: 'template',
