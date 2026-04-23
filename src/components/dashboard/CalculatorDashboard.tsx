@@ -112,7 +112,7 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
           <button
             onClick={handleCreateNew}
             disabled={isCreating}
-            className="h-20 px-10 bg-[#0F172A] hover:bg-black text-white font-black rounded-[2rem] text-[18px] shadow-2xl shadow-slate-200 flex items-center gap-4 transition-all hover:scale-[1.02] active:scale-95 border-none group cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
+            className="h-16 sm:h-20 px-6 sm:px-10 bg-[#0F172A] hover:bg-black text-white font-black rounded-[2rem] text-[16px] sm:text-[18px] shadow-2xl shadow-slate-200 flex items-center gap-4 transition-all hover:scale-[1.02] active:scale-95 border-none group cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
           >
             {isCreating ? <Loader2 className="w-6 h-6 animate-spin" /> : <Plus className="w-6 h-6 stroke-[3px] group-hover:rotate-90 transition-transform duration-300" />}
             Build New Machine

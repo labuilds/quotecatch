@@ -2,9 +2,22 @@
 CREATE TABLE public.users (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
   email TEXT NOT NULL,
+  first_name TEXT,
+  last_name TEXT,
   company_name TEXT,
+  website TEXT,
+  webhook_url TEXT,
+  company_logo_url TEXT,
+  company_description TEXT,
+  phone TEXT,
+  facebook_url TEXT,
+  linkedin_url TEXT,
+  instagram_url TEXT,
   stripe_customer_id TEXT,
-  is_pro BOOLEAN DEFAULT false
+  is_pro BOOLEAN DEFAULT false,
+  trial_ends_at TIMESTAMPTZ,
+  subscription_status TEXT DEFAULT 'trialing',
+  updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- Create calculators table

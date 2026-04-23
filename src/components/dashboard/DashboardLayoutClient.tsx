@@ -166,8 +166,9 @@ export default function DashboardLayoutClient({
         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
           <SheetTrigger
             render={
-              <button type="button" className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "text-slate-600")}>
-                <Menu className="w-6 h-6" />
+              <button type="button" className={cn(buttonVariants({ variant: "ghost", size: "sm" }), "text-slate-600 gap-2 font-black px-2")}>
+                <Menu className="w-5 h-5 text-slate-400" />
+                <span className="text-[12px] uppercase tracking-wider">Menu</span>
               </button>
             }
           />
@@ -180,7 +181,7 @@ export default function DashboardLayoutClient({
       <div className="flex-1 flex flex-col min-w-0 bg-slate-50">
         
         <main className={cn(
-          "flex-1 overflow-auto relative custom-scrollbar",
+          "flex-1 overflow-auto relative custom-scrollbar scroll-smooth",
           (isPro || !trialEndsAt) && "pt-16 lg:pt-0"
         )}>
           {isLocked && <LockoutOverlay />}

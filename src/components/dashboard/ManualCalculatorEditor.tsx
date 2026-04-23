@@ -222,7 +222,7 @@ export default function ManualCalculatorEditor({
   ]
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-[#F8FAFC] overflow-hidden">
+    <div className="flex flex-col lg:flex-row lg:h-screen w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-[#F8FAFC] overflow-visible lg:overflow-hidden">
       
       {/* Mobile Perspective Toggle */}
       <div className="lg:hidden shrink-0 p-4 bg-white border-b flex items-center justify-between z-20">
@@ -254,7 +254,7 @@ export default function ManualCalculatorEditor({
 
       {/* Left Sidebar: Controls */}
       <div className={cn(
-        "w-full lg:w-[42%] h-full p-6 lg:p-10 overflow-y-auto border-b lg:border-b-0 lg:border-r bg-white flex flex-col shadow-2xl z-10 custom-scrollbar",
+        "w-full lg:w-[42%] h-auto lg:h-full p-6 lg:p-10 lg:overflow-y-auto border-b lg:border-b-0 lg:border-r bg-white flex flex-col shadow-2xl z-10 custom-scrollbar",
         mobileView !== 'editor' && "hidden lg:flex"
       )}>
 
@@ -628,7 +628,7 @@ export default function ManualCalculatorEditor({
 
       {/* Right Content: Live Preview */}
       <div className={cn(
-        "w-full lg:flex-1 h-full bg-slate-100/50 flex flex-col items-center justify-start p-6 lg:pt-10 lg:px-10 lg:pb-4 overflow-y-auto relative",
+        "w-full lg:flex-1 h-auto lg:h-full bg-slate-100/50 flex flex-col items-center justify-start p-6 lg:pt-10 lg:px-10 lg:pb-4 lg:overflow-y-auto relative",
         mobileView !== 'preview' && "hidden lg:flex"
       )}>
 
