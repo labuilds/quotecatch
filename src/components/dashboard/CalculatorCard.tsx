@@ -258,7 +258,7 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
                 <DialogTitle className="text-[22px] sm:text-[28px] font-black text-[#0F172A] tracking-tight truncate">
                   Deploy Machine
                 </DialogTitle>
-                <DialogDescription className="text-[10px] sm:text-[12px] font-black text-slate-400 uppercase tracking-[0.2em] pt-0.5 sm:pt-1 truncate">
+                <DialogDescription className="text-[10px] sm:text-[12px] font-black text-slate-400 uppercase tracking-[0.2em] truncate">
                   {calc.name}
                 </DialogDescription>
               </div>

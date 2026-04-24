@@ -68,8 +68,8 @@ function DialogContent({
               <button
                 type="button"
                 className={cn(
-                  buttonVariants({ variant: "ghost", size: "icon-sm" }),
-                  "absolute top-2 right-2 cursor-pointer",
+                  buttonVariants({ variant: "ghost", size: "icon" }),
+                  "absolute top-4 right-4 cursor-pointer rounded-full bg-slate-50/80 hover:bg-slate-100 border border-slate-100 transition-all z-50 h-10 w-10",
                   closeButtonClassName
                 )}
               />

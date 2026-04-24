@@ -135,16 +135,16 @@ function SupportModal({ onClose }: { onClose: () => void }) {
         style={{ maxHeight: "calc(100vh - 5rem)" }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
           <div>
-            <h2 className="text-[24px] font-semibold text-slate-900 tracking-tight">Contact Support</h2>
-            <p className="text-[16px] text-slate-400 font-medium mt-0.5">We usually reply within a few hours.</p>
+            <h2 className="text-[24px] font-semibold text-slate-900 tracking-tight leading-none mb-1.5">Contact Support</h2>
+            <p className="text-[16px] text-slate-400 font-medium">We usually reply within a few hours.</p>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-all cursor-pointer"
+            className="w-10 h-10 flex items-center justify-center rounded-full text-slate-400 hover:text-slate-700 bg-slate-50 hover:bg-slate-100 transition-all cursor-pointer border border-slate-100"
           >
-            <X className="w-4 h-4" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
