@@ -41,7 +41,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
     <AnimatePresence>
       {isOpen && (
         <div 
-          className="fixed inset-0 flex items-center justify-center p-6 sm:p-10 pointer-events-auto"
+          className="fixed inset-0 flex items-center justify-center p-12 sm:p-20 pointer-events-auto"
           style={{ zIndex: 9999999, isolation: "isolate" }}
         >
           {/* Backdrop */}
@@ -59,8 +59,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.93, y: 24 }}
             transition={{ type: "spring", damping: 26, stiffness: 380 }}
-            className="relative w-full max-w-xl bg-[#0F172A] rounded-[2.5rem] shadow-[0_40px_120px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-red-500/20"
-            style={{ maxHeight: "calc(100vh - 2rem)" }}
+            className="relative w-full max-w-xl bg-[#0F172A] rounded-[2.5rem] shadow-[0_40px_120px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-red-500/20 max-h-full"
           >
             {/* Close */}
             <button
