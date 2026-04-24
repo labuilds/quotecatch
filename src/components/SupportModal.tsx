@@ -137,8 +137,8 @@ function SupportModal({ onClose }: { onClose: () => void }) {
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
           <div>
-            <h2 className="text-[20px] font-semibold text-slate-900 tracking-tight">Contact Support</h2>
-            <p className="text-[14px] text-slate-400 font-medium mt-0.5">We usually reply within a few hours.</p>
+            <h2 className="text-[24px] font-semibold text-slate-900 tracking-tight">Contact Support</h2>
+            <p className="text-[16px] text-slate-400 font-medium mt-0.5">We usually reply within a few hours.</p>
           </div>
           <button
             onClick={onClose}
@@ -151,7 +151,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
         {/* Body */}
         <form onSubmit={handleSend} className="p-6 space-y-6">
           <div className="space-y-2">
-            <label className="text-[14px] font-semibold text-slate-400 uppercase tracking-widest px-1">
+            <label className="text-[16px] font-semibold text-slate-400 uppercase tracking-widest px-1">
               What can we help you with?
             </label>
             <textarea
@@ -160,13 +160,13 @@ function SupportModal({ onClose }: { onClose: () => void }) {
               onChange={e => setMessage(e.target.value)}
               placeholder="Describe your issue, question, or feature request..."
               rows={6}
-              className="w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-[16px] font-medium text-slate-900 placeholder:text-slate-400 placeholder:font-medium focus:outline-none focus:ring-4 focus:ring-slate-900/5 focus:border-slate-900 transition-all leading-relaxed"
+              className="w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-[18px] font-medium text-slate-900 placeholder:text-slate-400 placeholder:font-medium focus:outline-none focus:ring-4 focus:ring-slate-900/5 focus:border-slate-900 transition-all leading-relaxed"
             />
           </div>
 
           <div className="space-y-3">
             <div className="flex items-center justify-between px-1">
-              <label className="text-[14px] font-semibold text-slate-400 uppercase tracking-widest">
+              <label className="text-[16px] font-semibold text-slate-400 uppercase tracking-widest">
                 Screenshots ({screenshots.length}/5)
               </label>
             </div>
@@ -220,7 +220,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
             <button
               type="submit"
               disabled={!message.trim() || sending || sent}
-              className={`w-full flex items-center justify-center gap-2 h-14 px-10 font-black rounded-2xl text-[16px] transition-all cursor-pointer disabled:cursor-not-allowed ${
+              className={`w-full flex items-center justify-center gap-2 h-14 px-10 font-black rounded-2xl text-[18px] transition-all cursor-pointer disabled:cursor-not-allowed ${
                 sent
                   ? "bg-emerald-500 text-white"
                   : "bg-[#0F172A] hover:bg-black text-white shadow-[0_8px_20px_rgba(15,23,42,0.2)] hover:-translate-y-0.5 disabled:opacity-50 disabled:translate-y-0"
@@ -236,10 +236,10 @@ function SupportModal({ onClose }: { onClose: () => void }) {
             </button>
             
             <div className="text-center pt-2 border-t border-slate-50">
-              <p className="text-[12px] text-slate-400 font-bold uppercase tracking-widest mb-1.5 underline underline-offset-4 decoration-slate-200">Founder & Direct Support</p>
+              <p className="text-[14px] text-slate-400 font-bold uppercase tracking-widest mb-1.5 underline underline-offset-4 decoration-slate-200">Founder & Direct Support</p>
               <a
                 href="mailto:founder@getquotecatch.com"
-                className="text-[15px] text-slate-900 font-extrabold hover:text-red-700 transition-colors"
+                className="text-[17px] text-slate-900 font-extrabold hover:text-red-700 transition-colors"
               >
                 founder@getquotecatch.com
               </a>
