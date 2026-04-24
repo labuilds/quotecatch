@@ -84,7 +84,7 @@ const SidebarContent = ({
         </div>
       </nav>
 
-      <div className="p-7 border-t border-slate-100 bg-slate-50/50 mt-auto">
+      <div className="px-4 py-7 border-t border-slate-100 bg-slate-50/50 mt-auto">
         <div className="flex flex-col gap-6">
           {!isPro && <SidebarUpgradeCard trialDaysRemaining={trialDaysRemaining} />}
 

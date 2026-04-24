@@ -26,7 +26,7 @@ export function SidebarUpgradeCard({ trialDaysRemaining = 14 }: { trialDaysRemai
 
   return (
     <>
-      <div className="group relative overflow-hidden w-full rounded-[32px] bg-white border border-slate-200/60 p-6 shadow-sm transition-all duration-700 hover:shadow-xl hover:shadow-red-500/5 hover:-translate-y-1">
+      <div className="group relative overflow-hidden w-full rounded-[32px] bg-white border border-slate-200/60 p-5 shadow-sm transition-all duration-700 hover:shadow-xl hover:shadow-red-500/5 hover:-translate-y-1">
         {/* Animated Gradient Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-red-50/30 via-slate-50/10 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         
