@@ -55,6 +55,9 @@ export async function createDodoCheckoutSession() {
     const sessionSettings: any = {
       product_collection_id: DODO_COLLECTION_ID,
       product_cart: [], // Required even for collection-based checkouts
+      subscription_data: {
+        trial_period_days: trialDays
+      },
       customer: {
         email: user.email!,
         name: user.email?.split("@")[0] ?? "Customer",
@@ -67,8 +70,7 @@ export async function createDodoCheckoutSession() {
 
     console.log("[Billing] Creating Dodo session (Collection Mode) with:", JSON.stringify(sessionSettings, null, 2))
     
-    // Note: Dodo often requires trial periods to be set in the Dashboard for collections.
-    // Top-level subscription_data can trigger 422 if the collection isn't strictly recognized as sub-only at this step.
+    // Pass dynamic trial_period_days to ensure existing trial remnants are honored
     const session = await dodo.checkoutSessions.create(sessionSettings)
 
     if (!session || !session.checkout_url) {
