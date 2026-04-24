@@ -188,7 +188,7 @@ export function BillingClient({
                   <Button
                     onClick={handleUpgrade}
                     disabled={isLoading}
-                    className="w-full sm:w-auto h-16 px-10 bg-white text-[#0F172A] font-black text-[18px] rounded-2xl hover:bg-slate-50 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] shadow-2xl border-none flex items-center gap-2 relative overflow-hidden group cursor-pointer"
+                    className="w-full sm:w-auto h-14 px-10 bg-red-600 text-white font-black text-[16px] rounded-xl hover:bg-red-500 border-none shadow-2xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 relative overflow-hidden group cursor-pointer"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
                     {isLoading ? (

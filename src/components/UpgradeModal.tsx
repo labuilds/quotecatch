@@ -107,7 +107,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
 
                   <Button
                     onClick={onUpgrade}
-                    className="w-full h-16 lg:h-18 rounded-2xl font-black text-[18px] bg-white text-[#0F172A] hover:bg-slate-50 border-none shadow-2xl transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] relative overflow-hidden group cursor-pointer"
+                    className="w-full h-14 rounded-xl font-black text-[16px] bg-red-600 text-white hover:bg-red-500 border-none shadow-2xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden group cursor-pointer"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
                     <span className="relative z-10 flex items-center gap-2">
