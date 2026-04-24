@@ -91,7 +91,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
                   <div className="flex items-baseline gap-1 mb-6">
                     <span className="text-[48px] font-black text-white tracking-tighter">$49</span>
                     <span className="text-[18px] font-bold text-slate-300">/mo</span>
-                    <span className="ml-3 text-[12px] font-black text-emerald-500 uppercase tracking-widest bg-emerald-500/10 px-2.5 py-1 rounded">Risk-free. Pay $0 today.</span>
+                    <span className="ml-3 text-[12px] font-black text-emerald-500 uppercase tracking-widest bg-emerald-500/10 px-2.5 py-1 rounded">No Commitment. Pay $0 Today.</span>
                   </div>
 
                   <div className="space-y-4 mb-8">
