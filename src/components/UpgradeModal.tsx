@@ -65,9 +65,9 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
             {/* Close */}
             <button
               onClick={onClose}
-              className="absolute top-6 right-6 z-20 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all group cursor-pointer"
+              className="absolute top-6 right-6 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all backdrop-blur-md border border-white/20 shadow-lg cursor-pointer"
             >
-              <X className="w-5 h-5 text-white/50 group-hover:text-white" />
+              <X className="w-6 h-6 text-white" />
             </button>
 
             {/* ── Scrollable body ── */}

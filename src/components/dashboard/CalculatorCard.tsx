@@ -245,14 +245,14 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
       <Dialog open={showShare} onOpenChange={setShowShare}>
         <DialogContent 
           className="w-[calc(100%-2.5rem)] sm:w-[90vw] md:w-full max-w-3xl lg:max-w-5xl rounded-[2rem] sm:rounded-[2.5rem] lg:rounded-[3.5rem] border-slate-100 p-5 sm:p-10 lg:p-16 shadow-3xl bg-white font-sans overflow-y-auto max-h-[85vh] sm:max-h-[90vh]"
-          closeButtonClassName="top-4 right-4 sm:top-8 sm:right-8"
+          closeButtonClassName="top-6 right-6 sm:top-12 sm:right-12 lg:top-16 lg:right-16"
         >
           <div className="absolute top-0 right-0 -mr-12 -mt-12 sm:-mr-20 sm:-mt-20 w-40 h-40 sm:w-80 sm:h-80 bg-red-50/50 rounded-full blur-2xl sm:blur-3xl -z-10" />
           
           <DialogHeader className="text-left">
             <div className="flex items-center gap-3 sm:gap-4">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-[1rem] sm:rounded-[1.25rem] bg-slate-50 flex items-center justify-center shrink-0">
-                <Share className="w-5 h-5 sm:w-6 sm:h-6 text-[#0F172A]" />
+              <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100 shadow-sm transition-all duration-500">
+                <Share className="w-5 h-5 sm:w-7 sm:h-7 text-[#0F172A]" />
               </div>
               <div className="min-w-0">
                 <DialogTitle className="text-[22px] sm:text-[28px] font-black text-[#0F172A] tracking-tight truncate">

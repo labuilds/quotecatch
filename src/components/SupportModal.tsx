@@ -82,7 +82,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
         alert(`${file.name} is too large (>10MB)`)
         continue
       }
-      
+
       const reader = new FileReader()
       reader.onloadend = async () => {
         const compressed = await compressImage(reader.result as string)
@@ -99,9 +99,9 @@ function SupportModal({ onClose }: { onClose: () => void }) {
     if (!message.trim()) return
     setSending(true)
     try {
-      await sendSupportEmail({ 
-        message, 
-        screenshots: screenshots.length > 0 ? screenshots : undefined 
+      await sendSupportEmail({
+        message,
+        screenshots: screenshots.length > 0 ? screenshots : undefined
       })
       setSent(true)
       setTimeout(() => {
@@ -130,15 +130,20 @@ function SupportModal({ onClose }: { onClose: () => void }) {
       <div className="absolute inset-0 bg-slate-900/20 backdrop-blur-sm" />
 
       {/* Modal */}
-      <div 
+      <div
         className="relative w-full max-w-xl bg-white rounded-3xl shadow-[0_24px_80px_rgba(0,0,0,0.18)] border border-slate-100 flex flex-col overflow-hidden"
         style={{ maxHeight: "calc(100vh - 5rem)" }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100">
-          <div>
-            <h2 className="text-[24px] font-semibold text-slate-900 tracking-tight leading-none mb-1.5">Contact Support</h2>
-            <p className="text-[16px] text-slate-400 font-medium">We usually reply within a few hours.</p>
+        <div className="flex items-center justify-between px-6 pt-10 pb-6 border-b border-slate-100">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100 shadow-sm transition-all duration-500">
+              <ShieldCheck className="w-6 h-6 sm:w-8 sm:h-8 text-[#0F172A]" />
+            </div>
+            <div>
+              <h2 className="text-[24px] font-semibold text-slate-900 tracking-tight leading-none mb-1.5">Contact Support</h2>
+              <p className="text-[16px] text-slate-400 font-medium">We usually reply within a few hours.</p>
+            </div>
           </div>
           <button
             onClick={onClose}
@@ -151,9 +156,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
         {/* Body */}
         <form onSubmit={handleSend} className="p-6 space-y-6">
           <div className="space-y-2">
-            <label className="text-[16px] font-semibold text-slate-400 uppercase tracking-widest px-1">
-              What can we help you with?
-            </label>
+
             <textarea
               ref={textareaRef}
               value={message}
@@ -166,7 +169,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
 
           <div className="space-y-3">
             <div className="flex items-center justify-between px-1">
-              <label className="text-[16px] font-semibold text-slate-400 uppercase tracking-widest">
+              <label className="text-[18px] font-semibold text-slate-400 tracking-widest">
                 Screenshots ({screenshots.length}/5)
               </label>
             </div>
@@ -203,7 +206,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
                 className="w-full h-24 border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center gap-2 text-slate-400 hover:text-slate-600 hover:border-slate-400 hover:bg-slate-50 transition-all"
               >
                 <ImageIcon className="w-6 h-6" />
-                <span className="text-[14px] font-bold">Click to upload screenshots</span>
+                <span className="text-[16px] font-bold">Click to upload screenshots</span>
               </button>
             )}
             <input
@@ -220,11 +223,10 @@ function SupportModal({ onClose }: { onClose: () => void }) {
             <button
               type="submit"
               disabled={!message.trim() || sending || sent}
-              className={`w-full flex items-center justify-center gap-2 h-14 px-10 font-black rounded-2xl text-[18px] transition-all cursor-pointer disabled:cursor-not-allowed ${
-                sent
-                  ? "bg-emerald-500 text-white"
-                  : "bg-[#0F172A] hover:bg-black text-white shadow-[0_8px_20px_rgba(15,23,42,0.2)] hover:-translate-y-0.5 disabled:opacity-50 disabled:translate-y-0"
-              }`}
+              className={`w-full flex items-center justify-center gap-2 h-14 px-10 font-black rounded-2xl text-[18px] transition-all cursor-pointer disabled:cursor-not-allowed ${sent
+                ? "bg-emerald-500 text-white"
+                : "bg-[#0F172A] hover:bg-black text-white shadow-[0_8px_20px_rgba(15,23,42,0.2)] hover:-translate-y-0.5 disabled:opacity-50 disabled:translate-y-0"
+                }`}
             >
               {sending ? (
                 <><Loader2 className="w-5 h-5 animate-spin" /> Sending Message...</>
@@ -234,7 +236,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
                 <><Send className="w-5 h-5" /> Send Message</>
               )}
             </button>
-            
+
             <div className="text-center pt-2 border-t border-slate-50">
               <p className="text-[14px] text-slate-400 font-bold uppercase tracking-widest mb-1.5 underline underline-offset-4 decoration-slate-200">Founder & Direct Support</p>
               <a
