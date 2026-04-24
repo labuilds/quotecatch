@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { createDodoCheckoutSession } from "@/app/actions/billing"
 
 const proFeatures = [
-  "Remote Satellite measurements (Google Solar API)",
+  "Remote Satellite measurements",
   "Full Qualified Leads with Property Specs",
   "Company Branding & Logo Setup",
   "Unlimited Smart Pricing Engines",

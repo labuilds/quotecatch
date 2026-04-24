@@ -14,7 +14,7 @@ interface UpgradeModalProps {
 }
 
 const features = [
-  "Instant satellite roof measurements (Full Solar API)",
+  "Instant satellite roof measurements",
   "Unlimited qualified lead capture",
   "Unlimited active pricing engines",
   "Zapier & Webhook integrations",
@@ -84,7 +84,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
                 </h2>
                 
                 <p className="text-[16px] text-slate-300 font-medium leading-relaxed mb-8">
-                  Keep your satellite measurements and premium integrations active after your trial ends.
+                  Keep your premium integrations active after your trial ends.
                 </p>
 
                 <div className="mb-10 p-6 bg-white/5 rounded-3xl border border-white/10">
