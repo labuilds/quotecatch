@@ -74,7 +74,7 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
   }
 
   return (
-    <div className="space-y-16 max-w-7xl mx-auto px-6 pb-20 font-sans relative">
+    <div className="space-y-16 max-w-7xl mx-auto px-6 pb-20 font-sans relative overflow-x-hidden">
       {/* Premium background effects */}
       <div className="absolute top-0 right-0 -mr-20 w-[500px] h-[500px] bg-red-50/40 rounded-full blur-[120px] -z-10 pointer-events-none" />
       <div className="absolute top-40 left-0 -ml-20 w-[400px] h-[400px] bg-slate-50/60 rounded-full blur-[100px] -z-10 pointer-events-none" />
