@@ -147,7 +147,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
           </div>
           <button
             onClick={onClose}
-            className="w-10 h-10 flex items-center justify-center rounded-full text-slate-400 hover:text-slate-700 bg-slate-50 hover:bg-slate-100 transition-all cursor-pointer border border-slate-100"
+            className="w-10 h-10 flex items-center justify-center rounded-full text-slate-400 hover:text-slate-700 bg-slate-50 hover:bg-slate-100 transition-all cursor-pointer border border-slate-100 -mt-2"
           >
             <X className="w-5 h-5" />
           </button>
