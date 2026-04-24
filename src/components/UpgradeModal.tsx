@@ -65,7 +65,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
             {/* Close */}
             <button
               onClick={onClose}
-              className="absolute top-6 right-6 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all backdrop-blur-md border border-white/20 shadow-lg cursor-pointer"
+              className="absolute top-8 right-8 sm:top-14 sm:right-12 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all backdrop-blur-md border border-white/20 shadow-lg cursor-pointer"
             >
               <X className="w-6 h-6 text-white" />
             </button>
