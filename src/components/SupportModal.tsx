@@ -122,7 +122,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
   return createPortal(
     <div
       ref={overlayRef}
-      className="fixed inset-0 flex items-center justify-center p-6 pointer-events-auto"
+      className="fixed inset-0 flex items-center justify-center px-0 sm:px-6 py-10 pointer-events-auto"
       style={{ zIndex: 9999999, isolation: "isolate" }}
       onClick={(e) => { if (e.target === overlayRef.current) onClose() }}
     >
