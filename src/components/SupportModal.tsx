@@ -122,7 +122,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
   return createPortal(
     <div
       ref={overlayRef}
-      className="fixed inset-0 flex items-center justify-center p-[34px] pointer-events-auto"
+      className="fixed inset-0 flex items-center justify-center p-6 pointer-events-auto"
       style={{ zIndex: 9999999, isolation: "isolate" }}
       onClick={(e) => { if (e.target === overlayRef.current) onClose() }}
     >
@@ -130,7 +130,10 @@ function SupportModal({ onClose }: { onClose: () => void }) {
       <div className="absolute inset-0 bg-slate-900/20 backdrop-blur-sm" />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md bg-white rounded-3xl shadow-[0_24px_80px_rgba(0,0,0,0.18)] border border-slate-100 overflow-hidden flex flex-col max-h-full">
+      <div 
+        className="relative w-full max-w-md bg-white rounded-3xl shadow-[0_24px_80px_rgba(0,0,0,0.18)] border border-slate-100 flex flex-col overflow-hidden"
+        style={{ maxHeight: "calc(100vh - 5rem)" }}
+      >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
           <div>
@@ -146,7 +149,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
         </div>
 
         {/* Body */}
-        <form onSubmit={handleSend} className="p-6 space-y-6 overflow-y-auto custom-scrollbar">
+        <form onSubmit={handleSend} className="p-6 space-y-6">
           <div className="space-y-2">
             <label className="text-[14px] font-semibold text-slate-400 uppercase tracking-widest px-1">
               What can we help you with?
