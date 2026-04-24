@@ -78,7 +78,7 @@ export default function LeadCaptureModal({
       >
         <div className="p-8 sm:p-10 space-y-8">
           <div className="space-y-2">
-            <h2 className="text-[32px] sm:text-[36px] font-black text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-[32px] sm:text-[36px] font-semibold text-slate-900 tracking-tight leading-[1.1]">
               Where should we send your estimates?
             </h2>
           </div>
@@ -86,7 +86,7 @@ export default function LeadCaptureModal({
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-5">
               <div className="space-y-2">
-                <Label className="text-[14px] font-bold text-slate-400 uppercase tracking-widest ml-1">Name*</Label>
+                <Label className="text-[16px] font-semibold text-slate-600 uppercase tracking-widest ml-1">Name*</Label>
                 <div className="relative group">
                   <User className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300 group-focus-within:text-slate-900 transition-colors" />
                   <Input 
@@ -100,7 +100,7 @@ export default function LeadCaptureModal({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-[14px] font-bold text-slate-400 uppercase tracking-widest ml-1">Email*</Label>
+                  <Label className="text-[16px] font-semibold text-slate-600 uppercase tracking-widest ml-1">Email*</Label>
                   <div className="relative group">
                     <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300 group-focus-within:text-slate-900 transition-colors" />
                     <Input 
@@ -113,7 +113,7 @@ export default function LeadCaptureModal({
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-[14px] font-bold text-slate-400 uppercase tracking-widest ml-1">Phone*</Label>
+                  <Label className="text-[16px] font-semibold text-slate-600 uppercase tracking-widest ml-1">Phone*</Label>
                   <div className="relative group">
                     <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-300 group-focus-within:text-slate-900 transition-colors" />
                     <Input 
@@ -141,7 +141,7 @@ export default function LeadCaptureModal({
                     {formData.agreeTerms && <CheckCircle className="w-4 h-4 text-red-700" />}
                   </div>
                 </div>
-                <p className="text-[16px] text-slate-500 font-medium leading-relaxed">
+                <p className="text-[16px] text-slate-600 font-medium leading-relaxed">
                   I agree to the <span className="text-slate-900 border-b border-slate-900/20 cursor-pointer">Terms of Service</span> and <span className="text-slate-900 border-b border-slate-900/20 cursor-pointer">Privacy Policy</span>.
                 </p>
               </label>
@@ -159,18 +159,18 @@ export default function LeadCaptureModal({
                     {formData.agreeMarketing && <CheckCircle className="w-4 h-4 text-red-700" />}
                   </div>
                 </div>
-                <p className="text-[14px] text-slate-400 font-medium leading-relaxed">
-                  To ensure you’re getting the best offers and pricing, <span className="text-slate-900 font-bold">{companyName}</span> may need to contact you by text/call. By checking this box, you agree to these communications, including marketing and promotional messages. Message and data rates may apply. You can reply STOP to opt-out of future messaging; reply HELP for messaging help. Message frequency may vary.
+                <p className="text-[16px] text-slate-600 font-medium leading-relaxed">
+                  To ensure you’re getting the best offers and pricing, <span className="text-slate-900 font-semibold">{companyName}</span> may need to contact you by text/call. By checking this box, you agree to these communications, including marketing and promotional messages. Message and data rates may apply. You can reply STOP to opt-out of future messaging; reply HELP for messaging help. Message frequency may vary.
                 </p>
               </label>
             </div>
 
-            {error && <p className="text-red-600 text-sm font-bold text-center">{error}</p>}
+            {error && <p className="text-red-600 text-sm font-semibold text-center">{error}</p>}
 
             <button 
               type="submit"
               disabled={isSubmitting}
-              className="w-full h-16 bg-[#0F172A] hover:bg-black text-white rounded-[1.25rem] font-black text-[18px] transition-all shadow-xl shadow-slate-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 mt-4"
+              className="w-full h-16 bg-[#0F172A] hover:bg-black text-white rounded-[1.25rem] font-semibold text-[18px] transition-all shadow-xl shadow-slate-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 mt-4"
             >
               {isSubmitting ? <Loader2 className="w-6 h-6 animate-spin" /> : <>Get my estimate <ChevronRight className="w-5 h-5" /></>}
             </button>

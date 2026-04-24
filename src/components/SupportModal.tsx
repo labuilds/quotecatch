@@ -12,7 +12,7 @@ export function SupportButton() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-4 w-full px-6 py-4 text-slate-400 hover:text-slate-900 hover:bg-slate-50 rounded-2xl transition-all duration-200 font-black text-[18px] group cursor-pointer"
+        className="flex items-center gap-4 w-full px-6 py-4 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-2xl transition-all duration-200 font-semibold text-[18px] group cursor-pointer"
       >
         <MessageSquare className="w-5 h-5 shrink-0 group-hover:text-red-700 transition-colors" />
         <span className="whitespace-nowrap">Contact Support</span>
@@ -141,12 +141,12 @@ function SupportModal({ onClose }: { onClose: () => void }) {
             </div>
             <div>
               <h2 className="text-[24px] font-semibold text-slate-900 tracking-tight leading-none mb-1.5">Contact Support</h2>
-              <p className="text-[16px] text-slate-400 font-medium">We usually reply within a few hours.</p>
+              <p className="text-[16px] text-slate-600 font-medium">We usually reply within a few hours.</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-10 h-10 flex items-center justify-center rounded-full text-slate-400 hover:text-slate-700 bg-slate-50 hover:bg-slate-100 transition-all cursor-pointer border border-slate-100 -mt-2"
+            className="w-10 h-10 flex items-center justify-center rounded-full text-slate-600 hover:text-slate-700 bg-slate-50 hover:bg-slate-100 transition-all cursor-pointer border border-slate-100 -mt-2"
           >
             <X className="w-5 h-5" />
           </button>
@@ -162,13 +162,13 @@ function SupportModal({ onClose }: { onClose: () => void }) {
               onChange={e => setMessage(e.target.value)}
               placeholder="Describe your issue, question, or feature request..."
               rows={6}
-              className="w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-[18px] font-medium text-slate-900 placeholder:text-slate-400 placeholder:font-medium focus:outline-none focus:ring-4 focus:ring-slate-900/5 focus:border-slate-900 transition-all leading-relaxed"
+              className="w-full resize-none rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-[18px] font-medium text-slate-900 placeholder:text-slate-600 placeholder:font-medium focus:outline-none focus:ring-4 focus:ring-slate-900/5 focus:border-slate-900 transition-all leading-relaxed"
             />
           </div>
 
           <div className="space-y-3">
             <div className="flex items-center justify-between px-1">
-              <label className="text-[18px] font-semibold text-slate-400 tracking-widest">
+              <label className="text-[18px] font-semibold text-slate-600 tracking-widest">
                 Screenshots ({screenshots.length}/5)
               </label>
             </div>
@@ -191,10 +191,10 @@ function SupportModal({ onClose }: { onClose: () => void }) {
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="aspect-video border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-slate-600 hover:border-slate-400 hover:bg-slate-50 transition-all"
+                    className="aspect-video border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center gap-1 text-slate-600 hover:text-slate-600 hover:border-slate-400 hover:bg-slate-50 transition-all"
                   >
                     <ImageIcon className="w-5 h-5" />
-                    <span className="text-[11px] font-bold">Add Another</span>
+                    <span className="text-[11px] font-semibold">Add Another</span>
                   </button>
                 )}
               </div>
@@ -202,10 +202,10 @@ function SupportModal({ onClose }: { onClose: () => void }) {
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="w-full h-24 border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center gap-2 text-slate-400 hover:text-slate-600 hover:border-slate-400 hover:bg-slate-50 transition-all"
+                className="w-full h-24 border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center gap-2 text-slate-600 hover:text-slate-600 hover:border-slate-400 hover:bg-slate-50 transition-all"
               >
                 <ImageIcon className="w-6 h-6" />
-                <span className="text-[16px] font-bold">Click to upload screenshots</span>
+                <span className="text-[16px] font-semibold">Click to upload screenshots</span>
               </button>
             )}
             <input
@@ -222,7 +222,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
             <button
               type="submit"
               disabled={!message.trim() || sending || sent}
-              className={`w-full flex items-center justify-center gap-2 h-14 px-10 font-black rounded-2xl text-[18px] transition-all cursor-pointer disabled:cursor-not-allowed ${sent
+              className={`w-full flex items-center justify-center gap-2 h-14 px-10 font-semibold rounded-2xl text-[18px] transition-all cursor-pointer disabled:cursor-not-allowed ${sent
                 ? "bg-emerald-500 text-white"
                 : "bg-[#0F172A] hover:bg-black text-white shadow-[0_8px_20px_rgba(15,23,42,0.2)] hover:-translate-y-0.5 disabled:opacity-50 disabled:translate-y-0"
                 }`}
@@ -237,7 +237,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
             </button>
 
             <div className="text-center pt-2 border-t border-slate-50">
-              <p className="text-[14px] text-slate-400 font-bold uppercase tracking-widest mb-1.5 underline underline-offset-4 decoration-slate-200">Founder & Direct Support</p>
+              <p className="text-[16px] text-slate-600 font-semibold uppercase tracking-widest mb-1.5 underline underline-offset-4 decoration-slate-200">Founder & Direct Support</p>
               <a
                 href="mailto:founder@getquotecatch.com"
                 className="text-[17px] text-slate-900 font-extrabold hover:text-red-700 transition-colors"

@@ -52,10 +52,10 @@ export function BillingClient({
     <div className="max-w-3xl mx-auto space-y-10 pb-20">
       {/* Page Header */}
       <div>
-        <h1 className="text-[36px] font-black tracking-tighter text-[#0F172A] leading-tight">
+        <h1 className="text-[36px] font-semibold tracking-tighter text-[#0F172A] leading-tight">
           Subscription & Billing
         </h1>
-        <p className="text-slate-500 font-medium text-[16px] mt-1">
+        <p className="text-slate-600 font-medium text-[16px] mt-1">
           Manage your QuoteCatch premium access.
         </p>
       </div>
@@ -67,8 +67,8 @@ export function BillingClient({
             <CheckCircle2 className="w-5 h-5 text-white" />
           </div>
           <div>
-            <p className="font-black text-emerald-900 text-[17px]">Welcome to the Pro Satellite! 🎉</p>
-            <p className="text-emerald-700 font-medium text-[14px] mt-0.5">
+            <p className="font-semibold text-emerald-900 text-[17px]">Welcome to the Pro Satellite! 🎉</p>
+            <p className="text-emerald-700 font-medium text-[16px] mt-0.5">
               Your subscription is now active. All Pro features have been unlocked.
             </p>
           </div>
@@ -87,12 +87,12 @@ export function BillingClient({
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <p className="text-[22px] font-black text-white">Pro Satellite</p>
-                    <span className="text-[11px] font-black uppercase tracking-widest bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">
+                    <p className="text-[22px] font-semibold text-white">Pro Satellite</p>
+                    <span className="text-[11px] font-semibold uppercase tracking-widest bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">
                       Active
                     </span>
                   </div>
-                  <p className="text-slate-400 font-medium text-[14px]">$49 / month · Premium Access</p>
+                  <p className="text-slate-600 font-medium text-[16px]">$49 / month · Premium Access</p>
                 </div>
               </div>
 
@@ -102,7 +102,7 @@ export function BillingClient({
                     <div className="w-5 h-5 rounded-full bg-red-500/20 flex items-center justify-center shrink-0">
                       <Check className="w-3 h-3 text-red-400" />
                     </div>
-                    <span className="text-[14px] font-bold text-slate-200">{f}</span>
+                    <span className="text-[16px] font-semibold text-slate-200">{f}</span>
                   </div>
                 ))}
               </div>
@@ -110,14 +110,14 @@ export function BillingClient({
           </section>
 
           <section className="bg-white border border-slate-100 rounded-[32px] p-8 shadow-sm">
-            <h3 className="text-[18px] font-black text-[#0F172A] mb-2">Manage Account</h3>
-            <p className="text-slate-500 font-medium text-[14px] mb-6 leading-relaxed">
+            <h3 className="text-[18px] font-semibold text-[#0F172A] mb-2">Manage Account</h3>
+            <p className="text-slate-600 font-medium text-[16px] mb-6 leading-relaxed">
               To update your billing info, download invoices, or cancel your plan, please contact us at{" "}
-              <a href="mailto:hello@getquotecatch.com" className="text-red-700 font-bold hover:underline">
+              <a href="mailto:hello@getquotecatch.com" className="text-red-700 font-semibold hover:underline">
                 hello@getquotecatch.com
               </a>.
             </p>
-            <div className="flex items-center gap-3 text-[13px] text-slate-400 font-bold">
+            <div className="flex items-center gap-3 text-[15px] text-slate-600 font-semibold">
               <ShieldCheck className="w-4 h-4 text-emerald-500" />
               Secure payments via Dodo Payments
             </div>
@@ -131,34 +131,34 @@ export function BillingClient({
             <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full -mr-16 -mt-16 opacity-50" />
             <div className="flex items-center gap-3 mb-6 relative z-10">
               <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center">
-                <Clock className="w-5 h-5 text-slate-500" />
+                <Clock className="w-5 h-5 text-slate-600" />
               </div>
-              <h3 className="text-[18px] font-black text-[#0F172A]">Account Status</h3>
+              <h3 className="text-[18px] font-semibold text-[#0F172A]">Account Status</h3>
             </div>
 
             <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-6 p-6 bg-slate-50 rounded-[28px] border border-slate-100 mb-8">
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <p className="text-[20px] font-black text-slate-900">14-Day Free Trial</p>
-                  <span className="text-[11px] font-black uppercase tracking-widest bg-white border border-slate-200 px-2.5 py-1 rounded-full text-slate-400">
+                  <p className="text-[20px] font-semibold text-slate-900">14-Day Free Trial</p>
+                  <span className="text-[11px] font-semibold uppercase tracking-widest bg-white border border-slate-200 px-2.5 py-1 rounded-full text-slate-600">
                     Active
                   </span>
                 </div>
-                <p className="text-[15px] text-slate-500 font-bold leading-relaxed">
+                <p className="text-[15px] text-slate-600 font-semibold leading-relaxed">
                   You have full unrestricted access to satellite measurements and all premium features.
                 </p>
               </div>
             </div>
 
             <div className="space-y-4 max-w-lg">
-              <p className="text-[14px] font-bold text-slate-400 uppercase tracking-widest">Included in your trial:</p>
+              <p className="text-[16px] font-semibold text-slate-600 uppercase tracking-widest">Included in your trial:</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {proFeatures.slice(0, 4).map((f) => (
                   <div key={f} className="flex items-center gap-2.5">
                     <div className="w-5 h-5 rounded-full bg-emerald-50 flex items-center justify-center shrink-0">
                       <Check className="w-3 h-3 text-emerald-500" />
                     </div>
-                    <span className="text-[13px] font-bold text-slate-600">{f}</span>
+                    <span className="text-[15px] font-semibold text-slate-600">{f}</span>
                   </div>
                 ))}
               </div>
@@ -175,8 +175,8 @@ export function BillingClient({
                     <Zap className="w-6 h-6 text-red-400 fill-red-400/30" />
                   </div>
                   <div>
-                    <p className="text-[24px] font-black text-white">Unlock Lifetime Pro</p>
-                    <p className="text-slate-400 font-bold text-[15px]">$49 / month</p>
+                    <p className="text-[24px] font-semibold text-white">Unlock Lifetime Pro</p>
+                    <p className="text-slate-600 font-semibold text-[15px]">$49 / month</p>
                   </div>
                 </div>
 
@@ -187,7 +187,7 @@ export function BillingClient({
                 <div className="flex flex-col sm:flex-row items-center gap-6">
                   <Button
                     onClick={() => setShowModal(true)}
-                    className="w-full sm:w-auto h-14 px-10 bg-red-600 text-white font-black text-[16px] rounded-xl hover:bg-red-500 border-none shadow-2xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 relative overflow-hidden group cursor-pointer"
+                    className="w-full sm:w-auto h-14 px-10 bg-red-600 text-white font-semibold text-[16px] rounded-xl hover:bg-red-500 border-none shadow-2xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 relative overflow-hidden group cursor-pointer"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
                     <span className="relative z-10 flex items-center gap-2">
@@ -195,7 +195,7 @@ export function BillingClient({
                        Upgrade to Pro Lifetime <ArrowRight className="w-5 h-5 ml-1" />
                     </span>
                   </Button>
-                  <p className="text-slate-400 font-bold text-[14px] flex items-center gap-2">
+                  <p className="text-slate-600 font-semibold text-[16px] flex items-center gap-2">
                     <ShieldCheck className="w-5 h-5 text-emerald-500" />
                     Trusted by 500+ roofers
                   </p>

@@ -48,24 +48,24 @@ export default function Home() {
             <div className="flex-1 text-center lg:text-left space-y-6 lg:space-y-8">
               <div className="inline-flex items-center gap-2 px-3 lg:px-4 py-1.5 lg:py-2 bg-red-50 border border-red-100 rounded-full">
                 <QCLogo size={14} />
-                <span className="text-[11px] lg:text-[13px] font-black text-red-800 uppercase tracking-widest">Built for High-Growth Roofing Teams</span>
+                <span className="text-[11px] lg:text-[15px] font-semibold text-red-800 uppercase tracking-widest">Built for High-Growth Roofing Teams</span>
               </div>
 
-              <h1 className="text-[42px] sm:text-[54px] lg:text-[84px] font-black text-[#0F172A] tracking-tighter leading-[0.95] lg:leading-[0.9]">
+              <h1 className="text-[42px] sm:text-[54px] lg:text-[84px] font-semibold text-[#0F172A] tracking-tighter leading-[0.95] lg:leading-[0.9]">
                 Stop climbing <br className="hidden lg:block" />
                 <span className="text-red-700">roofs for free.</span>
               </h1>
 
-              <p className="text-[16px] lg:text-[22px] text-slate-500 font-medium max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-[16px] lg:text-[22px] text-slate-600 font-medium max-w-2xl mx-auto lg:mx-0 leading-relaxed">
                 Measure any home from your truck with instant satellite tech. Capture high-intent leads with exact square footage and qualified contact info. No more wasting gas on tire-kickers.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 lg:gap-6 pt-2 lg:pt-4">
-                <Link href="/login?tab=signup&intent=pro" className="w-full sm:w-auto group h-14 lg:h-16 px-8 lg:px-10 bg-[#0F172A] text-white flex items-center justify-center gap-3 rounded-2xl lg:rounded-[1.5rem] font-black text-[16px] lg:text-[18px] shadow-xl hover:bg-black hover:-translate-y-1 transition-all transition-duration-300">
+                <Link href="/login?tab=signup&intent=pro" className="w-full sm:w-auto group h-14 lg:h-16 px-8 lg:px-10 bg-[#0F172A] text-white flex items-center justify-center gap-3 rounded-2xl lg:rounded-[1.5rem] font-semibold text-[16px] lg:text-[18px] shadow-xl hover:bg-black hover:-translate-y-1 transition-all transition-duration-300">
                   Start 14-Day Free Trial
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
-                <div className="flex items-center gap-2.5 text-slate-400 font-bold text-[14px] lg:text-[16px]">
+                <div className="flex items-center gap-2.5 text-slate-600 font-semibold text-[16px] lg:text-[16px]">
                   <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0" />
                   No credit card required
                 </div>
@@ -75,7 +75,7 @@ export default function Home() {
             <div id="demo" className="flex-1 w-full max-w-[480px] relative mt-8 lg:mt-0 z-50">
               <div className="absolute -top-10 lg:-top-12 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-md border border-slate-100 px-4 lg:px-6 py-1.5 lg:py-2 rounded-full shadow-sm z-20 flex items-center gap-2 whitespace-nowrap">
                 <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                <span className="text-[10px] lg:text-[12px] font-black text-slate-400 uppercase tracking-widest">Live Playable Demo</span>
+                <span className="text-[10px] lg:text-[16px] font-semibold text-slate-600 uppercase tracking-widest">Live Playable Demo</span>
               </div>
 
               <div className="relative z-50 bg-white rounded-[2rem] lg:rounded-[3rem] shadow-[0_30px_60px_rgba(0,0,0,0.1)] border border-slate-100">
@@ -96,10 +96,10 @@ export default function Home() {
 
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-10 lg:mb-16">
-            <h2 className="text-[36px] lg:text-[64px] font-black text-white tracking-tighter mb-2 lg:mb-3 leading-tight">
+            <h2 className="text-[36px] lg:text-[64px] font-semibold text-white tracking-tighter mb-2 lg:mb-3 leading-tight">
               The <span className="text-red-500">Satellite-First</span> Lead Machine
             </h2>
-            <p className="text-slate-400 text-[18px] lg:text-[24px] font-medium max-w-2xl mx-auto px-4">
+            <p className="text-slate-600 text-[18px] lg:text-[24px] font-medium max-w-2xl mx-auto px-4">
               Stop guessing. Get the exact measurements you need to quote accurately, from Day 1. No more manual math or wasted site visits.
             </p>
           </div>
@@ -136,16 +136,16 @@ export default function Home() {
                   {s.icon}
                 </div>
                 <div className="space-y-3">
-                  <span className="text-[13px] font-black text-red-500 tracking-[0.2em] uppercase">{s.step}</span>
-                  <h4 className="text-[24px] lg:text-[28px] font-black text-white tracking-tight">{s.title}</h4>
-                  <p className="text-slate-400 font-medium leading-relaxed text-[16px] lg:text-[18px]">{s.desc}</p>
+                  <span className="text-[15px] font-semibold text-red-500 tracking-[0.2em] uppercase">{s.step}</span>
+                  <h4 className="text-[24px] lg:text-[28px] font-semibold text-white tracking-tight">{s.title}</h4>
+                  <p className="text-slate-600 font-medium leading-relaxed text-[16px] lg:text-[18px]">{s.desc}</p>
                 </div>
               </div>
             ))}
           </div>
 
           <div className="mt-20 flex flex-col sm:flex-row items-center justify-center gap-6">
-            <Link href="/login?tab=signup&intent=pro" className="h-14 lg:h-16 px-10 bg-white text-[#0F172A] flex items-center justify-center gap-3 rounded-2xl font-black text-[16px] lg:text-[18px] hover:bg-slate-100 transition-all transition-duration-300">
+            <Link href="/login?tab=signup&intent=pro" className="h-14 lg:h-16 px-10 bg-white text-[#0F172A] flex items-center justify-center gap-3 rounded-2xl font-semibold text-[16px] lg:text-[18px] hover:bg-slate-100 transition-all transition-duration-300">
               Start Your Free Trial
               <ArrowRight className="w-5 h-5" />
             </Link>
@@ -157,8 +157,8 @@ export default function Home() {
       <section id="pricing" className="py-20 lg:py-32 px-4 sm:px-6 bg-white relative">
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-12 lg:mb-16">
-            <h2 className="text-[42px] lg:text-[64px] font-black text-[#0F172A] tracking-tighter mb-4 leading-tight">Simple, Powerful Pricing.</h2>
-            <p className="text-slate-500 text-[18px] lg:text-[22px] font-medium max-w-2xl mx-auto">One plan. Every tool. Zero risk.</p>
+            <h2 className="text-[42px] lg:text-[64px] font-semibold text-[#0F172A] tracking-tighter mb-4 leading-tight">Simple, Powerful Pricing.</h2>
+            <p className="text-slate-600 text-[18px] lg:text-[22px] font-medium max-w-2xl mx-auto">One plan. Every tool. Zero risk.</p>
           </div>
           <PricingSection />
         </div>
@@ -168,10 +168,10 @@ export default function Home() {
       <section className="py-12 lg:py-24 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto bg-[#0F172A] rounded-[2rem] lg:rounded-[3rem] p-10 sm:p-12 lg:p-20 text-center relative overflow-hidden shadow-2xl shadow-[#0F172A]/20">
           <div className="relative z-10 text-white space-y-6 lg:space-y-8">
-            <h2 className="text-[36px] lg:text-[64px] font-black tracking-tighter leading-[1.1] lg:leading-none">Ready to catch every lead?</h2>
+            <h2 className="text-[36px] lg:text-[64px] font-semibold tracking-tighter leading-[1.1] lg:leading-none">Ready to catch every lead?</h2>
             <p className="text-white/60 text-[16px] lg:text-[20px] font-medium max-w-xl mx-auto px-2">Join the roofers who have stopped wasting time on manual measurements. Try it free for 14 days.</p>
             <div className="flex justify-center pt-2">
-              <Link href="/login?tab=signup&intent=pro" className="w-full sm:w-auto h-14 lg:h-16 px-8 lg:px-10 bg-red-700 text-white flex items-center justify-center gap-3 rounded-2xl font-black text-[16px] lg:text-[18px] hover:bg-red-800 transition-all shadow-xl shadow-red-700/20">
+              <Link href="/login?tab=signup&intent=pro" className="w-full sm:w-auto h-14 lg:h-16 px-8 lg:px-10 bg-red-700 text-white flex items-center justify-center gap-3 rounded-2xl font-semibold text-[16px] lg:text-[18px] hover:bg-red-800 transition-all shadow-xl shadow-red-700/20">
                 Start 14-Day Free Trial
                 <ArrowRight className="w-5 h-5" />
               </Link>

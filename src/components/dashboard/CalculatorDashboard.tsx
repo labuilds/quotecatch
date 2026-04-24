@@ -87,7 +87,7 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-[48px] lg:text-[72px] font-black tracking-tighter leading-[0.95] text-[#0F172A]"
+              className="text-[48px] lg:text-[72px] font-bold tracking-tighter leading-[0.95] text-[#0F172A]"
             >
               Master Your Pricing. <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-600 to-red-500">Capture Leads.</span>
@@ -96,7 +96,7 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-[18px] lg:text-[21px] text-slate-400 font-medium leading-relaxed max-w-xl"
+              className="text-[18px] lg:text-[21px] text-slate-600 font-medium leading-relaxed max-w-xl"
             >
               Control your quote engines, automate your math, and capture high-intent leads on your website.
             </motion.p>
@@ -112,16 +112,16 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
           <button
             onClick={handleCreateNew}
             disabled={isCreating}
-            className="h-16 sm:h-20 px-6 sm:px-10 bg-[#0F172A] hover:bg-black text-white font-black rounded-[2rem] text-[16px] sm:text-[18px] shadow-2xl shadow-slate-200 flex items-center gap-4 transition-all hover:scale-[1.02] active:scale-95 border-none group cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
+            className="h-16 sm:h-20 px-6 sm:px-10 bg-[#0F172A] hover:bg-black text-white font-bold rounded-[2rem] text-[16px] sm:text-[18px] shadow-2xl shadow-slate-200 flex items-center gap-4 transition-all hover:scale-[1.02] active:scale-95 border-none group cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
           >
             {isCreating ? <Loader2 className="w-6 h-6 animate-spin" /> : <Plus className="w-6 h-6 stroke-[3px] group-hover:rotate-90 transition-transform duration-300" />}
             Build New Machine
           </button>
           <div className="flex items-center gap-2">
             {!isPro && calculators.length >= 1 ? (
-              <span className="text-red-600 font-black text-[11px] uppercase tracking-widest bg-red-50 px-3 py-1 rounded-full border border-red-100">Plan Limit Reached</span>
+              <span className="text-red-600 font-semibold text-[11px] uppercase tracking-widest bg-red-50 px-3 py-1 rounded-full border border-red-100">Plan Limit Reached</span>
             ) : (
-              <p className="flex items-center gap-2 text-slate-400 text-[12px] font-black uppercase tracking-[0.15em]">
+              <p className="flex items-center gap-2 text-slate-600 text-[16px] font-bold uppercase tracking-[0.15em]">
                 <Sparkles className="w-3.5 h-3.5 text-red-500" />
                 Live on your site in seconds
               </p>
@@ -134,12 +134,12 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-slate-50 pb-1 gap-6">
           <div className="space-y-2">
-            <h2 className="text-[36px] font-black tracking-tighter text-[#0F172A] leading-none">Global Network</h2>
-            <p className="text-slate-400 font-bold text-[17px]">Manage and scale your active web-estimators.</p>
+            <h2 className="text-[36px] font-bold tracking-tighter text-[#0F172A] leading-none">Global Network</h2>
+            <p className="text-slate-600 font-medium text-[17px]">Manage and scale your active web-estimators.</p>
           </div>
           <div className="flex items-center gap-4 px-5 py-2.5 bg-slate-50 border border-slate-100 rounded-2xl">
             <Activity className="w-4 h-4 text-emerald-500" />
-            <p className="text-[13px] font-black text-slate-600 uppercase tracking-widest">
+            <p className="text-[15px] font-bold text-slate-600 uppercase tracking-widest">
               {calculators.length} ACTIVE SYSTEMS
             </p>
           </div>
@@ -166,11 +166,11 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
             className="group min-h-[440px] rounded-[2.5rem] border-4 border-dashed border-slate-100 hover:border-red-500/10 bg-slate-50/20 hover:bg-red-50/10 transition-all flex flex-col items-center justify-center gap-6 cursor-pointer"
           >
             <div className="w-20 h-20 rounded-3xl bg-white border border-slate-100 shadow-sm group-hover:bg-[#0F172A] group-hover:border-[#0F172A] group-hover:scale-110 transition-all duration-500 flex items-center justify-center">
-              {isCreating ? <Loader2 className="w-8 h-8 animate-spin text-slate-400 group-hover:text-white" /> : <Plus className="w-8 h-8 text-slate-400 group-hover:text-white stroke-[3.5px]" />}
+              {isCreating ? <Loader2 className="w-8 h-8 animate-spin text-slate-600 group-hover:text-white" /> : <Plus className="w-8 h-8 text-slate-600 group-hover:text-white stroke-[3.5px]" />}
             </div>
             <div className="text-center space-y-2">
-              <p className="text-[#0F172A] font-black uppercase tracking-widest text-[13px] group-hover:text-red-700">Deploy New Machine</p>
-              <p className="text-slate-400 font-bold text-[12px] max-w-[150px]">Filter tire-kickers on another site</p>
+              <p className="text-[#0F172A] font-bold uppercase tracking-widest text-[15px] group-hover:text-red-700">Deploy New Machine</p>
+              <p className="text-slate-600 font-medium text-[16px] max-w-[220px] mx-auto leading-relaxed">Filter tire-kickers on another site</p>
             </div>
           </motion.button>
         </div>
@@ -182,17 +182,17 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
               <Zap className="w-14 h-14 text-red-100" />
               <div className="absolute inset-0 bg-red-500/5 blur-2xl rounded-full" />
             </div>
-            <h3 className="font-black text-[#0F172A] text-[36px] tracking-tighter leading-tight max-w-xl">
+            <h3 className="font-bold text-[#0F172A] text-[36px] tracking-tighter leading-tight max-w-xl">
               Capturing leads <br />
               <span className="text-red-600">is now automated.</span>
             </h3>
-            <p className="text-slate-400 font-medium mt-6 text-[20px] max-w-md mx-auto leading-relaxed">
+            <p className="text-slate-600 font-medium mt-6 text-[20px] max-w-md mx-auto leading-relaxed">
               Start by building your first lead machine and let it qualify homeowners for you.
             </p>
             <button
               onClick={handleCreateNew}
               disabled={isCreating}
-              className="mt-12 h-18 px-12 bg-[#0F172A] hover:bg-black text-white font-black rounded-2xl text-[18px] shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4 disabled:opacity-50"
+              className="mt-12 h-18 px-12 bg-[#0F172A] hover:bg-black text-white font-bold rounded-2xl text-[18px] shadow-2xl hover:-translate-y-1 transition-all flex items-center gap-4 disabled:opacity-50"
             >
               Initialize First Machine <ChevronRight className="w-6 h-6" />
             </button>

@@ -36,22 +36,22 @@ export function SidebarUpgradeCard({ trialDaysRemaining = 14 }: { trialDaysRemai
             </div>
             <div className="flex items-center gap-1.5 px-3.5 py-1.5 bg-red-50/80 backdrop-blur-md rounded-full border border-red-100/50">
                <Clock className="w-3.5 h-3.5 text-red-600" />
-               <span className="text-[11px] font-black text-red-600 uppercase tracking-[0.12em]">{trialDaysRemaining} {trialDaysRemaining === 1 ? 'day' : 'days'} left</span>
+               <span className="text-[11px] font-semibold text-red-600 uppercase tracking-[0.12em]">{trialDaysRemaining} {trialDaysRemaining === 1 ? 'day' : 'days'} left</span>
             </div>
           </div>
 
           <div className="space-y-1">
-            <p className="text-[20px] font-black text-[#0F172A] tracking-tight leading-tight">
+            <p className="text-[20px] font-semibold text-[#0F172A] tracking-tight leading-tight">
               Unlock Full Access
             </p>
-            <p className="text-[14px] text-slate-500 font-medium leading-relaxed">
+            <p className="text-[16px] text-slate-600 font-medium leading-relaxed">
               Scale your roofing business with satellite measurement tech.
             </p>
           </div>
 
           <button 
             onClick={() => setShowModal(true)}
-            className="w-full h-14 bg-[#0F172A] hover:bg-black text-white text-[15px] font-black rounded-2xl transition-all duration-300 shadow-xl shadow-slate-200 hover:shadow-red-500/10 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group/btn relative overflow-hidden cursor-pointer"
+            className="w-full h-14 bg-[#0F172A] hover:bg-black text-white text-[15px] font-semibold rounded-2xl transition-all duration-300 shadow-xl shadow-slate-200 hover:shadow-red-500/10 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group/btn relative overflow-hidden cursor-pointer"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite] pointer-events-none" />
             <span className="relative z-10 flex items-center gap-2">

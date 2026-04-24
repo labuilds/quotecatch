@@ -95,17 +95,17 @@ function LoginForm() {
     <div className="flex-1 flex items-center justify-center px-8 sm:px-20 py-12">
       <motion.div className="w-full max-w-[440px] space-y-10">
         <div className="space-y-3">
-          <h1 className="text-[44px] font-bold tracking-tighter text-[#0F172A] leading-[1.1]">
+          <h1 className="text-[44px] font-semibold tracking-tighter text-[#0F172A] leading-[1.1]">
             Welcome back.
           </h1>
-          <p className="text-[17px] text-slate-500 font-medium leading-relaxed">
+          <p className="text-[17px] text-slate-600 font-medium leading-relaxed">
             Log in to your dashboard to manage your widget, view your leads, and close more roofs.
           </p>
         </div>
 
         <div className="space-y-6">
           {error && (
-            <div className="p-6 text-[15px] text-red-700 bg-red-50/80 rounded-[2rem] border-2 border-red-100 font-bold flex flex-col gap-2 shadow-sm animate-in fade-in slide-in-from-top-2 duration-300">
+            <div className="p-6 text-[15px] text-red-700 bg-red-50/80 rounded-[2rem] border-2 border-red-100 font-semibold flex flex-col gap-2 shadow-sm animate-in fade-in slide-in-from-top-2 duration-300">
               <div className="flex items-center gap-2">
                 <span className={cn(
                   "w-2.5 h-2.5 rounded-full shrink-0 shadow-[0_0_8px_rgba(239,68,68,0.5)]",
@@ -113,7 +113,7 @@ function LoginForm() {
                     ? "bg-red-500" 
                     : "bg-amber-500"
                 )} />
-                <span className="text-[12px] uppercase tracking-widest text-slate-400 font-black">
+                <span className="text-[16px] uppercase tracking-widest text-slate-600 font-semibold">
                   {error.toLowerCase().includes('security') || error.toLowerCase().includes('authorized') 
                     ? "Security Alert" 
                     : "System Notice"}
@@ -122,7 +122,7 @@ function LoginForm() {
               <p className="leading-relaxed pl-4">
                 {error}
                 {error.includes('magic link email') && (
-                  <span className="block mt-2 text-[13px] font-medium text-slate-500">
+                  <span className="block mt-2 text-[15px] font-medium text-slate-600">
                     This usually happens if the email provider is busy or you've requested too many links recently. Please try again in 15 minutes or use Google Login.
                   </span>
                 )}
@@ -131,7 +131,7 @@ function LoginForm() {
           )}
 
           {successMessage && (
-            <div className="p-5 text-[14px] text-emerald-700 bg-emerald-50 rounded-[2rem] border border-emerald-100 font-bold flex items-center gap-3">
+            <div className="p-5 text-[16px] text-emerald-700 bg-emerald-50 rounded-[2rem] border border-emerald-100 font-semibold flex items-center gap-3">
               <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
               {successMessage}
             </div>
@@ -141,12 +141,12 @@ function LoginForm() {
             <>
               <Button
                 type="button"
-                className="w-full h-16 text-[16px] font-black bg-white hover:bg-slate-50 border-2 border-slate-100 text-[#0F172A] rounded-[1.5rem] transition-all hover:border-slate-200 hover:shadow-xl hover:shadow-slate-100 flex items-center justify-center gap-4"
+                className="w-full h-16 text-[16px] font-semibold bg-white hover:bg-slate-50 border-2 border-slate-100 text-[#0F172A] rounded-[1.5rem] transition-all hover:border-slate-200 hover:shadow-xl hover:shadow-slate-100 flex items-center justify-center gap-4"
                 onClick={handleGoogleLogin}
                 disabled={isGoogleLoading || isMagicLinkLoading}
               >
                 {isGoogleLoading ? (
-                  <Loader2 className="h-5 w-5 animate-spin text-slate-400" />
+                  <Loader2 className="h-5 w-5 animate-spin text-slate-600" />
                 ) : (
                   <svg className="h-6 w-6" viewBox="0 0 488 512" xmlns="http://www.w3.org/2000/svg">
                     <path fill="#4285F4" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z" />
@@ -159,14 +159,14 @@ function LoginForm() {
                 <div className="absolute inset-0 flex items-center">
                   <span className="w-full border-t border-slate-100" />
                 </div>
-                <div className="relative flex justify-center text-[11px] uppercase tracking-[0.25em] font-bold text-slate-300">
+                <div className="relative flex justify-center text-[11px] uppercase tracking-[0.25em] font-semibold text-slate-300">
                   <span className="bg-white px-6">Direct Access</span>
                 </div>
               </div>
 
               <form onSubmit={handleMagicLink} className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="text-[15px] font-bold uppercase tracking-widest text-[#0F172A] ml-1">
+                  <Label htmlFor="email" className="text-[15px] font-semibold uppercase tracking-widest text-[#0F172A] ml-1">
                     Work Email
                   </Label>
                   <Input
@@ -183,7 +183,7 @@ function LoginForm() {
                   />
                 </div>
                 <Button
-                  className="w-full h-16 text-[18px] font-black bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] transition-all shadow-2xl shadow-slate-200 border-none"
+                  className="w-full h-16 text-[18px] font-semibold bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] transition-all shadow-2xl shadow-slate-200 border-none"
                   type="submit"
                   disabled={isMagicLinkLoading || isGoogleLoading}
                 >
@@ -202,7 +202,7 @@ function LoginForm() {
           )}
         </div>
 
-        <p className="text-center text-[13px] text-slate-400 font-bold leading-relaxed px-4">
+        <p className="text-center text-[15px] text-slate-600 font-semibold leading-relaxed px-4">
           By joining, you agree to our <span className="text-slate-900 border-b border-slate-900 cursor-pointer">Terms of Service</span> and <span className="text-slate-900 border-b border-slate-900 cursor-pointer">Privacy Policy</span>.
         </p>
       </motion.div>
@@ -228,13 +228,13 @@ export default function LoginPage() {
               <QCLogo size={26} isDark={true} />
             </div>
             <div className="flex flex-col">
-              <span className="text-[20px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
-              <span className="text-[10px] font-extrabold tracking-[0.05em] text-slate-400 uppercase leading-none">Roofing Intelligence</span>
+              <span className="text-[20px] font-semibold tracking-tight text-[#0F172A]">QuoteCatch</span>
+              <span className="text-[10px] font-extrabold tracking-[0.05em] text-slate-600 uppercase leading-none">Roofing Intelligence</span>
             </div>
           </Link>
           <Link
             href="/"
-            className="inline-flex items-center text-[13px] font-bold text-slate-400 hover:text-[#0F172A] transition-colors"
+            className="inline-flex items-center text-[15px] font-semibold text-slate-600 hover:text-[#0F172A] transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Home
@@ -265,9 +265,9 @@ export default function LoginPage() {
           <div className="space-y-6">
             <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20">
               <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
-              <span className="text-[12px] font-black text-red-400 tracking-[0.2em] uppercase">Built for Roofing Contractors</span>
+              <span className="text-[16px] font-semibold text-red-400 tracking-[0.2em] uppercase">Built for Roofing Contractors</span>
             </div>
-            <h2 className="text-[52px] font-black text-white leading-[1.1] tracking-tighter">
+            <h2 className="text-[52px] font-semibold text-white leading-[1.1] tracking-tighter">
               Stop driving to <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">tire-kickers.</span>
             </h2>
@@ -282,8 +282,8 @@ export default function LoginPage() {
                 <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                   <Icon className="w-5 h-5 text-red-400" />
                 </div>
-                <p className="text-[24px] font-black text-white tracking-tight">{value}</p>
-                <p className="text-[12px] text-slate-400 font-bold uppercase tracking-widest mt-1">{label}</p>
+                <p className="text-[24px] font-semibold text-white tracking-tight">{value}</p>
+                <p className="text-[16px] text-slate-600 font-semibold uppercase tracking-widest mt-1">{label}</p>
               </div>
             ))}
           </div>
@@ -297,8 +297,8 @@ export default function LoginPage() {
                     <Zap className="w-6 h-6 text-red-400" />
                   </div>
                   <div>
-                    <p className="text-white font-black text-[16px]">The QuoteCatch Edge</p>
-                    <p className="text-slate-500 text-[12px] font-bold uppercase tracking-widest">Why We Built This</p>
+                    <p className="text-white font-semibold text-[16px]">The QuoteCatch Edge</p>
+                    <p className="text-slate-600 text-[16px] font-semibold uppercase tracking-widest">Why We Built This</p>
                   </div>
                 </div>
                 <p className="text-[18px] text-slate-100 font-medium leading-relaxed italic">

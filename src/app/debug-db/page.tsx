@@ -6,7 +6,7 @@ export default async function DebugPage() {
   
   return (
     <div className="p-10 font-mono">
-      <h1 className="text-2xl font-bold mb-4">Database Debug</h1>
+      <h1 className="text-2xl font-semibold mb-4">Database Debug</h1>
       {error && <pre className="text-red-500">{JSON.stringify(error, null, 2)}</pre>}
       <table className="w-full border-collapse border border-slate-200">
         <thead>

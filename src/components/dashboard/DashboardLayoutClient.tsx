@@ -56,8 +56,8 @@ const SidebarContent = ({
             <QCLogo size={26} isDark={true} />
           </div>
           <div className="flex flex-col">
-            <span className="text-[24px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
-            <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest leading-none">Roofing Intelligence</span>
+            <span className="text-[24px] font-semibold tracking-tight text-[#0F172A]">QuoteCatch</span>
+            <span className="text-[11px] font-semibold text-slate-600 uppercase tracking-widest leading-none">Roofing Intelligence</span>
           </div>
         </Link>
       </div>
@@ -68,10 +68,10 @@ const SidebarContent = ({
             key={href}
             href={href}
             className={cn(
-              "flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-200 text-[18px] font-black",
+              "flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-200 text-[18px] font-semibold",
               pathname === href
                 ? "bg-red-50 text-red-600 shadow-sm ring-1 ring-red-100"
-                : "text-slate-400 hover:bg-slate-50 hover:text-slate-900"
+                : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
             )}
           >
             <Icon className="w-5 h-5 shrink-0" />
@@ -90,12 +90,12 @@ const SidebarContent = ({
 
           <div className="space-y-4">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-white border border-slate-100 flex items-center justify-center font-black text-red-600 text-lg shrink-0 overflow-hidden shadow-sm">
+              <div className="w-12 h-12 rounded-2xl bg-white border border-slate-100 flex items-center justify-center font-semibold text-red-600 text-lg shrink-0 overflow-hidden shadow-sm">
                 {userEmail?.charAt(0).toUpperCase() || 'U'}
               </div>
               <div className="flex flex-col min-w-0 flex-1">
-                <p className="text-[15px] font-black text-[#0F172A] truncate leading-none mb-1.5">{userEmail?.split('@')[0]}</p>
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.1em] truncate leading-none">{isPro ? 'Pro Member' : 'Free Trial'}</p>
+                <p className="text-[15px] font-semibold text-[#0F172A] truncate leading-none mb-1.5">{userEmail?.split('@')[0]}</p>
+                <p className="text-[10px] font-semibold text-slate-600 uppercase tracking-[0.1em] truncate leading-none">{isPro ? 'Pro Member' : 'Free Trial'}</p>
               </div>
             </div>
 
@@ -152,7 +152,7 @@ export default function DashboardLayoutClient({
           <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100">
             <QCLogo size={22} isDark={true} />
           </div>
-          <span className="text-[20px] font-black text-[#0F172A] tracking-tight">QuoteCatch</span>
+          <span className="text-[20px] font-semibold text-[#0F172A] tracking-tight">QuoteCatch</span>
         </Link>
 
         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -165,7 +165,7 @@ export default function DashboardLayoutClient({
                   "text-slate-900 bg-slate-50 border border-slate-100 rounded-xl h-10 px-3 hover:bg-slate-100 transition-colors"
                 )}
               >
-                <Menu className="w-5 h-5 font-black" />
+                <Menu className="w-5 h-5 font-semibold" />
               </button>
             }
           />

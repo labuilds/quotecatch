@@ -26,7 +26,7 @@ export default function MarketingWidget() {
       
       <div className="p-6 flex-1 space-y-6 bg-slate-50/50">
         <div className="space-y-3">
-          <label className="text-xs font-black text-slate-400 tracking-widest uppercase block">Select Material</label>
+          <label className="text-xs font-semibold text-slate-600 tracking-widest uppercase block">Select Material</label>
           <div className="grid grid-cols-1 gap-2.5">
             {[
               { id: 'asphalt', label: 'Standard Asphalt', desc: 'Basic protection bounds' },
@@ -39,8 +39,8 @@ export default function MarketingWidget() {
                 className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex justify-between items-center ${material === m.id ? 'border-[#f97316] bg-orange-50 shadow-md scale-[1.02]' : 'border-slate-200 bg-white hover:border-slate-300'}`}
               >
                  <div>
-                    <p className={`font-bold ${material === m.id ? 'text-[#f97316]' : 'text-slate-800'}`}>{m.label}</p>
-                    <p className="text-xs text-slate-500 font-medium mt-0.5">{m.desc}</p>
+                    <p className={`font-semibold ${material === m.id ? 'text-[#f97316]' : 'text-slate-800'}`}>{m.label}</p>
+                    <p className="text-xs text-slate-600 font-medium mt-0.5">{m.desc}</p>
                  </div>
                  {material === m.id && <CheckCircle2 className="w-5 h-5 text-[#f97316]" />}
               </div>
@@ -49,7 +49,7 @@ export default function MarketingWidget() {
         </div>
 
         <div className="pt-6 border-t border-slate-200/80">
-           <p className="text-[10px] font-black text-slate-400 tracking-[0.2em] uppercase mb-1 flex items-center justify-center gap-2">
+           <p className="text-[10px] font-semibold text-slate-600 tracking-[0.2em] uppercase mb-1 flex items-center justify-center gap-2">
              Automated Calculation <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
            </p>
            <div className="flex justify-center items-end gap-1 h-20">
@@ -61,7 +61,7 @@ export default function MarketingWidget() {
                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
                    exit={{ opacity: 0, y: 20, filter: 'blur(10px)', position: 'absolute', scale: 0.8 }}
                    transition={{ type: 'spring', bounce: 0, duration: 0.5 }}
-                   className="text-7xl font-black tracking-tighter text-slate-900"
+                   className="text-7xl font-semibold tracking-tighter text-slate-900"
                  >
                    {currentPrice.toLocaleString()}
                  </motion.span>
@@ -70,7 +70,7 @@ export default function MarketingWidget() {
         </div>
       </div>
       
-      <div className="p-4 bg-slate-100/50 border-t border-slate-200 flex items-center justify-center gap-2 text-xs font-bold text-slate-500 uppercase tracking-widest">
+      <div className="p-4 bg-slate-100/50 border-t border-slate-200 flex items-center justify-center gap-2 text-xs font-semibold text-slate-600 uppercase tracking-widest">
          <ShieldCheck className="w-4 h-4 text-emerald-500" /> Demo Matrix
       </div>
     </div>

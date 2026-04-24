@@ -47,22 +47,22 @@ export function PricingSection({
       <div className="flex items-center gap-6 mb-12 bg-slate-50 p-2 rounded-[1.5rem] border border-slate-100 shadow-sm">
         <button
           onClick={() => setBillingCycle("monthly")}
-          className={`px-10 py-3.5 rounded-2xl text-[16px] font-black transition-all ${billingCycle === "monthly"
+          className={`px-10 py-3.5 rounded-2xl text-[16px] font-semibold transition-all ${billingCycle === "monthly"
             ? "bg-white text-[#0F172A] shadow-lg ring-1 ring-slate-200"
-            : "text-slate-400 hover:text-slate-600"
+            : "text-slate-600 hover:text-slate-600"
             }`}
         >
           Monthly
         </button>
         <button
           onClick={() => setBillingCycle("yearly")}
-          className={`px-10 py-3.5 rounded-2xl text-[16px] font-black transition-all flex items-center gap-3 ${billingCycle === "yearly"
+          className={`px-10 py-3.5 rounded-2xl text-[16px] font-semibold transition-all flex items-center gap-3 ${billingCycle === "yearly"
             ? "bg-[#0F172A] text-white shadow-xl"
-            : "text-slate-400 hover:text-slate-600"
+            : "text-slate-600 hover:text-slate-600"
             }`}
         >
           Yearly
-          <span className="text-[13px] bg-emerald-600 text-white px-3 py-1 rounded-full uppercase tracking-widest leading-none font-black shadow-sm">
+          <span className="text-[15px] bg-emerald-600 text-white px-3 py-1 rounded-full uppercase tracking-widest leading-none font-semibold shadow-sm">
             -20%
           </span>
         </button>
@@ -74,7 +74,7 @@ export function PricingSection({
         className="relative w-full max-w-2xl rounded-[2.5rem] lg:rounded-[3rem] p-8 lg:p-12 flex flex-col border border-red-500/20 shadow-2xl lg:shadow-[0_40px_80px_rgba(185,28,28,0.15)] ring-1 ring-red-500/30 bg-[#0F172A]"
       >
         {!isTrialEnded && (
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-red-700 to-red-500 text-white text-[11px] lg:text-[13px] font-black uppercase tracking-[0.2em] px-5 lg:px-6 py-1.5 lg:py-2 rounded-full shadow-lg whitespace-nowrap">
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-red-700 to-red-500 text-white text-[11px] lg:text-[15px] font-semibold uppercase tracking-[0.2em] px-5 lg:px-6 py-1.5 lg:py-2 rounded-full shadow-lg whitespace-nowrap">
             {trialDaysRemaining}-Day Free Trial Includes Everything
           </div>
         )}
@@ -86,7 +86,7 @@ export function PricingSection({
 
           <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8 mb-12 w-full text-left">
             <div className="flex-1 text-left">
-              <h3 className="text-[28px] lg:text-[40px] font-black tracking-tighter mb-3 text-white leading-tight text-left">
+              <h3 className="text-[28px] lg:text-[40px] font-semibold tracking-tighter mb-3 text-white leading-tight text-left">
                 {ProPlan.name}
               </h3>
               <p className="text-[17px] lg:text-[19px] font-medium leading-relaxed text-slate-300 max-w-lg mb-0 text-left">
@@ -102,20 +102,20 @@ export function PricingSection({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="text-[54px] lg:text-[68px] font-black tracking-tighter text-white leading-none"
+                    className="text-[54px] lg:text-[68px] font-semibold tracking-tighter text-white leading-none"
                   >
                     {billingCycle === "monthly" ? ProPlan.monthlyPrice : ProPlan.yearlyPrice}
                   </motion.span>
                 </AnimatePresence>
-                <span className="text-[22px] font-bold text-slate-300">/mo</span>
+                <span className="text-[22px] font-semibold text-slate-300">/mo</span>
               </div>
               {!isTrialEnded && (
-                <p className="text-[13px] font-black text-slate-300 uppercase tracking-widest mt-2">
+                <p className="text-[15px] font-semibold text-slate-300 uppercase tracking-widest mt-2">
                   {billingCycle === "yearly" ? "Billed $468 Annually" : `No charges for ${trialDaysRemaining} days`}
                 </p>
               )}
               {isTrialEnded && (
-                <p className="text-[13px] font-black text-emerald-500 uppercase tracking-widest mt-2">
+                <p className="text-[15px] font-semibold text-emerald-500 uppercase tracking-widest mt-2">
                   {billingCycle === "yearly" ? "Save 20% with yearly" : "Instant activation"}
                 </p>
               )}
@@ -128,7 +128,7 @@ export function PricingSection({
                 <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 bg-white/5 border border-red-500/30 shadow-[0_2px_10px_rgba(239,68,68,0.15)] group-hover/feat:bg-red-500/10 transition-all duration-300">
                   <Check className="w-4 h-4 text-red-500 stroke-[2.5px]" />
                 </div>
-                <span className="text-[17px] font-bold text-slate-200 text-left group-hover/feat:text-white transition-colors">
+                <span className="text-[17px] font-semibold text-slate-200 text-left group-hover/feat:text-white transition-colors">
                   {feature}
                 </span>
               </div>
@@ -149,7 +149,7 @@ export function PricingSection({
               }}
             >
               <Button
-                className="w-full h-16 lg:h-20 rounded-[1.5rem] lg:rounded-[2rem] font-black text-[18px] lg:text-[20px] transition-all hover:scale-[1.02] active:scale-[0.98] bg-white text-[#0F172A] hover:bg-slate-50 border-none shadow-xl shadow-white/5"
+                className="w-full h-16 lg:h-20 rounded-[1.5rem] lg:rounded-[2rem] font-semibold text-[18px] lg:text-[20px] transition-all hover:scale-[1.02] active:scale-[0.98] bg-white text-[#0F172A] hover:bg-slate-50 border-none shadow-xl shadow-white/5"
               >
                 {isTrialEnded || onUpgrade ? "Activate Pro Subscription" : `Start ${trialDaysRemaining}-Day Free Trial`}
                 <ArrowRight className="w-5 h-5 ml-2" />
@@ -166,7 +166,7 @@ export function PricingSection({
                 <div className="w-6 h-6 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shadow-[0_2px_10px_rgba(16,185,129,0.1)]">
                    <Check className="w-3.5 h-3.5 text-emerald-500 stroke-[2.5px]" />
                 </div>
-                <p className="text-emerald-500 text-[16px] font-bold tracking-tight">
+                <p className="text-emerald-500 text-[16px] font-semibold tracking-tight">
                   Get precision satellite measurements on every lead
                 </p>
               </div>

@@ -42,13 +42,13 @@ export default function ToolsIndexPage() {
 
       {/* Hero Section - Centered SiteGPT Style */}
       <header className="pt-32 lg:pt-48 pb-20 px-6 text-center max-w-4xl mx-auto flex flex-col items-center">
-        <div className="text-[11px] font-black uppercase tracking-[0.4em] text-red-600 mb-6 drop-shadow-sm">
+        <div className="text-[11px] font-semibold uppercase tracking-[0.4em] text-red-600 mb-6 drop-shadow-sm">
           FREE TOOLS
         </div>
-        <h1 className="text-5xl lg:text-7xl font-black text-[#0F172A] tracking-tight mb-8 leading-[1.1]">
+        <h1 className="text-5xl lg:text-7xl font-semibold text-[#0F172A] tracking-tight mb-8 leading-[1.1]">
           Free tools for the roofing community
         </h1>
-        <p className="text-lg lg:text-xl text-slate-500 font-medium leading-relaxed max-w-3xl mx-auto italic">
+        <p className="text-lg lg:text-xl text-slate-600 font-medium leading-relaxed max-w-3xl mx-auto italic">
           Discover a suite of free, powerful tools tailored for roofing contractors, designed to streamline your lead capture and boost your conversion.
         </p>
       </header>
@@ -71,13 +71,13 @@ export default function ToolsIndexPage() {
                 </div>
 
                 <div className="flex-1">
-                  <h3 className="text-2xl lg:text-3xl font-black text-[#0F172A] mb-3 tracking-tight group-hover:text-red-700 transition-colors">
+                  <h3 className="text-2xl lg:text-3xl font-semibold text-[#0F172A] mb-3 tracking-tight group-hover:text-red-700 transition-colors">
                     {tool.title}
                   </h3>
-                  <p className="text-slate-500 font-medium text-[15px] lg:text-[16px] leading-relaxed mb-6 italic opacity-80">
+                  <p className="text-slate-600 font-medium text-[15px] lg:text-[16px] leading-relaxed mb-6 italic opacity-80">
                     {tool.seoDescription}
                   </p>
-                  <div className="inline-flex items-center gap-2 text-[12px] font-black uppercase tracking-widest text-red-600 group-hover:gap-4 transition-all">
+                  <div className="inline-flex items-center gap-2 text-[16px] font-semibold uppercase tracking-widest text-red-600 group-hover:gap-4 transition-all">
                     Try tool for free
                     <ChevronRight className="w-4 h-4" />
                   </div>
@@ -95,16 +95,16 @@ export default function ToolsIndexPage() {
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-[120px] -ml-48 -mb-48" />
         
         <div className="max-w-3xl mx-auto relative z-10">
-          <h2 className="text-4xl lg:text-6xl font-black text-white mb-8 tracking-tight leading-[1.1]">
+          <h2 className="text-4xl lg:text-6xl font-semibold text-white mb-8 tracking-tight leading-[1.1]">
             Automate your<br />Roofing Leads
           </h2>
-          <p className="text-slate-400 text-lg lg:text-xl font-medium mb-12 leading-relaxed italic">
+          <p className="text-slate-600 text-lg lg:text-xl font-medium mb-12 leading-relaxed italic">
             Ready to stop doing the manual grunt work? Join high-growth roofing companies using QuoteCatch today.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <Link 
               href="/" 
-              className="h-16 px-10 bg-red-600 hover:bg-white hover:text-red-600 text-white rounded-2xl font-black text-sm uppercase tracking-widest flex items-center justify-center transition-all active:scale-95 shadow-2xl shadow-red-500/20"
+              className="h-16 px-10 bg-red-600 hover:bg-white hover:text-red-600 text-white rounded-2xl font-semibold text-sm uppercase tracking-widest flex items-center justify-center transition-all active:scale-95 shadow-2xl shadow-red-500/20"
             >
               Claim Free Monthly Subscription
             </Link>

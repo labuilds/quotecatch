@@ -34,25 +34,25 @@ export function Navbar() {
           <div className="w-8 h-8 lg:w-10 lg:h-10 bg-slate-50 rounded-xl flex items-center justify-center transition-all">
             <QCLogo size={20} isDark={true} />
           </div>
-          <span className="text-[18px] lg:text-[20px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
+          <span className="text-[18px] lg:text-[20px] font-bold tracking-tight text-[#0F172A]">QuoteCatch</span>
         </Link>
       </div>
 
-      <div className="hidden lg:flex items-center gap-10 text-[16px] font-black text-slate-500">
+      <div className="hidden lg:flex items-center gap-10 text-[16px] font-bold text-slate-600">
         <NavLinks />
       </div>
 
       <div className="flex items-center gap-2 sm:gap-4">
         {user ? (
-          <Link href="/calculators" className="bg-[#0F172A] text-white text-[12px] sm:text-[16px] font-black px-4 sm:px-7 py-3 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
+          <Link href="/calculators" className="bg-[#0F172A] text-white text-[16px] sm:text-[16px] font-bold px-4 sm:px-7 py-3 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
             Go to Dashboard
           </Link>
         ) : (
           <>
-            <Link href="/login" className="hidden sm:inline-flex text-[16px] font-black text-slate-900 px-4 lg:px-6 py-3 hover:bg-slate-50 rounded-xl transition-all">
+            <Link href="/login" className="hidden sm:inline-flex text-[16px] font-bold text-slate-900 px-4 lg:px-6 py-3 hover:bg-slate-50 rounded-xl transition-all">
               Login
             </Link>
-            <Link href="/login?tab=signup&intent=pro" className="bg-[#0F172A] text-white text-[12px] sm:text-[16px] font-black px-4 sm:px-7 py-3 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
+            <Link href="/login?tab=signup&intent=pro" className="bg-[#0F172A] text-white text-[16px] sm:text-[16px] font-bold px-4 sm:px-7 py-3 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
               Start Free Trial
             </Link>
           </>
@@ -68,7 +68,7 @@ export function Navbar() {
               }
             />
             <SheetContent side="top" className="w-full pt-20 pb-10">
-              <div className="flex flex-col items-center gap-8 text-[18px] font-black text-slate-900">
+              <div className="flex flex-col items-center gap-8 text-[18px] font-bold text-slate-900">
                 <NavLinks />
                 {user ? (
                   <Link href="/calculators" onClick={() => setIsMenuOpen(false)} className="text-red-700">Dashboard</Link>

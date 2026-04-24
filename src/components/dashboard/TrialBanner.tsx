@@ -50,8 +50,8 @@ export function TrialBanner({ trialEndsAt }: { trialEndsAt: string }) {
                 <Clock className="w-6 h-6 text-red-600" />
               </div>
               <div className="space-y-0.5">
-                <p className="text-[11px] font-black text-red-900/40 uppercase tracking-[0.15em] leading-none">Trial Status</p>
-                <p className="text-[20px] font-black text-slate-950 tracking-tight">
+                <p className="text-[11px] font-semibold text-red-900/40 uppercase tracking-[0.15em] leading-none">Trial Status</p>
+                <p className="text-[20px] font-semibold text-slate-950 tracking-tight">
                   {diffDays} {diffDays === 1 ? 'day' : 'days'} left
                 </p>
               </div>
@@ -60,12 +60,12 @@ export function TrialBanner({ trialEndsAt }: { trialEndsAt: string }) {
             <div className="relative z-10 w-full h-[1px] bg-red-900/5" />
             
             <div className="relative z-10 w-full flex items-center justify-between gap-6">
-              <p className="text-[13px] font-bold text-slate-600 leading-tight max-w-[130px]">
+              <p className="text-[15px] font-semibold text-slate-600 leading-tight max-w-[130px]">
                 No commitment. You won't be charged for {diffDays} days.
               </p>
               <button
                 onClick={() => setShowModal(true)}
-                className="px-6 py-2.5 bg-slate-950 text-white text-[13px] font-black rounded-xl transition-all hover:bg-black hover:scale-[1.05] active:scale-[0.95] cursor-pointer whitespace-nowrap shadow-2xl shadow-black/20"
+                className="px-6 py-2.5 bg-slate-950 text-white text-[15px] font-semibold rounded-xl transition-all hover:bg-black hover:scale-[1.05] active:scale-[0.95] cursor-pointer whitespace-nowrap shadow-2xl shadow-black/20"
               >
                 Activate Plan
               </button>

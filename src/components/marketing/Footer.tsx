@@ -20,8 +20,8 @@ export function Footer() {
                 <QCLogo size={24} />
               </div>
               <div className="flex flex-col">
-                <span className="text-[20px] lg:text-[22px] font-black tracking-tight text-[#0F172A] leading-tight">QuoteCatch</span>
-                <p className="text-[15px] lg:text-[16px] text-slate-500 font-medium leading-tight mt-1">
+                <span className="text-[20px] lg:text-[22px] font-semibold tracking-tight text-[#0F172A] leading-tight">QuoteCatch</span>
+                <p className="text-[15px] lg:text-[16px] text-slate-600 font-medium leading-tight mt-1">
                   Stop Chasing, Start Closing
                 </p>
               </div>
@@ -30,8 +30,8 @@ export function Footer() {
 
           {/* Product Column */}
           <div className="space-y-6">
-            <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400">Product</h4>
-            <nav className="flex flex-col gap-4 text-[14px] font-bold text-slate-600">
+            <h4 className="text-[16px] font-semibold uppercase tracking-[0.2em] text-slate-600">Product</h4>
+            <nav className="flex flex-col gap-4 text-[16px] font-semibold text-slate-600">
               <Link href="/#features" className="hover:text-red-600 transition-colors">Features</Link>
               <Link href="/#pricing" className="hover:text-red-600 transition-colors">Pricing</Link>
               <Link href="/login" className="hover:text-red-600 transition-colors">Sign In</Link>
@@ -41,8 +41,8 @@ export function Footer() {
 
           {/* Free Tools Column - Priority SEO Links */}
           <div className="space-y-6">
-            <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400">Free Tools</h4>
-            <nav className="flex flex-col gap-4 text-[14px] font-bold text-slate-600">
+            <h4 className="text-[16px] font-semibold uppercase tracking-[0.2em] text-slate-600">Free Tools</h4>
+            <nav className="flex flex-col gap-4 text-[16px] font-semibold text-slate-600">
               {priorityTools.map((tool) => (
                 <Link 
                   key={tool.slug} 
@@ -52,7 +52,7 @@ export function Footer() {
                   {tool.title.split('|')[0].trim()}
                 </Link>
               ))}
-              <Link href="/tools" className="text-red-600 font-black hover:text-red-700 transition-colors mt-2">
+              <Link href="/tools" className="text-red-600 font-semibold hover:text-red-700 transition-colors mt-2">
                 View All Tools →
               </Link>
             </nav>
@@ -60,8 +60,8 @@ export function Footer() {
 
           {/* Support Column */}
           <div className="space-y-6">
-            <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400">Support</h4>
-            <nav className="flex flex-col gap-4 text-[14px] font-bold text-slate-600">
+            <h4 className="text-[16px] font-semibold uppercase tracking-[0.2em] text-slate-600">Support</h4>
+            <nav className="flex flex-col gap-4 text-[16px] font-semibold text-slate-600">
               <Link href="/terms" className="hover:text-red-600 transition-colors">Terms of Service</Link>
               <Link href="/privacy" className="hover:text-red-600 transition-colors">Privacy Policy</Link>
             </nav>
@@ -69,12 +69,12 @@ export function Footer() {
         </div>
 
         <div className="pt-10 border-t border-slate-50 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-[12px] lg:text-[14px] text-slate-400 font-bold">
+          <p className="text-[16px] lg:text-[16px] text-slate-600 font-semibold">
             © {new Date().getFullYear()} QuoteCatch. All rights reserved.
           </p>
           <div className="flex items-center gap-2 text-slate-300">
             <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-            <span className="text-[11px] font-black uppercase tracking-widest">Platform Operational</span>
+            <span className="text-[11px] font-semibold uppercase tracking-widest">Platform Operational</span>
           </div>
         </div>
       </div>

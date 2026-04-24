@@ -79,23 +79,23 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
       {/* Hero Section - Maximum SiteGPT Accuracy */}
       <header className="pt-32 lg:pt-48 pb-12 px-6 text-center max-w-4xl mx-auto flex flex-col items-center">
         {/* Horizontal Breadcrumb Pill */}
-        <div className="inline-flex items-center gap-2.5 px-6 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-[15px] font-medium text-slate-400 mb-8 shadow-sm">
+        <div className="inline-flex items-center gap-2.5 px-6 py-2.5 bg-slate-50 border border-slate-200 rounded-full text-[15px] font-medium text-slate-600 mb-8 shadow-sm">
           <Link href="/" className="hover:text-red-500 transition-colors">Home</Link>
           <ChevronRight className="w-4 h-4 opacity-50" />
           <Link href="/tools" className="hover:text-red-500 transition-colors">Free Tools</Link>
           <ChevronRight className="w-4 h-4 opacity-50" />
-          <span className="text-slate-900 font-bold">{tool.title}</span>
+          <span className="text-slate-900 font-semibold">{tool.title}</span>
         </div>
         
         {/* Spaced Out Category Label */}
-        <div className="text-[13px] font-black uppercase tracking-[0.4em] text-red-600 mb-6 drop-shadow-sm">
+        <div className="text-[15px] font-semibold uppercase tracking-[0.4em] text-red-600 mb-6 drop-shadow-sm">
           TOOLS
         </div>
         
-        <h1 className="text-4xl lg:text-7xl font-black text-[#0F172A] tracking-tight mb-8 leading-[1.1]">
+        <h1 className="text-4xl lg:text-7xl font-semibold text-[#0F172A] tracking-tight mb-8 leading-[1.1]">
           {tool.title}
         </h1>
-        <p className="text-xl lg:text-2xl text-slate-500 font-medium leading-relaxed max-w-3xl mx-auto italic">
+        <p className="text-xl lg:text-2xl text-slate-600 font-medium leading-relaxed max-w-3xl mx-auto italic">
           {tool.seoDescription} No sign up required. Free to use.
         </p>
       </header>
@@ -108,8 +108,8 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
             <div className="grid grid-cols-1 gap-5">
               {tool.inputs.map((input) => (
                 <div key={input.id} className="space-y-1.5">
-                  <label className="text-[15px] lg:text-[16px] font-black tracking-tight text-[#0F172A] flex items-center gap-2">
-                    {input.label} <span className="text-red-600 font-black text-[12px]">*</span>
+                  <label className="text-[15px] lg:text-[16px] font-semibold tracking-tight text-[#0F172A] flex items-center gap-2">
+                    {input.label} <span className="text-red-600 font-semibold text-[16px]">*</span>
                   </label>
                   <div className="relative">
                     {input.type === 'select' ? (
@@ -132,7 +132,7 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
                     )}
                   </div>
                   {input.description && (
-                    <p className="text-[13px] text-slate-400 font-medium leading-relaxed">
+                    <p className="text-[15px] text-slate-600 font-medium leading-relaxed">
                       {input.description}
                     </p>
                   )}
@@ -146,13 +146,13 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
                   setInputValues({});
                   setResult(null);
                 }}
-                className="h-11 px-6 rounded-lg border border-slate-200 text-slate-600 font-bold text-sm hover:bg-slate-50 transition-all active:scale-95 cursor-pointer"
+                className="h-11 px-6 rounded-lg border border-slate-200 text-slate-600 font-semibold text-sm hover:bg-slate-50 transition-all active:scale-95 cursor-pointer"
               >
                 Reset
               </button>
               <button
                 onClick={handleGenerate}
-                className="h-11 px-8 bg-[#0F172A] hover:bg-red-700 text-white rounded-lg font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer shadow-sm hover:shadow-lg hover:shadow-red-500/10"
+                className="h-11 px-8 bg-[#0F172A] hover:bg-red-700 text-white rounded-lg font-semibold text-sm flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer shadow-sm hover:shadow-lg hover:shadow-red-500/10"
               >
                 {tool.type === 'calculator' ? 'Calculate' : 'Generate Content'}
               </button>
@@ -164,11 +164,11 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
                 <div className="bg-[#0F172A] p-8 lg:p-12 text-white relative">
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 relative z-10">
                     <div>
-                      <h3 className="text-[14px] font-black uppercase tracking-[0.3em] text-red-500 mb-3">
+                      <h3 className="text-[16px] font-semibold uppercase tracking-[0.3em] text-red-500 mb-3">
                         {tool.resultLabel}
                       </h3>
                       <div className={cn(
-                        "font-black tracking-tight leading-loose",
+                        "font-semibold tracking-tight leading-loose",
                         tool.type === 'calculator' ? "text-4xl lg:text-7xl text-white" : "text-lg lg:text-xl opacity-95 font-medium"
                       )}>
                         {result}
@@ -178,7 +178,7 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
                     <button
                       onClick={handleCopy}
                       className={cn(
-                        "flex items-center justify-center gap-3 px-8 h-14 rounded-2xl font-black text-sm uppercase tracking-widest transition-all shrink-0 shadow-xl",
+                        "flex items-center justify-center gap-3 px-8 h-14 rounded-2xl font-semibold text-sm uppercase tracking-widest transition-all shrink-0 shadow-xl",
                         copied ? "bg-emerald-500 text-white" : "bg-white text-[#0F172A] hover:bg-red-50 hover:text-red-600"
                       )}
                     >
@@ -191,7 +191,7 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
                 </div>
 
                 {/* Result Details / Breakdown (Optional spacing) */}
-                <div className="bg-white p-8 lg:p-10 border-b border-slate-100 italic text-slate-500 text-base font-medium">
+                <div className="bg-white p-8 lg:p-10 border-b border-slate-100 italic text-slate-600 text-base font-medium">
                   {tool.type === 'calculator' 
                     ? "Based on industry standard waste tables for the current roof profile." 
                     : "Optimized for high-intent homeowner conversion."}
@@ -199,15 +199,15 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
 
                 {/* Contextual CTA - Light Red Background */}
                 <div className="bg-red-50/50 p-8 lg:p-14 text-center border-t border-slate-100">
-                  <h4 className="text-2xl lg:text-3xl font-black text-slate-900 mb-6 tracking-tight">
+                  <h4 className="text-2xl lg:text-3xl font-semibold text-slate-900 mb-6 tracking-tight">
                     Scale this with the QuoteCatch Widget
                   </h4>
-                  <p className="text-slate-500 font-medium text-base lg:text-lg leading-relaxed mb-10 max-w-2xl mx-auto italic">
+                  <p className="text-slate-600 font-medium text-base lg:text-lg leading-relaxed mb-10 max-w-2xl mx-auto italic">
                     Now that you have your {tool.title.toLowerCase()}, why not automate the whole process? Put QuoteCatch on your site and let it handle the math for every visitor.
                   </p>
                   <Link 
                     href="/" 
-                    className="inline-flex h-16 px-12 bg-red-600 hover:bg-black text-white rounded-2xl font-black text-sm lg:text-base uppercase tracking-widest items-center justify-center transition-all active:scale-95 shadow-xl shadow-red-500/20"
+                    className="inline-flex h-16 px-12 bg-red-600 hover:bg-black text-white rounded-2xl font-semibold text-sm lg:text-base uppercase tracking-widest items-center justify-center transition-all active:scale-95 shadow-xl shadow-red-500/20"
                   >
                     Claim Free Monthly Subscription
                   </Link>
@@ -222,16 +222,16 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
       {faqs && faqs.length > 0 && (
         <section className="max-w-4xl mx-auto px-6 pb-32">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-black text-slate-900 tracking-tight mb-4">Frequently Asked Questions</h2>
-            <p className="text-slate-500 font-medium italic">Everything you need to know about this {slug.replace(/-/g, ' ')} tool.</p>
+            <h2 className="text-3xl font-semibold text-slate-900 tracking-tight mb-4">Frequently Asked Questions</h2>
+            <p className="text-slate-600 font-medium italic">Everything you need to know about this {slug.replace(/-/g, ' ')} tool.</p>
           </div>
           <div className="space-y-4">
             {faqs.map((faq, index) => (
               <details key={index} className="group bg-slate-50 border border-slate-100 rounded-2xl overflow-hidden transition-all duration-300 open:bg-white open:shadow-xl open:shadow-slate-200/50">
-                <summary className="flex items-center justify-between p-6 lg:p-8 cursor-pointer list-none font-bold text-slate-900 group-open:text-red-600 transition-colors">
+                <summary className="flex items-center justify-between p-6 lg:p-8 cursor-pointer list-none font-semibold text-slate-900 group-open:text-red-600 transition-colors">
                   <span className="pr-4">{faq.question}</span>
                   <div className="w-8 h-8 rounded-full bg-white border border-slate-200 flex items-center justify-center group-open:rotate-180 transition-transform duration-300">
-                    <ArrowDown className="w-4 h-4 text-slate-400 group-open:text-red-600" />
+                    <ArrowDown className="w-4 h-4 text-slate-600 group-open:text-red-600" />
                   </div>
                 </summary>
                 <div className="px-6 lg:px-8 pb-6 lg:pb-8 text-slate-600 leading-relaxed font-medium mt-[-0.5rem]">
@@ -247,11 +247,11 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
       <section className="bg-slate-50/50 pt-20 pb-32 border-t border-slate-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <span className="text-[11px] font-black text-red-500 uppercase tracking-[0.3em] mb-4 block">Other Free Tools</span>
-            <h2 className="text-4xl lg:text-5xl font-black text-[#0F172A] tracking-tight mb-4">
+            <span className="text-[11px] font-semibold text-red-500 uppercase tracking-[0.3em] mb-4 block">Other Free Tools</span>
+            <h2 className="text-4xl lg:text-5xl font-semibold text-[#0F172A] tracking-tight mb-4">
               Try our other roofing utilities
             </h2>
-            <p className="text-slate-500 font-medium text-lg italic">
+            <p className="text-slate-600 font-medium text-lg italic">
               Simple, precise tools designed specifically for modern roofing contractors.
             </p>
           </div>
@@ -271,18 +271,18 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
                       {otherTool.type === 'calculator' && <CalcIcon className="w-12 h-12 text-red-500 opacity-20" />}
                       {otherTool.type === 'text-generator' && <Zap className="w-12 h-12 text-amber-500 opacity-20" />}
                       {otherTool.type === 'template' && <Mail className="w-12 h-12 text-blue-500 opacity-20" />}
-                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                      <span className="text-[10px] font-semibold text-slate-600 uppercase tracking-widest">
                         {otherTool.type === 'calculator' ? 'Calculator' : 'Generator'}
                       </span>
                     </div>
                   </div>
-                  <h3 className="text-xl font-black text-slate-900 mb-2 group-hover:text-red-600 transition-colors">
+                  <h3 className="text-xl font-semibold text-slate-900 mb-2 group-hover:text-red-600 transition-colors">
                     {otherTool.title}
                   </h3>
-                  <p className="text-[13px] text-slate-500 font-medium leading-relaxed mb-6">
+                  <p className="text-[15px] text-slate-600 font-medium leading-relaxed mb-6">
                     {otherTool.seoDescription.slice(0, 80)}...
                   </p>
-                  <div className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-red-500 transition-all">
+                  <div className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest text-slate-600 group-hover:text-red-500 transition-all">
                     Open Tool
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </div>
@@ -303,8 +303,8 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
                   <QCLogo size={24} />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[20px] lg:text-[22px] font-black tracking-tight text-[#0F172A] leading-tight">QuoteCatch</span>
-                  <p className="text-[15px] lg:text-[16px] text-slate-500 font-medium leading-tight mt-1">
+                  <span className="text-[20px] lg:text-[22px] font-semibold tracking-tight text-[#0F172A] leading-tight">QuoteCatch</span>
+                  <p className="text-[15px] lg:text-[16px] text-slate-600 font-medium leading-tight mt-1">
                     Stop Chasing, Start Closing
                   </p>
                 </div>
@@ -313,8 +313,8 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
 
             {/* Product Column */}
             <div className="space-y-6">
-              <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400">Product</h4>
-              <nav className="flex flex-col gap-4 text-[14px] font-bold text-slate-600">
+              <h4 className="text-[16px] font-semibold uppercase tracking-[0.2em] text-slate-600">Product</h4>
+              <nav className="flex flex-col gap-4 text-[16px] font-semibold text-slate-600">
                 <Link href="/#features" className="hover:text-red-600 transition-colors">Features</Link>
                 <Link href="/#pricing" className="hover:text-red-600 transition-colors">Pricing</Link>
                 <Link href="/login" className="hover:text-red-600 transition-colors">Sign In</Link>
@@ -324,21 +324,21 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
 
             {/* Free Tools Column */}
             <div className="space-y-6">
-              <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400">Free Tools</h4>
-              <nav className="flex flex-col gap-4 text-[14px] font-bold text-slate-600">
+              <h4 className="text-[16px] font-semibold uppercase tracking-[0.2em] text-slate-600">Free Tools</h4>
+              <nav className="flex flex-col gap-4 text-[16px] font-semibold text-slate-600">
                 <Link href="/tools/shingle-waste-calculator" className="hover:text-red-600 transition-colors">Waste Calculator</Link>
                 <Link href="/tools/roofing-financing-calculator" className="hover:text-red-600 transition-colors">Financing Calc</Link>
                 <Link href="/tools/storm-door-knocking-script" className="hover:text-red-600 transition-colors">Storm Script</Link>
                 <Link href="/tools/chimney-flashing-cost-estimator" className="hover:text-red-600 transition-colors">Flashing Tool</Link>
                 <Link href="/tools/hoa-roofing-approval-generator" className="hover:text-red-600 transition-colors">HOA Template</Link>
-                <Link href="/tools" className="text-red-600 font-black hover:text-red-700 transition-colors">View All →</Link>
+                <Link href="/tools" className="text-red-600 font-semibold hover:text-red-700 transition-colors">View All →</Link>
               </nav>
             </div>
 
             {/* Support Column */}
             <div className="space-y-6">
-              <h4 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400">Support</h4>
-              <nav className="flex flex-col gap-4 text-[14px] font-bold text-slate-600">
+              <h4 className="text-[16px] font-semibold uppercase tracking-[0.2em] text-slate-600">Support</h4>
+              <nav className="flex flex-col gap-4 text-[16px] font-semibold text-slate-600">
                 <Link href="/terms" className="hover:text-red-600 transition-colors">Terms of Service</Link>
                 <Link href="/privacy" className="hover:text-red-600 transition-colors">Privacy Policy</Link>
               </nav>
@@ -346,10 +346,10 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
           </div>
 
           <div className="pt-10 border-t border-slate-50 flex flex-col md:flex-row items-center justify-between gap-6">
-            <p className="text-[12px] lg:text-[14px] text-slate-400 font-bold">
+            <p className="text-[16px] lg:text-[16px] text-slate-600 font-semibold">
               © {new Date().getFullYear()} QuoteCatch. All rights reserved.
             </p>
-            <Link href="/tools" className="text-[11px] font-black text-slate-400 uppercase tracking-widest hover:text-red-500 transition-all">
+            <Link href="/tools" className="text-[11px] font-semibold text-slate-600 uppercase tracking-widest hover:text-red-500 transition-all">
               ← Back to Tools Hub
             </Link>
           </div>

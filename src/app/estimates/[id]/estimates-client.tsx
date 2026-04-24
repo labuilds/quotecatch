@@ -135,7 +135,7 @@ export default function EstimatesClient({
       
       {isDemo && (
         <div className="w-full bg-amber-50 border-b border-amber-100 py-3 px-6 text-center">
-            <p className="text-[13px] font-bold text-amber-800">
+            <p className="text-[15px] font-semibold text-amber-800">
                 <span className="bg-amber-200 px-2 py-0.5 rounded text-[11px] uppercase tracking-wider mr-2">Demo Mode</span>
                 This is a sample estimate. To get real quotes for your project, <a href="/login?tab=signup" className="underline hover:text-amber-900">sign up for a free account</a>.
             </p>
@@ -153,15 +153,15 @@ export default function EstimatesClient({
             <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center">
               <Home className="w-6 h-6 text-white" />
             </div>
-            <span className="text-xl font-black text-slate-900 tracking-tighter uppercase">{companyName || "Roofing Specialist"}</span>
+            <span className="text-xl font-semibold text-slate-900 tracking-tighter uppercase">{companyName || "Roofing Specialist"}</span>
           </div>
         )}
         
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <h1 className="text-[32px] lg:text-[40px] font-black text-[#0F172A] tracking-tight leading-none">Review your estimate</h1>
+          <h1 className="text-[32px] lg:text-[40px] font-semibold text-[#0F172A] tracking-tight leading-none">Review your estimate</h1>
           <button 
             onClick={handleCopyLink}
-            className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-slate-100 text-slate-600 hover:bg-slate-50 hover:border-slate-200 transition-all font-black text-[14px] shadow-sm self-start md:self-auto group active:scale-95"
+            className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border border-slate-100 text-slate-600 hover:bg-slate-50 hover:border-slate-200 transition-all font-semibold text-[16px] shadow-sm self-start md:self-auto group active:scale-95"
           >
             {copied ? (
               <CheckCircle2 className="w-4 h-4 text-emerald-600 group-animate-in fade-in zoom-in duration-300" />
@@ -185,18 +185,18 @@ export default function EstimatesClient({
             {/* Content */}
             <div className="md:w-1/2 p-8 lg:p-10 flex flex-col justify-between">
               <div className="space-y-4">
-                <p className="text-[14px] font-bold text-slate-400 uppercase tracking-widest">{material.title}</p>
-                <h2 className="text-[32px] lg:text-[38px] font-black text-[#0F172A] tracking-tighter leading-tight">
+                <p className="text-[16px] font-semibold text-slate-600 uppercase tracking-widest">{material.title}</p>
+                <h2 className="text-[32px] lg:text-[38px] font-semibold text-[#0F172A] tracking-tighter leading-tight">
                   {priceRange}
                 </h2>
                 
                 <div className="space-y-4">
-                  <p className={`text-[15px] text-slate-500 font-medium leading-relaxed transition-all ${showFullDesc ? "" : "line-clamp-3"}`}>
+                  <p className={`text-[15px] text-slate-600 font-medium leading-relaxed transition-all ${showFullDesc ? "" : "line-clamp-3"}`}>
                     {material.desc}
                   </p>
                   <button 
                     onClick={() => setShowFullDesc(!showFullDesc)}
-                    className="flex items-center gap-1 text-[14px] font-black text-[#0F172A] hover:text-red-700 transition-colors"
+                    className="flex items-center gap-1 text-[16px] font-semibold text-[#0F172A] hover:text-red-700 transition-colors"
                   >
                     {showFullDesc ? "See less" : "See more"}
                     <ChevronDown className={`w-4 h-4 transition-transform ${showFullDesc ? "rotate-180" : ""}`} />
@@ -208,8 +208,8 @@ export default function EstimatesClient({
                       <CheckCircle2 className="w-5 h-5 text-emerald-600" />
                     </div>
                     <div>
-                      <p className="text-[14px] font-black text-[#0F172A]">Real-time Estimation</p>
-                      <p className="text-[12px] text-slate-500 font-bold">Based on current local material rates</p>
+                      <p className="text-[16px] font-semibold text-[#0F172A]">Real-time Estimation</p>
+                      <p className="text-[16px] text-slate-600 font-semibold">Based on current local material rates</p>
                     </div>
                   </div>
                 </div>
@@ -227,9 +227,9 @@ export default function EstimatesClient({
               )}
             </div>
             
-            <h3 className="text-[20px] font-black text-[#0F172A] mb-4">{companyName || "Our Roofing Team"}</h3>
+            <h3 className="text-[20px] font-semibold text-[#0F172A] mb-4">{companyName || "Our Roofing Team"}</h3>
             
-            <p className="text-[14px] text-slate-500 font-bold leading-relaxed mb-8">
+            <p className="text-[16px] text-slate-600 font-semibold leading-relaxed mb-8">
               {userProfile?.company_description || "Backed by years of experience, we specialize in roof repairs and replacements using premium materials. Protect your home with expert roofing you can count on."}
             </p>
 
@@ -240,17 +240,17 @@ export default function EstimatesClient({
                   className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-[#0F172A] text-white hover:bg-slate-900 transition-all shadow-xl shadow-slate-200 group w-full justify-center"
                 >
                   <Phone className="w-4 h-4 text-red-500 group-hover:scale-110 transition-transform" />
-                  <span className="text-[15px] font-black">{userProfile.phone}</span>
+                  <span className="text-[15px] font-semibold">{userProfile.phone}</span>
                 </a>
               )}
 
               <div className="flex items-center justify-center gap-4">
                 {userProfile?.website && (
-                  <a href={normalizeSocialLink(userProfile.website, 'website')} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center hover:bg-slate-50 transition-all text-slate-400" title="Visit Website">
+                  <a href={normalizeSocialLink(userProfile.website, 'website')} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center hover:bg-slate-50 transition-all text-slate-600" title="Visit Website">
                     <Globe className="w-5 h-5" />
                   </a>
                 )}
-                <a href={`mailto:${lead.homeowner_email || ""}`} className="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-all" title="Send Email">
+                <a href={`mailto:${lead.homeowner_email || ""}`} className="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-50 transition-all" title="Send Email">
                   <ExternalLink className="w-5 h-5" />
                 </a>
               </div>
@@ -262,51 +262,51 @@ export default function EstimatesClient({
         <div className="mt-12 bg-[#0F172A] rounded-[2.5rem] p-10 lg:p-14 text-white overflow-hidden relative">
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-10 relative z-10">
-                <h2 className="text-[36px] lg:text-[48px] font-black tracking-tighter leading-none">
+                <h2 className="text-[36px] lg:text-[48px] font-semibold tracking-tighter leading-none">
                   Your roof by<br />the numbers—
                 </h2>
-                <p className="text-slate-400 font-bold text-[15px] max-w-sm">
+                <p className="text-slate-600 font-semibold text-[15px] max-w-sm">
                   This is an estimate. Actual roof size will vary based on the exact slope (steepness) of your roof.
                 </p>
 
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
                     <div className="space-y-1">
-                      <p className="text-[28px] lg:text-[34px] font-black">{sqFt === "under_1500" ? "< 1,500" : sqFt === "1500_2500" ? "2,000" : sqFt === "over_2500" ? "3,000+" : sqFt}</p>
-                      <p className="text-slate-500 font-black text-[14px] uppercase tracking-widest">Square feet</p>
+                      <p className="text-[28px] lg:text-[34px] font-semibold">{sqFt === "under_1500" ? "< 1,500" : sqFt === "1500_2500" ? "2,000" : sqFt === "over_2500" ? "3,000+" : sqFt}</p>
+                      <p className="text-slate-600 font-semibold text-[16px] uppercase tracking-widest">Square feet</p>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-[28px] lg:text-[34px] font-black">{pitchLabel}</p>
-                      <p className="text-slate-500 font-black text-[14px] uppercase tracking-widest">Slope</p>
+                      <p className="text-[28px] lg:text-[34px] font-semibold">{pitchLabel}</p>
+                      <p className="text-slate-600 font-semibold text-[16px] uppercase tracking-widest">Slope</p>
                     </div>
                     {formData.buildingType && (
                       <div className="space-y-1">
-                        <p className="text-[28px] lg:text-[34px] font-black capitalize">{formData.buildingType}</p>
-                        <p className="text-slate-500 font-black text-[14px] uppercase tracking-widest">Building</p>
+                        <p className="text-[28px] lg:text-[34px] font-semibold capitalize">{formData.buildingType}</p>
+                        <p className="text-slate-600 font-semibold text-[16px] uppercase tracking-widest">Building</p>
                       </div>
                     )}
                     {formData.material && (
                       <div className="space-y-1">
-                        <p className="text-[28px] lg:text-[34px] font-black capitalize">{formData.material}</p>
-                        <p className="text-slate-500 font-black text-[14px] uppercase tracking-widest">Existing Roof</p>
+                        <p className="text-[28px] lg:text-[34px] font-semibold capitalize">{formData.material}</p>
+                        <p className="text-slate-600 font-semibold text-[16px] uppercase tracking-widest">Existing Roof</p>
                       </div>
                     )}
                     {formData.timeline && (
                       <div className="space-y-1">
-                        <p className="text-[28px] lg:text-[34px] font-black capitalize">{formData.timeline.replace('-', ' to ')}</p>
-                        <p className="text-slate-500 font-black text-[14px] uppercase tracking-widest">Timeline</p>
+                        <p className="text-[28px] lg:text-[34px] font-semibold capitalize">{formData.timeline.replace('-', ' to ')}</p>
+                        <p className="text-slate-600 font-semibold text-[16px] uppercase tracking-widest">Timeline</p>
                       </div>
                     )}
                     {formData.financing && (
                       <div className="space-y-1">
-                        <p className="text-[28px] lg:text-[34px] font-black capitalize">{formData.financing}</p>
-                        <p className="text-slate-500 font-black text-[14px] uppercase tracking-widest">Financing</p>
+                        <p className="text-[28px] lg:text-[34px] font-semibold capitalize">{formData.financing}</p>
+                        <p className="text-slate-600 font-semibold text-[16px] uppercase tracking-widest">Financing</p>
                       </div>
                     )}
                   </div>
 
                   {lead.notes && (
                     <div className="pt-8 border-t border-slate-800 mt-4">
-                      <p className="text-slate-500 font-black text-[12px] uppercase tracking-widest mb-3 flex items-center gap-2">
+                      <p className="text-slate-600 font-semibold text-[16px] uppercase tracking-widest mb-3 flex items-center gap-2">
                         <Info className="w-4 h-4" />
                         Homeowner Notes:
                       </p>
@@ -334,10 +334,10 @@ export default function EstimatesClient({
                     <div className="absolute inset-0 flex items-center justify-center bg-slate-900 border border-slate-800 fallback-msg">
                        <div className="text-center space-y-3">
                           <MapPin className="w-10 h-10 text-slate-700 mx-auto" />
-                          <p className="text-[12px] font-black text-slate-500 uppercase tracking-widest">
+                          <p className="text-[16px] font-semibold text-slate-600 uppercase tracking-widest">
                             {!staticMapUrl ? "Google Maps API Key Missing" : "Satellite Imagery Unavailable"}
                           </p>
-                          <p className="text-[10px] text-slate-600 font-bold px-8 max-w-[240px]">
+                          <p className="text-[10px] text-slate-600 font-semibold px-8 max-w-[240px]">
                             {!staticMapUrl 
                               ? "Check your .env.local file for GOOGLE_MAPS_API_KEY." 
                               : "High-resolution aerial scan could not be loaded for this location."
@@ -352,7 +352,7 @@ export default function EstimatesClient({
                       <div className="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center mx-auto">
                         <Zap className="w-8 h-8 text-slate-600" />
                       </div>
-                      <p className="text-slate-500 text-[13px] font-bold">Satellite measurements are exclusive to our Pro tier partners.</p>
+                      <p className="text-slate-600 text-[15px] font-semibold">Satellite measurements are exclusive to our Pro tier partners.</p>
                    </div>
                 </div>
               )}
@@ -361,18 +361,18 @@ export default function EstimatesClient({
 
         {/* Footer info */}
         <div className="mt-20 pt-12 border-t border-slate-100 flex flex-col items-center">
-          <p className="text-[18px] font-black text-[#0F172A] mb-8 tracking-tight">Connect and learn more about us</p>
+          <p className="text-[18px] font-semibold text-[#0F172A] mb-8 tracking-tight">Connect and learn more about us</p>
           
           <div className="flex items-center gap-6 mb-20">
             {userProfile?.facebook_url && (
-              <a href={normalizeSocialLink(userProfile.facebook_url, 'facebook')} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center border border-slate-100 hover:bg-slate-50 transition-all text-slate-400">
+              <a href={normalizeSocialLink(userProfile.facebook_url, 'facebook')} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center border border-slate-100 hover:bg-slate-50 transition-all text-slate-600">
                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                 </svg>
               </a>
             )}
             {userProfile?.instagram_url && (
-              <a href={normalizeSocialLink(userProfile.instagram_url, 'instagram')} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center border border-slate-100 hover:bg-slate-50 transition-all text-slate-400">
+              <a href={normalizeSocialLink(userProfile.instagram_url, 'instagram')} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center border border-slate-100 hover:bg-slate-50 transition-all text-slate-600">
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                   <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
@@ -381,7 +381,7 @@ export default function EstimatesClient({
               </a>
             )}
             {userProfile?.linkedin_url && (
-              <a href={normalizeSocialLink(userProfile.linkedin_url, 'linkedin')} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center border border-slate-100 hover:bg-slate-50 transition-all text-slate-400">
+              <a href={normalizeSocialLink(userProfile.linkedin_url, 'linkedin')} target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full flex items-center justify-center border border-slate-100 hover:bg-slate-50 transition-all text-slate-600">
                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
@@ -389,20 +389,20 @@ export default function EstimatesClient({
             )}
             {!userProfile?.facebook_url && !userProfile?.instagram_url && !userProfile?.linkedin_url && (
               <div className="flex items-center gap-6 opacity-20">
-                <div className="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center text-slate-400">
+                <div className="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center text-slate-600">
                   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                 </div>
-                <div className="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center text-slate-400">
+                <div className="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center text-slate-600">
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                 </div>
-                <div className="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center text-slate-400">
+                <div className="w-12 h-12 rounded-full border border-slate-100 flex items-center justify-center text-slate-600">
                   <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                 </div>
               </div>
             )}
           </div>
 
-          <p className="text-[12px] text-slate-400 font-bold text-center max-w-lg italic mb-8">
+          <p className="text-[16px] text-slate-600 font-semibold text-center max-w-lg italic mb-8">
             *Please be advised that this is only an estimate. Final prices will vary upon onsite assessment.
           </p>
 
@@ -410,7 +410,7 @@ export default function EstimatesClient({
              <div className="w-5 h-5 bg-slate-900 rounded flex items-center justify-center">
                 <div className="w-1.5 h-1.5 bg-white rounded-full" />
              </div>
-             <span className="text-[11px] font-black uppercase tracking-widest text-slate-900">
+             <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-900">
                 Powered by <a href="https://getquotecatch.com" target="_blank" rel="noopener noreferrer" className="hover:text-red-700 transition-colors">QuoteCatch</a>
              </span>
           </div>

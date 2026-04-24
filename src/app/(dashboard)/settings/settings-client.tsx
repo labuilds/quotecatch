@@ -182,10 +182,10 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
     <div className="max-w-3xl mx-auto space-y-10 pb-20">
       {/* Page header */}
       <div>
-        <h1 className="text-[36px] font-black tracking-tighter text-[#0F172A] leading-tight">
+        <h1 className="text-[36px] font-semibold tracking-tighter text-[#0F172A] leading-tight">
           Account Settings
         </h1>
-        <p className="text-slate-500 font-medium text-[16px] mt-1">
+        <p className="text-slate-700 font-medium text-[16px] mt-1">
           Manage your roofing business profile and subscription.
         </p>
       </div>
@@ -195,16 +195,16 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
         <div className="space-y-8">
           {/* Profile Section */}
           <section className="bg-white border border-slate-100 rounded-[32px] p-8 shadow-[0_4px_24px_rgba(0,0,0,0.02)] space-y-6">
-            <div className="flex items-center gap-3 mb-2">
+            <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
                 <User className="w-5 h-5 text-slate-900" />
               </div>
-              <h3 className="text-[18px] font-black text-[#0F172A]">Company Profile</h3>
+              <h3 className="text-[18px] font-semibold text-[#0F172A]">Company Profile</h3>
             </div>
 
             <div className="grid grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">First Name</Label>
+                <Label className="text-[15px] font-semibold uppercase tracking-[0.12em] text-slate-800 ml-1.5">First Name</Label>
                 <Input
                   value={formData.first_name}
                   onChange={(e) => setFormData(prev => ({ ...prev, first_name: e.target.value }))}
@@ -213,7 +213,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                 />
               </div>
               <div className="space-y-2">
-                <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">Last Name</Label>
+                <Label className="text-[15px] font-semibold uppercase tracking-[0.12em] text-slate-800 ml-1.5">Last Name</Label>
                 <Input
                   value={formData.last_name}
                   onChange={(e) => setFormData(prev => ({ ...prev, last_name: e.target.value }))}
@@ -224,7 +224,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">Company Name</Label>
+              <Label className="text-[15px] font-semibold uppercase tracking-[0.12em] text-slate-800 ml-1.5">Company Name</Label>
               <Input
                 value={formData.company_name}
                 onChange={(e) => setFormData(prev => ({ ...prev, company_name: e.target.value }))}
@@ -234,7 +234,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
             </div>
 
             <div className="space-y-4">
-              <Label className="text-[15px] font-bold text-slate-600 ml-1">Company Logo</Label>
+              <Label className="text-[15px] font-semibold uppercase tracking-[0.12em] text-slate-800 ml-1.5">Company Logo</Label>
               <div className="flex items-center gap-6">
                 <div className="relative group">
                   <div className={`w-24 h-24 rounded-3xl bg-slate-50 border-2 border-dashed transition-colors flex items-center justify-center overflow-hidden ${logoPreview ? 'border-red-500 bg-red-50/30' : 'border-slate-200'}`}>
@@ -244,8 +244,8 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                       <img src={formData.company_logo_url} alt="Logo" className="w-full h-full object-contain p-2" />
                     ) : (
                       <div className="flex flex-col items-center gap-1.5 opacity-40">
-                        <Globe className="w-8 h-8 text-slate-400" />
-                        <span className="text-[10px] font-black uppercase tracking-tighter">No Logo</span>
+                        <Globe className="w-8 h-8 text-slate-600" />
+                        <span className="text-[10px] font-semibold uppercase tracking-tighter">No Logo</span>
                       </div>
                     )}
                     {logoUploading && (
@@ -256,13 +256,13 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                   </div>
                 </div>
                 <div className="flex-1 space-y-3">
-                  <p className="text-[15px] text-slate-500 font-medium leading-relaxed">
+                  <p className="text-[15px] text-slate-700 font-medium leading-relaxed">
                     Upload your company logo. This will be shown on your quotes and widgets.
                   </p>
                   <div className="flex flex-wrap gap-2">
                     <Button
                       variant="outline"
-                      className="h-10 rounded-xl relative overflow-hidden font-bold text-slate-600 hover:text-slate-900 border-slate-200"
+                      className="h-10 rounded-xl relative overflow-hidden font-semibold text-slate-600 hover:text-slate-900 border-slate-200"
                     >
                       <input
                         type="file"
@@ -278,7 +278,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                       <Button
                         variant="ghost"
                         onClick={removeLogo}
-                        className="h-10 rounded-xl font-bold text-red-600 hover:text-red-700 hover:bg-red-50"
+                        className="h-10 rounded-xl font-semibold text-red-600 hover:text-red-700 hover:bg-red-50"
                       >
                         Remove
                       </Button>
@@ -286,7 +286,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                     {logoPreview && !logoUploading && !isSaving && (
                       <div className="flex items-center gap-2 px-3 py-1.5 bg-red-50 rounded-xl border border-red-100 animate-pulse">
                         <span className="w-1.5 h-1.5 rounded-full bg-red-600" />
-                        <span className="text-[10px] font-black text-red-600 uppercase tracking-widest">
+                        <span className="text-[10px] font-semibold text-red-600 uppercase tracking-widest">
                           Pending Save
                         </span>
                       </div>
@@ -297,7 +297,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">Short Description (One-liner)</Label>
+              <Label className="text-[15px] font-semibold uppercase tracking-[0.12em] text-slate-800 ml-1.5">Short Description (One-liner)</Label>
               <Input
                 value={formData.company_description}
                 onChange={(e) => setFormData(prev => ({ ...prev, company_description: e.target.value }))}
@@ -308,9 +308,9 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">Business Phone</Label>
+                <Label className="text-[15px] font-semibold uppercase tracking-[0.12em] text-slate-800 ml-1.5">Business Phone</Label>
                 <div className="relative">
-                  <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
                   <Input
                     value={formData.phone}
                     onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
@@ -321,9 +321,9 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
               </div>
 
               <div className="space-y-2">
-                <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">Business Website</Label>
+                <Label className="text-[15px] font-semibold uppercase tracking-[0.12em] text-slate-800 ml-1.5">Business Website</Label>
                 <div className="relative">
-                  <Globe className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <Globe className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
                   <Input
                     value={formData.website}
                     onChange={(e) => setFormData(prev => ({ ...prev, website: e.target.value }))}
@@ -335,7 +335,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
             </div>
 
             <div className="pt-4 border-t border-slate-50">
-              <h4 className="text-[14px] font-black text-slate-400 uppercase tracking-widest mb-4">Social Media Presence</h4>
+              <h4 className="text-[16px] font-semibold text-slate-600 uppercase tracking-widest mb-4">Social Media Presence</h4>
               <div className="grid gap-4">
                 <div className="grid grid-cols-[48px_1fr] items-center gap-2">
                   <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center border border-blue-100">
@@ -347,7 +347,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                     value={formData.facebook_url}
                     onChange={(e) => setFormData(prev => ({ ...prev, facebook_url: e.target.value }))}
                     placeholder="https://facebook.com/your-page"
-                    className="h-12 rounded-2xl border-slate-200 bg-white px-5 text-[15px] font-bold text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
+                    className="h-12 rounded-2xl border-slate-200 bg-white px-5 text-[15px] font-medium text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
                   />
                 </div>
                 <div className="grid grid-cols-[48px_1fr] items-center gap-2">
@@ -360,7 +360,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                     value={formData.linkedin_url}
                     onChange={(e) => setFormData(prev => ({ ...prev, linkedin_url: e.target.value }))}
                     placeholder="https://linkedin.com/company/your-company"
-                    className="h-12 rounded-2xl border-slate-200 bg-white px-5 text-[15px] font-bold text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
+                    className="h-12 rounded-2xl border-slate-200 bg-white px-5 text-[15px] font-medium text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
                   />
                 </div>
                 <div className="grid grid-cols-[48px_1fr] items-center gap-2">
@@ -375,7 +375,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                     value={formData.instagram_url}
                     onChange={(e) => setFormData(prev => ({ ...prev, instagram_url: e.target.value }))}
                     placeholder="https://instagram.com/your-handle"
-                    className="h-12 rounded-2xl border-slate-200 bg-white px-5 text-[15px] font-bold text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
+                    className="h-12 rounded-2xl border-slate-200 bg-white px-5 text-[15px] font-medium text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
                   />
                 </div>
               </div>
@@ -385,7 +385,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
               <Button
                 onClick={handleSave}
                 disabled={isSaving}
-                className={`h-12 px-8 font-black rounded-2xl text-[16px] transition-all duration-300 ${
+                className={`h-12 px-8 font-semibold rounded-2xl text-[16px] transition-all duration-300 ${
                   saved
                     ? "bg-emerald-500 text-white shadow-lg shadow-emerald-200"
                     : "bg-[#0F172A] hover:bg-black text-white shadow-lg shadow-slate-200 hover:-translate-y-0.5"
@@ -408,17 +408,17 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
               <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center border border-slate-100">
                 <CreditCard className="w-5 h-5 text-slate-900" />
               </div>
-              <h3 className="text-[18px] font-black text-[#0F172A]">Current Plan</h3>
+              <h3 className="text-[18px] font-semibold text-[#0F172A]">Current Plan</h3>
             </div>
 
             <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8 p-8 bg-slate-50/50 rounded-[28px] border border-slate-100/80">
               <div className="space-y-2">
                 <div className="flex items-center gap-3">
-                  <p className="text-[22px] font-black text-[#0F172A] tracking-tight">
+                  <p className="text-[22px] font-semibold text-[#0F172A] tracking-tight">
                     {isPro ? "Pro Satellite Plan" : "14-Day Trial"}
                   </p>
                   <span
-                    className={`text-[11px] font-black uppercase tracking-[0.15em] px-3 py-1 rounded-full border ${
+                    className={`text-[11px] font-semibold uppercase tracking-[0.15em] px-3 py-1 rounded-full border ${
                       isPro
                         ? "bg-emerald-50 text-emerald-600 border-emerald-100"
                         : "bg-red-50 text-red-600 border-red-100"
@@ -427,7 +427,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                     Active
                   </span>
                 </div>
-                <p className="text-[16px] text-slate-500 font-medium max-w-md leading-relaxed">
+                <p className="text-[16px] text-slate-700 font-medium max-w-md leading-relaxed">
                   {isPro
                     ? "You have full access to Unlimited Lead Machines, Pro Satellite Power, and CRM Webhooks."
                     : "You are currently exploring all Pro features including Satellite Access and CRM Integrations."}
@@ -436,7 +436,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
               {!isPro && (
                 <Button
                   onClick={() => setShowUpgradeModal(true)}
-                  className="h-14 px-8 bg-red-700 text-white font-black rounded-2xl text-[16px] shadow-xl shadow-red-200 hover:bg-black hover:-translate-y-0.5 transition-all cursor-pointer whitespace-nowrap"
+                  className="h-14 px-8 bg-red-700 text-white font-semibold rounded-2xl text-[16px] shadow-xl shadow-red-200 hover:bg-black hover:-translate-y-0.5 transition-all cursor-pointer whitespace-nowrap"
                 >
                   Activate Pro Now
                 </Button>
@@ -455,29 +455,29 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                   {isPro ? (
                     <Bot className="w-5 h-5 text-red-700" />
                   ) : (
-                    <Lock className="w-5 h-5 text-slate-400" />
+                    <Lock className="w-5 h-5 text-slate-600" />
                   )}
                 </div>
-                <h3 className="text-[18px] font-black text-[#0F172A]">CRM Webhooks</h3>
+                <h3 className="text-[18px] font-semibold text-[#0F172A]">CRM Webhooks</h3>
               </div>
               {!isPro && (
                 <button
                   onClick={() => setShowUpgradeModal(true)}
-                  className="text-[12px] font-black uppercase tracking-widest bg-red-700 text-white px-3 py-1.5 rounded-full shadow-sm hover:bg-red-800 transition-colors cursor-pointer"
+                  className="text-[16px] font-semibold uppercase tracking-widest bg-red-700 text-white px-3 py-1.5 rounded-full shadow-sm hover:bg-red-800 transition-colors cursor-pointer"
                 >
                   Pro Feature
                 </button>
               )}
             </div>
 
-            <p className="text-[16px] text-slate-500 font-medium leading-relaxed">
+            <p className="text-[16px] text-slate-700 font-medium leading-relaxed">
               Automatically push new leads to Zapier, Make, or your CRM of choice.
             </p>
 
             <div className={`space-y-4 ${!isPro ? "opacity-50 pointer-events-none" : ""}`}>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label className="text-[12px] font-bold uppercase tracking-[0.1em] text-slate-400 ml-1.5">Endpoint URL</Label>
+                  <Label className="text-[15px] font-semibold uppercase tracking-[0.12em] text-slate-800 ml-1.5">Endpoint URL</Label>
                 </div>
                 <Input
                   value={formData.webhook_url}
@@ -492,7 +492,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
             {!isPro && (
               <button
                 onClick={() => setShowUpgradeModal(true)}
-                className="w-full h-12 border-2 border-dashed border-red-200 rounded-2xl text-red-700 font-black text-[14px] hover:bg-red-50 transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full h-12 border-2 border-dashed border-red-200 rounded-2xl text-red-700 font-semibold text-[16px] hover:bg-red-50 transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Lock className="w-4 h-4" />
                 Upgrade to Pro to unlock CRM Webhooks
@@ -507,22 +507,22 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                 <X className="w-5 h-5 text-red-700" />
               </div>
               <div>
-                <h3 className="text-[18px] font-black text-[#0F172A]">Danger Zone</h3>
-                <p className="text-[15px] text-red-600/70 font-bold italic tracking-tight">Proceed with absolute caution</p>
+                <h3 className="text-[18px] font-semibold text-[#0F172A]">Danger Zone</h3>
+                <p className="text-[15px] text-red-600/70 font-semibold italic tracking-tight">Proceed with absolute caution</p>
               </div>
             </div>
 
             <div className="p-6 bg-white border border-red-100 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-6">
               <div className="space-y-2">
-                <p className="text-[16px] font-black text-[#0F172A]">Delete Your Account</p>
-                <p className="text-[15px] text-slate-500 font-medium max-w-sm leading-relaxed">
+                <p className="text-[16px] font-semibold text-[#0F172A]">Delete Your Account</p>
+                <p className="text-[15px] text-slate-700 font-medium max-w-sm leading-relaxed">
                   Permanently remove all your lead machines, estimator data, and website integrations. This action is irreversible.
                 </p>
               </div>
               <Button
                 variant="ghost"
                 onClick={() => setShowDeleteDialog(true)}
-                className="h-12 px-6 rounded-xl bg-red-50 text-red-600 font-black hover:bg-red-600 hover:text-white transition-all shadow-sm"
+                className="h-12 px-6 rounded-xl bg-red-50 text-red-600 font-semibold hover:bg-red-600 hover:text-white transition-all shadow-sm"
               >
                 Delete Account
               </Button>
@@ -533,7 +533,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
           <div className="flex justify-center pt-8">
             <Button
               variant="ghost"
-              className="text-slate-400 hover:text-red-500 hover:bg-red-50 font-bold rounded-2xl h-12 px-6 text-[16px] transition-all"
+              className="text-slate-600 hover:text-red-500 hover:bg-red-50 font-semibold rounded-2xl h-12 px-6 text-[16px] transition-all"
               onClick={async () => {
                 await supabase.auth.signOut()
                 router.push("/login")
@@ -559,32 +559,32 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
             <div className="w-16 h-16 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mb-6 border border-red-100">
               <X className="w-8 h-8" />
             </div>
-            <AlertDialogTitle className="text-[28px] font-black text-[#0F172A] tracking-tight leading-tight">
+            <AlertDialogTitle className="text-[28px] font-semibold text-[#0F172A] tracking-tight leading-tight">
               Are you absolutely certain?
             </AlertDialogTitle>
-            <AlertDialogDescription className="text-slate-500 font-medium text-[15px] pt-4">
+            <AlertDialogDescription className="text-slate-600 font-medium text-[15px] pt-4">
               This will permanently delete your QuoteCatch account and all associated data. You will lose access to all your Lead Machines instantly.
             </AlertDialogDescription>
           </AlertDialogHeader>
 
           <div className="py-8 space-y-4">
-             <p className="text-[12px] font-black uppercase tracking-widest text-slate-400">Type <span className="text-red-600">DELETE</span> to confirm</p>
+             <p className="text-[16px] font-semibold uppercase tracking-widest text-slate-600">Type <span className="text-red-600">DELETE</span> to confirm</p>
              <Input 
                value={deleteConfirmation}
                onChange={(e) => setDeleteConfirmation(e.target.value)}
                placeholder="DELETE"
-               className="h-14 rounded-2xl border-2 border-red-100 bg-white px-6 text-center text-[18px] font-black text-red-600 focus-visible:ring-4 focus-visible:ring-red-100 focus-visible:border-red-500 transition-all placeholder:text-red-100"
+               className="h-14 rounded-2xl border-2 border-red-100 bg-white px-6 text-center text-[18px] font-semibold text-red-600 focus-visible:ring-4 focus-visible:ring-red-100 focus-visible:border-red-500 transition-all placeholder:text-red-100"
              />
           </div>
 
           <AlertDialogFooter className="gap-3">
-            <AlertDialogCancel className="h-14 rounded-2xl font-black border-slate-100 text-slate-500 flex-1">
+            <AlertDialogCancel className="h-14 rounded-2xl font-semibold border-slate-100 text-slate-600 flex-1">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteAccount}
               disabled={deleteConfirmation !== "DELETE" || isDeleting}
-              className="h-14 rounded-2xl bg-red-600 text-white font-black flex-[1.5] border-none shadow-xl shadow-red-200 transition-all hover:bg-black disabled:opacity-30"
+              className="h-14 rounded-2xl bg-red-600 text-white font-semibold flex-[1.5] border-none shadow-xl shadow-red-200 transition-all hover:bg-black disabled:opacity-30"
             >
               {isDeleting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Delete Irreversibly"}
             </AlertDialogAction>

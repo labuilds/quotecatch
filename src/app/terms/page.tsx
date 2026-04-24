@@ -15,7 +15,7 @@ export default function TermsOfService() {
         <div className="mb-8">
           <Link 
             href="/" 
-            className="inline-flex items-center text-sm font-bold text-slate-500 hover:text-[#0F172A] transition-colors"
+            className="inline-flex items-center text-sm font-semibold text-slate-600 hover:text-[#0F172A] transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Home
@@ -26,13 +26,13 @@ export default function TermsOfService() {
         <div className="bg-white rounded-[2rem] shadow-[0_40px_100px_rgba(0,0,0,0.04)] border border-slate-100 overflow-hidden">
           <div className="p-8 sm:p-16 lg:p-20">
             <header className="mb-12 border-b border-slate-100 pb-10">
-              <h1 className="text-4xl font-black tracking-tight text-[#0F172A] mb-4">Terms of Service</h1>
-              <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">
+              <h1 className="text-4xl font-semibold tracking-tight text-[#0F172A] mb-4">Terms of Service</h1>
+              <p className="text-slate-600 font-semibold uppercase tracking-widest text-sm">
                 Effective Date: {today}
               </p>
             </header>
 
-            <article className="prose prose-slate max-w-none prose-headings:text-[#0F172A] prose-headings:font-black prose-p:text-slate-600 prose-p:leading-relaxed prose-strong:text-[#0F172A]">
+            <article className="prose prose-slate max-w-none prose-headings:text-[#0F172A] prose-headings:font-semibold prose-p:text-slate-600 prose-p:leading-relaxed prose-strong:text-[#0F172A]">
               <p>
                 Welcome to QuoteCatch. These Terms of Service ("Terms") govern your access to and use of the QuoteCatch website, 
                 services, and applications (the "Service"). By using the Service, you agree to be bound by these Terms.
@@ -114,7 +114,7 @@ export default function TermsOfService() {
             </article>
 
             <footer className="mt-20 pt-10 border-t border-slate-100 text-center">
-              <p className="text-slate-400 font-bold ml-1 text-sm">
+              <p className="text-slate-600 font-semibold ml-1 text-sm">
                 © {new Date().getFullYear()} QuoteCatch. All rights reserved.
               </p>
             </footer>

@@ -15,7 +15,7 @@ export default function PrivacyPolicy() {
         <div className="mb-8">
           <Link 
             href="/" 
-            className="inline-flex items-center text-sm font-bold text-slate-500 hover:text-[#0F172A] transition-colors"
+            className="inline-flex items-center text-sm font-semibold text-slate-600 hover:text-[#0F172A] transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Home
@@ -26,13 +26,13 @@ export default function PrivacyPolicy() {
         <div className="bg-white rounded-[2rem] shadow-[0_40px_100px_rgba(0,0,0,0.04)] border border-slate-100 overflow-hidden">
           <div className="p-8 sm:p-16 lg:p-20">
             <header className="mb-12 border-b border-slate-100 pb-10">
-              <h1 className="text-4xl font-black tracking-tight text-[#0F172A] mb-4">Privacy Policy</h1>
-              <p className="text-slate-400 font-bold uppercase tracking-widest text-sm">
+              <h1 className="text-4xl font-semibold tracking-tight text-[#0F172A] mb-4">Privacy Policy</h1>
+              <p className="text-slate-600 font-semibold uppercase tracking-widest text-sm">
                 Last Updated: {today}
               </p>
             </header>
 
-            <article className="prose prose-slate max-w-none prose-headings:text-[#0F172A] prose-headings:font-black prose-p:text-slate-600 prose-p:leading-relaxed prose-strong:text-[#0F172A]">
+            <article className="prose prose-slate max-w-none prose-headings:text-[#0F172A] prose-headings:font-semibold prose-p:text-slate-600 prose-p:leading-relaxed prose-strong:text-[#0F172A]">
               <p>
                 At QuoteCatch, your privacy is a priority. This Privacy Policy describes how we collect, use, and share 
                 your information when you use our website, widgets, and services (the "Service").
@@ -108,7 +108,7 @@ export default function PrivacyPolicy() {
             </article>
 
             <footer className="mt-20 pt-10 border-t border-slate-100 text-center">
-              <p className="text-slate-400 font-bold ml-1 text-sm">
+              <p className="text-slate-600 font-semibold ml-1 text-sm">
                 © {new Date().getFullYear()} QuoteCatch. All rights reserved.
               </p>
             </footer>

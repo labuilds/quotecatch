@@ -27,8 +27,8 @@ export default async function WidgetPage({ params }: { params: Promise<{ id: str
           <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-4">
             <ShieldAlert className="w-6 h-6 text-red-500" />
           </div>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">Estimator Unavailable</h2>
-          <p className="text-slate-500">This estimator is no longer active or has been removed by the administrator.</p>
+          <h2 className="text-xl font-semibold text-slate-900 mb-2">Estimator Unavailable</h2>
+          <p className="text-slate-600">This estimator is no longer active or has been removed by the administrator.</p>
         </div>
       </div>
     )
@@ -54,8 +54,8 @@ export default async function WidgetPage({ params }: { params: Promise<{ id: str
           <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-4">
             <ShieldAlert className="w-6 h-6 text-red-500" />
           </div>
-          <h2 className="text-xl font-bold text-slate-900 mb-2">Estimator Unavailable</h2>
-          <p className="text-slate-500">This estimator is currently unavailable. Please contact {userData?.company_name || "the administrator"} for assistance.</p>
+          <h2 className="text-xl font-semibold text-slate-900 mb-2">Estimator Unavailable</h2>
+          <p className="text-slate-600">This estimator is currently unavailable. Please contact {userData?.company_name || "the administrator"} for assistance.</p>
         </div>
       </div>
     )

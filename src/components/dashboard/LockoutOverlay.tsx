@@ -45,10 +45,10 @@ export function LockoutOverlay({ email }: LockoutOverlayProps) {
           </div>
           
           <div className="space-y-4">
-            <h1 className="text-[42px] md:text-[56px] font-black text-[#0F172A] tracking-tighter leading-[0.95]">
+            <h1 className="text-[42px] md:text-[56px] font-semibold text-[#0F172A] tracking-tighter leading-[0.95]">
               Your trial has ended.
             </h1>
-            <p className="text-[18px] md:text-[22px] text-slate-500 font-medium max-w-2xl mx-auto leading-relaxed">
+            <p className="text-[18px] md:text-[22px] text-slate-600 font-medium max-w-2xl mx-auto leading-relaxed">
               We hope you enjoyed the satellite roof scans! Upgrade your plan today to unlock the full platform and continue capturing high-value leads.
             </p>
           </div>
@@ -64,8 +64,8 @@ export function LockoutOverlay({ email }: LockoutOverlayProps) {
                 <div className="w-10 h-10 bg-white rounded-2xl flex items-center justify-center shadow-sm mb-4">
                   <feature.icon className="w-5 h-5 text-red-600" />
                 </div>
-                <p className="text-[17px] font-black text-slate-900 leading-tight">{feature.label}</p>
-                <p className="text-[15px] font-bold text-slate-500 mt-1.5 tracking-wide">{feature.sub}</p>
+                <p className="text-[17px] font-semibold text-slate-900 leading-tight">{feature.label}</p>
+                <p className="text-[15px] font-semibold text-slate-600 mt-1.5 tracking-wide">{feature.sub}</p>
               </div>
             ))}
           </div>
@@ -79,19 +79,19 @@ export function LockoutOverlay({ email }: LockoutOverlayProps) {
 
             <div className="mt-8 flex flex-col items-center gap-5">
               <div className="flex flex-col items-center gap-1">
-                <p className="text-slate-400 text-xs font-black uppercase tracking-widest leading-none">Logged in as</p>
-                <p className="text-slate-900 text-[15px] font-black tracking-tight">{email || 'Unknown User'}</p>
+                <p className="text-slate-600 text-xs font-semibold uppercase tracking-widest leading-none">Logged in as</p>
+                <p className="text-slate-900 text-[15px] font-semibold tracking-tight">{email || 'Unknown User'}</p>
               </div>
               
               <button 
                 onClick={handleSignOut}
-                className="text-slate-400 hover:text-red-600 text-[13px] font-black uppercase tracking-widest transition-all flex items-center gap-2 group border border-slate-200 px-4 py-2 rounded-xl hover:border-red-100 hover:bg-red-50"
+                className="text-slate-600 hover:text-red-600 text-[15px] font-semibold uppercase tracking-widest transition-all flex items-center gap-2 group border border-slate-200 px-4 py-2 rounded-xl hover:border-red-100 hover:bg-red-50"
               >
                   <LogOut className="w-3.5 h-3.5 text-slate-300 group-hover:text-red-600 transition-colors" />
                   Sign out
               </button>
               
-              <p className="text-slate-400 text-[13px] font-bold mt-2">Questions? Contact <span className="text-slate-900">support@getquotecatch.com</span></p>
+              <p className="text-slate-600 text-[15px] font-semibold mt-2">Questions? Contact <span className="text-slate-900">support@getquotecatch.com</span></p>
            </div>
         </div>
       </div>
