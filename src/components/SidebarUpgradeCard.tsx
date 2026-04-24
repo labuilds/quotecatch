@@ -9,11 +9,11 @@ import { createDodoCheckoutSession } from "@/app/actions/billing"
 export function SidebarUpgradeCard({ trialDaysRemaining = 14 }: { trialDaysRemaining?: number }) {
   const [showModal, setShowModal] = useState(false)
 
-  const handleUpgrade = async () => {
+  const handleUpgrade = async (plan: 'monthly' | 'yearly') => {
     try {
-      const { url } = await createDodoCheckoutSession()
+      const { url } = await createDodoCheckoutSession(plan)
       if (!url || url.startsWith("#")) {
-        alert("Billing is not configured. Please add DODO_PAYMENTS_LIVE_API_KEY and DODO_PRO_LIVE_COLLECTION_ID to your environment variables.")
+        alert(`Billing for ${plan} is not configured. Please add DODO_PRO_${plan.toUpperCase()}_LIVE_ID to your environment variables.`)
         return
       }
       window.location.href = url
@@ -21,7 +21,6 @@ export function SidebarUpgradeCard({ trialDaysRemaining = 14 }: { trialDaysRemai
       console.error(error)
       alert("Could not start checkout: " + (error instanceof Error ? error.message : "Please check your network or configuration."))
     }
-
   }
 
   return (

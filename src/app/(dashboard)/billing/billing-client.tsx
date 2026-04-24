@@ -17,6 +17,8 @@ const proFeatures = [
   "Priority support & analytics",
 ]
 
+import { UpgradeModal } from "@/components/UpgradeModal"
+
 export function BillingClient({
   isPro,
   email,
@@ -27,25 +29,23 @@ export function BillingClient({
   justUpgraded: boolean
 }) {
   const [isLoading, setIsLoading] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
-  const handleUpgrade = async () => {
+  const handleUpgrade = async (plan: 'monthly' | 'yearly') => {
     setIsLoading(true)
     try {
-      const { url } = await createDodoCheckoutSession()
-      
-      if (!url || url.startsWith("#")) {
-        alert("Billing is not configured. Please add DODO_PAYMENTS_LIVE_API_KEY and DODO_PRO_LIVE_COLLECTION_ID to your environment variables.")
-        setIsLoading(false)
+      const { url } = await createDodoCheckoutSession(plan)
+      if (url && !url.startsWith("#")) {
+        window.location.href = url
         return
       }
-      
-      window.location.href = url
+      alert(`Billing for ${plan} is not configured.`)
     } catch (err) {
       console.error(err)
-      alert("Could not start checkout: " + (err instanceof Error ? err.message : "Please check your network or Dodo configuration."))
+      alert("Could not start checkout: " + (err instanceof Error ? err.message : "Please check your network or configuration."))
+    } finally {
       setIsLoading(false)
     }
-
   }
 
   return (
@@ -186,16 +186,14 @@ export function BillingClient({
 
                 <div className="flex flex-col sm:flex-row items-center gap-6">
                   <Button
-                    onClick={handleUpgrade}
-                    disabled={isLoading}
+                    onClick={() => setShowModal(true)}
                     className="w-full sm:w-auto h-14 px-10 bg-red-600 text-white font-black text-[16px] rounded-xl hover:bg-red-500 border-none shadow-2xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2 relative overflow-hidden group cursor-pointer"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
-                    {isLoading ? (
-                      <span className="relative z-10 flex items-center gap-2"><Loader2 className="w-6 h-6 animate-spin" /> Connecting...</span>
-                    ) : (
-                      <span className="relative z-10 flex items-center gap-2"><Sparkles className="w-6 h-6 text-red-500" /> Upgrade to Pro Lifetime <ArrowRight className="w-5 h-5 ml-1" /></span>
-                    )}
+                    <span className="relative z-10 flex items-center gap-2">
+                       <Sparkles className="w-6 h-6 text-red-500" /> 
+                       Upgrade to Pro Lifetime <ArrowRight className="w-5 h-5 ml-1" />
+                    </span>
                   </Button>
                   <p className="text-slate-400 font-bold text-[14px] flex items-center gap-2">
                     <ShieldCheck className="w-5 h-5 text-emerald-500" />
@@ -207,6 +205,13 @@ export function BillingClient({
           </section>
         </div>
       )}
+
+      <UpgradeModal 
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onUpgrade={handleUpgrade}
+        trialDaysRemaining={14}
+      />
     </div>
   )
 }

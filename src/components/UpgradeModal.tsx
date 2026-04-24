@@ -9,7 +9,7 @@ import { createPortal } from "react-dom"
 interface UpgradeModalProps {
   isOpen: boolean
   onClose: () => void
-  onUpgrade: () => void
+  onUpgrade: (plan: 'monthly' | 'yearly') => void
   trialDaysRemaining?: number
 }
 
@@ -24,15 +24,16 @@ const features = [
 
 export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 14 }: UpgradeModalProps) {
   const [mounted, setMounted] = useState(false)
+  const [interval, setInterval] = useState<'monthly' | 'yearly'>('yearly')
 
   useEffect(() => {
     setMounted(true)
     if (isOpen) {
       document.body.style.overflow = "hidden"
-    }
-    return () => {
+    } else {
       document.body.style.overflow = "unset"
     }
+    return () => { document.body.style.overflow = "unset" }
   }, [isOpen])
 
   if (!mounted) return null
@@ -40,20 +41,15 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
   return createPortal(
     <AnimatePresence>
       {isOpen && (
-        <div 
-          className="fixed inset-0 flex items-center justify-center px-0 sm:px-10 py-10 pointer-events-auto"
-          style={{ zIndex: 9999999, isolation: "isolate" }}
-        >
-          {/* Backdrop */}
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-slate-900/60 backdrop-blur-md"
+            className="absolute inset-0 bg-slate-950/80 backdrop-blur-xl"
           />
 
-          {/* Modal Shell */}
           <motion.div
             initial={{ opacity: 0, scale: 0.93, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -65,9 +61,9 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
             {/* Close */}
             <button
               onClick={onClose}
-              className="absolute top-8 right-8 sm:top-14 sm:right-12 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all backdrop-blur-md border border-white/20 shadow-lg cursor-pointer"
+              className="absolute top-8 right-8 z-20 w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all border border-white/10 cursor-pointer"
             >
-              <X className="w-6 h-6 text-white" />
+              <X className="w-5 h-5 text-slate-400" />
             </button>
 
             {/* ── Scrollable body ── */}
@@ -87,10 +83,31 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
                   Keep your premium integrations active after your trial ends.
                 </p>
 
+                {/* Plan Toggle */}
+                <div className="flex p-1 bg-white/5 rounded-2xl border border-white/10 w-fit mb-8 mx-auto sm:mx-0">
+                  <button
+                    onClick={() => setInterval('monthly')}
+                    className={`px-6 py-2 rounded-xl text-[14px] font-black transition-all ${interval === 'monthly' ? 'bg-white text-black shadow-lg' : 'text-slate-400 hover:text-white'}`}
+                  >
+                    Monthly
+                  </button>
+                  <button
+                    onClick={() => setInterval('yearly')}
+                    className={`px-6 py-2 rounded-xl text-[14px] font-black transition-all flex items-center gap-2 ${interval === 'yearly' ? 'bg-white text-black shadow-lg' : 'text-slate-400 hover:text-white'}`}
+                  >
+                    Yearly
+                    <span className="text-[10px] bg-red-500 text-white px-1.5 py-0.5 rounded-full">Save 10%</span>
+                  </button>
+                </div>
+
                 <div className="mb-10 p-6 bg-white/5 rounded-3xl border border-white/10">
                   <div className="flex items-baseline gap-1 mb-6">
-                    <span className="text-[48px] font-black text-white tracking-tighter">$49</span>
-                    <span className="text-[18px] font-bold text-slate-300">/mo</span>
+                    <span className="text-[48px] font-black text-white tracking-tighter">
+                      {interval === 'monthly' ? '$49' : '$529'}
+                    </span>
+                    <span className="text-[18px] font-bold text-slate-300">
+                      /{interval === 'monthly' ? 'mo' : 'yr'}
+                    </span>
                     <span className="ml-3 text-[12px] font-black text-emerald-500 uppercase tracking-widest bg-emerald-500/10 px-2.5 py-1 rounded">No Commitment Required</span>
                   </div>
 
@@ -106,7 +123,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
                   </div>
 
                   <Button
-                    onClick={onUpgrade}
+                    onClick={() => onUpgrade(interval)}
                     className="w-full h-14 rounded-xl font-black text-[16px] bg-red-600 text-white hover:bg-red-500 border-none shadow-2xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden group cursor-pointer"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
