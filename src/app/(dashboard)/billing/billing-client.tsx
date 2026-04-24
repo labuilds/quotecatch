@@ -34,7 +34,7 @@ export function BillingClient({
       const { url } = await createDodoCheckoutSession()
       
       if (!url || url.startsWith("#")) {
-        alert("Billing is not configured. Please add DODO_PAYMENTS_API_KEY and DODO_PRO_PRODUCT_ID to your environment variables.")
+        alert("Billing is not configured. Please add DODO_PAYMENTS_LIVE_API_KEY and DODO_PRO_LIVE_COLLECTION_ID to your environment variables.")
         setIsLoading(false)
         return
       }

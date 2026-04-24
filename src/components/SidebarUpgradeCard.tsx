@@ -13,7 +13,7 @@ export function SidebarUpgradeCard({ trialDaysRemaining = 14 }: { trialDaysRemai
     try {
       const { url } = await createDodoCheckoutSession()
       if (!url || url.startsWith("#")) {
-        alert("Billing is not configured. Please add DODO_PAYMENTS_API_KEY and DODO_PRO_PRODUCT_ID to your environment variables.")
+        alert("Billing is not configured. Please add DODO_PAYMENTS_LIVE_API_KEY and DODO_PRO_LIVE_COLLECTION_ID to your environment variables.")
         return
       }
       window.location.href = url
