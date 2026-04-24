@@ -64,7 +64,7 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
   }
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-[calc(100vh-4rem)] w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-white overflow-hidden">
+    <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-4rem)] w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-white overflow-hidden">
       
       {/* Mobile Perspective Toggle - Sticky beneath layout navbar */}
       <div className="lg:hidden sticky top-0 shrink-0 p-4 bg-white/95 backdrop-blur-md border-b flex items-center justify-between z-30 shadow-sm">
@@ -95,7 +95,7 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
       </div>
 
       <div className={cn(
-        "w-full lg:w-1/2 p-6 lg:p-10 overflow-y-auto border-r bg-white flex flex-col pt-10",
+        "w-full lg:w-[42%] p-6 lg:p-10 overflow-y-auto border-r bg-white flex flex-col pt-10",
         mobileView !== 'editor' && "hidden lg:flex"
       )}>
         
@@ -320,7 +320,7 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
 
       {/* Right Live Preview Pane */}
       <div className={cn(
-        "w-full lg:w-1/2 bg-slate-100/50 lg:border-l border-slate-200 flex flex-col items-center justify-center p-6 lg:p-8 overflow-y-auto relative shadow-inner",
+        "w-full lg:w-[58%] bg-slate-100/50 lg:border-l border-slate-200 flex flex-col items-center justify-center p-6 lg:p-8 overflow-y-auto relative shadow-inner",
         mobileView !== 'preview' && "hidden lg:flex"
       )}>
          <div className="absolute top-6 left-6 flex gap-3 z-20">
@@ -345,7 +345,7 @@ export default function AICalculatorEditor({ calculator }: { calculator: any }) 
              </div>
            </div>
          ) : (
-           <div className="w-full max-w-lg transform origin-top animate-in zoom-in-95 duration-700 relative z-10 transition-all pt-12 lg:pt-0">
+           <div className="w-full max-w-2xl transform origin-top animate-in zoom-in-95 duration-700 relative z-10 transition-all pt-12 lg:pt-0">
               <RoofingWidget isPro={isPro} config={{ ...(diffConfig || originalConfig), steps: stepToggles }} calculatorId="preview-mode" />
            </div>
          )}

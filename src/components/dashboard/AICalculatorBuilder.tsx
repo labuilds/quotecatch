@@ -115,7 +115,7 @@ export default function AICalculatorBuilder({ initialCalculators }: { initialCal
 
         {/* Left: Config */}
         <div className={cn(
-          "w-full lg:w-[46%] bg-white p-6 lg:p-10 lg:overflow-y-auto border-r border-slate-100 flex flex-col pt-8 lg:pt-14 shadow-[inset_-1px_0_0_#f1f5f9]",
+          "w-full lg:w-[42%] bg-white p-6 lg:p-10 lg:overflow-y-auto border-r border-slate-100 flex flex-col pt-8 lg:pt-14 shadow-[inset_-1px_0_0_#f1f5f9]",
           mobileView !== 'editor' && "hidden lg:flex"
         )}>
           <button onClick={cancelBuild} className="hidden lg:flex items-center gap-2 text-slate-400 font-bold mb-6 hover:text-slate-900 transition-colors">
@@ -204,7 +204,7 @@ export default function AICalculatorBuilder({ initialCalculators }: { initialCal
 
         {/* Right: Live Preview */}
         <div className={cn(
-          "w-full lg:w-[54%] bg-slate-50 flex flex-col items-center justify-center p-6 lg:p-8 lg:overflow-y-auto relative min-h-[500px] border-t lg:border-t-0 lg:border-l border-slate-100",
+          "w-full lg:w-[58%] bg-slate-50 flex flex-col items-center justify-center p-6 lg:p-8 lg:overflow-y-auto relative min-h-[500px] border-t lg:border-t-0 lg:border-l border-slate-100",
           mobileView !== 'preview' && "hidden lg:flex"
         )}>
           <div className="absolute top-6 left-6 bg-white text-[11px] font-black uppercase tracking-widest text-slate-400 px-4 py-1.5 rounded-full shadow-sm border border-slate-200 z-10">
@@ -219,7 +219,7 @@ export default function AICalculatorBuilder({ initialCalculators }: { initialCal
               <p className="font-bold text-slate-700 text-center">Our system is parsing your pricing rules...</p>
             </div>
           ) : config ? (
-            <div className="w-full max-w-[420px] transform animate-in zoom-in-95 duration-500 pt-12 lg:pt-0">
+            <div className="w-full max-w-2xl transform animate-in zoom-in-95 duration-500 pt-12 lg:pt-0">
               <RoofingWidget isPro={isPro} config={config} calculatorId="preview-mode" />
             </div>
           ) : (

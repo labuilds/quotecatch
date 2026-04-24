@@ -222,7 +222,7 @@ export default function ManualCalculatorEditor({
   ]
 
   return (
-    <div className="flex flex-col lg:flex-row lg:h-screen w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-[#F8FAFC] overflow-visible lg:overflow-hidden">
+    <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-4rem)] w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-[#F8FAFC] overflow-visible lg:overflow-hidden">
       
       {/* Mobile Perspective Toggle - Sticky beneath layout navbar */}
       <div className="lg:hidden sticky top-0 shrink-0 p-4 bg-white/95 backdrop-blur-md border-b flex items-center justify-between z-30 shadow-sm">
@@ -254,7 +254,7 @@ export default function ManualCalculatorEditor({
 
       {/* Left Sidebar: Controls */}
       <div className={cn(
-        "w-full lg:w-[42%] h-auto lg:h-full p-6 lg:p-10 lg:overflow-y-auto border-b lg:border-b-0 lg:border-r bg-white flex flex-col shadow-2xl z-10 custom-scrollbar",
+        "w-full lg:w-[40%] h-auto lg:h-full p-6 lg:p-10 lg:overflow-y-auto border-b lg:border-b-0 lg:border-r bg-white flex flex-col shadow-2xl z-10 custom-scrollbar",
         mobileView !== 'editor' && "hidden lg:flex"
       )}>
 
@@ -663,7 +663,7 @@ export default function ManualCalculatorEditor({
           )}
         </div>
 
-        <div className="w-full max-w-xl transition-all duration-500 lg:hover:scale-[1.01] relative z-10 shrink-0 mb-12">
+        <div className="w-full max-w-2xl transition-all duration-500 lg:hover:scale-[1.01] relative z-10 shrink-0 mb-12">
           <RoofingWidget 
             isPro={isPro} 
             config={{ ...config, steps: stepToggles }} 
