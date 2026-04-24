@@ -131,8 +131,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
 
       {/* Modal */}
       <div
-        className="relative w-full max-w-xl bg-white rounded-3xl shadow-[0_24px_80px_rgba(0,0,0,0.18)] border border-slate-100 flex flex-col overflow-hidden"
-        style={{ maxHeight: "calc(100vh - 5rem)" }}
+        className="relative w-full max-w-xl bg-white rounded-3xl shadow-[0_24px_80px_rgba(0,0,0,0.18)] border border-slate-100 flex flex-col overflow-hidden max-h-[calc(100vh-8rem)] md:max-h-[calc(100vh-5rem)]"
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-8 pb-6 border-b border-slate-100">
