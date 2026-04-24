@@ -267,7 +267,7 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
 
           <div className="space-y-8 pt-10">
             <div className="space-y-3">
-              <label className="text-[11px] font-black text-slate-400 tracking-[0.2em] uppercase px-1">Private Access Link</label>
+              <label className="text-[13px] font-black text-slate-400 tracking-[0.2em] uppercase px-1">Private Access Link</label>
               <div 
                 className="relative group cursor-pointer"
                 onClick={() => {
@@ -277,8 +277,10 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
                 }}
               >
                 <div className={cn(
-                  "p-5 bg-slate-50 border rounded-3xl text-[15px] text-slate-600 break-all pr-12 font-bold transition-all group-hover:bg-white",
-                  linkCopied ? "border-emerald-500 bg-emerald-50/30" : "border-slate-200"
+                  "p-5 border rounded-3xl text-[17px] break-all pr-12 font-medium transition-all duration-500 relative overflow-hidden",
+                  linkCopied 
+                    ? "border-emerald-500 bg-emerald-50 text-[#0F172A]" 
+                    : "border-slate-200 bg-slate-50 text-slate-600 group-hover:bg-white"
                 )}>
                   {origin}/widget/{calc.id}
                 </div>
@@ -293,9 +295,12 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12 w-full">
               <div className="flex flex-col h-full">
-                <label className="text-[11px] font-black text-slate-400 tracking-[0.2em] uppercase px-1 mb-3 sm:mb-4">Marketing QR Code</label>
-                <div className="flex-1 p-5 sm:p-6 lg:p-10 bg-slate-50 border border-slate-200 rounded-[1.5rem] sm:rounded-[2.5rem] lg:rounded-[3rem] flex flex-col items-center justify-between gap-5 sm:gap-6 group hover:bg-white transition-all min-h-[320px] sm:min-h-[360px] w-full">
-                  <div className="bg-white p-4 lg:p-6 rounded-[2rem] shadow-sm border border-slate-100 mt-2 shrink-0">
+                <label className="text-[13px] font-black text-slate-400 tracking-[0.2em] uppercase px-1 mb-3 sm:mb-4">Marketing QR Code</label>
+                <div 
+                  className="flex-1 p-5 sm:p-6 lg:p-10 bg-slate-50 border border-slate-200 rounded-[1.5rem] sm:rounded-[2.5rem] lg:rounded-[3rem] flex flex-col items-center justify-between gap-5 sm:gap-6 group hover:bg-white transition-all min-h-[320px] sm:min-h-[360px] w-full cursor-pointer hover:border-slate-300 shadow-sm hover:shadow-md duration-500"
+                  onClick={handleDownloadQR}
+                >
+                  <div className="bg-white p-4 lg:p-6 rounded-[2rem] shadow-sm border border-slate-100 mt-2 shrink-0 transition-all group-hover:shadow-md">
                     <img 
                       src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(`${origin}/widget/${calc.id}`)}`} 
                       alt="QR Code"
@@ -305,13 +310,12 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
                   <div className="w-full space-y-5">
                     <Button 
                       variant="default" 
-                      className="w-full h-14 rounded-2xl font-black text-[13px] uppercase tracking-widest bg-[#0F172A] text-white hover:bg-black flex items-center justify-center gap-3 transition-all active:scale-95 shadow-xl shadow-slate-200"
-                      onClick={handleDownloadQR}
+                      className="w-full h-14 rounded-2xl font-black text-[13px] uppercase tracking-widest bg-[#0F172A] text-white group-hover:bg-black flex items-center justify-center gap-3 transition-all duration-300 pointer-events-none shadow-xl shadow-slate-200 group-hover:-translate-y-1 group-hover:scale-[1.02] group-hover:shadow-2xl group-hover:shadow-slate-300"
                     >
                       <Download className="w-4 h-4" />
                       Download QR
                     </Button>
-                    <p className="text-[12px] lg:text-[13px] text-slate-400 font-bold px-1 leading-relaxed text-center">
+                    <p className="text-[14px] lg:text-[15px] text-slate-400 font-bold px-1 leading-relaxed text-center">
                       Put this on your truck, lawn signs, or business cards.
                     </p>
                   </div>
@@ -319,17 +323,22 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
               </div>
 
               <div className="flex flex-col h-full">
-                <label className="text-[11px] font-black text-slate-400 tracking-[0.2em] uppercase px-1 mb-3 sm:mb-4">Embed Component Code</label>
+                <label className="text-[13px] font-black text-slate-400 tracking-[0.2em] uppercase px-1 mb-3 sm:mb-4">Embed Component Code</label>
                 <div className="flex-1 p-5 sm:p-6 lg:p-10 bg-slate-50 border border-slate-200 rounded-[1.5rem] sm:rounded-[2.5rem] lg:rounded-[3rem] flex flex-col items-center justify-between gap-5 sm:gap-6 min-h-[320px] sm:min-h-[360px] group transition-all w-full">
                   <div 
-                    className="w-full flex-1 relative cursor-pointer group/code mt-1 sm:mt-2 overflow-hidden rounded-[1.25rem] sm:rounded-[1.5rem] lg:rounded-[2rem] border-2 transition-all shrink-0 min-h-[160px] sm:min-h-[180px]"
+                    className={cn(
+                      "w-full flex-1 relative cursor-pointer group/code mt-1 sm:mt-2 overflow-hidden rounded-[1.25rem] sm:rounded-[1.5rem] lg:rounded-[2rem] border-2 transition-all duration-500 shrink-0 min-h-[160px] sm:min-h-[180px]",
+                      embedCopied ? "border-emerald-500" : "border-transparent"
+                    )}
                     onClick={handleCopy}
                   >
                     <textarea
                       readOnly
                       className={cn(
-                        "w-full h-full p-5 lg:p-10 font-mono text-[11px] sm:text-[13px] lg:text-[15px] focus:outline-none resize-none leading-relaxed cursor-pointer transition-all",
-                        embedCopied ? "bg-emerald-900/10 border-emerald-500 text-emerald-700" : "bg-[#1e293b] text-emerald-400 border-transparent"
+                        "w-full h-full p-5 lg:p-10 font-mono text-[11px] sm:text-[13px] lg:text-[15px] focus:outline-none resize-none leading-relaxed cursor-pointer transition-all duration-500",
+                        embedCopied 
+                          ? "bg-emerald-50 text-[#0F172A]" 
+                          : "bg-[#1e293b] text-emerald-400"
                       )}
                       value={embedCode}
                     />
@@ -348,7 +357,7 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
                   
                   <div className="w-full flex items-center justify-center gap-2">
                     <MousePointer2 className="w-4 h-4 text-emerald-500" />
-                    <p className="text-[12px] lg:text-[13px] text-slate-400 font-bold leading-relaxed text-center">
+                    <p className="text-[14px] lg:text-[15px] text-slate-400 font-bold leading-relaxed text-center">
                       Click anywhere on the code block to copy
                     </p>
                   </div>

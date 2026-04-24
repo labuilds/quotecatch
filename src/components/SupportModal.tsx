@@ -12,10 +12,10 @@ export function SupportButton() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-3.5 w-full px-5 py-3.5 text-slate-500 hover:text-slate-900 hover:bg-slate-50 rounded-2xl transition-all duration-150 font-black text-[18px] group cursor-pointer"
+        className="flex items-center gap-4 w-full px-6 py-4 text-slate-400 hover:text-slate-900 hover:bg-slate-50 rounded-2xl transition-all duration-200 font-black text-[18px] group cursor-pointer"
       >
-        <MessageSquare className="w-[20px] h-[20px] shrink-0 group-hover:text-red-700 transition-colors" />
-        Contact Support
+        <MessageSquare className="w-5 h-5 shrink-0 group-hover:text-red-700 transition-colors" />
+        <span className="whitespace-nowrap">Contact Support</span>
       </button>
       {open && <SupportModal onClose={() => setOpen(false)} />}
     </>

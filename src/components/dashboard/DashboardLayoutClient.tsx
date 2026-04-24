@@ -79,7 +79,7 @@ const SidebarContent = ({
           </Link>
         ))}
         
-        <div className="pt-10 px-6">
+        <div className="pt-8">
            <SupportButton />
         </div>
       </nav>

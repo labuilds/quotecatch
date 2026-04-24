@@ -38,8 +38,8 @@ const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
 }
 
 // Standard design tokens for consistent UI
-const LABEL_CLASS = "text-[15px] font-bold text-slate-900 block"
-const SUBTEXT_CLASS = "text-[13.5px] text-slate-400 font-medium leading-tight"
+const LABEL_CLASS = "text-[14px] font-bold text-slate-900 block"
+const SUBTEXT_CLASS = "text-[12.5px] text-slate-400 font-medium leading-tight"
 
 // Custom Input with Stepper Controls
 const PremiumInput = ({ value, onChange, placeholder, step = 1, prefix, suffix, dark = false }: any) => {
@@ -222,7 +222,7 @@ export default function ManualCalculatorEditor({
   ]
 
   return (
-    <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-4rem)] w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-[#F8FAFC] overflow-visible lg:overflow-hidden">
+    <div className="flex flex-col lg:flex-row lg:h-screen w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-[#F8FAFC] overflow-visible lg:overflow-hidden">
       
       {/* Mobile Perspective Toggle - Sticky beneath layout navbar */}
       <div className="lg:hidden sticky top-0 shrink-0 p-4 bg-white/95 backdrop-blur-md border-b flex items-center justify-between z-30 shadow-sm">
@@ -254,13 +254,13 @@ export default function ManualCalculatorEditor({
 
       {/* Left Sidebar: Controls */}
       <div className={cn(
-        "w-full lg:w-[40%] h-auto lg:h-full p-6 lg:p-10 lg:overflow-y-auto border-b lg:border-b-0 lg:border-r bg-white flex flex-col shadow-2xl z-10 custom-scrollbar",
+        "w-full lg:w-[42%] h-auto lg:h-full p-6 lg:p-10 lg:overflow-y-auto border-b lg:border-b-0 lg:border-r bg-white flex flex-col shadow-2xl z-10 custom-scrollbar",
         mobileView !== 'editor' && "hidden lg:flex"
       )}>
 
         <div className="hidden lg:flex items-center justify-between mb-10 shrink-0">
-          <Link href="/calculators" className="group inline-flex items-center text-xs font-black uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-all">
-            <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" /> Back
+          <Link href="/calculators" className="group inline-flex items-center text-[14px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-slate-900 transition-all">
+            <ArrowLeft className="w-5 h-5 mr-2.5 group-hover:-translate-x-1 transition-transform" /> Back
           </Link>
 
           <AnimatePresence>
@@ -271,15 +271,15 @@ export default function ManualCalculatorEditor({
                 exit={{ opacity: 0, x: 20 }}
                 className="flex gap-2"
               >
-                <Button variant="ghost" onClick={handleReset} className="h-9 px-4 text-slate-400 font-bold hover:bg-slate-50 rounded-xl hidden sm:flex">
-                  <Undo2 className="w-4 h-4 mr-2" /> Reset
+                <Button variant="ghost" onClick={handleReset} className="h-11 px-6 text-slate-400 font-bold hover:bg-slate-50 rounded-2xl hidden sm:flex text-[15px]">
+                  <Undo2 className="w-5 h-5 mr-2.5" /> Reset
                 </Button>
                 <Button
                   onClick={handleSave}
                   disabled={isSaving}
-                  className="h-9 px-6 bg-[#0F172A] hover:bg-black text-white font-black rounded-xl shadow-lg shadow-slate-200 transition-all active:scale-95"
+                  className="h-11 px-8 bg-[#0F172A] hover:bg-black text-white font-black rounded-2xl shadow-xl shadow-slate-200 transition-all active:scale-95 text-[15px]"
                 >
-                  {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-3.5 h-3.5 mr-2" />}
+                  {isSaving ? <Loader2 className="w-5 h-5 animate-spin" /> : <Save className="w-4.5 h-4.5 mr-2.5" />}
                   Save Rules
                 </Button>
               </motion.div>
@@ -298,7 +298,7 @@ export default function ManualCalculatorEditor({
 
         <div className="mb-10 shrink-0">
           <div className="flex flex-col gap-4">
-            <h1 className="text-[32px] lg:text-[40px] font-black text-slate-900 tracking-tighter leading-[1.05]">
+            <h1 className="text-[38px] lg:text-[48px] font-black text-slate-900 tracking-tighter leading-[1.05]">
               Control Your <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-700 to-red-500">Pricing Rules.</span>
             </h1>
@@ -311,7 +311,7 @@ export default function ManualCalculatorEditor({
                     className="w-fit h-9 px-4 rounded-xl border-slate-200 text-slate-500 font-bold hover:bg-slate-50 gap-2 cursor-pointer transition-all hover:border-slate-300"
                   >
                     <Calculator className="w-3.5 h-3.5" />
-                    <span className="text-[12px] uppercase tracking-wider">Calculation Blueprint</span>
+                    <span className="text-[14px] uppercase tracking-wider">Calculation Blueprint</span>
                   </Button>
                 }
               />
@@ -370,7 +370,7 @@ export default function ManualCalculatorEditor({
               </DialogContent>
             </Dialog>
           </div>
-          <p className="text-slate-500 mt-4 text-[15px] font-medium leading-relaxed max-w-sm">
+          <p className="text-slate-500 mt-5 text-[18px] font-medium leading-relaxed max-w-sm">
             No guesswork. You have 100% control over the numbers your homeowners see.
           </p>
         </div>
@@ -378,25 +378,25 @@ export default function ManualCalculatorEditor({
         <div className="flex bg-[#F1F5F9] p-1.5 rounded-2xl mb-8 shadow-inner overflow-x-auto no-scrollbar shrink-0">
           <button
             onClick={() => setActiveTab('name')}
-            className={`flex-1 min-w-[90px] flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'name' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+            className={`flex-1 min-w-[90px] flex items-center justify-center gap-2 py-3 rounded-xl text-[14px] font-black transition-all duration-300 ${activeTab === 'name' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
           >
             <Settings2 className="w-4 h-4" /> Name
           </button>
           <button
             onClick={() => setActiveTab('materials')}
-            className={`flex-1 min-w-[100px] flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'materials' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+            className={`flex-1 min-w-[100px] flex items-center justify-center gap-2 py-3 rounded-xl text-[14px] font-black transition-all duration-300 ${activeTab === 'materials' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
           >
             <Layers className="w-4 h-4" /> Materials
           </button>
           <button
             onClick={() => setActiveTab('markups')}
-            className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'markups' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+            className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 rounded-xl text-[14px] font-black transition-all duration-300 ${activeTab === 'markups' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
           >
             <Layers className="w-4 h-4" /> Markups
           </button>
           <button
             onClick={() => setActiveTab('sequence')}
-            className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 rounded-xl text-[13px] font-black transition-all duration-300 ${activeTab === 'sequence' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+            className={`flex-1 min-w-[120px] flex items-center justify-center gap-2 py-3 rounded-xl text-[14px] font-black transition-all duration-300 ${activeTab === 'sequence' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
           >
             <Settings2 className="w-4 h-4" /> Sequence
           </button>
@@ -417,8 +417,8 @@ export default function ManualCalculatorEditor({
               <section className="space-y-10">
                  <div>
                   <div className="mb-6 px-1">
-                    <h3 className="text-lg font-black text-slate-900 tracking-tight text-[20px]">Materials You Offer</h3>
-                    <p className="text-slate-400 font-bold text-sm mt-1">Select the roof types homeowners can get estimates for.</p>
+                    <h3 className="font-black text-slate-900 tracking-tight text-[20px]">Materials You Offer</h3>
+                    <p className="text-slate-400 font-bold text-[13.5px] mt-1.5">Select the roof types homeowners can get estimates for.</p>
                   </div>
                   
                   <div className="grid grid-cols-2 gap-3 mb-10">
@@ -462,7 +462,7 @@ export default function ManualCalculatorEditor({
 
                 <div>
                   <div className="mb-6 px-1">
-                    <h3 className="text-lg font-black text-slate-900 tracking-tight text-[20px]">Base Material Rates</h3>
+                    <h3 className="font-black text-slate-900 tracking-tight text-[18px]">Base Material Rates</h3>
                     <p className="text-slate-400 font-bold text-sm mt-1">Set your cost per square foot for each material.</p>
                   </div>
                   <div className="grid grid-cols-1 gap-4">
@@ -504,7 +504,7 @@ export default function ManualCalculatorEditor({
                 {/* Pitch Modifiers */}
                 <section className="space-y-4">
                   <div className="mb-6 px-1">
-                    <h3 className="text-lg font-black text-slate-900 tracking-tight">Pitch Multipliers</h3>
+                    <h3 className="text-[18px] font-black text-slate-900 tracking-tight">Pitch Multipliers</h3>
                   </div>
                   <div className="grid grid-cols-1 gap-4">
                     {PITCH_METADATA.map((pitch) => {
@@ -561,8 +561,8 @@ export default function ManualCalculatorEditor({
             {activeTab === 'sequence' && (
               <section className="space-y-6">
                 <div className="px-1">
-                  <h3 className="text-2xl font-black text-slate-900 tracking-tight">Question Sequence</h3>
-                  <p className="text-slate-400 font-bold text-sm mt-1">Toggle optional lead-capture questions for this widget.</p>
+                  <h3 className="text-[20px] font-black text-slate-900 tracking-tight">Question Sequence</h3>
+                  <p className="text-slate-400 font-bold text-[13.5px] mt-1.5">Toggle optional lead-capture questions for this widget.</p>
                 </div>
                 
                 <div className="grid grid-cols-1 gap-3">
@@ -584,7 +584,7 @@ export default function ManualCalculatorEditor({
                            <span className="text-2xl">{item.icon}</span>
                            <div>
                              <p className="font-black text-slate-900">{item.label}</p>
-                             <p className="text-[13px] text-slate-400 font-bold">{item.sub}</p>
+                             <p className="text-[12.5px] text-slate-400 font-bold">{item.sub}</p>
                            </div>
                          </div>
                          <div className={`w-12 h-6 rounded-full relative transition-colors ${active ? "bg-red-700" : "bg-slate-200"}`}>
@@ -614,7 +614,7 @@ export default function ManualCalculatorEditor({
                         id="engine-name"
                         value={engineName}
                         onChange={(e) => setEngineName(e.target.value)}
-                        className="h-14 bg-slate-50/50 border-slate-100 rounded-xl font-normal text-lg focus-visible:ring-red-600/10 focus-visible:border-red-600 px-6 transition-all text-slate-900 placeholder:text-slate-300 shadow-inner"
+                        className="h-14 bg-slate-50/50 border-slate-100 rounded-xl font-normal text-[18px] focus-visible:ring-red-600/10 focus-visible:border-red-600 px-6 transition-all text-slate-900 placeholder:text-slate-300 shadow-inner"
                         placeholder="e.g. Premium Estimator"
                       />
                     </div>
@@ -663,7 +663,7 @@ export default function ManualCalculatorEditor({
           )}
         </div>
 
-        <div className="w-full max-w-2xl transition-all duration-500 lg:hover:scale-[1.01] relative z-10 shrink-0 mb-12">
+        <div className="w-full max-w-xl transition-all duration-500 lg:hover:scale-[1.01] relative z-10 shrink-0 mb-12">
           <RoofingWidget 
             isPro={isPro} 
             config={{ ...config, steps: stepToggles }} 
