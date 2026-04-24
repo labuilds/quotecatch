@@ -188,12 +188,13 @@ export function BillingClient({
                   <Button
                     onClick={handleUpgrade}
                     disabled={isLoading}
-                    className="w-full sm:w-auto h-16 px-10 bg-white text-[#0F172A] font-black text-[18px] rounded-2xl hover:bg-slate-50 transition-all hover:scale-[1.02] shadow-2xl border-none flex items-center gap-2"
+                    className="w-full sm:w-auto h-16 px-10 bg-white text-[#0F172A] font-black text-[18px] rounded-2xl hover:bg-slate-50 transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] shadow-2xl border-none flex items-center gap-2 relative overflow-hidden group cursor-pointer"
                   >
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
                     {isLoading ? (
-                      <><Loader2 className="w-6 h-6 animate-spin" /> Connecting...</>
+                      <span className="relative z-10 flex items-center gap-2"><Loader2 className="w-6 h-6 animate-spin" /> Connecting...</span>
                     ) : (
-                      <><Sparkles className="w-6 h-6" /> Upgrade to Pro Lifetime <ArrowRight className="w-5 h-5 ml-1" /></>
+                      <span className="relative z-10 flex items-center gap-2"><Sparkles className="w-6 h-6 text-red-500" /> Upgrade to Pro Lifetime <ArrowRight className="w-5 h-5 ml-1" /></span>
                     )}
                   </Button>
                   <p className="text-slate-400 font-bold text-[14px] flex items-center gap-2">

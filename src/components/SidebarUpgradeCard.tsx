@@ -52,10 +52,13 @@ export function SidebarUpgradeCard({ trialDaysRemaining = 14 }: { trialDaysRemai
 
           <button 
             onClick={() => setShowModal(true)}
-            className="w-full h-13 bg-[#0F172A] hover:bg-black text-white text-[15px] font-black rounded-2xl transition-all shadow-xl shadow-slate-200 hover:shadow-red-500/10 flex items-center justify-center gap-2 group/btn cursor-pointer"
+            className="w-full h-14 bg-[#0F172A] hover:bg-black text-white text-[15px] font-black rounded-2xl transition-all duration-300 shadow-xl shadow-slate-200 hover:shadow-red-500/10 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group/btn relative overflow-hidden cursor-pointer"
           >
-            Upgrade Now
-            <Clock className="w-4 h-4 opacity-40 group-hover/btn:translate-x-0.5 transition-transform" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite] pointer-events-none" />
+            <span className="relative z-10 flex items-center gap-2">
+              Upgrade Now
+              <Clock className="w-4 h-4 opacity-40 group-hover/btn:translate-x-0.5 transition-transform" />
+            </span>
           </button>
         </div>
         
