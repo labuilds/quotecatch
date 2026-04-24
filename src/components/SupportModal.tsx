@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { MessageSquare, X, Send, Check, Loader2, Image as ImageIcon, Trash2 } from "lucide-react"
+import { MessageSquare, X, Send, ImageIcon, Trash2, Loader2, Check, ShieldCheck } from "lucide-react"
 import { createPortal } from "react-dom"
 import { sendSupportEmail } from "@/app/actions/support"
 
