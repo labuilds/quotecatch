@@ -135,7 +135,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
         style={{ maxHeight: "calc(100vh - 5rem)" }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 pt-10 pb-6 border-b border-slate-100">
+        <div className="flex items-center justify-between px-6 pt-8 pb-6 border-b border-slate-100">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-slate-50 flex items-center justify-center shrink-0 border border-slate-100 shadow-sm transition-all duration-500">
               <ShieldCheck className="w-6 h-6 sm:w-8 sm:h-8 text-[#0F172A]" />
