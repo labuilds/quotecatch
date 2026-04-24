@@ -18,7 +18,6 @@ const DODO_COLLECTION_ID = IS_LIVE
 
 const dodo = new DodoPayments({
   bearerToken: DODO_API_KEY,
-  environment: IS_LIVE ? 'live_mode' : 'test_mode',
 })
 
 export async function createDodoCheckoutSession() {
@@ -62,9 +61,6 @@ export async function createDodoCheckoutSession() {
       metadata: {
         user_id: user.id,
       },
-      subscription_data: trialDays > 0 ? {
-        trial_period_days: trialDays
-      } : undefined,
       return_url: `${dynamicAppUrl}/settings?billing=success`,
     }
 
