@@ -60,7 +60,7 @@ export function TrialBanner({ trialEndsAt }: { trialEndsAt: string }) {
           
           <div className="relative z-10 w-full flex items-center justify-between gap-6">
             <p className="text-[13px] font-bold text-slate-600 leading-tight max-w-[130px]">
-              No charges for the next {diffDays} days.
+              Risk-free. You won't be charged for {diffDays} days.
             </p>
             <button
               onClick={handleUpgrade}

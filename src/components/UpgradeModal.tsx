@@ -91,7 +91,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
                   <div className="flex items-baseline gap-1 mb-6">
                     <span className="text-[48px] font-black text-white tracking-tighter">$49</span>
                     <span className="text-[18px] font-bold text-slate-300">/mo</span>
-                    <span className="ml-3 text-[12px] font-black text-emerald-500 uppercase tracking-widest bg-emerald-500/10 px-2 py-1 rounded">No charge for {trialDaysRemaining} days</span>
+                    <span className="ml-3 text-[12px] font-black text-emerald-500 uppercase tracking-widest bg-emerald-500/10 px-2.5 py-1 rounded">Risk-free. Pay $0 today.</span>
                   </div>
 
                   <div className="space-y-4 mb-8">
@@ -121,7 +121,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
               <div className="px-8 py-6 border-t border-white/5 flex items-center justify-center bg-white/5">
                 <p className="text-[14px] font-bold text-slate-300 flex items-center gap-2 text-center">
                   <ShieldCheck className="w-5 h-5 text-emerald-500" />
-                  No charges for the next {trialDaysRemaining} days.
+                  You won't be charged for {trialDaysRemaining} days. Cancel easily anytime.
                 </p>
               </div>
             </div>
