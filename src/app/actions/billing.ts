@@ -49,15 +49,12 @@ export async function createDodoCheckoutSession() {
       .single()
 
     const trialDays = profile?.trial_ends_at 
-      ? Math.max(1, Math.ceil((new Date(profile.trial_ends_at).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)))
+      ? Math.max(0, Math.ceil((new Date(profile.trial_ends_at).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)))
       : 14
 
     const sessionSettings: any = {
       product_collection_id: DODO_COLLECTION_ID,
       product_cart: [], // Required even for collection-based checkouts
-      subscription_data: {
-        trial_period_days: trialDays
-      },
       customer: {
         email: user.email!,
         name: user.email?.split("@")[0] ?? "Customer",
@@ -65,12 +62,14 @@ export async function createDodoCheckoutSession() {
       metadata: {
         user_id: user.id,
       },
+      subscription_attributes: trialDays > 0 ? {
+        trial_period_days: trialDays
+      } : undefined,
       return_url: `${dynamicAppUrl}/settings?billing=success`,
     }
 
     console.log("[Billing] Creating Dodo session (Collection Mode) with:", JSON.stringify(sessionSettings, null, 2))
     
-    // Pass dynamic trial_period_days to ensure existing trial remnants are honored
     const session = await dodo.checkoutSessions.create(sessionSettings)
 
     if (!session || !session.checkout_url) {
