@@ -46,108 +46,61 @@ const SidebarContent = ({
   trialDaysRemaining: number, 
   userEmail: string 
 }) => {
-  // If not mounted, render a minimal skeleton or nothing to prevent hydration drift
-  if (!mounted) {
-    return (
-      <div className="flex flex-col h-full bg-white animate-pulse">
-         <div className="px-6 py-7">
-           <div className="w-10 h-10 bg-slate-100 rounded-2xl" />
-         </div>
-         <nav className="flex-1 px-4 space-y-4 mt-4">
-            <div className="h-4 w-20 bg-slate-50 rounded ml-4" />
-            <div className="h-10 w-full bg-slate-50 rounded-2xl" />
-            <div className="h-10 w-full bg-slate-50 rounded-2xl" />
-         </nav>
-      </div>
-    )
-  }
+  if (!mounted) return null
 
   return (
-    <div className="flex flex-col h-full bg-white overflow-hidden">
-      {/* Premium Mobile Header - Only visible in Sheet */}
-      <div className="px-8 pt-12 pb-8 shrink-0 bg-gradient-to-b from-slate-50/50 to-transparent lg:hidden">
+    <div className="flex flex-col h-full bg-white">
+      <div className="px-7 py-10 shrink-0">
         <Link href="/calculators" className="flex items-center gap-4 group">
-          <div className="w-12 h-12 bg-[#0F172A] rounded-[1.25rem] flex items-center justify-center shadow-2xl shadow-slate-200 group-hover:scale-105 transition-transform duration-500">
-            <QCLogo size={24} isDark={true} />
+          <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center transition-all group-hover:-translate-y-0.5 duration-300 border border-slate-100">
+            <QCLogo size={26} isDark={true} />
           </div>
           <div className="flex flex-col">
-            <span className="text-[22px] font-black tracking-tight text-[#0F172A] leading-none">QuoteCatch</span>
-            <div className="flex items-center gap-1.5 mt-1.5">
-               <div className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
-               <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Machine Core</span>
-            </div>
+            <span className="text-[24px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
+            <span className="text-[11px] font-black text-slate-400 uppercase tracking-widest leading-none">Roofing Intelligence</span>
           </div>
         </Link>
       </div>
 
-      {/* Desktop Logo - Only visible on desktop sidebar */}
-      <div className="hidden lg:block px-6 py-7 shrink-0">
-        <Link href="/calculators" className="flex items-center gap-3.5 group">
-          <div className="w-10 h-10 bg-slate-50 rounded-2xl flex items-center justify-center transition-all group-hover:-translate-y-0.5 duration-300">
-            <QCLogo size={24} isDark={true} />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-[20px] font-black tracking-tight text-[#0F172A]">QuoteCatch</span>
-            <span className="text-[12px] font-extrabold tracking-[0.05em] text-slate-400 leading-none">Roofing Intelligence</span>
-          </div>
-        </Link>
-      </div>
-
-      {/* Nav */}
-      <nav className="flex-1 px-4 space-y-1.5 mt-4 overflow-y-auto custom-scrollbar">
-        <div className="text-[10px] font-black text-slate-300 uppercase tracking-[0.25em] px-5 mb-4">Command Center</div>
+      <nav className="flex-1 px-4 py-2 space-y-2">
         {navItems.map(({ href, icon: Icon, label }) => (
           <Link
             key={href}
             href={href}
             className={cn(
-              "flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300 group relative overflow-hidden font-black text-[17px] leading-none",
+              "flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-200 text-[18px] font-black",
               pathname === href 
-                ? "bg-[#0F172A] text-white shadow-2xl shadow-slate-300 translate-x-1" 
-                : "text-slate-500 hover:bg-slate-50 hover:text-[#0F172A] hover:translate-x-1"
+                ? "bg-red-50 text-red-600 shadow-sm ring-1 ring-red-100" 
+                : "text-slate-400 hover:bg-slate-50 hover:text-slate-900"
             )}
           >
-            <div className={cn(
-              "shrink-0 transition-colors z-10",
-              pathname === href ? "text-red-500" : "text-slate-500 group-hover:text-red-700"
-            )}>
-              <Icon className="w-[18px] h-[18px]" />
-            </div>
-            <span className="z-10">{label}</span>
-            {pathname === href && (
-              <div className="absolute inset-0 bg-gradient-to-r from-red-600/10 to-transparent opacity-50" />
-            )}
+            <Icon className="w-5 h-5 shrink-0" />
+            <span>{label}</span>
           </Link>
         ))}
         
-        <div className="pt-6 px-2">
-          <div className="p-6 bg-slate-50 rounded-[2rem] border border-slate-100 relative overflow-hidden group">
-            <div className="relative z-10">
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Systems Support</p>
-              <p className="text-[13px] text-slate-600 font-bold leading-snug mb-5">Need help configuring your math? We're online.</p>
-              <SupportButton />
-            </div>
-            <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-red-600/5 rounded-full blur-2xl group-hover:bg-red-600/10 transition-all duration-700" />
-          </div>
+        <div className="pt-10 px-6">
+           <SupportButton />
         </div>
       </nav>
 
-      {/* User / Upgrade Card */}
-      <div className="p-6 bg-slate-50/50 mt-auto shrink-0 border-t border-slate-100">
-        <div className="flex flex-col gap-4">
-          {!isPro && <div className="px-2"><SidebarUpgradeCard trialDaysRemaining={trialDaysRemaining} /></div>}
-          <div className="flex items-center gap-4 bg-white p-4 rounded-2xl border border-slate-100 shadow-sm relative group/user">
-             <div className="w-10 h-10 rounded-xl bg-[#0F172A] flex items-center justify-center font-black text-red-500 text-sm shadow-inner shrink-0 leading-none">
-               {userEmail?.charAt(0).toUpperCase() || 'U'}
+      <div className="p-7 border-t border-slate-100 bg-slate-50/50 mt-auto">
+        <div className="flex flex-col gap-6">
+          {!isPro && <SidebarUpgradeCard trialDaysRemaining={trialDaysRemaining} />}
+          
+          <div className="space-y-4">
+             <div className="flex items-center gap-4">
+               <div className="w-12 h-12 rounded-2xl bg-white border border-slate-100 flex items-center justify-center font-black text-red-600 text-lg shrink-0 overflow-hidden shadow-sm">
+                 {userEmail?.charAt(0).toUpperCase() || 'U'}
+               </div>
+               <div className="flex flex-col min-w-0 flex-1">
+                 <p className="text-[15px] font-black text-[#0F172A] truncate leading-none mb-1.5">{userEmail?.split('@')[0]}</p>
+                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.1em] truncate leading-none">{isPro ? 'Pro Member' : 'Free Trial'}</p>
+               </div>
              </div>
-             <div className="flex flex-col min-w-0 flex-1">
-               <p className="text-[13px] font-black text-slate-900 truncate tracking-tight leading-none mb-1">{userEmail?.split('@')[0]}</p>
-               <p className="text-[10px] font-black text-slate-400 truncate uppercase tracking-widest leading-none">{isPro ? 'Platinum Elite' : 'Free Operator'}</p>
-             </div>
-             <div className="opacity-0 group-hover/user:opacity-100 transition-opacity absolute right-4">
-               <LogoutButton />
-             </div>
-           </div>
+             
+             <LogoutButton />
+          </div>
         </div>
       </div>
     </div>
@@ -195,11 +148,11 @@ export default function DashboardLayoutClient({
 
       {/* Mobile Nav Top Bar */}
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white/90 backdrop-blur-md border-b border-slate-100 px-6 flex items-center justify-between z-[100] shadow-sm">
-        <Link href="/calculators" className="flex items-center gap-2.5">
-          <div className="w-9 h-9 bg-[#0F172A] rounded-xl flex items-center justify-center shadow-lg shadow-slate-200">
-            <QCLogo size={20} isDark={true} />
+        <Link href="/calculators" className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center border border-slate-100">
+            <QCLogo size={22} isDark={true} />
           </div>
-          <span className="text-[18px] font-black text-[#0F172A] tracking-tighter">QuoteCatch</span>
+          <span className="text-[20px] font-black text-[#0F172A] tracking-tight">QuoteCatch</span>
         </Link>
 
         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
@@ -228,7 +181,7 @@ export default function DashboardLayoutClient({
           "flex-1 overflow-auto relative custom-scrollbar scroll-smooth",
           "pt-16 lg:pt-0"
         )}>
-          {isLocked && <LockoutOverlay />}
+          {isLocked && <LockoutOverlay email={userEmail} />}
           
           <div className="p-4 md:p-8 max-w-7xl mx-auto">
             <UserTierProvider isPro={isPro} trialDaysRemaining={trialDaysRemaining}>

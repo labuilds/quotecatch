@@ -10,7 +10,7 @@ import { Loader2, ArrowLeft, Shield, TrendingUp, CheckCircle2, Zap } from "lucid
 import { QCLogo } from "@/components/QCLogo"
 import Link from "next/link"
 import { motion } from "framer-motion"
-
+import { cn } from "@/lib/utils"
 function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -107,10 +107,26 @@ function LoginForm() {
           {error && (
             <div className="p-6 text-[15px] text-red-700 bg-red-50/80 rounded-[2rem] border-2 border-red-100 font-bold flex flex-col gap-2 shadow-sm animate-in fade-in slide-in-from-top-2 duration-300">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-500 shrink-0 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
-                <span className="text-[12px] uppercase tracking-widest text-red-400">Security Notice</span>
+                <span className={cn(
+                  "w-2.5 h-2.5 rounded-full shrink-0 shadow-[0_0_8px_rgba(239,68,68,0.5)]",
+                  error.toLowerCase().includes('security') || error.toLowerCase().includes('authorized') 
+                    ? "bg-red-500" 
+                    : "bg-amber-500"
+                )} />
+                <span className="text-[12px] uppercase tracking-widest text-slate-400 font-black">
+                  {error.toLowerCase().includes('security') || error.toLowerCase().includes('authorized') 
+                    ? "Security Alert" 
+                    : "System Notice"}
+                </span>
               </div>
-              <p className="leading-relaxed pl-4 line-clamp-3">{error}</p>
+              <p className="leading-relaxed pl-4">
+                {error}
+                {error.includes('magic link email') && (
+                  <span className="block mt-2 text-[13px] font-medium text-slate-500">
+                    This usually happens if the email provider is busy or you've requested too many links recently. Please try again in 15 minutes or use Google Login.
+                  </span>
+                )}
+              </p>
             </div>
           )}
 

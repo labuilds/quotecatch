@@ -1,15 +1,23 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Lock, Zap, ShieldCheck, BarChart3, Mail } from "lucide-react"
+import { Lock, Zap, ShieldCheck, BarChart3, Mail, LogOut } from "lucide-react"
 import { createDodoCheckoutSession } from "@/app/actions/billing"
 import { useState } from "react"
 import { Loader2 } from "lucide-react"
 import { PricingSection as StreamingPricing } from "@/components/PricingSection"
 import { SidebarUpgradeCard } from "@/components/SidebarUpgradeCard"
+import { createClient } from "@/utils/supabase/client"
+import { useRouter } from "next/navigation"
 
-export function LockoutOverlay() {
+interface LockoutOverlayProps {
+  email?: string
+}
+
+export function LockoutOverlay({ email }: LockoutOverlayProps) {
   const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
+  const supabase = createClient()
 
   const handleUpgrade = async () => {
     setIsLoading(true)
@@ -21,6 +29,11 @@ export function LockoutOverlay() {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+    window.location.href = '/login'
   }
 
   return (
@@ -64,14 +77,21 @@ export function LockoutOverlay() {
              </div>
           </div>
 
-           <div className="mt-8 flex flex-col items-center gap-4">
-              <p className="text-slate-400 text-sm font-semibold">Questions? Support ready to help at <span className="text-slate-900">support@getquotecatch.com</span></p>
+            <div className="mt-8 flex flex-col items-center gap-5">
+              <div className="flex flex-col items-center gap-1">
+                <p className="text-slate-400 text-xs font-black uppercase tracking-widest leading-none">Logged in as</p>
+                <p className="text-slate-900 text-[15px] font-black tracking-tight">{email || 'Unknown User'}</p>
+              </div>
+              
               <button 
-                onClick={() => window.location.href = '/login'}
-                className="text-slate-400 hover:text-slate-900 text-sm font-bold underline underline-offset-4"
+                onClick={handleSignOut}
+                className="text-slate-400 hover:text-red-600 text-[13px] font-black uppercase tracking-widest transition-all flex items-center gap-2 group border border-slate-200 px-4 py-2 rounded-xl hover:border-red-100 hover:bg-red-50"
               >
-                  Return to Login
+                  <LogOut className="w-3.5 h-3.5 text-slate-300 group-hover:text-red-600 transition-colors" />
+                  Sign out
               </button>
+              
+              <p className="text-slate-400 text-[13px] font-bold mt-2">Questions? Contact <span className="text-slate-900">support@getquotecatch.com</span></p>
            </div>
         </div>
       </div>
