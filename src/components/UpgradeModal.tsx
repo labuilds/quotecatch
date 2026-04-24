@@ -71,7 +71,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
             </button>
 
             {/* ── Scrollable body ── */}
-            <div className="overflow-y-auto flex-1 overscroll-contain">
+            <div className="overflow-y-auto flex-1 overscroll-contain custom-scrollbar">
               {/* Header */}
                 <div className="px-8 pt-12 pb-8 sm:px-12 sm:pt-14">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-500/20 border border-red-500/30 rounded-full mb-6">
@@ -116,14 +116,14 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
                   </Button>
                 </div>
               </div>
-            </div>
 
-            {/* ── Pinned footer ── */}
-            <div className="px-8 py-6 border-t border-white/5 flex items-center justify-center bg-white/5 shrink-0">
-              <p className="text-[14px] font-bold text-slate-300 flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-emerald-500" />
-                No charges for the next {trialDaysRemaining} days.
-              </p>
+              {/* ── Footer (now inside scroll) ── */}
+              <div className="px-8 py-6 border-t border-white/5 flex items-center justify-center bg-white/5">
+                <p className="text-[14px] font-bold text-slate-300 flex items-center gap-2 text-center">
+                  <ShieldCheck className="w-5 h-5 text-emerald-500" />
+                  No charges for the next {trialDaysRemaining} days.
+                </p>
+              </div>
             </div>
           </motion.div>
         </div>
