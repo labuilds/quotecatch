@@ -62,7 +62,7 @@ export async function createDodoCheckoutSession() {
       metadata: {
         user_id: user.id,
       },
-      subscription_attributes: trialDays > 0 ? {
+      subscription_data: trialDays > 0 ? {
         trial_period_days: trialDays
       } : undefined,
       return_url: `${dynamicAppUrl}/settings?billing=success`,
