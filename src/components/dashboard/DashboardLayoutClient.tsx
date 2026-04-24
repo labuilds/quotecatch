@@ -49,8 +49,8 @@ const SidebarContent = ({
   if (!mounted) return null
 
   return (
-    <div className="flex flex-col h-full bg-white">
-      <div className="px-7 py-10 shrink-0">
+    <div className="flex flex-col h-full bg-white overflow-y-auto custom-scrollbar pt-12 lg:pt-0">
+      <div className="px-7 py-10 shrink-0 hidden lg:block">
         <Link href="/calculators" className="flex items-center gap-4 group">
           <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center transition-all group-hover:-translate-y-0.5 duration-300 border border-slate-100">
             <QCLogo size={26} isDark={true} />
@@ -169,7 +169,7 @@ export default function DashboardLayoutClient({
               </button>
             }
           />
-          <SheetContent side="left" className="p-0 w-[85vw] max-w-[320px] border-r-0 shadow-2xl overflow-hidden">
+          <SheetContent side="left" className="p-0 w-[85vw] max-w-[320px] border-r-0 shadow-2xl overflow-y-auto">
             <SidebarContent {...commonProps} />
           </SheetContent>
         </Sheet>
