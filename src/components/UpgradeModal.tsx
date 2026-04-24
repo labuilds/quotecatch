@@ -41,7 +41,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
     <AnimatePresence>
       {isOpen && (
         <div 
-          className="fixed inset-0 flex items-center justify-center p-12 sm:p-20 pointer-events-auto"
+          className="fixed inset-0 flex items-center justify-center p-[42px] sm:p-20 pointer-events-auto"
           style={{ zIndex: 9999999, isolation: "isolate" }}
         >
           {/* Backdrop */}
