@@ -142,7 +142,7 @@ export default function DashboardLayoutClient({
   return (
     <div className="flex h-screen bg-slate-50 font-sans overflow-hidden" suppressHydrationWarning>
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex w-64 bg-white border-r border-slate-100 flex-col shadow-[1px_0_20px_rgba(0,0,0,0.02)] relative z-10 shrink-0" suppressHydrationWarning>
+      <aside className="hidden lg:flex w-72 bg-white border-r border-slate-100 flex-col shadow-[1px_0_20px_rgba(0,0,0,0.02)] relative z-10 shrink-0" suppressHydrationWarning>
         <SidebarContent {...commonProps} />
       </aside>
 
