@@ -153,7 +153,7 @@ function SupportModal({ onClose }: { onClose: () => void }) {
         </div>
 
         {/* Body */}
-        <form onSubmit={handleSend} className="p-6 space-y-6">
+        <form onSubmit={handleSend} className="p-6 space-y-6 overflow-y-auto overscroll-contain flex-1 custom-scrollbar">
           <div className="space-y-2">
 
             <textarea
