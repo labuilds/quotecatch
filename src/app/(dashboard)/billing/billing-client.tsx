@@ -42,7 +42,7 @@ export function BillingClient({
       window.location.href = url
     } catch (err) {
       console.error(err)
-      alert("Could not start checkout. Please check your network or Dodo Payments configuration.")
+      alert("Could not start checkout: " + (err instanceof Error ? err.message : "Please check your network or Dodo configuration."))
       setIsLoading(false)
     }
 

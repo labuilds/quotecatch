@@ -19,7 +19,7 @@ export function SidebarUpgradeCard({ trialDaysRemaining = 14 }: { trialDaysRemai
       window.location.href = url
     } catch (error) {
       console.error(error)
-      alert("Could not start checkout. Please check your internet connection and try again.")
+      alert("Could not start checkout: " + (error instanceof Error ? error.message : "Please check your network or configuration."))
     }
 
   }
