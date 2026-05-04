@@ -407,7 +407,7 @@ export default function RoofingWidget({
                   </div>
                 ) : (
                   <div className="p-3 bg-white rounded-lg border border-slate-100 shadow-sm flex items-center gap-2.5">
-                    <div className="w-9 h-9 bg-red-600 rounded-lg flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 bg-red-700 rounded-lg flex items-center justify-center shrink-0">
                        <Home className="w-5 h-5 text-white" />
                     </div>
                     <span className="text-lg font-bold text-slate-900 tracking-tight uppercase whitespace-normal text-left">{companyName || "Roofing Specialist"}</span>
@@ -416,7 +416,7 @@ export default function RoofingWidget({
               </div>
 
               <h1 className="text-[32px] lg:text-[48px] font-bold text-[#0F172A] text-center leading-[1.1] tracking-tight mb-4">
-                Get a <span className="italic underline underline-offset-[6px] decoration-red-600/30">free</span> instant estimate
+                Get a <span className="italic underline underline-offset-[6px] decoration-red-700/30">free</span> instant estimate
               </h1>
 
               <p className="text-[16px] lg:text-[18px] text-slate-500 text-center font-medium leading-relaxed mb-10 max-w-sm">
@@ -438,7 +438,7 @@ export default function RoofingWidget({
                     <div className="w-1.5 h-1.5 bg-white rounded-full" />
                  </div>
                  <span className="text-[11px] font-semibold uppercase tracking-widest text-slate-900">
-                    Powered by <a href="https://getquotecatch.com" target="_blank" rel="noopener noreferrer" className="hover:text-red-600 transition-colors">QuoteCatch</a>
+                     Powered by <a href="https://getquotecatch.com" target="_blank" rel="noopener noreferrer" className="hover:text-red-700 transition-colors">QuoteCatch</a>
                  </span>
               </div>
             </div>
@@ -466,9 +466,9 @@ export default function RoofingWidget({
                       <AnimatePresence>
                         {addressConfirmed && (
                           <motion.div initial={{ opacity: 0, scale: 2 }} animate={{ opacity: 1, scale: 1 }} className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-                             <div className="w-14 h-14 border-2 border-white/50 rounded-full flex items-center justify-center backdrop-blur-[1px]">
-                                <div className="w-2.5 h-2.5 bg-red-500 rounded-full shadow-[0_0_15px_rgba(239,68,68,1)]" />
-                             </div>
+                              <div className="w-14 h-14 border-2 border-white/50 rounded-full flex items-center justify-center backdrop-blur-[1px]">
+                                 <div className="w-2.5 h-2.5 bg-red-600 rounded-full shadow-[0_0_15px_rgba(185,28,28,0.6)]" />
+                              </div>
                           </motion.div>
                         )}
                       </AnimatePresence>
@@ -743,8 +743,8 @@ export default function RoofingWidget({
                     checked={agreedToTerms}
                     onChange={(e) => setAgreedToTerms(e.target.checked)}
                   />
-                  <div className="w-6 h-6 border-2 border-slate-200 rounded-lg bg-white peer-checked:border-red-600 transition-all flex items-center justify-center">
-                    {agreedToTerms && <Check className="w-4 h-4 text-red-600" />}
+                  <div className="w-6 h-6 border-2 border-slate-200 rounded-lg bg-white peer-checked:border-red-700 transition-all flex items-center justify-center">
+                    {agreedToTerms && <Check className="w-4 h-4 text-red-700" />}
                   </div>
                 </div>
                 <span className="text-[17px] font-medium text-slate-600 leading-tight">
@@ -760,8 +760,8 @@ export default function RoofingWidget({
                     checked={agreedToMarketing}
                     onChange={(e) => setAgreedToMarketing(e.target.checked)}
                   />
-                  <div className="w-6 h-6 border-2 border-slate-200 rounded-lg bg-white peer-checked:border-red-600 transition-all flex items-center justify-center">
-                    {agreedToMarketing && <Check className="w-4 h-4 text-red-600" />}
+                  <div className="w-6 h-6 border-2 border-slate-200 rounded-lg bg-white peer-checked:border-red-700 transition-all flex items-center justify-center">
+                    {agreedToMarketing && <Check className="w-4 h-4 text-red-700" />}
                   </div>
                 </div>
                 <span className="text-[15px] font-normal text-slate-500 leading-[1.6]">

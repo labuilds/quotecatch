@@ -183,7 +183,9 @@
 }
 
 .pac-matched {
-  color: inherit !important;
+  color: #0f172a !important;
+  font-weight: 500 !important;
+  background: none !important;
 }
 
 .pac-icon {
