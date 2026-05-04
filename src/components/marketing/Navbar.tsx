@@ -24,6 +24,7 @@ export function Navbar() {
     <>
       <Link href="/#features" className="hover:text-slate-900 transition-colors">Features</Link>
       <Link href="/#pricing" className="hover:text-slate-900 transition-colors">Pricing</Link>
+      <Link href="/#faq" className="hover:text-slate-900 transition-colors">FAQ</Link>
     </>
   )
 

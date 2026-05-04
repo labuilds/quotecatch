@@ -20,7 +20,7 @@ export default function MarketingPage({ params }: { params: Promise<{ vertical: 
   const title = verticalTitleMap[vertical.toLowerCase()] || "Home Service"
 
   const features = [
-    { icon: Calculator, color: "text-orange-500", bg: "bg-orange-50", title: "Smart Pricing Engine", desc: "Describe your pricing in plain English. Our system builds the math instantly, no spreadsheets." },
+    { icon: Calculator, color: "text-orange-500", bg: "bg-orange-50", title: "Instant Lead Capture", desc: "Build a custom estimating widget in minutes. Capture high-intent leads instantly right on your website." },
     { icon: BarChart3, color: "text-blue-500", bg: "bg-blue-50", title: "Lead Intelligence", desc: "Every estimate is logged with the homeowner's details, dimensions, and material preferences." },
     { icon: Globe, color: "text-emerald-500", bg: "bg-emerald-50", title: "One-Click Embed", desc: "Works on WordPress, Webflow, GoHighLevel. Copy one line of code. Done." },
   ]

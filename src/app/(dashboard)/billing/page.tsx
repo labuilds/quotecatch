@@ -21,11 +21,13 @@ export default async function BillingPage({
 
   const { data: profile } = await supabase
     .from("users")
-    .select("is_pro")
+    .select("is_pro, subscription_period_end, subscription_status")
     .eq("id", user.id)
     .single()
 
   const isPro = profile?.is_pro ?? false
+  const periodEnd = profile?.subscription_period_end ?? null
+  const status = profile?.subscription_status ?? null
   const params = await searchParams
   const justUpgraded = params.billing === "success"
 
@@ -34,6 +36,8 @@ export default async function BillingPage({
       isPro={isPro || justUpgraded}
       email={user.email ?? ""}
       justUpgraded={justUpgraded}
+      periodEnd={periodEnd}
+      status={status}
     />
   )
 }

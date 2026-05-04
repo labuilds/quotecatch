@@ -347,7 +347,7 @@ export default function RoofingWidget({
   }
 
   return (
-    <div className="w-full max-w-lg mx-auto bg-white shadow-xl lg:shadow-[0_32px_84px_rgba(0,0,0,0.12)] border border-slate-100/80 rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden flex flex-col font-sans touch-manipulation ring-1 ring-slate-900/5 min-h-[580px]">
+    <div className="w-full max-w-lg lg:max-w-4xl mx-auto bg-white shadow-xl lg:shadow-[0_24px_64px_rgba(0,0,0,0.08)] border border-slate-200/60 rounded-lg lg:rounded-xl overflow-hidden flex flex-col font-sans touch-manipulation ring-1 ring-slate-900/5 min-h-[580px]">
       {/* Header - Hidden on Intro and Result */}
       {currentStepId !== 'INTRO' && currentStepId !== 'RESULT' && (
         <div className="px-5 lg:px-8 pt-6 lg:pt-8 pb-1">
@@ -356,17 +356,17 @@ export default function RoofingWidget({
               {step > 1 && (
                 <button
                   onClick={prevStep}
-                  className="w-10 h-10 rounded-2xl bg-slate-50 hover:bg-slate-100 flex items-center justify-center transition-all cursor-pointer group"
+                  className="w-9 h-9 rounded-lg bg-slate-50 hover:bg-slate-100 flex items-center justify-center transition-all cursor-pointer group border border-slate-200/50"
                 >
-                  <ArrowLeft className="w-4 h-4 text-slate-600 group-hover:text-slate-900 transition-colors" />
+                  <ArrowLeft className="w-3.5 h-3.5 text-slate-500 group-hover:text-slate-900 transition-colors" />
                 </button>
               )}
               <div className="flex flex-col">
                 <div className="flex items-center gap-2">
-                  <span className="text-[16px] font-semibold text-slate-600/80 tracking-tight">Step {currentQuestionIndex + 1} of {totalQuestions}</span>
-                  <div className="flex gap-1 ml-1">
+                  <span className="text-[17px] font-semibold text-slate-600 tracking-tight">Step {currentQuestionIndex + 1} of {totalQuestions}</span>
+                  <div className="flex gap-1.5 mt-2">
                     {questionSteps.map((_, i) => (
-                      <div key={i} className={`h-1 !rounded-full transition-all duration-500 ${i <= currentQuestionIndex ? "w-3 bg-red-700" : "w-1 bg-slate-100"}`} />
+                      <div key={i} className={`h-1 !rounded-full transition-all duration-500 ${i <= currentQuestionIndex ? "w-8 bg-red-700" : "w-2 bg-slate-100"}`} />
                     ))}
                   </div>
                 </div>
@@ -398,7 +398,7 @@ export default function RoofingWidget({
               </div>
             </div>
 
-            <div className="w-full max-w-lg mx-auto flex flex-col items-center z-10 px-6">
+            <div className="w-full max-w-lg lg:max-w-4xl mx-auto flex flex-col items-center z-10 px-6">
               {/* Branding Header */}
               <div className="mb-10 lg:mb-12 flex flex-col items-center">
                 {companyLogoUrl ? (
@@ -406,30 +406,32 @@ export default function RoofingWidget({
                     <img src={companyLogoUrl} alt={companyName} className="h-full w-auto object-contain" />
                   </div>
                 ) : (
-                  <div className="p-4 bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
-                    <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center shrink-0">
-                       <Home className="w-6 h-6 text-white" />
+                  <div className="p-3 bg-white rounded-lg border border-slate-100 shadow-sm flex items-center gap-2.5">
+                    <div className="w-9 h-9 bg-red-600 rounded-lg flex items-center justify-center shrink-0">
+                       <Home className="w-5 h-5 text-white" />
                     </div>
-                    <span className="text-xl font-semibold text-slate-900 tracking-tighter uppercase whitespace-normal text-left">{companyName || "Roofing Specialist"}</span>
+                    <span className="text-lg font-bold text-slate-900 tracking-tight uppercase whitespace-normal text-left">{companyName || "Roofing Specialist"}</span>
                   </div>
                 )}
               </div>
 
-              <h1 className="text-[36px] lg:text-[54px] font-semibold text-[#0F172A] text-center leading-[1.05] tracking-tighter mb-6">
-                Get a <span className="italic underline underline-offset-[8px] decoration-red-600/30">free</span> instant estimate
+              <h1 className="text-[32px] lg:text-[48px] font-bold text-[#0F172A] text-center leading-[1.1] tracking-tight mb-4">
+                Get a <span className="italic underline underline-offset-[6px] decoration-red-600/30">free</span> instant estimate
               </h1>
 
-              <p className="text-[17px] lg:text-[20px] text-slate-600 text-center font-medium leading-relaxed mb-12 max-w-md">
-                We use satellite imagery to measure your roof and provide an instant estimate for your roof replacement
+              <p className="text-[16px] lg:text-[18px] text-slate-500 text-center font-medium leading-relaxed mb-10 max-w-sm">
+                We use satellite imagery to measure your roof and provide an accurate quote in seconds.
               </p>
 
-              <button 
-                onClick={nextStep}
-                className="w-full max-w-[320px] h-16 lg:h-20 bg-[#1e293b] hover:bg-[#0F172A] text-white rounded-[2rem] font-semibold text-[20px] transition-all hover:scale-[1.02] active:scale-95 shadow-2xl shadow-slate-200 flex items-center justify-center gap-4 group cursor-pointer border-none"
-              >
-                Get started 
-                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
-              </button>
+              <div className="w-full flex md:justify-end mt-4">
+                <button 
+                  onClick={nextStep}
+                  className="w-full md:w-fit px-10 h-14 bg-[#1e293b] hover:bg-[#0F172A] text-white rounded-lg font-semibold text-[18px] transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-slate-200 flex items-center justify-center gap-3 group cursor-pointer border-none"
+                >
+                  Get started 
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform duration-300" />
+                </button>
+              </div>
 
               <div className="flex items-center gap-2 grayscale opacity-20 mt-16 group/brand">
                  <div className="w-5 h-5 bg-slate-900 rounded flex items-center justify-center">
@@ -451,7 +453,7 @@ export default function RoofingWidget({
                 <h1 className="text-3xl font-semibold tracking-tight text-[#0F172A]">What’s your address?</h1>
               </div>
 
-              <div className="bg-white rounded-xl overflow-hidden shadow-sm relative group border border-slate-100/50">
+              <div className="bg-white rounded-lg overflow-hidden shadow-sm relative group border border-slate-100/50">
                 <div className="w-full h-[450px] bg-slate-100 relative">
                   {isLoaded ? (
                     <GoogleMap
@@ -488,7 +490,7 @@ export default function RoofingWidget({
                                 placeholder="1234 Street Name, City, State"
                                 value={formData.address}
                                 onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                                className="h-12 pl-4 pr-10 rounded-lg border-none bg-white text-slate-900 shadow-xl font-medium text-[15px] focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-slate-600"
+                                className="h-14 pl-4 pr-10 rounded-lg border-none bg-white text-black shadow-xl font-medium text-[18px] focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-slate-400"
                               />
                               {formData.address && (
                                 <button onClick={() => { setFormData({...formData, address: ""}); setAddressConfirmed(false); }} className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-colors">
@@ -503,7 +505,7 @@ export default function RoofingWidget({
 
                     <AnimatePresence>
                       {addressConfirmed && (
-                        <motion.button initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} onClick={handleConfirmProperty} className="bg-white text-blue-600 border-2 border-blue-600 px-8 h-12 rounded-full font-semibold shadow-xl hover:bg-blue-50 transition-all active:scale-95 flex items-center justify-center gap-2">
+                        <motion.button initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} onClick={handleConfirmProperty} className="bg-white text-blue-600 border-2 border-blue-600 px-6 h-11 rounded-lg font-semibold shadow-lg hover:bg-blue-50 transition-all active:scale-95 flex items-center justify-center gap-2">
                           Continue
                         </motion.button>
                       )}
@@ -528,17 +530,17 @@ export default function RoofingWidget({
             <div className="space-y-1">
               <h2 className="text-3xl font-semibold tracking-tight text-[#0F172A]">What type of building?</h2>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 max-w-2xl">
               {[
                 { id: "residential", label: "Residential", img: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?auto=format&fit=crop&w=400&q=80" },
                 { id: "commercial", label: "Commercial", img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=400&q=80" }
               ].map((item) => {
                 const active = formData.buildingType === item.id;
                 return (
-                  <button key={item.id} onClick={() => handleSelect("buildingType", item.id)} className={`group relative h-48 rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer ${active ? "ring-4 ring-red-700 ring-offset-2" : "ring-1 ring-slate-200"}`}>
+                  <button key={item.id} onClick={() => handleSelect("buildingType", item.id)} className={`group relative h-32 lg:h-40 rounded-lg overflow-hidden transition-all duration-300 cursor-pointer ${active ? "ring-4 ring-red-700 ring-offset-2" : "ring-1 ring-slate-200"}`}>
                     <img src={item.img} alt={item.label} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    <div className="absolute bottom-4 left-4 text-white font-semibold flex items-center gap-1.5">{item.label} <ArrowLeft className="w-4 h-4 rotate-[135deg]" /></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                    <div className="absolute bottom-3.5 left-3.5 text-white font-bold flex items-center gap-1.5 text-base lg:text-lg">{item.label} <ArrowLeft className="w-3.5 h-3.5 rotate-[135deg]" /></div>
                   </button>
                 )
               })}
@@ -552,7 +554,7 @@ export default function RoofingWidget({
             <div className="space-y-1">
               <h2 className="text-3xl font-semibold tracking-tight text-[#0F172A]">Currently on your roof?</h2>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
                 { id: "asphalt", label: "Asphalt", img: "/asphalt.jpg" },
                 { id: "metal", label: "Metal", img: "/materials/metal.jpg" },
@@ -561,10 +563,10 @@ export default function RoofingWidget({
               ].map((item) => {
                 const active = formData.material === item.id;
                 return (
-                  <button key={item.id} onClick={() => handleSelect("material", item.id)} className={`group relative h-32 rounded-xl overflow-hidden transition-all duration-300 cursor-pointer ${active ? "ring-4 ring-slate-900 ring-offset-2 scale-[1.02] shadow-xl" : "ring-1 ring-slate-200"}`}>
+                  <button key={item.id} onClick={() => handleSelect("material", item.id)} className={`group relative h-28 lg:h-32 rounded-lg overflow-hidden transition-all duration-300 cursor-pointer ${active ? "ring-4 ring-slate-900 ring-offset-2 scale-[1.02] shadow-xl" : "ring-1 ring-slate-200"}`}>
                     <img src={item.img} alt={item.label} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity opacity-80 group-hover:opacity-60" />
-                    <div className="absolute bottom-3 left-3 text-white text-sm font-semibold flex items-center gap-1 drop-shadow-lg">{item.label} <ArrowLeft className="w-3.5 h-3.5 rotate-[135deg]" /></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent transition-opacity opacity-80 group-hover:opacity-60" />
+                    <div className="absolute bottom-2.5 left-2.5 text-white text-[17px] font-bold flex items-center gap-1 drop-shadow-lg tracking-tight">{item.label} <ArrowLeft className="w-3 h-3 rotate-[135deg]" /></div>
                   </button>
                 )
               })}
@@ -578,7 +580,7 @@ export default function RoofingWidget({
             <div className="space-y-1">
               <h2 className="text-3xl font-semibold tracking-tight text-[#0F172A]">Desired roof type?</h2>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {[
                 { id: "asphalt", label: "Asphalt", img: "/asphalt.jpg" },
                 { id: "metal", label: "Metal", img: "/materials/metal.jpg" },
@@ -589,10 +591,10 @@ export default function RoofingWidget({
               .map((item) => {
                 const active = formData.desiredMaterial === item.id;
                 return (
-                  <button key={item.id} onClick={() => handleSelect("desiredMaterial", item.id)} className={`group relative h-32 rounded-xl overflow-hidden transition-all duration-300 cursor-pointer ${active ? "ring-4 ring-slate-900 ring-offset-2 scale-[1.02] shadow-xl" : "ring-1 ring-slate-200"}`}>
+                  <button key={item.id} onClick={() => handleSelect("desiredMaterial", item.id)} className={`group relative h-28 lg:h-32 rounded-lg overflow-hidden transition-all duration-300 cursor-pointer ${active ? "ring-4 ring-slate-900 ring-offset-2 scale-[1.02] shadow-xl" : "ring-1 ring-slate-200"}`}>
                     <img src={item.img} alt={item.label} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity opacity-80 group-hover:opacity-60" />
-                    <div className="absolute bottom-3 left-3 text-white text-sm font-semibold flex items-center gap-1 drop-shadow-lg">{item.label} <ArrowLeft className="w-3.5 h-3.5 rotate-[135deg]" /></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent transition-opacity opacity-80 group-hover:opacity-60" />
+                    <div className="absolute bottom-2.5 left-2.5 text-white text-[17px] font-bold flex items-center gap-1 drop-shadow-lg tracking-tight">{item.label} <ArrowLeft className="w-3 h-3 rotate-[135deg]" /></div>
                   </button>
                 )
               })}
@@ -606,14 +608,14 @@ export default function RoofingWidget({
             <div className="space-y-1">
               <h2 className="text-3xl font-semibold tracking-tight text-[#0F172A]">Roof Steepness?</h2>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {PITCH_OPTIONS.map(({ id, label, sub }) => {
                 const active = formData.pitch === id;
                 return (
-                  <button key={id} onClick={() => handleSelect("pitch", id)} className={`flex flex-col items-start p-6 rounded-[2rem] border-2 transition-all duration-300 group cursor-pointer text-left ${active ? "border-red-700 bg-red-50/50 shadow-md scale-[1.02]" : "border-slate-100 bg-white hover:border-slate-200 hover:bg-slate-50/50"}`}>
-                    <div className="mb-4"><PitchIcon type={id} active={active} /></div>
-                    <p className={`text-[19px] font-semibold tracking-tight transition-colors ${active ? "text-red-900" : "text-slate-900"}`}>{label}</p>
-                    <p className="text-[16px] text-slate-600 font-semibold mt-1">{sub}</p>
+                  <button key={id} onClick={() => handleSelect("pitch", id)} className={`flex flex-col items-center justify-center p-4 lg:p-6 rounded-lg border-2 transition-all duration-300 group cursor-pointer text-center ${active ? "border-red-700 bg-red-50/50 shadow-md" : "border-slate-100 bg-white hover:border-slate-200 hover:bg-slate-50/50"}`}>
+                    <div className="mb-3 scale-90 group-hover:scale-100 transition-transform"><PitchIcon type={id} active={active} /></div>
+                    <p className={`text-[19px] font-bold tracking-tight transition-colors ${active ? "text-red-900" : "text-slate-900"}`}>{label}</p>
+                    <p className="text-[15px] text-slate-500 font-medium mt-0.5">{sub}</p>
                   </button>
                 )
               })}
@@ -627,7 +629,7 @@ export default function RoofingWidget({
             <div className="space-y-1">
               <h2 className="text-3xl font-semibold tracking-tight text-[#0F172A]">Desired timeline?</h2>
             </div>
-            <div className="grid gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
                 { id: "none", label: "No timeline", sub: "I do not have a timeline in mind yet" },
                 { id: "1-3_months", label: "In 1-3 months", sub: "Not urgent, but I would like to start soon" },
@@ -635,9 +637,9 @@ export default function RoofingWidget({
               ].map((item) => {
                 const active = formData.timeline === item.id;
                 return (
-                  <button key={item.id} onClick={() => handleSelect("timeline", item.id)} className={`w-full p-5 rounded-2xl border-2 text-left group transition-all duration-300 cursor-pointer ${active ? "border-red-700 bg-red-50/50" : "border-slate-100 bg-white hover:border-slate-200"}`}>
-                    <p className={`text-lg font-semibold ${active ? "text-red-800" : "text-slate-900"}`}>{item.label}</p>
-                    <p className="text-sm text-slate-600 font-medium mt-1">{item.sub}</p>
+                  <button key={item.id} onClick={() => handleSelect("timeline", item.id)} className={`w-full p-4 rounded-lg border-2 text-left group transition-all duration-300 cursor-pointer ${active ? "border-red-700 bg-red-50/50 shadow-sm" : "border-slate-100 bg-white hover:border-slate-200"}`}>
+                    <p className={`text-[18px] font-bold ${active ? "text-red-800" : "text-slate-900"}`}>{item.label}</p>
+                    <p className="text-[14px] text-slate-500 font-medium mt-0.5">{item.sub}</p>
                   </button>
                 )
               })}
@@ -651,7 +653,7 @@ export default function RoofingWidget({
             <div className="space-y-1">
               <h2 className="text-3xl font-semibold tracking-tight text-[#0F172A]">Interested in financing?</h2>
             </div>
-            <div className="grid gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
                 { id: "yes", label: "Yes", sub: "I am interested in financing" },
                 { id: "no", label: "No", sub: "I am not interested in financing" },
@@ -659,9 +661,9 @@ export default function RoofingWidget({
               ].map((item) => {
                 const active = formData.financing === item.id;
                 return (
-                  <button key={item.id} onClick={() => handleSelect("financing", item.id)} className={`w-full p-5 rounded-2xl border-2 text-left group transition-all duration-300 cursor-pointer ${active ? "border-red-700 bg-red-50/50" : "border-slate-100 bg-white hover:border-slate-200"}`}>
-                    <p className={`text-lg font-semibold ${active ? "text-red-800" : "text-slate-900"}`}>{item.label}</p>
-                    <p className="text-sm text-slate-600 font-medium mt-1">{item.sub}</p>
+                  <button key={item.id} onClick={() => handleSelect("financing", item.id)} className={`w-full p-4 rounded-lg border-2 text-left group transition-all duration-300 cursor-pointer ${active ? "border-red-700 bg-red-50/50 shadow-sm" : "border-slate-100 bg-white hover:border-slate-200"}`}>
+                    <p className={`text-[18px] font-bold ${active ? "text-red-800" : "text-slate-900"}`}>{item.label}</p>
+                    <p className="text-[14px] text-slate-500 font-medium mt-0.5">{item.sub}</p>
                   </button>
                 )
               })}
@@ -677,16 +679,18 @@ export default function RoofingWidget({
             </div>
             <textarea
               placeholder="Are there skylights? Solar panels? Chimneys? Tell us more..."
-              className="w-full min-h-[160px] p-6 bg-slate-50 border-slate-100 focus:outline-none focus:ring-2 focus:ring-red-700/20 rounded-[2rem] text-[16px] font-semibold text-slate-900 placeholder:text-slate-600 resize-none shadow-inner"
+              className="w-full min-h-[140px] p-5 bg-slate-50 border-slate-100 focus:outline-none focus:ring-2 focus:ring-red-700/20 rounded-lg text-[17px] font-medium text-slate-900 placeholder:text-slate-400 resize-none shadow-inner"
               value={formData.notes}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
             />
-            <button 
-              onClick={nextStep} 
-              className="w-full h-16 bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] font-semibold text-[15px] transition-all shadow-xl shadow-slate-200 flex items-center justify-center gap-2 cursor-pointer"
-            >
-              Continue <ArrowLeft className="w-4 h-4 rotate-180" />
-            </button>
+            <div className="w-full flex md:justify-end">
+              <button 
+                onClick={nextStep} 
+                className="w-full md:w-fit px-8 h-12 bg-[#0F172A] hover:bg-black text-white rounded-lg font-semibold text-[15px] transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer"
+              >
+                Continue <ArrowLeft className="w-4 h-4 rotate-180" />
+              </button>
+            </div>
           </div>
         )}
 
@@ -700,32 +704,32 @@ export default function RoofingWidget({
             
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label className="text-[15px] font-semibold uppercase tracking-widest text-[#0F172A] ml-1">Full Name</Label>
+                <Label className="text-[16px] font-semibold uppercase tracking-widest text-[#0F172A] ml-1">Full Name</Label>
                 <Input 
                   placeholder="John Doe" 
                   value={formData.firstName}
                   onChange={(e) => setFormData({...formData, firstName: e.target.value})}
-                  className="h-14 bg-slate-50 border-slate-100 rounded-2xl px-6 text-[16px] font-semibold"
+                  className="h-12 bg-slate-50 border-slate-100 rounded-lg px-4 text-[17px] font-medium focus:bg-white transition-colors"
                 />
               </div>
               <div className="space-y-2">
-                <Label className="text-[15px] font-semibold uppercase tracking-widest text-[#0F172A] ml-1">Work Email</Label>
+                <Label className="text-[16px] font-semibold uppercase tracking-widest text-[#0F172A] ml-1">Email</Label>
                 <Input 
                   placeholder="john@example.com" 
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="h-14 bg-slate-50 border-slate-100 rounded-2xl px-6 text-[16px] font-semibold"
+                  className="h-12 bg-slate-50 border-slate-100 rounded-lg px-4 text-[17px] font-medium focus:bg-white transition-colors"
                 />
               </div>
               <div className="space-y-2">
-                <Label className="text-[15px] font-semibold uppercase tracking-widest text-[#0F172A] ml-1">Phone Number</Label>
+                <Label className="text-[16px] font-semibold uppercase tracking-widest text-[#0F172A] ml-1">Phone Number</Label>
                 <Input 
                   placeholder="(555) 000-0000" 
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: formatPhoneNumber(e.target.value)})}
-                  className="h-14 bg-slate-50 border-slate-100 rounded-2xl px-6 text-[16px] font-semibold"
+                  className="h-12 bg-slate-50 border-slate-100 rounded-lg px-4 text-[17px] font-medium focus:bg-white transition-colors"
                 />
               </div>
             </div>
@@ -743,7 +747,7 @@ export default function RoofingWidget({
                     {agreedToTerms && <Check className="w-4 h-4 text-red-600" />}
                   </div>
                 </div>
-                <span className="text-[18px] font-semibold text-slate-600 leading-tight">
+                <span className="text-[17px] font-medium text-slate-600 leading-tight">
                   I agree to <Link href="/terms" target="_blank" className="text-red-700 underline font-semibold">Terms of Service</Link> and <Link href="/privacy" target="_blank" className="text-red-700 underline font-semibold">Privacy Policy</Link>.*
                 </span>
               </label>
@@ -760,19 +764,21 @@ export default function RoofingWidget({
                     {agreedToMarketing && <Check className="w-4 h-4 text-red-600" />}
                   </div>
                 </div>
-                <span className="text-[16px] font-medium text-slate-600 leading-[1.6]">
+                <span className="text-[15px] font-normal text-slate-500 leading-[1.6]">
                   To ensure you’re getting the best offers and pricing, {companyName || "we"} may need to contact you by text/call. By checking this box, you agree to these communications, including marketing and promotional messages. Message and data rates may apply. You can reply STOP to opt-out of future messaging; reply HELP for messaging help. Message frequency may vary.*
                 </span>
               </label>
             </div>
 
-            <button 
-              onClick={handleCalculateAndRedirect} 
-              disabled={isSubmitting || !formData.email || !formData.firstName || !formData.phone || !agreedToTerms || !agreedToMarketing}
-              className="w-full h-16 bg-red-700 hover:bg-black text-white rounded-[1.5rem] font-semibold text-[18px] transition-all shadow-xl shadow-red-100 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-            >
-              {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Calculate My Estimate →"}
-            </button>
+            <div className="w-full flex md:justify-end pt-4">
+              <button 
+                onClick={handleCalculateAndRedirect} 
+                disabled={isSubmitting || !formData.email || !formData.firstName || !formData.phone || !agreedToTerms || !agreedToMarketing}
+                className="w-full md:w-fit px-10 h-14 bg-red-700 hover:bg-red-800 text-white rounded-lg font-semibold text-[16px] transition-all shadow-lg shadow-red-100 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+              >
+                {isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : "Calculate My Estimate →"}
+              </button>
+            </div>
           </div>
         )}
 
@@ -784,16 +790,16 @@ export default function RoofingWidget({
             </div>
             
             <div className="space-y-2">
-                <h2 className="text-[36px] font-semibold text-[#0F172A] tracking-tighter">Success!</h2>
-                <p className="text-slate-600 font-semibold min-h-[48px]">We've generated your instant estimate for {formData.address.split(',')[0]}!</p>
+                <h2 className="text-[40px] font-semibold text-[#0F172A] tracking-tighter">Success!</h2>
+                <p className="text-slate-600 font-medium text-[18px] min-h-[48px]">We've generated your instant estimate for {formData.address.split(',')[0]}!</p>
             </div>
 
-            <div className="w-full bg-slate-50 border border-slate-100 rounded-[2.5rem] p-8 lg:p-10 space-y-4 shadow-inner">
-               <p className="text-[16px] font-semibold uppercase tracking-[0.2em] text-slate-600">Estimated Project Cost</p>
+            <div className="w-full bg-slate-50 border border-slate-100 rounded-lg p-8 lg:p-10 space-y-4 shadow-inner">
+               <p className="text-[17px] font-semibold uppercase tracking-[0.2em] text-slate-600">Estimated Project Cost</p>
                <div className="text-[48px] lg:text-[64px] font-semibold text-[#0F172A] tracking-tight leading-none">
                  ${estimatedPrice?.toLocaleString()}
                </div>
-               <p className="text-[15px] text-slate-600 font-semibold px-4 italic leading-relaxed">
+               <p className="text-[16px] text-slate-600 font-normal px-4 italic leading-relaxed">
                  Price is a ballpark estimate based on current material rates and satellite measurements.
                </p>
             </div>
@@ -801,11 +807,11 @@ export default function RoofingWidget({
             <div className="w-full space-y-4">
                 <button 
                     onClick={() => window.location.href = '/login?tab=signup'}
-                    className="w-full h-16 bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] font-semibold text-[18px] transition-all shadow-xl shadow-slate-200"
+                    className="w-full h-16 bg-[#0F172A] hover:bg-black text-white rounded-lg font-semibold text-[18px] transition-all shadow-xl shadow-slate-200"
                 >
                     Get your own Free Widget →
                 </button>
-                <p className="text-[16px] text-slate-600 font-semibold">No credit card required. Cancel anytime.</p>
+                <p className="text-[16px] text-slate-600 font-medium">No credit card required. Cancel anytime.</p>
             </div>
           </div>
         )}

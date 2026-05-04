@@ -8,13 +8,13 @@ import { useState } from "react"
 
 const ProPlan = {
   name: "Pro Satellite",
-  monthlyPrice: "$49",
-  yearlyPrice: "$39",
+  monthlyPrice: "$99",
+  yearlyPrice: "$69",
   description: "The complete roofing sales toolkit. Stop climbing roofs and start closing deals from your truck.",
   features: [
     "Instant satellite measurements",
     "Unlimited qualified lead capture",
-    "Unlimited active pricing engines",
+    "Unlimited active lead capture widgets",
     "Zapier & Webhook integrations",
     "Company Branding & Logo Setup",
     "Priority support & analytics",
@@ -63,7 +63,7 @@ export function PricingSection({
         >
           Yearly
           <span className="text-[15px] bg-emerald-600 text-white px-3 py-1 rounded-full uppercase tracking-widest leading-none font-semibold shadow-sm">
-            -20%
+            -30%
           </span>
         </button>
       </div>
@@ -111,12 +111,12 @@ export function PricingSection({
               </div>
               {!isTrialEnded && (
                 <p className="text-[15px] font-semibold text-slate-300 uppercase tracking-widest mt-2">
-                  {billingCycle === "yearly" ? "Billed $468 Annually" : `No charges for ${trialDaysRemaining} days`}
+                  {billingCycle === "yearly" ? "Billed $828 Annually" : `No charges for ${trialDaysRemaining} days`}
                 </p>
               )}
               {isTrialEnded && (
                 <p className="text-[15px] font-semibold text-emerald-500 uppercase tracking-widest mt-2">
-                  {billingCycle === "yearly" ? "Save 20% with yearly" : "Instant activation"}
+                  {billingCycle === "yearly" ? "Save 30% with yearly" : "Instant activation"}
                 </p>
               )}
             </div>

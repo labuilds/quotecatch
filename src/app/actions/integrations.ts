@@ -2,6 +2,8 @@
 
 import { createClient } from "@/utils/supabase/server"
 
+const WEBHOOK_TIMEOUT = 10000 // 10 seconds
+
 export async function triggerLeadWebhook(leadData: any) {
   const supabase = await createClient()
   
@@ -25,8 +27,11 @@ export async function triggerLeadWebhook(leadData: any) {
     return // Skip if not pro or no webhook
   }
 
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), WEBHOOK_TIMEOUT)
+
   try {
-    console.log(`Triggering webhook for Pro user: ${user.webhook_url}`)
+    console.log(`[Webhook] Triggering for: ${user.webhook_url}`)
     
     // 3. Send the data
     const response = await fetch(user.webhook_url, {
@@ -36,13 +41,24 @@ export async function triggerLeadWebhook(leadData: any) {
         event: 'lead_captured',
         timestamp: new Date().toISOString(),
         data: leadData
-      })
+      }),
+      signal: controller.signal
     })
 
+    clearTimeout(timeoutId)
+
     if (!response.ok) {
-      console.error(`Webhook failed with status: ${response.status}`)
+      console.error(`[Webhook] Failed with status: ${response.status}`)
+    } else {
+      console.log(`[Webhook] Successfully triggered`)
     }
-  } catch (error) {
-    console.error("Failed to trigger webhook:", error)
+  } catch (error: any) {
+    clearTimeout(timeoutId)
+    if (error.name === 'AbortError') {
+      console.error("[Webhook] Timed out after 10s")
+    } else {
+      console.error("[Webhook] Failed:", error.message)
+    }
   }
 }
+

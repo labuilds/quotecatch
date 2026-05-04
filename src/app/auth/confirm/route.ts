@@ -15,14 +15,19 @@ export async function GET(request: NextRequest) {
   if (token_hash && type) {
     const supabase = await createClient()
 
-    const { error } = await supabase.auth.verifyOtp({
-      type,
-      token_hash,
-    })
+    try {
+      const { error } = await supabase.auth.verifyOtp({
+        type,
+        token_hash,
+      })
 
-    if (!error) {
-      // Verification successful, redirect to the dashboard or requested page
-      return NextResponse.redirect(`${origin}${next}`)
+      if (!error) {
+        // Verification successful, redirect to the dashboard or requested page
+        return NextResponse.redirect(`${origin}${next}`)
+      }
+    } catch (err) {
+      console.error("Auth verify error:", err)
+      return NextResponse.redirect(`${origin}/login?error=Network+timeout+or+connection+error.+Please+try+again.`)
     }
   }
 

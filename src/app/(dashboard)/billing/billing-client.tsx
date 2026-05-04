@@ -12,7 +12,7 @@ const proFeatures = [
   "Remote Satellite measurements",
   "Full Qualified Leads with Property Specs",
   "Company Branding & Logo Setup",
-  "Unlimited Smart Pricing Engines",
+  "Unlimited Lead Capture Widgets",
   "Zapier & CRM integrations",
   "Priority support & analytics",
 ]
@@ -23,10 +23,14 @@ export function BillingClient({
   isPro,
   email,
   justUpgraded,
+  periodEnd,
+  status,
 }: {
   isPro: boolean
   email: string
   justUpgraded: boolean
+  periodEnd: string | null
+  status: string | null
 }) {
   const [isLoading, setIsLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -92,7 +96,11 @@ export function BillingClient({
                       Active
                     </span>
                   </div>
-                  <p className="text-slate-600 font-medium text-[16px]">$49 / month · Premium Access</p>
+                  <p className="text-slate-400 font-medium text-[16px]">
+                    {periodEnd 
+                      ? `Renews on ${new Date(periodEnd).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`
+                      : "$99 / month · Premium Access"}
+                  </p>
                 </div>
               </div>
 
@@ -176,7 +184,7 @@ export function BillingClient({
                   </div>
                   <div>
                     <p className="text-[24px] font-semibold text-white">Unlock Lifetime Pro</p>
-                    <p className="text-slate-600 font-semibold text-[15px]">$49 / month</p>
+                    <p className="text-slate-600 font-semibold text-[15px]">$99 / month</p>
                   </div>
                 </div>
 

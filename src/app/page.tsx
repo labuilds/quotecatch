@@ -19,6 +19,7 @@ const DEMO_CONFIG: PricingConfig = {
 
 import { Navbar } from '@/components/marketing/Navbar'
 import { Footer } from '@/components/marketing/Footer'
+import { FAQSection } from '@/components/marketing/FAQSection'
 
 export default function Home() {
   const [user, setUser] = useState<any>(null)
@@ -48,7 +49,7 @@ export default function Home() {
             <div className="flex-1 text-center lg:text-left space-y-6 lg:space-y-8">
               <div className="inline-flex items-center gap-2 px-3 lg:px-4 py-1.5 lg:py-2 bg-red-50 border border-red-100 rounded-full">
                 <QCLogo size={14} />
-                <span className="text-[11px] lg:text-[15px] font-semibold text-red-800 uppercase tracking-widest">Built for High-Growth Roofing Teams</span>
+                <span className="text-[11px] lg:text-[15px] font-semibold text-red-800 uppercase tracking-widest">Capture More Leads, Close More Sales</span>
               </div>
 
               <h1 className="text-[42px] sm:text-[54px] lg:text-[84px] font-semibold text-[#0F172A] tracking-tighter leading-[0.95] lg:leading-[0.9]">
@@ -72,7 +73,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div id="demo" className="flex-1 w-full max-w-[480px] relative mt-8 lg:mt-0 z-50">
+            <div id="demo" className="flex-1 w-full max-w-[480px] lg:max-w-[700px] relative mt-8 lg:mt-0 z-50">
               <div className="absolute -top-10 lg:-top-12 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-md border border-slate-100 px-4 lg:px-6 py-1.5 lg:py-2 rounded-full shadow-sm z-20 flex items-center gap-2 whitespace-nowrap">
                 <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
                 <span className="text-[10px] lg:text-[16px] font-semibold text-slate-600 uppercase tracking-widest">Live Playable Demo</span>
@@ -97,9 +98,9 @@ export default function Home() {
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-10 lg:mb-16">
             <h2 className="text-[36px] lg:text-[64px] font-semibold text-white tracking-tighter mb-2 lg:mb-3 leading-tight">
-              The <span className="text-red-500">Satellite-First</span> Lead Machine
+              Capture More Leads, <span className="text-red-500">Close More Sales</span>
             </h2>
-            <p className="text-slate-600 text-[18px] lg:text-[24px] font-medium max-w-2xl mx-auto px-4">
+            <p className="text-slate-300 text-[18px] lg:text-[24px] font-medium max-w-2xl mx-auto px-4">
               Stop guessing. Get the exact measurements you need to quote accurately, from Day 1. No more manual math or wasted site visits.
             </p>
           </div>
@@ -138,7 +139,7 @@ export default function Home() {
                 <div className="space-y-3">
                   <span className="text-[15px] font-semibold text-red-500 tracking-[0.2em] uppercase">{s.step}</span>
                   <h4 className="text-[24px] lg:text-[28px] font-semibold text-white tracking-tight">{s.title}</h4>
-                  <p className="text-slate-600 font-medium leading-relaxed text-[16px] lg:text-[18px]">{s.desc}</p>
+                  <p className="text-slate-300 font-medium leading-relaxed text-[16px] lg:text-[18px]">{s.desc}</p>
                 </div>
               </div>
             ))}
@@ -180,6 +181,9 @@ export default function Home() {
           <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-red-500/10 rounded-full blur-3xl pointer-events-none" />
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <FAQSection />
 
       <Footer />
     </div>

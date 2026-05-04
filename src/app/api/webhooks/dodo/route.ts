@@ -71,8 +71,19 @@ export async function POST(req: NextRequest) {
     "payment_intent.succeeded",
   ]
 
-  if (activatingEvents.includes(eventType)) {
-    // Dodo puts our metadata at different depths depending on event type and API version
+  // Events that should sync the current status without necessarily downgrading
+  const syncEvents = [
+    "subscription.updated",
+    "subscription.cancelled", // Cancelled in Dodo means "will not renew", but may still be active until end of period
+  ]
+
+  // Events that definitively end access
+  const deactivatingEvents = [
+    "subscription.expired",
+    "subscription.failed",
+  ]
+
+  if ([...activatingEvents, ...syncEvents, ...deactivatingEvents].includes(eventType)) {
     const data = payload.data ?? {}
     const meta =
       data.metadata ??
@@ -84,60 +95,53 @@ export async function POST(req: NextRequest) {
       meta.user_id ??
       data.customer?.customer_reference ??
       data.customer_reference ??
-      data.customer_id ?? // Fallback if customer_id was used as reference
+      data.customer_id ??
       ""
-
-    console.log(`[Webhook] Metadata resolution:`, {
-      userId,
-      hasMeta: Object.keys(meta).length > 0,
-      keys: Object.keys(meta)
-    })
-
-    if (!userId) {
-      console.warn("[Webhook] No user_id found. Check if metadata was passed during checkout. Full payload:", JSON.stringify(payload, null, 2))
-      return NextResponse.json({ received: true, warning: "no user_id" }, { status: 200 })
-    }
-
-    const admin = createAdminClient()
-    const { error } = await admin
-      .from("users")
-      .upsert({ 
-        id: userId,
-        is_pro: true, 
-        updated_at: new Date().toISOString() 
-      }, { onConflict: 'id' })
-
-    if (error) {
-      console.error("[Webhook] Supabase upsert error:", error.message)
-      return NextResponse.json({ error: "DB upsert failed" }, { status: 500 })
-    }
-
-    console.log(`[Webhook] ✅ SUCCESS: User ${userId} upgraded to Pro.`)
-  }
-
-  // Handle subscription cancellations / expirations
-  const deactivatingEvents = [
-    "subscription.cancelled",
-    "subscription.expired",
-    "subscription.failed",
-  ]
-
-  if (deactivatingEvents.includes(eventType)) {
-    const meta =
-      payload.data?.metadata ??
-      payload.metadata ??
-      {}
-
-    const userId: string = meta.user_id ?? payload.data?.customer?.customer_reference ?? ""
 
     if (userId) {
       const admin = createAdminClient()
-      await admin
+      
+      // Determine new state
+      const isPro = activatingEvents.includes(eventType) || (eventType === 'subscription.updated' && data.status === 'active')
+      const isDeactivating = deactivatingEvents.includes(eventType)
+      const newStatus = data.status || (activatingEvents.includes(eventType) ? 'active' : undefined)
+      
+      const nextBillingDate = (payload.data as any).next_billing_date
+      const productId = (payload.data as any).product_id
+
+      const updateData: any = {
+        updated_at: new Date().toISOString()
+      }
+
+      if (activatingEvents.includes(eventType)) {
+        updateData.is_pro = true
+        updateData.subscription_status = 'active'
+        if (nextBillingDate) updateData.subscription_period_end = nextBillingDate
+        if (productId) updateData.plan_id = productId
+      } else if (deactivatingEvents.includes(eventType)) {
+        updateData.is_pro = false
+        updateData.subscription_status = eventType === 'subscription.expired' ? 'expired' : 'failed'
+        if (nextBillingDate) updateData.subscription_period_end = nextBillingDate
+      } else if (eventType === 'subscription.updated' || eventType === 'subscription.cancelled') {
+        // Just sync status, don't flip is_pro unless status explicitly says so
+        if (newStatus) updateData.subscription_status = newStatus
+        if (newStatus === 'active') updateData.is_pro = true
+        if (newStatus === 'expired') updateData.is_pro = false
+        if (nextBillingDate) updateData.subscription_period_end = nextBillingDate
+        if (productId) updateData.plan_id = productId
+      }
+
+      const { error } = await admin
         .from("users")
-        .update({ is_pro: false, updated_at: new Date().toISOString() })
+        .update(updateData)
         .eq("id", userId)
 
-      console.log(`[Webhook] ℹ️ User ${userId} downgraded to Free.`)
+      if (error) {
+        console.error(`[Webhook] Error updating user ${userId}:`, error.message)
+        return NextResponse.json({ error: "DB update failed" }, { status: 500 })
+      }
+
+      console.log(`[Webhook] ✅ SUCCESS: Processed ${eventType} for ${userId}. New status: ${updateData.subscription_status}, Pro: ${updateData.is_pro}, Period End: ${updateData.subscription_period_end}`)
     }
   }
 

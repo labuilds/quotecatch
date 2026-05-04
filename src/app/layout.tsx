@@ -13,11 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "QuoteCatch | The Smart Pricing Engine for Roofers",
+  title: "QuoteCatch | The Instant Roof Estimator",
   description:
     "Stop driving 2 hours for tire-kickers. Add a satellite-powered roofing estimator to your website in 60 seconds and capture pre-qualified leads.",
   openGraph: {
-    title: "QuoteCatch | The Smart Pricing Engine for Roofers",
+    title: "QuoteCatch | The Instant Roof Estimator",
     description:
       "Stop driving 2 hours for tire-kickers. Add a satellite-powered roofing estimator to your website in 60 seconds and capture pre-qualified leads.",
     url: "https://getquotecatch.com",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "QuoteCatch | The Smart Pricing Engine for Roofers",
+    title: "QuoteCatch | The Instant Roof Estimator",
     description:
       "Stop driving 2 hours for tire-kickers. Add a satellite-powered roofing estimator to your website in 60 seconds and capture pre-qualified leads.",
   },

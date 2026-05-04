@@ -16,7 +16,7 @@ interface UpgradeModalProps {
 const features = [
   "Instant satellite roof measurements",
   "Unlimited qualified lead capture",
-  "Unlimited active pricing engines",
+  "Unlimited active lead capture widgets",
   "Zapier & Webhook integrations",
   "Company Branding & Logo Setup",
   "Priority support & analytics",
@@ -96,20 +96,20 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
                     className={`px-6 py-2 rounded-xl text-[16px] font-semibold transition-all flex items-center gap-2 ${interval === 'yearly' ? 'bg-white text-black shadow-lg' : 'text-slate-600 hover:text-white'}`}
                   >
                     Yearly
-                    <span className="text-[12px] bg-red-500 text-white px-2 py-0.5 rounded-full">Save 10%</span>
+                    <span className="text-[12px] bg-red-500 text-white px-2 py-0.5 rounded-full">Save 30%</span>
                   </button>
                 </div>
 
                 <div className="mb-10 p-6 bg-white/5 rounded-3xl border border-white/10">
                   <div className="flex items-baseline gap-1 mb-6">
                     <span className="text-[48px] font-semibold text-white tracking-tighter">
-                      {interval === 'monthly' ? '$49' : '$529'}
+                      {interval === 'monthly' ? '$99' : '$69'}
                     </span>
                     <span className="text-[18px] font-semibold text-slate-300">
-                      /{interval === 'monthly' ? 'mo' : 'yr'}
+                      /mo
                     </span>
                     <span className="ml-3 text-[16px] font-semibold text-emerald-500 uppercase tracking-widest bg-emerald-500/10 px-2.5 py-1 rounded">
-                      {interval === 'monthly' ? 'No Commitment Required' : 'Best Value Pricing'}
+                      {interval === 'monthly' ? 'Month-to-Month' : 'Billed Annually ($828/yr)'}
                     </span>
                   </div>
 

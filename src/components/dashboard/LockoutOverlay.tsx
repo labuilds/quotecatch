@@ -57,7 +57,7 @@ export function LockoutOverlay({ email }: LockoutOverlayProps) {
             {[
               { icon: Zap, label: "Satellite HD Scans", sub: "Precision measurements" },
               { icon: ShieldCheck, label: "Premium Branding", sub: "Company Logo & Identity" },
-              { icon: BarChart3, label: "Unlimited Scale", sub: "Unlimited Pricing Engines" },
+              { icon: BarChart3, label: "Unlimited Scale", sub: "Unlimited Lead Capture Widgets" },
               { icon: Mail, label: "Integrations", sub: "Zapier & Webhooks" }
             ].map((feature, i) => (
               <div key={i} className="flex flex-col items-center p-6 bg-slate-50/50 rounded-3xl border border-slate-100 hover:bg-slate-50 transition-colors">
