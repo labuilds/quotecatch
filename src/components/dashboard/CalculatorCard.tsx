@@ -187,8 +187,8 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
              <Link
               href={`/calculators/${calc.id}`}
               className={cn(
-                buttonVariants({ variant: "default" }),
-                "flex-[7] basis-0 h-12 rounded-2xl font-bold text-[15px] bg-[#0F172A] hover:bg-black text-white shadow-xl shadow-slate-200 border-none transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center"
+                buttonVariants({ variant: "outline" }),
+                "flex-[7] basis-0 h-12 rounded-2xl font-bold text-[15px] bg-slate-50 border border-slate-200/60 text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-all flex items-center justify-center cursor-pointer"
               )}
             >
               <Pencil className="w-4 h-4 mr-2.5 opacity-70" />

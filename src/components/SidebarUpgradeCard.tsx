@@ -11,7 +11,11 @@ export function SidebarUpgradeCard({ trialDaysRemaining = 14 }: { trialDaysRemai
 
   const handleUpgrade = async (plan: 'monthly' | 'yearly') => {
     try {
-      const { url } = await createDodoCheckoutSession(plan)
+      const { url, error } = await createDodoCheckoutSession(plan)
+      if (error) {
+        alert(error)
+        return
+      }
       if (!url || url.startsWith("#")) {
         alert(`Billing for ${plan} is not configured. Please add DODO_PRO_${plan.toUpperCase()}_LIVE_ID to your environment variables.`)
         return
@@ -51,9 +55,9 @@ export function SidebarUpgradeCard({ trialDaysRemaining = 14 }: { trialDaysRemai
 
           <button 
             onClick={() => setShowModal(true)}
-            className="w-full h-14 bg-[#0F172A] hover:bg-black text-white text-[15px] font-semibold rounded-2xl transition-all duration-300 shadow-xl shadow-slate-200 hover:shadow-red-500/10 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group/btn relative overflow-hidden cursor-pointer"
+            className="w-full h-14 bg-slate-50 border border-slate-200/80 hover:bg-slate-100 text-slate-700 hover:text-slate-900 text-[15px] font-bold rounded-2xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group/btn relative overflow-hidden cursor-pointer"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite] pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/[0.04] to-transparent -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite] pointer-events-none" />
             <span className="relative z-10 flex items-center gap-2">
               Upgrade Now
               <Clock className="w-4 h-4 opacity-40 group-hover/btn:translate-x-0.5 transition-transform" />
