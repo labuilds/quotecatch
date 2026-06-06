@@ -21,28 +21,30 @@ const dodo = new DodoPayments({
 })
 
 export async function createDodoCheckoutSession(plan: 'monthly' | 'yearly' = 'yearly') {
-  const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  if (!user) throw new Error("Unauthorized")
-
-  const CURRENT_PRODUCT_ID = IS_LIVE 
-    ? (plan === 'monthly' ? process.env.DODO_PRO_MONTHLY_LIVE_ID : process.env.DODO_PRO_YEARLY_LIVE_ID)
-    : (plan === 'monthly' ? process.env.DODO_PRO_MONTHLY_TEST_ID : process.env.DODO_PRO_YEARLY_TEST_ID)
-
-  if (!DODO_API_KEY || !CURRENT_PRODUCT_ID) {
-    console.error(`[Billing] Missing Dodo configuration for ${plan} plan.`)
-    return { url: "#billing-keys-not-configured" }
-  }
-
-  const headersList = await headers()
-  const host = headersList.get('host')
-  const proto = headersList.get('x-forwarded-proto') || 'http'
-  const dynamicAppUrl = `${proto}://${host}`
-
   try {
+    const supabase = await createClient()
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
+    if (!user) {
+      return { url: undefined, error: "Unauthorized: Please log in to complete your checkout." }
+    }
+
+    const CURRENT_PRODUCT_ID = IS_LIVE 
+      ? (plan === 'monthly' ? process.env.DODO_PRO_MONTHLY_LIVE_ID : process.env.DODO_PRO_YEARLY_LIVE_ID)
+      : (plan === 'monthly' ? process.env.DODO_PRO_MONTHLY_TEST_ID : process.env.DODO_PRO_YEARLY_TEST_ID)
+
+    if (!DODO_API_KEY || !CURRENT_PRODUCT_ID) {
+      console.error(`[Billing] Missing Dodo configuration for ${plan} plan.`)
+      return { url: "#billing-keys-not-configured", error: `Missing billing keys configuration for ${plan} plan.` }
+    }
+
+    const headersList = await headers()
+    const host = headersList.get('host')
+    const proto = headersList.get('x-forwarded-proto') || 'http'
+    const dynamicAppUrl = `${proto}://${host}`
+
     console.log(`[Billing] Attempting ${plan} checkout for: ${user.email} on ${dynamicAppUrl}`)
     
     // 1. Get user profile for trial calculation
@@ -95,8 +97,7 @@ export async function createDodoCheckoutSession(plan: 'monthly' | 'yearly' = 'ye
       rawBody: error.rawBody // Some SDKs provide this
     })
     
-    // Check for specific error types if needed
-    throw new Error(`Billing Error: ${error.message || "Unknown checkout error"}`)
+    return { url: undefined, error: error.message || "Unknown checkout error" }
   }
 }
 

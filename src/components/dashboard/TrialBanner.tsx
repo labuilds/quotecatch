@@ -19,7 +19,11 @@ export function TrialBanner({ trialEndsAt }: { trialEndsAt: string }) {
   const handleUpgrade = async (plan: 'monthly' | 'yearly') => {
     setIsLoading(true)
     try {
-      const { url } = await createDodoCheckoutSession(plan)
+      const { url, error } = await createDodoCheckoutSession(plan)
+      if (error) {
+        alert(error)
+        return
+      }
       if (url && !url.startsWith("#")) {
         window.location.href = url
         return

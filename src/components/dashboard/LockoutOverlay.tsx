@@ -22,10 +22,15 @@ export function LockoutOverlay({ email }: LockoutOverlayProps) {
   const handleUpgrade = async (plan: 'monthly' | 'yearly') => {
     setIsLoading(true)
     try {
-      const { url } = await createDodoCheckoutSession(plan)
+      const { url, error } = await createDodoCheckoutSession(plan)
+      if (error) {
+        alert(error)
+        return
+      }
       if (url) window.location.href = url
     } catch (e) {
       console.error(e)
+      alert("Failed to start checkout.")
     } finally {
       setIsLoading(false)
     }
