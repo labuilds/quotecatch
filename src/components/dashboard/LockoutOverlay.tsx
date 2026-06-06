@@ -19,10 +19,10 @@ export function LockoutOverlay({ email }: LockoutOverlayProps) {
   const router = useRouter()
   const supabase = createClient()
 
-  const handleUpgrade = async () => {
+  const handleUpgrade = async (plan: 'monthly' | 'yearly') => {
     setIsLoading(true)
     try {
-      const { url } = await createDodoCheckoutSession()
+      const { url } = await createDodoCheckoutSession(plan)
       if (url) window.location.href = url
     } catch (e) {
       console.error(e)

@@ -3,7 +3,10 @@ import { NextResponse } from "next/server"
 
 export async function GET(request: Request) {
   try {
-    const session = await createDodoCheckoutSession()
+    const { searchParams } = new URL(request.url)
+    const planParam = searchParams.get('plan')
+    const plan: 'monthly' | 'yearly' = planParam === 'monthly' ? 'monthly' : 'yearly'
+    const session = await createDodoCheckoutSession(plan)
     
     if (session?.url && !session.url.startsWith("#")) {
       return NextResponse.redirect(session.url)

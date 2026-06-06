@@ -27,7 +27,7 @@ const ProPlan = {
 }
 
 interface PricingSectionProps {
-  onUpgrade?: () => void;
+  onUpgrade?: (plan: "monthly" | "yearly") => void;
   showButton?: boolean;
   trialDaysRemaining?: number;
   isTrialEnded?: boolean;
@@ -167,7 +167,7 @@ export function PricingSection({
               onClick={(e) => {
                 if (onUpgrade) {
                   e.preventDefault()
-                  onUpgrade()
+                  onUpgrade(billingCycle)
                 }
               }}
             >

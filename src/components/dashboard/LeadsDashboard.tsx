@@ -41,9 +41,9 @@ export default function LeadsDashboard({ initialLeads, initialIsPro }: LeadsDash
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
   const [selectedLead, setSelectedLead] = useState<any>(null)
 
-  const handleUpgrade = async () => {
+  const handleUpgrade = async (plan: 'monthly' | 'yearly') => {
     try {
-      const { url } = await createDodoCheckoutSession()
+      const { url } = await createDodoCheckoutSession(plan)
       if (!url || url.startsWith("#")) {
         alert("Billing is not configured.")
         return

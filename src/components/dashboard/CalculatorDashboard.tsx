@@ -35,9 +35,9 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
     }
   }, [initialCalculators])
 
-  const handleUpgrade = async () => {
+  const handleUpgrade = async (plan: 'monthly' | 'yearly') => {
     try {
-      const { url } = await createDodoCheckoutSession()
+      const { url } = await createDodoCheckoutSession(plan)
       if (!url || url.startsWith("#")) {
         alert("Billing is not configured.")
         return
