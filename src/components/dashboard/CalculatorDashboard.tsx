@@ -138,7 +138,7 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-slate-50 pb-1 gap-6">
           <div className="space-y-2">
-            <h2 className="text-[36px] font-bold tracking-tighter text-[#0F172A] leading-none">Global Network</h2>
+            <h2 className="text-[36px] font-bold tracking-tighter text-[#0F172A] leading-none">Your estimators</h2>
             <p className="text-slate-600 font-medium text-[17px]">Manage and scale your active web-estimators.</p>
           </div>
           <div className="flex items-center gap-4 px-5 py-2.5 bg-slate-50 border border-slate-100 rounded-2xl">

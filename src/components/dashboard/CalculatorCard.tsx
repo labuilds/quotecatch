@@ -121,12 +121,9 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
           <div className="pt-14 pb-4 px-8 space-y-5 relative z-10 flex flex-col">
             <div className="flex items-start justify-between">
               <div className="min-w-0">
-                <h3 className="text-[22px] font-bold tracking-tighter text-[#0F172A] group-hover:text-red-700 transition-colors duration-300 leading-none">
+                <h3 className="text-[22px] font-bold tracking-tighter text-[#0F172A] leading-none">
                   {calc.name}
                 </h3>
-                <p className="text-[12px] font-bold text-slate-600 uppercase tracking-[0.2em] mt-1.5 opacity-80">
-                  Automated Capturing Engine
-                </p>
               </div>
               
               <DropdownMenu>
