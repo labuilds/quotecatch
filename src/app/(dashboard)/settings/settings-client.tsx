@@ -26,6 +26,14 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 
+const formatPhoneNumber = (value: string) => {
+  const digits = value.replace(/\D/g, "");
+  if (digits.length === 0) return "";
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+  return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+};
+
 interface SettingsClientProps {
   isPro: boolean
   userProfile: any
@@ -40,7 +48,7 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
     webhook_url: userProfile.webhook_url || "",
     company_logo_url: userProfile.company_logo_url || "",
     company_description: userProfile.company_description || "",
-    phone: userProfile.phone || "",
+    phone: formatPhoneNumber(userProfile.phone || ""),
     facebook_url: userProfile.facebook_url || "",
     linkedin_url: userProfile.linkedin_url || "",
     instagram_url: userProfile.instagram_url || "",
@@ -312,8 +320,12 @@ export function SettingsClient({ isPro, userProfile }: SettingsClientProps) {
                 <div className="relative">
                   <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-600" />
                   <Input
+                    type="tel"
                     value={formData.phone}
-                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                    onChange={(e) => {
+                      const formatted = formatPhoneNumber(e.target.value);
+                      setFormData(prev => ({ ...prev, phone: formatted }));
+                    }}
                     placeholder="(555) 000-0000"
                     className="h-14 pl-12 pr-6 rounded-2xl border-slate-200 bg-white text-[16px] font-normal text-[#0F172A] focus-visible:ring-4 focus-visible:ring-slate-900/5 focus-visible:border-slate-900 transition-all shadow-sm placeholder:text-slate-300 placeholder:font-medium"
                   />
