@@ -47,7 +47,7 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="absolute inset-0 bg-slate-950/80 backdrop-blur-xl"
+            className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
           />
 
           <motion.div
@@ -55,46 +55,46 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.93, y: 24 }}
             transition={{ type: "spring", damping: 26, stiffness: 380 }}
-            className="relative w-full max-w-xl bg-[#0F172A] rounded-[2.5rem] shadow-[0_40px_120px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden border border-red-500/20"
+            className="relative w-full max-w-xl bg-white rounded-[2.5rem] shadow-[0_30px_60px_rgba(0,0,0,0.1)] flex flex-col overflow-hidden border border-slate-100"
             style={{ maxHeight: "calc(100vh - 5rem)" }}
           >
             {/* Close */}
             <button
               onClick={onClose}
-              className="absolute top-8 right-8 z-20 w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center transition-all border border-white/10 cursor-pointer"
+              className="absolute top-8 right-8 z-20 w-10 h-10 rounded-full bg-slate-50 hover:bg-slate-100 flex items-center justify-center transition-all border border-slate-200/50 cursor-pointer"
             >
-              <X className="w-5 h-5 text-slate-600" />
+              <X className="w-5 h-5 text-slate-500" />
             </button>
 
             {/* ── Scrollable body ── */}
             <div className="overflow-y-auto flex-1 overscroll-contain custom-scrollbar">
               {/* Header */}
-                <div className="px-8 pt-12 pb-8 sm:px-12 sm:pt-14">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-500/10 border border-red-500/20 rounded-full mb-6">
-                  <Star className="w-4 h-4 text-red-500 fill-red-500" />
-                  <span className="text-[16px] font-semibold text-red-400 uppercase tracking-widest">Premium Features</span>
+              <div className="px-8 pt-12 pb-8 sm:px-12 sm:pt-14">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-red-50 border border-red-100 rounded-full mb-6">
+                  <Star className="w-4 h-4 text-red-600 fill-red-600" />
+                  <span className="text-[16px] font-semibold text-red-700 uppercase tracking-widest">Premium Features</span>
                 </div>
                 
-                <h2 className="text-[32px] sm:text-[42px] font-semibold text-white tracking-tighter leading-[1.1] mb-4">
-                  Secure your <span className="text-red-400">Pro Plan.</span>
+                <h2 className="text-[32px] sm:text-[42px] font-semibold text-[#0F172A] tracking-tighter leading-[1.1] mb-4">
+                  Secure your <span className="text-red-700">Pro Plan.</span>
                 </h2>
                 
-                <p className="text-[16px] text-slate-300 font-medium leading-relaxed mb-8">
+                <p className="text-[16px] text-slate-600 font-medium leading-relaxed mb-8">
                   Keep your premium integrations active after your trial ends.
                 </p>
 
                 {/* Plan Toggle */}
-                <div className="relative flex p-1 bg-white/5 rounded-2xl border border-white/10 w-fit mb-8 mx-auto sm:mx-0">
+                <div className="relative flex p-1.5 bg-slate-100/90 rounded-2xl border border-slate-200/50 w-fit mb-8 mx-auto sm:mx-0">
                   <button
                     onClick={() => setInterval('monthly')}
                     className={`relative z-10 px-6 h-10 rounded-xl text-[14px] font-bold transition-colors duration-300 flex items-center justify-center cursor-pointer ${
-                      interval === 'monthly' ? 'text-slate-950' : 'text-slate-400 hover:text-white'
+                      interval === 'monthly' ? 'text-white' : 'text-slate-500 hover:text-slate-800'
                     }`}
                   >
                     {interval === 'monthly' && (
                       <motion.div 
                         layoutId="activeCycleModal" 
-                        className="absolute inset-0 bg-white shadow-md rounded-xl -z-10" 
+                        className="absolute inset-0 bg-slate-900 shadow-[0_4px_12px_rgba(15,23,42,0.15)] border border-slate-950/10 rounded-xl -z-10" 
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
                       />
                     )}
@@ -103,34 +103,34 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
                   <button
                     onClick={() => setInterval('yearly')}
                     className={`relative z-10 px-6 h-10 rounded-xl text-[14px] font-bold transition-colors duration-300 flex items-center justify-center gap-2 cursor-pointer ${
-                      interval === 'yearly' ? 'text-slate-950' : 'text-slate-400 hover:text-white'
+                      interval === 'yearly' ? 'text-white' : 'text-slate-500 hover:text-slate-800'
                     }`}
                   >
                     {interval === 'yearly' && (
                       <motion.div 
                         layoutId="activeCycleModal" 
-                        className="absolute inset-0 bg-white shadow-md rounded-xl -z-10" 
+                        className="absolute inset-0 bg-slate-900 shadow-[0_4px_12px_rgba(15,23,42,0.15)] border border-slate-950/10 rounded-xl -z-10" 
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
                       />
                     )}
                     <span>Yearly</span>
                     <span className={`inline-flex items-center justify-center text-[10px] leading-none h-5 px-2 rounded-full uppercase tracking-wider font-extrabold shadow-sm transition-colors duration-300 ${
-                      interval === 'yearly' ? 'bg-red-600 text-white' : 'bg-red-500/10 text-red-400'
+                      interval === 'yearly' ? 'bg-emerald-600 text-white' : 'bg-emerald-100 text-emerald-800'
                     }`}>
                       Save 30%
                     </span>
                   </button>
                 </div>
 
-                <div className="mb-10 p-6 bg-white/5 rounded-3xl border border-white/10">
+                <div className="mb-10 p-6 bg-slate-50 rounded-3xl border border-slate-100">
                   <div className="flex items-baseline gap-1 mb-6">
-                    <span className="text-[48px] font-semibold text-white tracking-tighter">
+                    <span className="text-[48px] font-extrabold text-[#0F172A] tracking-tighter">
                       {interval === 'monthly' ? '$99' : '$69'}
                     </span>
-                    <span className="text-[18px] font-semibold text-slate-300">
+                    <span className="text-[18px] font-semibold text-slate-400">
                       /mo
                     </span>
-                    <span className="ml-3 text-[16px] font-semibold text-emerald-500 uppercase tracking-widest bg-emerald-500/10 px-2.5 py-1 rounded">
+                    <span className="ml-3 text-[13px] font-bold text-emerald-800 uppercase tracking-widest bg-emerald-100/80 px-2.5 py-1 rounded-lg">
                       {interval === 'monthly' ? 'Month-to-Month' : 'Billed Annually ($828/yr)'}
                     </span>
                   </div>
@@ -138,17 +138,17 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
                   <div className="space-y-4 mb-8">
                     {features.map(f => (
                       <div key={f} className="flex items-center gap-3">
-                        <div className="w-5 h-5 rounded-full bg-red-500/10 flex items-center justify-center shrink-0">
-                          <Check className="w-3 h-3 text-red-500" />
+                        <div className="w-5 h-5 rounded-full bg-red-50 flex items-center justify-center shrink-0">
+                          <Check className="w-3 h-3 text-red-700 stroke-[3px]" />
                         </div>
-                        <span className="text-[15px] font-semibold text-slate-200">{f}</span>
+                        <span className="text-[15px] font-semibold text-slate-700">{f}</span>
                       </div>
                     ))}
                   </div>
 
                   <Button
                     onClick={() => onUpgrade(interval)}
-                    className="w-full h-14 rounded-xl font-semibold text-[16px] bg-red-700 text-white hover:bg-red-600 border-none shadow-2xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden group cursor-pointer"
+                    className="w-full h-14 rounded-xl font-bold text-[16px] bg-[#0F172A] text-white hover:bg-black border-none shadow-xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] relative overflow-hidden group cursor-pointer"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] pointer-events-none" />
                     <span className="relative z-10 flex items-center gap-2">
@@ -158,10 +158,10 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
                 </div>
               </div>
 
-              {/* ── Footer (now inside scroll) ── */}
-              <div className="px-8 py-6 border-t border-white/5 flex items-center justify-center bg-white/5">
-                <p className="text-[16px] font-semibold text-slate-300 flex items-center gap-2 text-center">
-                  <ShieldCheck className="w-5 h-5 text-emerald-500" />
+              {/* ── Footer ── */}
+              <div className="px-8 py-6 border-t border-slate-100 flex items-center justify-center bg-slate-50">
+                <p className="text-[15px] font-semibold text-slate-600 flex items-center gap-2 text-center">
+                  <ShieldCheck className="w-5 h-5 text-emerald-500 shrink-0" />
                   You won't be charged for {trialDaysRemaining} days. {interval === 'monthly' ? 'Cancel easily anytime.' : 'Secure premium access for the year.'}
                 </p>
               </div>
