@@ -159,7 +159,7 @@ function LoginForm() {
                 <div className="absolute inset-0 flex items-center">
                   <span className="w-full border-t border-slate-100" />
                 </div>
-                <div className="relative flex justify-center text-[11px] uppercase tracking-[0.25em] font-semibold text-slate-300">
+                <div className="relative flex justify-center text-[11px] uppercase tracking-[0.25em] font-semibold text-slate-500">
                   <span className="bg-white px-6">Direct Access</span>
                 </div>
               </div>
@@ -167,7 +167,7 @@ function LoginForm() {
               <form onSubmit={handleMagicLink} className="space-y-5">
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-[15px] font-semibold uppercase tracking-widest text-[#0F172A] ml-1">
-                    Work Email
+                    Email
                   </Label>
                   <Input
                     id="email"
@@ -178,7 +178,7 @@ function LoginForm() {
                     autoCapitalize="none"
                     autoCorrect="off"
                     autoComplete="email"
-                    className="h-17 bg-slate-50 border-slate-100 focus-visible:ring-red-500/10 focus-visible:border-red-600 rounded-[1.5rem] px-6 text-[18px] font-normal text-[#0F172A] placeholder:text-slate-300 transition-all shadow-inner"
+                    className="h-17 bg-slate-50 border-slate-100 focus-visible:ring-red-500/10 focus-visible:border-red-600 rounded-[1.5rem] px-6 text-[18px] font-normal text-[#0F172A] placeholder:text-slate-400 transition-all shadow-inner"
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
@@ -203,7 +203,7 @@ function LoginForm() {
         </div>
 
         <p className="text-center text-[15px] text-slate-600 font-semibold leading-relaxed px-4">
-          By joining, you agree to our <span className="text-slate-900 border-b border-slate-900 cursor-pointer">Terms of Service</span> and <span className="text-slate-900 border-b border-slate-900 cursor-pointer">Privacy Policy</span>.
+          By joining, you agree to our <Link href="/terms" className="text-slate-900 border-b border-slate-900 hover:text-slate-700 transition-colors">Terms of Service</Link> and <Link href="/privacy" className="text-slate-900 border-b border-slate-900 hover:text-slate-700 transition-colors">Privacy Policy</Link>.
         </p>
       </motion.div>
     </div>
