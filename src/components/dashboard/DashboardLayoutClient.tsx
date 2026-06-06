@@ -55,10 +55,7 @@ const SidebarContent = ({
           <div className="w-12 h-12 bg-slate-50 rounded-2xl flex items-center justify-center transition-all group-hover:-translate-y-0.5 duration-300 border border-slate-100">
             <QCLogo size={26} isDark={true} />
           </div>
-          <div className="flex flex-col">
-            <span className="text-[24px] font-semibold tracking-tight text-[#0F172A]">QuoteCatch</span>
-            <span className="text-[11px] font-semibold text-slate-600 uppercase tracking-widest leading-none">Roofing Intelligence</span>
-          </div>
+          <span className="text-[24px] font-semibold tracking-tight text-[#0F172A]">QuoteCatch</span>
         </Link>
       </div>
 

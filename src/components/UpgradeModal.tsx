@@ -84,19 +84,41 @@ export function UpgradeModal({ isOpen, onClose, onUpgrade, trialDaysRemaining = 
                 </p>
 
                 {/* Plan Toggle */}
-                <div className="flex p-1 bg-white/5 rounded-2xl border border-white/10 w-fit mb-8 mx-auto sm:mx-0">
+                <div className="relative flex p-1 bg-white/5 rounded-2xl border border-white/10 w-fit mb-8 mx-auto sm:mx-0">
                   <button
                     onClick={() => setInterval('monthly')}
-                    className={`px-6 py-2 rounded-xl text-[16px] font-semibold transition-all ${interval === 'monthly' ? 'bg-white text-black shadow-lg' : 'text-slate-400 hover:text-white'}`}
+                    className={`relative z-10 px-6 h-10 rounded-xl text-[14px] font-bold transition-colors duration-300 flex items-center justify-center cursor-pointer ${
+                      interval === 'monthly' ? 'text-slate-950' : 'text-slate-400 hover:text-white'
+                    }`}
                   >
-                    Monthly
+                    {interval === 'monthly' && (
+                      <motion.div 
+                        layoutId="activeCycleModal" 
+                        className="absolute inset-0 bg-white shadow-md rounded-xl -z-10" 
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    <span>Monthly</span>
                   </button>
                   <button
                     onClick={() => setInterval('yearly')}
-                    className={`px-6 py-2 rounded-xl text-[16px] font-semibold transition-all flex items-center gap-2 ${interval === 'yearly' ? 'bg-white text-black shadow-lg' : 'text-slate-400 hover:text-white'}`}
+                    className={`relative z-10 px-6 h-10 rounded-xl text-[14px] font-bold transition-colors duration-300 flex items-center justify-center gap-2 cursor-pointer ${
+                      interval === 'yearly' ? 'text-slate-950' : 'text-slate-400 hover:text-white'
+                    }`}
                   >
-                    Yearly
-                    <span className="text-[12px] bg-red-600 text-white px-2 py-0.5 rounded-full">Save 30%</span>
+                    {interval === 'yearly' && (
+                      <motion.div 
+                        layoutId="activeCycleModal" 
+                        className="absolute inset-0 bg-white shadow-md rounded-xl -z-10" 
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    <span>Yearly</span>
+                    <span className={`inline-flex items-center justify-center text-[10px] leading-none h-5 px-2 rounded-full uppercase tracking-wider font-extrabold shadow-sm transition-colors duration-300 ${
+                      interval === 'yearly' ? 'bg-red-600 text-white' : 'bg-red-500/10 text-red-400'
+                    }`}>
+                      Save 30%
+                    </span>
                   </button>
                 </div>
 

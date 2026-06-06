@@ -10,6 +10,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [user, setUser] = useState<any>(null)
+  const [isScrolled, setIsScrolled] = useState(false)
   const supabase = createClient()
 
   useEffect(() => {
@@ -20,6 +21,18 @@ export function Navbar() {
     fetchUser()
   }, [supabase])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const NavLinks = () => (
     <>
       <Link href="/#features" className="hover:text-slate-900 transition-colors">Features</Link>
@@ -29,7 +42,11 @@ export function Navbar() {
   )
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 lg:bg-white/80 backdrop-blur-md lg:backdrop-blur-xl border-b border-slate-100 px-4 sm:px-6 h-16 lg:h-20 flex items-center justify-between transition-all">
+    <nav className={`fixed left-1/2 -translate-x-1/2 z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'top-4 w-[calc(100%-2rem)] max-w-6xl bg-white/95 backdrop-blur-xl shadow-xl shadow-slate-100/40 border border-slate-200/50 rounded-2xl px-6 h-16' 
+        : 'top-0 w-full bg-white/90 lg:bg-white/80 backdrop-blur-md lg:backdrop-blur-xl border-b border-slate-100 px-4 sm:px-6 h-16 lg:h-20'
+    } flex items-center justify-between`}>
       <div className="flex items-center gap-2.5 sm:gap-3">
         <Link href="/" className="flex items-center gap-2.5 sm:gap-3">
           <div className="w-8 h-8 lg:w-10 lg:h-10 bg-slate-50 rounded-xl flex items-center justify-center transition-all">

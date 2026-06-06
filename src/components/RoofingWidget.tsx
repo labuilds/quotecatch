@@ -347,7 +347,7 @@ export default function RoofingWidget({
   }
 
   return (
-    <div className="w-full max-w-lg lg:max-w-4xl mx-auto bg-white shadow-xl lg:shadow-[0_24px_64px_rgba(0,0,0,0.08)] border border-slate-200/60 rounded-lg lg:rounded-xl overflow-hidden flex flex-col font-sans touch-manipulation ring-1 ring-slate-900/5 min-h-[580px]">
+    <div className="@container w-full max-w-lg lg:max-w-4xl mx-auto bg-white shadow-xl lg:shadow-[0_24px_64px_rgba(0,0,0,0.08)] border border-slate-200/60 rounded-lg lg:rounded-xl overflow-hidden flex flex-col font-sans touch-manipulation ring-1 ring-slate-900/5 min-h-[580px]">
       {/* Header - Hidden on Intro and Result */}
       {currentStepId !== 'INTRO' && currentStepId !== 'RESULT' && (
         <div className="px-5 lg:px-8 pt-6 lg:pt-8 pb-1">
@@ -423,7 +423,7 @@ export default function RoofingWidget({
                 We use satellite imagery to measure your roof and provide an accurate quote in seconds.
               </p>
 
-              <div className="w-full flex md:justify-end mt-4">
+              <div className="w-full flex justify-center mt-6">
                 <button 
                   onClick={nextStep}
                   className="w-full md:w-fit px-10 h-14 bg-[#1e293b] hover:bg-[#0F172A] text-white rounded-lg font-semibold text-[18px] transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-slate-200 flex items-center justify-center gap-3 group cursor-pointer border-none"
@@ -537,7 +537,7 @@ export default function RoofingWidget({
               ].map((item) => {
                 const active = formData.buildingType === item.id;
                 return (
-                  <button key={item.id} onClick={() => handleSelect("buildingType", item.id)} className={`group relative h-32 lg:h-40 rounded-lg overflow-hidden transition-all duration-300 cursor-pointer ${active ? "ring-4 ring-red-700 ring-offset-2" : "ring-1 ring-slate-200"}`}>
+                  <button key={item.id} onClick={() => handleSelect("buildingType", item.id)} className={`group relative h-36 @3xl:h-44 rounded-lg overflow-hidden transition-all duration-300 cursor-pointer ${active ? "ring-4 ring-red-700 ring-offset-2" : "ring-1 ring-slate-200"}`}>
                     <img src={item.img} alt={item.label} className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
                     <div className="absolute bottom-3.5 left-3.5 text-white font-bold flex items-center gap-1.5 text-base lg:text-lg">{item.label} <ArrowLeft className="w-3.5 h-3.5 rotate-[135deg]" /></div>
@@ -554,7 +554,7 @@ export default function RoofingWidget({
             <div className="space-y-1">
               <h2 className="text-3xl font-semibold tracking-tight text-[#0F172A]">Currently on your roof?</h2>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 @3xl:grid-cols-4 gap-4">
               {[
                 { id: "asphalt", label: "Asphalt", img: "/asphalt.jpg" },
                 { id: "metal", label: "Metal", img: "/materials/metal.jpg" },
@@ -563,7 +563,7 @@ export default function RoofingWidget({
               ].map((item) => {
                 const active = formData.material === item.id;
                 return (
-                  <button key={item.id} onClick={() => handleSelect("material", item.id)} className={`group relative h-28 lg:h-32 rounded-lg overflow-hidden transition-all duration-300 cursor-pointer ${active ? "ring-4 ring-slate-900 ring-offset-2 scale-[1.02] shadow-xl" : "ring-1 ring-slate-200"}`}>
+                  <button key={item.id} onClick={() => handleSelect("material", item.id)} className={`group relative h-36 @3xl:h-44 rounded-lg overflow-hidden transition-all duration-300 cursor-pointer ${active ? "ring-4 ring-slate-900 ring-offset-2 scale-[1.02] shadow-xl" : "ring-1 ring-slate-200"}`}>
                     <img src={item.img} alt={item.label} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent transition-opacity opacity-80 group-hover:opacity-60" />
                     <div className="absolute bottom-2.5 left-2.5 text-white text-[17px] font-bold flex items-center gap-1 drop-shadow-lg tracking-tight">{item.label} <ArrowLeft className="w-3 h-3 rotate-[135deg]" /></div>
@@ -580,7 +580,7 @@ export default function RoofingWidget({
             <div className="space-y-1">
               <h2 className="text-3xl font-semibold tracking-tight text-[#0F172A]">Desired roof type?</h2>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 @3xl:grid-cols-4 gap-4">
               {[
                 { id: "asphalt", label: "Asphalt", img: "/asphalt.jpg" },
                 { id: "metal", label: "Metal", img: "/materials/metal.jpg" },
@@ -591,7 +591,7 @@ export default function RoofingWidget({
               .map((item) => {
                 const active = formData.desiredMaterial === item.id;
                 return (
-                  <button key={item.id} onClick={() => handleSelect("desiredMaterial", item.id)} className={`group relative h-28 lg:h-32 rounded-lg overflow-hidden transition-all duration-300 cursor-pointer ${active ? "ring-4 ring-slate-900 ring-offset-2 scale-[1.02] shadow-xl" : "ring-1 ring-slate-200"}`}>
+                  <button key={item.id} onClick={() => handleSelect("desiredMaterial", item.id)} className={`group relative h-36 @3xl:h-44 rounded-lg overflow-hidden transition-all duration-300 cursor-pointer ${active ? "ring-4 ring-slate-900 ring-offset-2 scale-[1.02] shadow-xl" : "ring-1 ring-slate-200"}`}>
                     <img src={item.img} alt={item.label} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/10 to-transparent transition-opacity opacity-80 group-hover:opacity-60" />
                     <div className="absolute bottom-2.5 left-2.5 text-white text-[17px] font-bold flex items-center gap-1 drop-shadow-lg tracking-tight">{item.label} <ArrowLeft className="w-3 h-3 rotate-[135deg]" /></div>
@@ -608,11 +608,11 @@ export default function RoofingWidget({
             <div className="space-y-1">
               <h2 className="text-3xl font-semibold tracking-tight text-[#0F172A]">Roof Steepness?</h2>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 @3xl:grid-cols-4 gap-4">
               {PITCH_OPTIONS.map(({ id, label, sub }) => {
                 const active = formData.pitch === id;
                 return (
-                  <button key={id} onClick={() => handleSelect("pitch", id)} className={`flex flex-col items-center justify-center p-4 lg:p-6 rounded-lg border-2 transition-all duration-300 group cursor-pointer text-center ${active ? "border-red-700 bg-red-50/50 shadow-md" : "border-slate-100 bg-white hover:border-slate-200 hover:bg-slate-50/50"}`}>
+                  <button key={id} onClick={() => handleSelect("pitch", id)} className={`flex flex-col items-center justify-center p-6 @3xl:p-8 rounded-lg border-2 transition-all duration-300 group cursor-pointer text-center ${active ? "border-red-700 bg-red-50/50 shadow-md" : "border-slate-100 bg-white hover:border-slate-200 hover:bg-slate-50/50"}`}>
                     <div className="mb-3 scale-90 group-hover:scale-100 transition-transform"><PitchIcon type={id} active={active} /></div>
                     <p className={`text-[19px] font-bold tracking-tight transition-colors ${active ? "text-red-900" : "text-slate-900"}`}>{label}</p>
                     <p className="text-[15px] text-slate-500 font-medium mt-0.5">{sub}</p>
@@ -629,7 +629,7 @@ export default function RoofingWidget({
             <div className="space-y-1">
               <h2 className="text-3xl font-semibold tracking-tight text-[#0F172A]">Desired timeline?</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 @3xl:grid-cols-3 gap-4">
               {[
                 { id: "none", label: "No timeline", sub: "I do not have a timeline in mind yet" },
                 { id: "1-3_months", label: "In 1-3 months", sub: "Not urgent, but I would like to start soon" },
@@ -653,7 +653,7 @@ export default function RoofingWidget({
             <div className="space-y-1">
               <h2 className="text-3xl font-semibold tracking-tight text-[#0F172A]">Interested in financing?</h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 @3xl:grid-cols-3 gap-4">
               {[
                 { id: "yes", label: "Yes", sub: "I am interested in financing" },
                 { id: "no", label: "No", sub: "I am not interested in financing" },

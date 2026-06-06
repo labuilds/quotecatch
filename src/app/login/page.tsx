@@ -227,17 +227,7 @@ export default function LoginPage() {
             <div className="w-11 h-11 bg-slate-50 rounded-2xl flex items-center justify-center transition-all duration-300">
               <QCLogo size={26} isDark={true} />
             </div>
-            <div className="flex flex-col">
-              <span className="text-[20px] font-semibold tracking-tight text-[#0F172A]">QuoteCatch</span>
-              <span className="text-[10px] font-extrabold tracking-[0.05em] text-slate-600 uppercase leading-none">Roofing Intelligence</span>
-            </div>
-          </Link>
-          <Link
-            href="/"
-            className="inline-flex items-center text-[15px] font-semibold text-slate-600 hover:text-[#0F172A] transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Home
+            <span className="text-[20px] font-semibold tracking-tight text-[#0F172A]">QuoteCatch</span>
           </Link>
         </div>
 
@@ -251,62 +241,60 @@ export default function LoginPage() {
       </div>
 
       {/* Right: Feature Panel */}
-      <div className="hidden lg:flex lg:w-[52%] relative overflow-hidden flex-col items-center justify-center bg-[#0F172A]">
+      <div className="hidden lg:flex lg:w-[52%] relative overflow-hidden flex-col items-center justify-center bg-slate-50 border-l border-slate-200/50">
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1635848253029-27ef193d7431?w=1600&q=80"
             alt="Premium Roofing"
-            className="w-full h-full object-cover opacity-40 mix-blend-overlay scale-110"
+            className="w-full h-full object-cover opacity-[0.06] mix-blend-luminosity scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-tr from-[#0F172A] via-[#0F172A]/80 to-[#0F172A]/40" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-slate-50 via-slate-50/90 to-slate-50/50" />
         </div>
 
-        <div className="relative z-10 px-16 max-w-2xl w-full py-14 space-y-8">
-          <div className="space-y-6">
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
-              <span className="text-[16px] font-semibold text-red-400 tracking-[0.2em] uppercase">Built for Roofing Contractors</span>
+        <div className="relative z-10 px-16 max-w-2xl w-full py-14 space-y-8 text-left">
+          <div className="space-y-6 text-left">
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-red-50 border border-red-200/50">
+              <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse shadow-[0_0_8px_rgba(185,28,28,0.4)]" />
+              <span className="text-[12px] font-bold text-red-700 tracking-widest uppercase">Built for Roofing Contractors</span>
             </div>
-            <h2 className="text-[52px] font-semibold text-white leading-[1.1] tracking-tighter">
+            <h2 className="text-[48px] font-extrabold text-slate-950 leading-[1.15] tracking-tight text-left">
               Stop driving to <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-400">tire-kickers.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-700 to-red-500">tire-kickers.</span>
             </h2>
-            <p className="text-[20px] text-slate-300 font-medium leading-relaxed max-w-md">
+            <p className="text-[18px] text-slate-600 font-semibold leading-relaxed max-w-md text-left">
               Let your website qualify homeowners and calculate instant ballparks while you sleep.
             </p>
           </div>
 
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-3 gap-5 text-left">
             {stats.map(({ icon: Icon, value, label }) => (
-              <div key={label} className="bg-white/5 border border-white/10 rounded-[2rem] p-6 backdrop-blur-md transition-all hover:bg-white/10 group">
-                <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <Icon className="w-5 h-5 text-red-400" />
+              <div key={label} className="bg-white border border-slate-200/60 rounded-[2rem] p-6 shadow-sm hover:shadow-md transition-all duration-300 group hover:border-slate-350/50 text-left">
+                <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <Icon className="w-5 h-5 text-red-700" />
                 </div>
-                <p className="text-[24px] font-semibold text-white tracking-tight">{value}</p>
-                <p className="text-[16px] text-slate-600 font-semibold uppercase tracking-widest mt-1">{label}</p>
+                <p className="text-[22px] font-bold text-slate-950 tracking-tight text-left">{value}</p>
+                <p className="text-[11px] text-slate-500 font-bold uppercase tracking-wider mt-1.5 text-left">{label}</p>
               </div>
             ))}
           </div>
 
-          <div className="relative">
-            <div className="absolute -inset-4 bg-red-500/20 blur-[80px] pointer-events-none" />
-            <div className="relative bg-white/5 border border-white/10 rounded-[2.5rem] p-1 shadow-2xl backdrop-blur-xl">
-              <div className="bg-[#0F172A] rounded-[2rem] p-8 overflow-hidden relative">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-full bg-red-500/20 border-2 border-red-500/30 flex items-center justify-center overflow-hidden">
-                    <Zap className="w-6 h-6 text-red-400" />
-                  </div>
-                  <div>
-                    <p className="text-white font-semibold text-[16px]">The QuoteCatch Edge</p>
-                    <p className="text-slate-600 text-[16px] font-semibold uppercase tracking-widest">Why We Built This</p>
-                  </div>
+          <div className="relative text-left">
+            <div className="absolute -inset-4 bg-red-100/10 blur-[80px] pointer-events-none" />
+            <div className="relative bg-white border border-slate-200/60 rounded-[2.5rem] p-8 overflow-hidden shadow-xl text-left">
+              <div className="flex items-center gap-4 mb-6 text-left">
+                <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-100/50 flex items-center justify-center shrink-0">
+                  <Zap className="w-6 h-6 text-red-700" />
                 </div>
-                <p className="text-[18px] text-slate-100 font-medium leading-relaxed italic">
-                  "Your time is your most valuable asset. We built QuoteCatch so you can stop doing free roof inspections for window shoppers, and focus entirely on customers who are ready to buy."
-                </p>
-                <div className="absolute top-6 right-8 opacity-10">
-                  <Shield className="w-24 h-24 text-red-500 fill-red-500" />
+                <div className="text-left">
+                  <p className="text-slate-950 font-bold text-[16px] text-left">The QuoteCatch Edge</p>
+                  <p className="text-slate-500 text-[11px] font-bold uppercase tracking-wider text-left">Why We Built This</p>
                 </div>
+              </div>
+              <p className="text-[17px] text-slate-700 font-medium leading-relaxed italic text-left relative z-10">
+                "Your time is your most valuable asset. We built QuoteCatch so you can stop doing free roof inspections for window shoppers, and focus entirely on customers who are ready to buy."
+              </p>
+              <div className="absolute bottom-4 right-6 opacity-[0.04] z-0 pointer-events-none">
+                <Shield className="w-24 h-24 text-red-700 fill-red-700" />
               </div>
             </div>
           </div>

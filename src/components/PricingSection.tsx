@@ -43,27 +43,41 @@ export function PricingSection({
 
   return (
     <div className="max-w-4xl mx-auto flex flex-col items-center">
-      {/* Billing Toggle */}
-      <div className="flex items-center gap-6 mb-12 bg-slate-50 p-2 rounded-[1.5rem] border border-slate-100 shadow-sm">
+      {/* Billing Toggle - Sliding animation */}
+      <div className="relative flex items-center bg-slate-100/90 backdrop-blur-sm p-1.5 rounded-2xl border border-slate-200/50 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)] mb-12">
         <button
           onClick={() => setBillingCycle("monthly")}
-          className={`px-10 py-3.5 rounded-2xl text-[16px] font-semibold transition-all ${billingCycle === "monthly"
-            ? "bg-white text-[#0F172A] shadow-lg ring-1 ring-slate-200"
-            : "text-slate-600 hover:text-slate-600"
-            }`}
+          className={`relative z-10 px-8 h-12 rounded-xl text-[15px] font-bold transition-colors duration-300 flex items-center justify-center cursor-pointer ${
+            billingCycle === "monthly" ? "text-white" : "text-slate-500 hover:text-slate-800"
+          }`}
         >
-          Monthly
+          {billingCycle === "monthly" && (
+            <motion.div 
+              layoutId="activeCycle" 
+              className="absolute inset-0 bg-slate-900 shadow-[0_4px_12px_rgba(15,23,42,0.15)] border border-slate-950/10 rounded-xl -z-10" 
+              transition={{ type: "spring", stiffness: 380, damping: 30 }}
+            />
+          )}
+          <span>Monthly</span>
         </button>
         <button
           onClick={() => setBillingCycle("yearly")}
-          className={`px-10 py-3.5 rounded-2xl text-[16px] font-semibold transition-all flex items-center gap-3 ${billingCycle === "yearly"
-            ? "bg-[#0F172A] text-white shadow-xl"
-            : "text-slate-600 hover:text-slate-600"
-            }`}
+          className={`relative z-10 px-8 h-12 rounded-xl text-[15px] font-bold transition-colors duration-300 flex items-center justify-center gap-2.5 cursor-pointer ${
+            billingCycle === "yearly" ? "text-white" : "text-slate-500 hover:text-slate-800"
+          }`}
         >
-          Yearly
-          <span className="text-[15px] bg-emerald-600 text-white px-3 py-1 rounded-full uppercase tracking-widest leading-none font-semibold shadow-sm">
-            -30%
+          {billingCycle === "yearly" && (
+            <motion.div 
+              layoutId="activeCycle" 
+              className="absolute inset-0 bg-slate-900 shadow-[0_4px_12px_rgba(15,23,42,0.15)] border border-slate-950/10 rounded-xl -z-10" 
+              transition={{ type: "spring", stiffness: 380, damping: 30 }}
+            />
+          )}
+          <span>Yearly</span>
+          <span className={`inline-flex items-center justify-center text-[10px] leading-none h-5 px-2 rounded-full uppercase tracking-wider font-extrabold shadow-sm transition-colors duration-300 ${
+            billingCycle === "yearly" ? "bg-emerald-600 text-white" : "bg-emerald-100 text-emerald-800"
+          }`}>
+            Save 30%
           </span>
         </button>
       </div>
@@ -71,64 +85,70 @@ export function PricingSection({
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative w-full max-w-2xl rounded-[2.5rem] lg:rounded-[3rem] p-8 lg:p-12 flex flex-col border border-red-500/20 shadow-2xl lg:shadow-[0_40px_80px_rgba(185,28,28,0.15)] ring-1 ring-red-500/30 bg-[#0F172A]"
+        whileHover={{ 
+          scale: 1.005,
+          borderColor: 'rgba(185, 28, 28, 0.15)',
+          boxShadow: '0 40px 85px rgba(0, 0, 0, 0.05)'
+        }}
+        transition={{ duration: 0.3 }}
+        className="relative w-full max-w-2xl rounded-[2.5rem] p-8 lg:p-12 flex flex-col border border-slate-100 shadow-2xl lg:shadow-[0_40px_80px_rgba(0,0,0,0.03)] ring-1 ring-slate-100/50 bg-white cursor-default text-left"
       >
-        {!isTrialEnded && (
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-red-700 to-red-500 text-white text-[11px] lg:text-[15px] font-semibold uppercase tracking-[0.2em] px-5 lg:px-6 py-1.5 lg:py-2 rounded-full shadow-lg whitespace-nowrap">
-            {trialDaysRemaining}-Day Free Trial Includes Everything
-          </div>
-        )}
-
         <div className="flex flex-col items-start w-full text-left">
-          <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-10 shadow-sm bg-white/10 shrink-0">
-            <ProPlan.icon className={`w-7 h-7 ${ProPlan.iconColor}`} />
+          {/* Plan Icon */}
+          <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-8 shadow-sm bg-slate-50 border border-slate-100 shrink-0">
+            <ProPlan.icon className="w-7 h-7 text-red-700" />
           </div>
 
-          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8 mb-12 w-full text-left">
+          {/* Plan Meta & Pricing */}
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 w-full text-left">
             <div className="flex-1 text-left">
-              <h3 className="text-[28px] lg:text-[40px] font-semibold tracking-tighter mb-3 text-white leading-tight text-left">
+              <h3 className="text-[30px] lg:text-[36px] font-extrabold tracking-tight mb-3 text-slate-950 leading-none text-left">
                 {ProPlan.name}
               </h3>
-              <p className="text-[17px] lg:text-[19px] font-medium leading-relaxed text-slate-300 max-w-lg mb-0 text-left">
+              <p className="text-[15px] font-normal leading-relaxed text-slate-500 max-w-sm text-left">
                 {ProPlan.description}
               </p>
             </div>
 
-            <div className="flex flex-col items-start lg:items-end shrink-0 lg:pt-1">
-              <div className="flex items-baseline gap-1">
+            <div className="flex flex-col items-start md:items-end shrink-0 pt-1 text-left md:text-right">
+              <div className="flex items-baseline gap-1 justify-start md:justify-end">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={billingCycle}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="text-[54px] lg:text-[68px] font-semibold tracking-tighter text-white leading-none"
+                    className="text-[48px] lg:text-[56px] font-extrabold tracking-tight text-slate-950 leading-none"
                   >
                     {billingCycle === "monthly" ? ProPlan.monthlyPrice : ProPlan.yearlyPrice}
                   </motion.span>
                 </AnimatePresence>
-                <span className="text-[22px] font-semibold text-slate-300">/mo</span>
+                <span className="text-[18px] font-semibold text-slate-400">/mo</span>
               </div>
               {!isTrialEnded && (
-                <p className="text-[15px] font-semibold text-slate-300 uppercase tracking-widest mt-2">
+                <p className="text-[12px] font-bold text-slate-500 uppercase tracking-wider mt-2.5 text-left md:text-right">
                   {billingCycle === "yearly" ? "Billed $828 Annually" : `No charges for ${trialDaysRemaining} days`}
                 </p>
               )}
               {isTrialEnded && (
-                <p className="text-[15px] font-semibold text-emerald-500 uppercase tracking-widest mt-2">
+                <p className="text-[12px] font-bold text-emerald-700 uppercase tracking-wider mt-2.5 text-left md:text-right">
                   {billingCycle === "yearly" ? "Save 30% with yearly" : "Instant activation"}
                 </p>
               )}
             </div>
           </div>
 
-          <div className="flex flex-col gap-y-5 mb-14 w-full text-left">
+          {/* subtle divider */}
+          <div className="w-full h-px bg-slate-100 my-8" />
+
+          {/* Features Grid - 2 columns */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5 w-full text-left">
             {ProPlan.features.map((feature) => (
-              <div key={feature} className="flex items-center justify-start gap-4 group/feat text-left">
-                <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 bg-white/5 border border-red-500/30 shadow-[0_2px_10px_rgba(239,68,68,0.15)] group-hover/feat:bg-red-500/10 transition-all duration-300">
-                  <Check className="w-4 h-4 text-red-500 stroke-[2.5px]" />
+              <div key={feature} className="flex items-center justify-start gap-3.5 group/feat text-left">
+                <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 bg-red-50/80 border border-red-100/50 shadow-sm group-hover/feat:bg-red-100 transition-all duration-300">
+                  <Check className="w-3.5 h-3.5 text-red-700 stroke-[2.5px]" />
                 </div>
-                <span className="text-[17px] font-semibold text-slate-200 text-left group-hover/feat:text-white transition-colors">
+                <span className="text-[15px] font-semibold text-slate-700 group-hover/feat:text-slate-900 transition-colors text-left">
                   {feature}
                 </span>
               </div>
@@ -136,7 +156,10 @@ export function PricingSection({
           </div>
         </div>
 
-        <div className="space-y-8">
+        {/* subtle divider */}
+        <div className="w-full h-px bg-slate-100 my-8" />
+
+        <div className="space-y-6 w-full">
           {showButton && (
             <Link
               href={onUpgrade ? "#" : "/login?intent=pro"}
@@ -149,26 +172,28 @@ export function PricingSection({
               }}
             >
               <Button
-                className="w-full h-16 lg:h-20 rounded-[1.5rem] lg:rounded-[2rem] font-semibold text-[18px] lg:text-[20px] transition-all hover:scale-[1.02] active:scale-[0.98] bg-white text-[#0F172A] hover:bg-slate-50 border-none shadow-xl shadow-white/5"
+                className="relative overflow-hidden w-full h-16 lg:h-18 rounded-2xl font-bold text-[17px] bg-[#0F172A] text-white hover:bg-black border-none shadow-xl shadow-slate-900/10 active:scale-[0.98] hover:scale-[1.01] transition-transform duration-300 cursor-pointer"
               >
-                {isTrialEnded || onUpgrade ? "Activate Pro Subscription" : `Start ${trialDaysRemaining}-Day Free Trial`}
-                <ArrowRight className="w-5 h-5 ml-2" />
+                {/* Shimmer glare overlay */}
+                <div className="absolute inset-0 w-full h-full -z-0 pointer-events-none">
+                  <div className="absolute inset-0 bg-[linear-gradient(110deg,rgba(255,255,255,0),rgba(255,255,255,0)_40%,rgba(255,255,255,0.25)_50%,rgba(255,255,255,0)_60%,rgba(255,255,255,0))] bg-[length:200%_100%] animate-shimmer" />
+                </div>
+                <span className="relative z-10 flex items-center justify-center gap-2">
+                  {isTrialEnded || onUpgrade ? "Activate Pro Subscription" : `Start ${trialDaysRemaining}-Day Free Trial`}
+                  <ArrowRight className="w-5 h-5" />
+                </span>
               </Button>
             </Link>
           )}
 
           {!isTrialEnded && (
-            <div className="text-center space-y-6 pt-8">
-              <p className="text-slate-200 text-[16px] font-medium italic">
+            <div className="text-center mt-4 space-y-4">
+              <p className="text-slate-500 text-[14px] font-medium italic">
                 "Try the full satellite widget free for {trialDaysRemaining} days. No commitments."
               </p>
-              <div className="flex items-center justify-center gap-3 py-3 px-6 bg-emerald-500/5 rounded-2xl border border-emerald-500/20 w-fit mx-auto">
-                <div className="w-6 h-6 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shadow-[0_2px_10px_rgba(16,185,129,0.1)]">
-                   <Check className="w-3.5 h-3.5 text-emerald-500 stroke-[2.5px]" />
-                </div>
-                <p className="text-emerald-500 text-[16px] font-semibold tracking-tight">
-                  Get precision satellite measurements on every lead
-                </p>
+              <div className="flex items-center justify-center gap-2 text-slate-600 text-[13px] font-medium">
+                <Check className="w-4 h-4 text-emerald-600 stroke-[3px] shrink-0" />
+                <span>Get precision satellite measurements on every lead</span>
               </div>
             </div>
           )}

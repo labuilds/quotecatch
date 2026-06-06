@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { ChevronDown, Sparkles, Search, Satellite, Zap, Globe, BarChart3 } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface FAQItemProps {
   question: string
@@ -14,13 +15,13 @@ interface FAQItemProps {
 const FAQItem = ({ question, answer, icon, isOpen, onClick }: FAQItemProps) => {
   return (
     <div 
-      className={`group border border-slate-100 rounded-2xl overflow-hidden transition-all duration-300 ${
-        isOpen ? 'bg-slate-50/50 shadow-sm' : 'hover:bg-slate-50/30'
+      className={`group border border-slate-100 rounded-2xl overflow-hidden transition-[background-color,border-color,box-shadow] duration-300 ${
+        isOpen ? 'bg-slate-50/50 shadow-sm border-slate-200/60' : 'hover:bg-slate-50/30'
       }`}
     >
       <button
         onClick={onClick}
-        className="w-full px-6 py-5 flex items-center justify-between text-left gap-4"
+        className="w-full px-6 py-5 flex items-center justify-between text-left gap-4 cursor-pointer"
         aria-expanded={isOpen}
       >
         <div className="flex items-center gap-4">
@@ -34,23 +35,31 @@ const FAQItem = ({ question, answer, icon, isOpen, onClick }: FAQItemProps) => {
         <ChevronDown className={`w-5 h-5 text-slate-400 transition-transform duration-300 ${isOpen ? 'rotate-180 text-red-500' : ''}`} />
       </button>
       
-      <div 
-        className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${
-          isOpen ? 'max-h-96 pb-6 opacity-100' : 'max-h-0 opacity-0'
-        }`}
-      >
-        <div className="pl-14">
-          <p className="text-slate-600 leading-relaxed font-medium">
-            {answer}
-          </p>
-        </div>
-      </div>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="px-6 pb-6">
+              <div className="pl-14">
+                <p className="text-slate-600 leading-relaxed font-medium">
+                  {answer}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
 
 export function FAQSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0)
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   const faqs = [
     {

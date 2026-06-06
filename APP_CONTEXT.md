@@ -27,8 +27,8 @@ A seamless bridge from marketing to checkout that bypasses the dashboard for new
 - **Redirect**: If present, they clear the cookie and redirect to `/api/checkout/init`.
 - **Checkout**: `/api/checkout/init` generates a Dodo Payments session and sents the user directly to the payment page.
 
-### 2. Deterministic Pricing Engine
-We have decommissioned the AI-prompt-based configuration in favor of a **Deterministic Manual Editor** (`src/components/dashboard/ManualCalculatorEditor.tsx`).
+### 2. Manual Pricing Engine
+We have decommissioned the AI-prompt-based configuration in favor of a **Manual Editor** (`src/components/dashboard/ManualCalculatorEditor.tsx`).
 - **Control**: Contractors have 100% manual control over material rates, pitch multipliers, baseline flat fees, and free-tier fallback averages.
 - **Live Preview**: The editor features a real-time side-by-side preview where any manual adjustment to the math is instantly reflected in a live `RoofingWidget` instance.
 - **Integrity**: This ensures the roofer’s pricing math is exact and predictable, never relying on LLM interpretation for financial estimates.
