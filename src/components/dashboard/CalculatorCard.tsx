@@ -196,7 +196,7 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
             </Link>
              <Button
               variant="outline"
-              className="flex-[3] basis-0 h-12 rounded-2xl font-bold text-sm border-slate-200 text-slate-800 hover:bg-slate-50 hover:text-[#0F172A] hover:border-slate-300 transition-all flex items-center justify-center p-0"
+              className="flex-[3] basis-0 h-12 rounded-2xl font-bold text-sm border-slate-900/80 text-slate-900 bg-white hover:bg-slate-50 hover:text-slate-950 transition-all flex items-center justify-center p-0 cursor-pointer"
               onClick={() => setShowShare(true)}
             >
               <ExternalLink className="w-5 h-5 opacity-90" />
