@@ -109,16 +109,8 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
           {/* Subtle Hover Shimmer Effect */}
           <div className="absolute inset-0 bg-gradient-to-tr from-red-50/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
           
-          {/* Status Badge */}
-          <div className="absolute top-6 left-6 z-20">
-            <div className="flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-100 rounded-full">
-              <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-              <span className="text-[12px] font-bold text-emerald-700 uppercase tracking-widest">Active System</span>
-            </div>
-          </div>
-
           {/* Unified Content Area */}
-          <div className="pt-14 pb-4 px-8 space-y-5 relative z-10 flex flex-col">
+          <div className="pt-8 pb-4 px-8 space-y-5 relative z-10 flex flex-col">
             <div className="flex items-start justify-between">
               <div className="min-w-0">
                 <h3 className="text-[22px] font-bold tracking-tighter text-[#0F172A] leading-none">
