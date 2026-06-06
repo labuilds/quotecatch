@@ -221,7 +221,7 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
               <Trash className="w-8 h-8" />
             </div>
             <AlertDialogTitle className="text-[24px] font-semibold text-[#0F172A] tracking-tight">Delete this estimator?</AlertDialogTitle>
-            <AlertDialogDescription className="text-slate-600 font-medium">
+            <AlertDialogDescription className="text-slate-600 font-medium text-[16px] lg:text-[17px] leading-relaxed !text-wrap !text-left">
               This will permanently delete the lead capture system and remove it from your dashboard. Any embedded widgets will stop working. This action is irreversible.
             </AlertDialogDescription>
           </AlertDialogHeader>
