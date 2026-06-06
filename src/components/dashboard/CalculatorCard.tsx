@@ -142,7 +142,7 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
                     className="text-red-600 focus:text-red-700 focus:bg-red-50 cursor-pointer py-3 font-medium rounded-xl transition-colors text-xs" 
                     onClick={() => setShowDelete(true)}
                   >
-                    <Trash className="w-4 h-4 mr-3" /> Disable System
+                    <Trash className="w-4 h-4 mr-3" /> Delete Estimator
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -215,24 +215,24 @@ export default function CalculatorCard({ calc, onDelete, onRename, onDuplicate, 
 
       {/* Delete Dialog */}
       <AlertDialog open={showDelete} onOpenChange={setShowDelete}>
-        <AlertDialogContent className="rounded-[2.5rem] border-slate-100 bg-white/95 backdrop-blur-xl font-sans p-8">
+        <AlertDialogContent className="rounded-[2.5rem] border-slate-100 bg-white/95 backdrop-blur-xl font-sans p-8 !max-w-md">
           <AlertDialogHeader>
             <div className="w-16 h-16 bg-red-50 text-red-600 rounded-3xl flex items-center justify-center mb-6">
               <Trash className="w-8 h-8" />
             </div>
-            <AlertDialogTitle className="text-[24px] font-semibold text-[#0F172A] tracking-tight">Disable this machine?</AlertDialogTitle>
+            <AlertDialogTitle className="text-[24px] font-semibold text-[#0F172A] tracking-tight">Delete this estimator?</AlertDialogTitle>
             <AlertDialogDescription className="text-slate-600 font-medium">
-              This will instantly deactivate the lead capture system. Any embedded widgets will show an unavailable message.
+              This will permanently delete the lead capture system and remove it from your dashboard. Any embedded widgets will stop working. This action is irreversible.
             </AlertDialogDescription>
           </AlertDialogHeader>
-           <AlertDialogFooter className="mt-8 gap-3">
-            <AlertDialogCancel className="rounded-2xl font-bold h-14 border-slate-100 text-slate-600 hover:bg-slate-50">Cancel</AlertDialogCancel>
+           <AlertDialogFooter className="mt-8 gap-3 bg-transparent border-none p-0 mx-0 mb-0 flex flex-row justify-end items-center">
+            <AlertDialogCancel className="rounded-2xl font-bold h-14 border-slate-100 text-slate-600 hover:bg-slate-50 px-6">Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDelete}
-              className="bg-red-600 hover:bg-red-700 text-white font-bold rounded-2xl h-14 border-none shadow-xl shadow-red-600/20"
+              className="bg-red-600 hover:bg-red-700 text-white font-bold rounded-2xl h-14 border-none shadow-xl shadow-red-600/20 px-6"
               disabled={isDeleting}
             >
-              {isDeleting ? "Disabling..." : "Yes, disable machine"}
+              {isDeleting ? "Deleting..." : "Delete Estimator"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
