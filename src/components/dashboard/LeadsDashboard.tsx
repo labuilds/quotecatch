@@ -276,13 +276,17 @@ export default function LeadsDashboard({ initialLeads, initialIsPro }: LeadsDash
               <div className="flex-1 overflow-y-auto p-8 space-y-10">
                 {/* Revenue Card */}
                 <div className="p-6 bg-slate-50 rounded-[2rem] border border-slate-100 flex items-center justify-between">
-                  <div>
-                    <p className="text-[15px] font-bold text-slate-600 uppercase tracking-widest">Estimated Value</p>
-                    <p className="text-[32px] font-semibold text-[#0F172A] tracking-tighter">
+                  <div className="space-y-1">
+                    <p className="text-[13px] font-bold text-slate-600 uppercase tracking-widest leading-none">Calculated Base Value</p>
+                    <p className="text-[30px] font-semibold text-[#0F172A] tracking-tighter leading-tight">
                       {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(selectedLead.estimated_price || 0)}
                     </p>
+                    <p className="text-[12px] text-slate-600 font-bold uppercase tracking-wider flex items-center gap-1 mt-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-400 shrink-0" />
+                      Customer Range: {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format((selectedLead.estimated_price || 0) * 0.9)} - {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format((selectedLead.estimated_price || 0) * 1.35)}
+                    </p>
                   </div>
-                  <div className="w-14 h-14 bg-white rounded-2xl border border-slate-100 flex items-center justify-center">
+                  <div className="w-14 h-14 bg-white rounded-2xl border border-slate-100 flex items-center justify-center shrink-0">
                     <DollarSign className="w-7 h-7 text-emerald-600" />
                   </div>
                 </div>

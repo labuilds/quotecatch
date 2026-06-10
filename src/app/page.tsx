@@ -7,7 +7,7 @@ import { ArrowRight, CheckCircle, Zap, Shield, Star, PlayCircle, MousePointer2 }
 import { Button } from '@/components/ui/button'
 import { QCLogo } from '@/components/QCLogo'
 import { PricingSection } from '@/components/PricingSection'
-import RoofingWidget from '@/components/RoofingWidget'
+import DemoWidget from '@/components/DemoWidget'
 import { PricingConfig } from '@/lib/pricingEngine'
 
 const DEMO_CONFIG: PricingConfig = {
@@ -136,7 +136,7 @@ export default function Home() {
               </div>
 
               <div className="relative z-50 bg-white rounded-[2rem] lg:rounded-[3rem] shadow-[0_30px_60px_rgba(0,0,0,0.1)] border border-slate-100">
-                <RoofingWidget isPro={true} config={DEMO_CONFIG} calculatorId="demo" isDemo={true} />
+                <DemoWidget isPro={true} config={DEMO_CONFIG} />
               </div>
 
 

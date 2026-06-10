@@ -206,10 +206,10 @@ export default function ToolClient({ slug, faqs }: { slug: string, faqs?: { ques
                     Now that you have your {tool.title.toLowerCase()}, why not automate the whole process? Put QuoteCatch on your site and let it handle the math for every visitor.
                   </p>
                   <Link 
-                    href="/" 
+                    href="/login?tab=signup&intent=pro" 
                     className="inline-flex h-16 px-12 bg-red-600 hover:bg-black text-white rounded-2xl font-semibold text-sm lg:text-base uppercase tracking-widest items-center justify-center transition-all active:scale-95 shadow-xl shadow-red-500/20"
                   >
-                    Claim Free Monthly Subscription
+                    Start 14-Day Free Trial
                   </Link>
                 </div>
               </div>

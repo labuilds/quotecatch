@@ -62,16 +62,32 @@ export function Navbar() {
 
       <div className="flex items-center gap-2 sm:gap-4">
         {user ? (
-          <Link href="/calculators" className="bg-[#0F172A] text-white text-[16px] sm:text-[16px] font-bold px-4 sm:px-7 py-3 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
-            Go to Dashboard
+          <Link 
+            href="/calculators" 
+            className={`bg-[#0F172A] text-white text-[15px] lg:text-[16px] font-bold rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all flex items-center justify-center shrink-0 transition-all duration-300 ${
+              isScrolled ? 'px-4 py-2 text-[14px]' : 'px-4 sm:px-7 py-2.5 lg:py-3'
+            }`}
+          >
+            <span className="hidden sm:inline">{isScrolled ? 'Dashboard' : 'Go to Dashboard'}</span>
+            <span className="sm:hidden">Dashboard</span>
           </Link>
         ) : (
           <>
-            <Link href="/login" className="hidden sm:inline-flex text-[16px] font-bold text-slate-900 px-4 lg:px-6 py-3 hover:bg-slate-50 rounded-xl transition-all">
+            <Link 
+              href="/login" 
+              className={`hidden sm:inline-flex text-[15px] lg:text-[16px] font-bold text-slate-900 hover:bg-slate-50 rounded-xl transition-all flex items-center justify-center shrink-0 transition-all duration-300 ${
+                isScrolled ? 'px-4 py-2' : 'px-4 lg:px-6 py-2.5 lg:py-3'
+              }`}
+            >
               Login
             </Link>
-            <Link href="/login?tab=signup&intent=pro" className="bg-[#0F172A] text-white text-[16px] sm:text-[16px] font-bold px-4 sm:px-7 py-3 rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all">
-              Start Free Trial
+            <Link 
+              href="/login?tab=signup&intent=pro" 
+              className={`bg-[#0F172A] text-white text-[15px] lg:text-[16px] font-bold rounded-xl shadow-xl shadow-slate-200 hover:bg-black hover:-translate-y-0.5 transition-all flex items-center justify-center shrink-0 transition-all duration-300 ${
+                isScrolled ? 'px-4 py-2 text-[14px]' : 'px-4 sm:px-7 py-2.5 lg:py-3'
+              }`}
+            >
+              <span>{isScrolled ? 'Free Trial' : 'Start Free Trial'}</span>
             </Link>
           </>
         )}

@@ -89,24 +89,24 @@ export default function ToolsIndexPage() {
       </main>
 
       {/* Footer CTA - Integrated Look */}
-      <section className="bg-[#0F172A] py-24 px-6 mx-4 lg:mx-12 rounded-[3.5rem] text-center relative overflow-hidden mb-24">
+      <section className="bg-slate-50 border border-slate-200/60 py-24 px-6 mx-4 lg:mx-12 rounded-[3.5rem] text-center relative overflow-hidden mb-24 shadow-xl shadow-slate-100/40">
         {/* Decorative Background Effects */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/10 rounded-full blur-[120px] -mr-48 -mt-48" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-600/10 rounded-full blur-[120px] -ml-48 -mb-48" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/5 rounded-full blur-[120px] -mr-48 -mt-48 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-600/5 rounded-full blur-[120px] -ml-48 -mb-48 pointer-events-none" />
         
         <div className="max-w-3xl mx-auto relative z-10">
-          <h2 className="text-4xl lg:text-6xl font-semibold text-white mb-8 tracking-tight leading-[1.1]">
+          <h2 className="text-4xl lg:text-6xl font-semibold text-[#0F172A] mb-8 tracking-tight leading-[1.1]">
             Automate your<br />Roofing Leads
           </h2>
           <p className="text-slate-600 text-lg lg:text-xl font-medium mb-12 leading-relaxed italic">
-            Ready to stop doing the manual grunt work? Join high-growth roofing companies using QuoteCatch today.
+            Ready to stop doing the manual grunt work? Try it free for 14 days and join high-growth roofing companies using QuoteCatch.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <Link 
-              href="/" 
-              className="h-16 px-10 bg-red-600 hover:bg-white hover:text-red-600 text-white rounded-2xl font-semibold text-sm uppercase tracking-widest flex items-center justify-center transition-all active:scale-95 shadow-2xl shadow-red-500/20"
+              href="/login?tab=signup&intent=pro" 
+              className="h-16 px-10 bg-red-600 hover:bg-black text-white rounded-2xl font-semibold text-sm uppercase tracking-widest flex items-center justify-center transition-all active:scale-95 shadow-2xl shadow-red-500/20"
             >
-              Claim Free Monthly Subscription
+              Start 14-Day Free Trial
             </Link>
           </div>
         </div>

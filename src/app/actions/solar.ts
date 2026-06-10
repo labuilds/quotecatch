@@ -61,11 +61,11 @@ async function getRoofEstimationInternal(address: string, calculatorId?: string)
       return { success: false, error: "Active subscription or trial required", errorType: 'PRO_REQUIRED' }
     }
 
-    if (!GOOGLE_MAPS_API_KEY || isDemo) {
+    if (!GOOGLE_MAPS_API_KEY) {
        const isMockFail = address.toLowerCase().includes("fail")
        if (isMockFail) return { success: false, error: "No solar data available", errorType: 'NO_DATA' }
 
-       console.warn("GOOGLE_MAPS_API_KEY missing or Demo mode. Returning mock data.")
+       console.warn("GOOGLE_MAPS_API_KEY missing. Returning mock data.")
        await new Promise(r => setTimeout(r, 1500))
        return { 
          success: true,

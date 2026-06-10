@@ -190,6 +190,18 @@ export default function EstimatesClient({
                   {priceRange}
                 </h2>
                 
+                <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4 space-y-1">
+                  <div className="flex items-start gap-2">
+                    <Info className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+                    <div className="space-y-1.5">
+                      <p className="text-[13px] font-bold text-slate-900 leading-none">Why is this a range?</p>
+                      <p className="text-[12.5px] text-slate-600 font-medium leading-normal">
+                        Roofing projects vary based on actual tear-off layers, roof complexity (hips & valleys), steepness, and waste factors. A final firm quote is provided after an on-site inspection.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
                 <div className="space-y-4">
                   <p className={`text-[15px] text-slate-600 font-medium leading-relaxed transition-all ${showFullDesc ? "" : "line-clamp-3"}`}>
                     {material.desc}

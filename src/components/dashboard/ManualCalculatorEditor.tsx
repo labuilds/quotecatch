@@ -222,7 +222,7 @@ export default function ManualCalculatorEditor({
   ]
 
   return (
-    <div className="flex flex-col lg:flex-row lg:h-screen w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-[#F8FAFC] overflow-visible lg:overflow-hidden">
+    <div className="flex flex-col lg:flex-row lg:h-screen w-full lg:w-[calc(100%+4rem)] lg:-m-8 font-sans bg-[#F8FAFC] overflow-visible lg:overflow-hidden relative">
       
       {/* Mobile Perspective Toggle - Sticky beneath layout navbar */}
       <div className="lg:hidden sticky top-0 shrink-0 p-4 bg-white/95 backdrop-blur-md border-b flex items-center justify-between z-30 shadow-sm">
@@ -249,7 +249,38 @@ export default function ManualCalculatorEditor({
             Preview
           </button>
         </div>
-        <div className="w-9" /> {/* Spacer for symmetry */}
+        
+        {/* Mobile Header Action */}
+        <div className="w-12 flex items-center justify-end">
+          <AnimatePresence mode="wait">
+            {hasChanges ? (
+              <motion.button
+                key="save-btn"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                onClick={handleSave}
+                disabled={isSaving}
+                className="h-9 px-3 bg-[#0F172A] hover:bg-black text-white text-[12px] font-bold uppercase tracking-wider rounded-lg shadow-sm transition-all active:scale-95 flex items-center justify-center gap-1 shrink-0"
+              >
+                {isSaving ? <Loader2 className="w-3 h-3 animate-spin" /> : <Save className="w-3 h-3" />}
+                Save
+              </motion.button>
+            ) : showSuccess ? (
+              <motion.div
+                key="success-indicator"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                className="flex items-center gap-1 text-emerald-600 font-semibold text-xs"
+              >
+                <CheckCircle2 className="w-4 h-4" />
+              </motion.div>
+            ) : (
+              <div className="w-9" />
+            )}
+          </AnimatePresence>
+        </div>
       </div>
 
       {/* Left Sidebar: Controls */}
@@ -360,6 +391,16 @@ export default function ManualCalculatorEditor({
                       <p className="text-[16px] text-slate-600 font-semibold leading-tight">Transportation, disposal, and mobilization fees.</p>
                     </div>
                   </div>
+                  
+                  <div className="p-4 bg-slate-50 border border-slate-100 rounded-2xl space-y-1.5 text-left">
+                    <p className="text-[13px] font-bold text-slate-900 flex items-center gap-1.5 leading-none">
+                      <Info className="w-4 h-4 text-slate-500 shrink-0" />
+                      Client Range Presentation
+                    </p>
+                    <p className="text-[12.5px] text-slate-600 font-medium leading-relaxed">
+                      To protect your margins and set realistic expectations, homeowners are shown a price range of **-10% to +35%** based on this formula output. For example, a calculated base of **$10,000** is displayed to the customer as **$9,000 - $13,500**.
+                    </p>
+                  </div>
 
                   <div className="pt-6 border-t border-slate-50">
                     <p className="text-center text-[15px] text-slate-600 font-semibold italic italic">
@@ -409,7 +450,7 @@ export default function ManualCalculatorEditor({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 10 }}
             transition={{ duration: 0.15 }}
-            className="flex-1 pb-10"
+            className="flex-1 pb-28 lg:pb-10"
           >
 
             {/* TAB 1: Materials */}
@@ -676,27 +717,6 @@ export default function ManualCalculatorEditor({
             This preview uses the exact <span className="text-slate-900 border-b-2 border-slate-900">pricing rules</span> you set.
           </p>
         </div>
-
-        <AnimatePresence>
-          {hasChanges && (
-            <motion.div
-              initial={{ y: 100 }}
-              animate={{ y: 0 }}
-              exit={{ y: 100 }}
-              className="fixed lg:absolute bottom-6 lg:bottom-10 right-4 lg:right-10 z-50 lg:z-30 w-[calc-100%-2rem)] lg:w-auto"
-            >
-              <Button
-                onClick={handleSave}
-                disabled={isSaving}
-                className="w-full lg:w-auto h-16 px-10 bg-[#0F172A] hover:bg-black text-white font-semibold rounded-2xl shadow-2xl shadow-slate-400/50 flex items-center justify-center gap-3 transition-transform active:scale-95 border-2 border-white lg:border-none ring-4 ring-slate-900/5"
-              >
-                {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                Save Pricing Rules
-                <ChevronRight className="w-4 h-4 text-slate-600 hidden sm:block" />
-              </Button>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
 
       {/* Success Modal */}
@@ -735,6 +755,28 @@ export default function ManualCalculatorEditor({
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Floating Save Button - Accessible on both views on mobile, fixed at bottom-right on desktop */}
+      <AnimatePresence>
+        {hasChanges && (
+          <motion.div
+            initial={{ y: 100 }}
+            animate={{ y: 0 }}
+            exit={{ y: 100 }}
+            className="fixed lg:absolute bottom-6 lg:bottom-10 left-4 lg:left-auto right-4 lg:right-10 z-50 lg:z-30 w-[calc(100%-2rem)] lg:w-auto"
+          >
+            <Button
+              onClick={handleSave}
+              disabled={isSaving}
+              className="w-full lg:w-auto h-16 px-10 bg-[#0F172A] hover:bg-black text-white font-semibold rounded-2xl shadow-2xl shadow-slate-400/50 flex items-center justify-center gap-3 transition-transform active:scale-95 border-2 border-white lg:border-none ring-4 ring-slate-900/5"
+            >
+              {isSaving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+              Save Pricing Rules
+              <ChevronRight className="w-4 h-4 text-slate-600 hidden sm:block" />
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

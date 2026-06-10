@@ -14,8 +14,6 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 
 import { PricingConfig, calculateEstimate } from "@/lib/pricingEngine"
 import { getRoofEstimation } from "@/app/actions/solar"
-import { triggerLeadWebhook } from "@/app/actions/integrations"
-import { getAddressSuggestions } from "@/app/actions/places"
 import { formatPhoneNumber } from "@/utils/format"
 
 const variants = {
@@ -30,7 +28,6 @@ const GOOGLE_MAPS_LIBRARIES: any = ["places"]
 const PitchIcon = ({ type, active }: { type: string; active: boolean }) => {
   const stroke = active ? "#b91c1c" : "#475569"
   const sw = "2"
-  const dx = active ? "0" : "0" // keeping it simple
 
   if (type === "flat") return (
     <svg viewBox="0 0 64 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-16 h-12">
@@ -65,13 +62,6 @@ const PITCH_OPTIONS = [
   { id: "standard", label: "Moderate", sub: "Walk with caution" },
   { id: "steep", label: "Steep", sub: "Harness required" },
 ]
-
-const MATERIAL_IMAGES: Record<string, { bg: string; label: string; sub: string }> = {
-  asphalt: { bg: "/asphalt.jpg", label: "Premium Asphalt", sub: "Most popular choice" },
-  tile: { bg: "/tiles.jpg", label: "Luxury Tile", sub: "Spanish & Concrete styles" },
-  metal: { bg: "/materials/metal.jpg", label: "Standing Seam Metal", sub: "Lifetime durability" },
-  cedar: { bg: "/materials/cedar.png", label: "Natural Cedar", sub: "Premium wood shake" },
-}
 
 type FormData = {
   sqFt: string
@@ -108,7 +98,6 @@ const MapboxContainer = ({ center, zoom, addressConfirmed }: { center: { lat: nu
     setHasValidToken(isValid)
 
     if (isValid) {
-      // Dynamically import mapbox-gl on mount to prevent SSR crashes
       import('mapbox-gl').then((module) => {
         setMapbox(module.default)
       })
@@ -150,7 +139,6 @@ const MapboxContainer = ({ center, zoom, addressConfirmed }: { center: { lat: nu
         }
       })
 
-      // Add GeoJSON source for roof highlight polygon
       map.addSource('roof-highlight', {
         type: 'geojson',
         data: {
@@ -159,7 +147,6 @@ const MapboxContainer = ({ center, zoom, addressConfirmed }: { center: { lat: nu
         }
       })
 
-      // Semi-transparent blue highlight fill layer
       map.addLayer({
         id: 'roof-highlight-fill',
         type: 'fill',
@@ -170,7 +157,6 @@ const MapboxContainer = ({ center, zoom, addressConfirmed }: { center: { lat: nu
         }
       })
 
-      // Blue stroke outline layer
       map.addLayer({
         id: 'roof-highlight-outline',
         type: 'line',
@@ -182,7 +168,6 @@ const MapboxContainer = ({ center, zoom, addressConfirmed }: { center: { lat: nu
       })
     })
 
-    // Listen to when zoom/move finishes and find building footprint at the center
     const handleMapIdle = () => {
       if (!map.getSource('roof-highlight')) return
 
@@ -265,7 +250,6 @@ const MapboxContainer = ({ center, zoom, addressConfirmed }: { center: { lat: nu
     }
   }, [mapbox, hasValidToken])
 
-  // flyTo when center/zoom props update from address geocoding
   useEffect(() => {
     const map = mapRef.current
     if (!map || !hasValidToken) return
@@ -281,7 +265,6 @@ const MapboxContainer = ({ center, zoom, addressConfirmed }: { center: { lat: nu
   if (!hasValidToken) {
     return (
       <div className="w-full h-full rounded-lg overflow-hidden bg-slate-50 border border-slate-100 flex flex-col items-center justify-center p-6 relative">
-        {/* Pulsing high-tech radar simulation background */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.25]">
           <div className="w-48 h-48 rounded-full border-2 border-red-300 animate-ping absolute" />
           <div className="w-80 h-80 rounded-full border-2 border-red-200 animate-pulse absolute" />
@@ -330,32 +313,28 @@ const MapboxContainer = ({ center, zoom, addressConfirmed }: { center: { lat: nu
   )
 }
 
-export default function RoofingWidget({
-  isPro, config, calculatorId, companyName, companyLogoUrl, isDemo = false
+export default function DemoWidget({
+  isPro, config, companyName, companyLogoUrl
 }: {
   isPro: boolean
   config: PricingConfig
-  calculatorId: string
   companyName?: string
   companyLogoUrl?: string
-  isDemo?: boolean
 }) {
   const router = useRouter()
+  const calculatorId = "demo"
   const [step, setStep] = useState(1)
   const [formData, setFormData] = useState<FormData>({
-    sqFt: isDemo ? "2450" : "", 
-    address: isDemo ? "21345 Lassen St, Chatsworth, CA 91311" : "", 
+    sqFt: "2450", 
+    address: "21345 Lassen St, Chatsworth, CA 91311", 
     buildingType: "", material: "", desiredMaterial: "", pitch: "", timeline: "", financing: "", firstName: "", email: "", phone: "", notes: "",
   })
   const [agreedToTerms, setAgreedToTerms] = useState(false)
   const [agreedToMarketing, setAgreedToMarketing] = useState(false)
-  const [estimatedPrice, setEstimatedPrice] = useState<number | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [loadingState, setLoadingState] = useState<string | null>(null)
   const [isAdvancing, setIsAdvancing] = useState(false)
   
-  const [addressSuggestions, setAddressSuggestions] = useState<{description: string, placeId: string}[]>([])
-  const [showSuggestions, setShowSuggestions] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   // -- MODULAR STEP LOGIC --
@@ -369,22 +348,20 @@ export default function RoofingWidget({
     { id: 'TIMELINE', show: config.steps?.timeline ?? false },
     { id: 'FINANCING', show: config.steps?.financing ?? false },
     { id: 'NOTES', show: true },
-    { id: 'LEAD_CAPTURE', show: true },
-    { id: 'RESULT', show: isDemo }
+    { id: 'LEAD_CAPTURE', show: true }
   ]
 
   const visibleSteps = stepsConfig.filter(s => s.show)
-  const questionSteps = visibleSteps.filter(s => s.id !== 'INTRO' && s.id !== 'RESULT')
+  const questionSteps = visibleSteps.filter(s => s.id !== 'INTRO')
   const totalQuestions = questionSteps.length
   
   const currentStepId = visibleSteps[step - 1]?.id
-  // Find current step's index in the question array for accurate counting
   const currentQuestionIndex = questionSteps.findIndex(s => s.id === currentStepId)
 
   // Map State
   const [mapCenter, setMapCenter] = useState({ lat: 34.2504227, lng: -118.5964844 }) // Default to Chatsworth for demo
-  const [mapZoom, setMapZoom] = useState(isDemo ? 18 : 4)
-  const [addressConfirmed, setAddressConfirmed] = useState(isDemo)
+  const [mapZoom, setMapZoom] = useState(18)
+  const [addressConfirmed, setAddressConfirmed] = useState(true)
   const [autocomplete, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null)
 
   const { isLoaded, loadError } = useJsApiLoader({
@@ -393,7 +370,6 @@ export default function RoofingWidget({
     libraries: GOOGLE_MAPS_LIBRARIES,
   })
 
-  // Log specific load error for debugging in production console
   if (loadError) {
     console.error("Google Maps Load Error:", loadError)
   }
@@ -411,14 +387,12 @@ export default function RoofingWidget({
         setMapZoom(18.0)
         setAddressConfirmed(true)
         
-        // Background pre-fetch: Trigger estimation immediately after selection
         handleAddressLookup(formattedAddress, false)
       }
     }
   }
 
   const handleConfirmProperty = () => {
-    // Immediate transition! The background fetch is already handling the data.
     nextStep()
   }
 
@@ -426,7 +400,7 @@ export default function RoofingWidget({
     if (isAdvancing) return
     setIsAdvancing(true)
     setStep((s) => s + 1)
-    setTimeout(() => setIsAdvancing(false), 400) // Cooling period to prevent tap-through
+    setTimeout(() => setIsAdvancing(false), 400)
   }
 
   const prevStep = () => {
@@ -435,13 +409,12 @@ export default function RoofingWidget({
 
   const handleSelect = (field: keyof FormData, value: string) => {
     if (isAdvancing) return
-    setIsAdvancing(true) // Lock immediately!
+    setIsAdvancing(true)
     
     setFormData((prev) => ({ ...prev, [field]: value }))
-    // Slightly longer timeout for visual feedback of selection before moving
     setTimeout(() => {
       setStep((s) => s + 1)
-      setTimeout(() => setIsAdvancing(false), 400) // Cooling period for ghost clicks
+      setTimeout(() => setIsAdvancing(false), 400)
     }, 300)
   }
 
@@ -449,20 +422,17 @@ export default function RoofingWidget({
     const addr = selectedAddress || formData.address
     if (!addr.trim()) return
 
-    if (isDemo) {
+    if (addr === "21345 Lassen St, Chatsworth, CA 91311") {
       setFormData(prev => ({
         ...prev,
-        sqFt: "2450", // Static mock size
+        sqFt: "2450",
         address: addr
       }))
       if (shouldAdvance) nextStep()
       return
     }
     
-    // If we're already loading or have data, we might not need to do this again
-    // but for now let's keep it simple
     setLoadingState("Connecting to satellite...")
-    setShowSuggestions(false)
     setErrorMessage(null)
 
     try {
@@ -489,61 +459,10 @@ export default function RoofingWidget({
     }
   }
 
-  const handleAddressChange = async (val: string) => {
-    setFormData({ ...formData, address: val })
-    setErrorMessage(null)
-    if (val.length > 3) {
-      const suggestions = await getAddressSuggestions(val)
-      setAddressSuggestions(suggestions)
-      setShowSuggestions(suggestions.length > 0)
-    } else {
-      setAddressSuggestions([])
-      setShowSuggestions(false)
-    }
-  }
-
-  const handleCalculate = async () => {
-    setIsSubmitting(true)
-    const price = calculateEstimate(
-      { sqFt: formData.sqFt, material: formData.material, pitch: formData.pitch },
-      config
-    )
-    setEstimatedPrice(price)
-
-    try {
-      const response = await fetch("/api/leads", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          calculator_id: calculatorId,
-          first_name: formData.firstName,
-          email: formData.email,
-          phone: formData.phone,
-          form_data: formData,
-          estimated_price: price,
-          lat: mapCenter.lat,
-          lng: mapCenter.lng,
-        }),
-      })
-
-      if (response.ok) {
-        const lead = await response.json()
-        // Trigger Pro Webhook if applicable
-        await triggerLeadWebhook(lead)
-      }
-    } catch (e) {
-      console.error("Lead submission error:", e)
-    }
-    finally {
-      setIsSubmitting(false)
-      nextStep()
-    }
-  }
-
   const handleCalculateAndRedirect = async () => {
     setIsSubmitting(true)
     const price = calculateEstimate(
-      { sqFt: formData.sqFt, material: formData.material, pitch: formData.pitch },
+      { sqFt: formData.sqFt, material: formData.desiredMaterial || formData.material || "asphalt", pitch: formData.pitch },
       config
     )
     
@@ -568,13 +487,6 @@ export default function RoofingWidget({
         }),
       })
 
-      if (isDemo) {
-        setEstimatedPrice(price)
-        setIsSubmitting(false)
-        nextStep()
-        return
-      }
-
       if (response.ok) {
         const { id } = await response.json()
         router.push(`/estimates/${id}`)
@@ -591,8 +503,8 @@ export default function RoofingWidget({
 
   return (
     <div className="@container w-full max-w-lg lg:max-w-4xl mx-auto bg-white shadow-xl lg:shadow-[0_24px_64px_rgba(0,0,0,0.08)] border border-slate-200/60 rounded-lg lg:rounded-xl overflow-hidden flex flex-col font-sans touch-manipulation ring-1 ring-slate-900/5 min-h-[580px]">
-      {/* Header - Hidden on Intro and Result */}
-      {currentStepId !== 'INTRO' && currentStepId !== 'RESULT' && (
+      {/* Header - Hidden on Intro */}
+      {currentStepId !== 'INTRO' && (
         <div className="px-5 lg:px-8 pt-6 lg:pt-8 pb-1">
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-3">
@@ -617,13 +529,14 @@ export default function RoofingWidget({
             </div>
           </div>
         </div>
-      )}      {/* Main Content Area */}
+      )}
+
+      {/* Main Content Area */}
       <div className="flex-1 px-5 lg:px-8 pb-6 lg:pb-8 flex flex-col relative pointer-events-auto">
         
         {/* Step: Intro */}
         {currentStepId === 'INTRO' && (
           <div className="flex-1 flex flex-col items-center justify-center py-10 animate-in fade-in zoom-in-95 duration-1000 relative overflow-hidden">
-            {/* Minimal Background Art - similar to screenshot */}
             <div className="absolute top-4 left-4 opacity-[0.06] -rotate-12 pointer-events-none">
               <div className="relative">
                 <Home className="w-32 h-32 lg:w-48 lg:h-48" strokeWidth={0.5} />
@@ -642,7 +555,6 @@ export default function RoofingWidget({
             </div>
 
             <div className="w-full max-w-lg lg:max-w-4xl mx-auto flex flex-col items-center z-10 px-6">
-              {/* Branding Header */}
               <div className="mb-10 lg:mb-12 flex flex-col items-center">
                 {companyLogoUrl ? (
                   <div className="h-16 lg:h-20 flex items-center justify-center">
@@ -750,13 +662,25 @@ export default function RoofingWidget({
                     </div>
 
                     <AnimatePresence>
-                      {addressConfirmed && (
-                        <motion.button initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} onClick={handleConfirmProperty} className="bg-white text-blue-600 border-2 border-blue-600 px-6 h-11 rounded-lg font-semibold shadow-lg hover:bg-blue-50 transition-all active:scale-95 flex items-center justify-center gap-2">
-                          Continue
+                      {(addressConfirmed || formData.address.trim().length > 0) && (
+                        <motion.button 
+                          initial={{ opacity: 0, x: 20 }} 
+                          animate={{ opacity: 1, x: 0 }} 
+                          exit={{ opacity: 0, x: 20 }} 
+                          onClick={() => handleAddressLookup(undefined, true)} 
+                          className="bg-white text-blue-600 border-2 border-blue-600 px-6 h-11 rounded-lg font-semibold shadow-lg hover:bg-blue-50 transition-all active:scale-95 flex items-center justify-center gap-2"
+                        >
+                          {loadingState ? <Loader2 className="w-4 h-4 animate-spin" /> : "Continue"}
                         </motion.button>
                       )}
                     </AnimatePresence>
                   </div>
+
+                  {errorMessage && (
+                    <div className="absolute bottom-16 left-4 right-4 bg-red-50 border border-red-200 text-red-700 px-4 py-2.5 rounded-lg text-sm font-medium z-20">
+                      {errorMessage}
+                    </div>
+                  )}
 
                   <div className="absolute bottom-2 left-2 z-10 flex items-center gap-2">
                      <div className="bg-white/80 backdrop-blur-sm px-2 py-1 rounded text-[10px] font-semibold text-slate-600 border border-slate-200/50">QUOTECATCH SATELLITE HD</div>
@@ -1028,42 +952,7 @@ export default function RoofingWidget({
           </div>
         )}
 
-        {/* Step: Result (Demo Only) */}
-        {currentStepId === 'RESULT' && (
-          <div key="st_result" className="space-y-8 animate-in fade-in zoom-in duration-500 py-4 flex flex-col items-center text-center">
-            <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mb-2">
-              <CheckCircle className="w-10 h-10 text-emerald-500" />
-            </div>
-            
-            <div className="space-y-2">
-                <h2 className="text-[40px] font-semibold text-[#0F172A] tracking-tighter">Success!</h2>
-                <p className="text-slate-600 font-medium text-[18px] min-h-[48px]">We've generated your instant estimate for {formData.address.split(',')[0]}!</p>
-            </div>
-
-            <div className="w-full bg-slate-50 border border-slate-100 rounded-lg p-8 lg:p-10 space-y-4 shadow-inner">
-               <p className="text-[17px] font-semibold uppercase tracking-[0.2em] text-slate-600">Estimated Project Cost</p>
-               <div className="text-[48px] lg:text-[64px] font-semibold text-[#0F172A] tracking-tight leading-none">
-                 ${estimatedPrice?.toLocaleString()}
-               </div>
-               <p className="text-[16px] text-slate-600 font-normal px-4 italic leading-relaxed">
-                 Price is a ballpark estimate based on current material rates and satellite measurements.
-               </p>
-            </div>
-
-            <div className="w-full space-y-4">
-                <button 
-                    onClick={() => window.location.href = '/login?tab=signup'}
-                    className="w-full h-16 bg-[#0F172A] hover:bg-black text-white rounded-lg font-semibold text-[18px] transition-all shadow-xl shadow-slate-200"
-                >
-                    Get your own Free Widget →
-                </button>
-                <p className="text-[16px] text-slate-600 font-medium">No credit card required. Cancel anytime.</p>
-            </div>
-          </div>
-        )}
-
       </div>
     </div>
   )
 }
-
