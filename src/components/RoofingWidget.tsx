@@ -618,16 +618,35 @@ export default function RoofingWidget({
       } else {
         const err = await response.json()
         console.error("Submission error:", err)
+        setIsSubmitting(false)
       }
     } catch (e) {
       console.error("Lead submission error:", e)
-    } finally {
       setIsSubmitting(false)
     }
   }
 
   return (
     <div className="@container w-full max-w-lg lg:max-w-4xl mx-auto bg-white shadow-xl lg:shadow-[0_24px_64px_rgba(0,0,0,0.08)] border border-slate-200/60 rounded-lg lg:rounded-xl overflow-hidden flex flex-col font-sans touch-manipulation ring-1 ring-slate-900/5 min-h-[580px]">
+      {isSubmitting && (
+        <div className="fixed inset-0 bg-white/80 backdrop-blur-md z-[100] flex flex-col items-center justify-center p-6 text-center animate-in fade-in duration-300">
+          <div className="space-y-6 max-w-sm">
+            <div className="relative w-20 h-20 mx-auto">
+              <div className="absolute inset-0 rounded-full border-4 border-red-100 animate-pulse" />
+              <div className="absolute inset-0 rounded-full border-t-4 border-red-700 animate-spin" />
+              <div className="absolute inset-2 bg-white rounded-full flex items-center justify-center shadow-sm">
+                <Home className="w-8 h-8 text-red-700" />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-xl font-bold text-slate-900 tracking-tight">Analyzing Property Data</h3>
+              <p className="text-[14px] text-slate-500 font-medium leading-relaxed">
+                Calculating material quantities, pitch factors, and building your custom roofing estimate report...
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Header - Hidden on Intro and Result */}
       {currentStepId !== 'INTRO' && currentStepId !== 'RESULT' && (
         <div className="px-5 lg:px-8 pt-6 lg:pt-8 pb-1">
