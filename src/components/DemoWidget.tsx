@@ -84,6 +84,12 @@ const MapboxContainer = ({ center, zoom, addressConfirmed }: { center: { lat: nu
   const [highlightActive, setHighlightActive] = useState(false)
   const [mapbox, setMapbox] = useState<any>(null)
   const [hasValidToken, setHasValidToken] = useState(true)
+  const hasReCenteredRef = useRef(false)
+
+  // Reset recentering flag when center coordinate prop changes
+  useEffect(() => {
+    hasReCenteredRef.current = false
+  }, [center.lat, center.lng])
 
   useEffect(() => {
     const rawToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
@@ -223,6 +229,37 @@ const MapboxContainer = ({ center, zoom, addressConfirmed }: { center: { lat: nu
           })
           
           features = [closestFeature]
+
+          // Smoothly re-center the map view directly on the building's centroid
+          if (!hasReCenteredRef.current && closestFeature) {
+            let centroid = null
+            const feat = closestFeature
+            if (feat.geometry.type === 'Polygon') {
+              const ring = feat.geometry.coordinates[0]
+              let sumLng = 0, sumLat = 0
+              ring.forEach((c: any) => {
+                sumLng += c[0]
+                sumLat += c[1]
+              })
+              centroid = { lng: sumLng / ring.length, lat: sumLat / ring.length }
+            } else if (feat.geometry.type === 'MultiPolygon') {
+              const ring = feat.geometry.coordinates[0][0]
+              let sumLng = 0, sumLat = 0
+              ring.forEach((c: any) => {
+                sumLng += c[0]
+                sumLat += c[1]
+              })
+              centroid = { lng: sumLng / ring.length, lat: sumLat / ring.length }
+            }
+
+            if (centroid) {
+              hasReCenteredRef.current = true
+              map.easeTo({
+                center: [centroid.lng, centroid.lat],
+                duration: 600
+              })
+            }
+          }
         }
       }
 

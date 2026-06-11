@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { 
   CheckCircle, 
@@ -22,6 +22,7 @@ import {
   ChevronDown,
   Info
 } from "lucide-react"
+import 'mapbox-gl/dist/mapbox-gl.css'
 import LeadCaptureModal from "@/components/LeadCaptureModal"
 
 const MATERIAL_INFO: Record<string, { title: string; desc: string; image: string }> = {
@@ -83,6 +84,230 @@ const PITCH_LABELS: Record<string, string> = {
   low: "Low",
   standard: "Moderate",
   steep: "Steep"
+}
+
+const MapboxContainer = ({ center, zoom }: { center: { lat: number; lng: number }; zoom: number }) => {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const mapRef = useRef<any>(null)
+  const [mapbox, setMapbox] = useState<any>(null)
+  const [hasValidToken, setHasValidToken] = useState(true)
+  const hasReCenteredRef = useRef(false)
+
+  useEffect(() => {
+    hasReCenteredRef.current = false
+  }, [center.lat, center.lng])
+
+  useEffect(() => {
+    const rawToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
+    const isValid = !!(
+      rawToken && 
+      !rawToken.includes('placeholder') && 
+      rawToken.startsWith('pk.') && 
+      !rawToken.includes('ciyZ68N1ycTAwY2kydnBlMTFkY253b2Q') &&
+      !rawToken.includes('nJixCOBg5h5q77TqVwz01g')
+    )
+    
+    setHasValidToken(isValid)
+
+    if (isValid) {
+      import('mapbox-gl').then((module) => {
+        setMapbox(module.default)
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!mapbox || !containerRef.current || !hasValidToken) return
+
+    const rawToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
+    mapbox.accessToken = rawToken
+
+    const map = new mapbox.Map({
+      container: containerRef.current,
+      style: 'mapbox://styles/mapbox/satellite-streets-v11',
+      center: [center.lng, center.lat],
+      zoom: zoom,
+      attributionControl: false
+    })
+
+    mapRef.current = map
+
+    map.on('load', () => {
+      // Add Mapbox Streets building vector source to style
+      map.addSource('mapbox-buildings', {
+        type: 'vector',
+        url: 'mapbox://mapbox.mapbox-streets-v8'
+      })
+
+      // Add building layer (invisible, used to query features)
+      map.addLayer({
+        id: 'building',
+        source: 'mapbox-buildings',
+        'source-layer': 'building',
+        type: 'fill',
+        paint: {
+          'fill-color': 'rgba(0,0,0,0)',
+          'fill-opacity': 0.01 // set to a tiny non-zero value to guarantee queryability
+        }
+      })
+
+      // Add GeoJSON source for roof highlight polygon
+      map.addSource('roof-highlight', {
+        type: 'geojson',
+        data: {
+          type: 'FeatureCollection',
+          features: []
+        }
+      })
+
+      // Semi-transparent blue highlight fill layer
+      map.addLayer({
+        id: 'roof-highlight-fill',
+        type: 'fill',
+        source: 'roof-highlight',
+        paint: {
+          'fill-color': '#3b82f6',
+          'fill-opacity': 0.15
+        }
+      })
+
+      // Blue stroke outline layer
+      map.addLayer({
+        id: 'roof-highlight-outline',
+        type: 'line',
+        source: 'roof-highlight',
+        paint: {
+          'line-color': '#2563eb',
+          'line-width': 3
+        }
+      })
+    })
+
+    const handleMapIdle = () => {
+      if (!map.getSource('roof-highlight')) return
+
+      const centerCoord = map.getCenter()
+      const point = map.project(centerCoord)
+      
+      const hasBuildingLayer = !!map.getLayer('building')
+      let features: any[] = []
+
+      if (hasBuildingLayer) {
+        // Query a bounding box around the center point (120x120px) to be resilient to geocoding offsets
+        const radius = 60
+        const bbox: [[number, number], [number, number]] = [
+          [point.x - radius, point.y - radius],
+          [point.x + radius, point.y + radius]
+        ]
+        const queried = map.queryRenderedFeatures(bbox, { layers: ['building'] })
+        
+        if (queried.length > 0) {
+          // Find the feature closest to the map center
+          let closestFeature = queried[0]
+          let minDistance = Infinity
+          
+          queried.forEach((feature: any) => {
+            let featureCenter = null
+            if (feature.geometry.type === 'Polygon') {
+              const ring = feature.geometry.coordinates[0]
+              let sumLng = 0, sumLat = 0
+              ring.forEach((c: any) => {
+                sumLng += c[0]
+                sumLat += c[1]
+              })
+              featureCenter = { lng: sumLng / ring.length, lat: sumLat / ring.length }
+            } else if (feature.geometry.type === 'MultiPolygon') {
+              const ring = feature.geometry.coordinates[0][0]
+              let sumLng = 0, sumLat = 0
+              ring.forEach((c: any) => {
+                sumLng += c[0]
+                sumLat += c[1]
+              })
+              featureCenter = { lng: sumLng / ring.length, lat: sumLat / ring.length }
+            }
+            
+            if (featureCenter) {
+              const dLng = featureCenter.lng - centerCoord.lng
+              const dLat = featureCenter.lat - centerCoord.lat
+              const dist = dLng * dLng + dLat * dLat
+              if (dist < minDistance) {
+                minDistance = dist
+                closestFeature = feature
+              }
+            }
+          })
+          
+          features = [closestFeature]
+
+          // Smoothly re-center the map view directly on the building's centroid
+          if (!hasReCenteredRef.current && closestFeature) {
+            let centroid = null
+            const feat = closestFeature
+            if (feat.geometry.type === 'Polygon') {
+              const ring = feat.geometry.coordinates[0]
+              let sumLng = 0, sumLat = 0
+              ring.forEach((c: any) => {
+                sumLng += c[0]
+                sumLat += c[1]
+              })
+              centroid = { lng: sumLng / ring.length, lat: sumLat / ring.length }
+            } else if (feat.geometry.type === 'MultiPolygon') {
+              const ring = feat.geometry.coordinates[0][0]
+              let sumLng = 0, sumLat = 0
+              ring.forEach((c: any) => {
+                sumLng += c[0]
+                sumLat += c[1]
+              })
+              centroid = { lng: sumLng / ring.length, lat: sumLat / ring.length }
+            }
+
+            if (centroid) {
+              hasReCenteredRef.current = true
+              map.easeTo({
+                center: [centroid.lng, centroid.lat],
+                duration: 600
+              })
+            }
+          }
+        }
+      }
+
+      const source = map.getSource('roof-highlight')
+      if (features.length > 0 && source) {
+        source.setData({
+          type: 'FeatureCollection',
+          features: [features[0]]
+        })
+      } else if (source) {
+        source.setData({
+          type: 'FeatureCollection',
+          features: []
+        })
+      }
+    }
+
+    map.on('idle', handleMapIdle)
+
+    return () => {
+      map.off('idle', handleMapIdle)
+      map.remove()
+    }
+  }, [mapbox, hasValidToken])
+
+  if (!hasValidToken) {
+    return (
+      <div className="w-full h-full bg-slate-900 border border-slate-800 flex items-center justify-center">
+         <div className="text-center space-y-3">
+            <MapPin className="w-10 h-10 text-slate-700 mx-auto" />
+            <p className="text-[16px] font-semibold text-slate-400 uppercase tracking-widest">
+               Mapbox Token Missing
+            </p>
+         </div>
+      </div>
+    )
+  }
+
+  return <div ref={containerRef} className="w-full h-full" />
 }
 
 export default function EstimatesClient({ 
@@ -377,33 +602,11 @@ export default function EstimatesClient({
               </div>
 
               {(userProfile?.is_pro || isDemo) ? (
-                <div className="relative h-[240px] lg:h-[300px] rounded-3xl overflow-hidden border-4 border-slate-800 shadow-2xl">
-                   <div className="absolute inset-0 bg-slate-800 animate-pulse" />
-                    {staticMapUrl ? (
-                      <img 
-                        src={staticMapUrl} 
-                        alt="Satellite View" 
-                        className="absolute inset-0 w-full h-full object-cover z-10" 
-                        onError={(e) => {
-                          console.error("Satellite Image failed to load. URL:", staticMapUrl);
-                          e.currentTarget.style.opacity = '0';
-                        }}
-                      />
-                    ) : null}
-                    <div className="absolute inset-0 flex items-center justify-center bg-slate-900 border border-slate-800 fallback-msg">
-                       <div className="text-center space-y-3">
-                          <MapPin className="w-10 h-10 text-slate-700 mx-auto" />
-                          <p className="text-[16px] font-semibold text-slate-400 uppercase tracking-widest">
-                            {!staticMapUrl ? "Google Maps API Key Missing" : "Satellite Imagery Unavailable"}
-                          </p>
-                          <p className="text-[10px] text-slate-500 font-semibold px-8 max-w-[240px]">
-                            {!staticMapUrl 
-                              ? "Check your .env.local file for GOOGLE_MAPS_API_KEY." 
-                              : "High-resolution aerial scan could not be loaded for this location."
-                            }
-                          </p>
-                       </div>
-                    </div>
+                <div className="relative h-[240px] lg:h-[300px] rounded-3xl overflow-hidden border-4 border-slate-800 shadow-2xl z-10">
+                  <MapboxContainer 
+                    center={{ lat: Number(lead.lat || 34.2504227), lng: Number(lead.lng || -118.5964844) }}
+                    zoom={18.0}
+                  />
                 </div>
               ) : (
                 <div className="hidden lg:flex items-center justify-center bg-slate-900/50 rounded-3xl border border-dashed border-slate-800 p-12 text-center">
