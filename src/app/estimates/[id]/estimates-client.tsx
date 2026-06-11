@@ -80,9 +80,9 @@ const normalizeSocialLink = (url: string, platform: 'facebook' | 'instagram' | '
 
 const PITCH_LABELS: Record<string, string> = {
   flat: "Flat",
-  low: "Low Slope",
-  standard: "Moderate Slope",
-  steep: "Steep Slope"
+  low: "Low",
+  standard: "Moderate",
+  steep: "Steep"
 }
 
 export default function EstimatesClient({ 
@@ -127,8 +127,26 @@ export default function EstimatesClient({
   const sqFt = formData.sqFt || "1500_2500" // Default to mid-size if unknown
   const pitchLabel = PITCH_LABELS[formData.pitch] || "Standard (4/12)"
 
+  const formatSqFt = (val: string) => {
+    if (!val) return ""
+    if (val === "under_1500") return "< 1,500"
+    if (val === "1500_2500") return "2,000"
+    if (val === "over_2500") return "3,000+"
+    const num = parseInt(val.replace(/,/g, ''), 10)
+    return isNaN(num) ? val : num.toLocaleString()
+  }
 
-
+  const formatTimelineValue = (timeline: string) => {
+    if (!timeline) return ""
+    if (timeline === "none") return "Flexible"
+    if (timeline === "immediately") return "Now"
+    return timeline
+      .replace('_', ' ')
+      .replace('-', ' to ')
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  }
 
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-red-100 selection:text-red-900 overflow-x-hidden pb-12">
@@ -274,52 +292,81 @@ export default function EstimatesClient({
         <div className="mt-12 bg-[#0F172A] rounded-[2.5rem] p-10 lg:p-14 text-white overflow-hidden relative">
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-10 relative z-10">
-                <h2 className="text-[36px] lg:text-[48px] font-semibold tracking-tighter leading-none">
+                <h2 className="text-[36px] lg:text-[48px] font-bold tracking-tighter leading-none">
                   Your roof by<br />the numbers—
                 </h2>
-                <p className="text-slate-600 font-semibold text-[15px] max-w-sm">
+                <p className="text-slate-400 font-medium text-[15px] max-w-sm">
                   This is an estimate. Actual roof size will vary based on the exact slope (steepness) of your roof.
                 </p>
 
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
-                    <div className="space-y-1">
-                      <p className="text-[28px] lg:text-[34px] font-semibold">{sqFt === "under_1500" ? "< 1,500" : sqFt === "1500_2500" ? "2,000" : sqFt === "over_2500" ? "3,000+" : sqFt}</p>
-                      <p className="text-slate-600 font-semibold text-[16px] uppercase tracking-widest">Square feet</p>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-10">
+                    <div className="flex flex-col justify-end space-y-2">
+                      <div className="min-h-[56px] lg:min-h-[68px] flex items-end">
+                        <p className="text-[28px] lg:text-[34px] font-bold tracking-tight text-white leading-none">
+                          {formatSqFt(sqFt)}
+                        </p>
+                      </div>
+                      <p className="text-slate-400 font-semibold text-[12px] uppercase tracking-wider">Square feet</p>
                     </div>
-                    <div className="space-y-1">
-                      <p className="text-[28px] lg:text-[34px] font-semibold">{pitchLabel}</p>
-                      <p className="text-slate-600 font-semibold text-[16px] uppercase tracking-widest">Slope</p>
+
+                    <div className="flex flex-col justify-end space-y-2">
+                      <div className="min-h-[56px] lg:min-h-[68px] flex items-end">
+                        <p className="text-[28px] lg:text-[34px] font-bold tracking-tight text-white leading-none">
+                          {pitchLabel}
+                        </p>
+                      </div>
+                      <p className="text-slate-400 font-semibold text-[12px] uppercase tracking-wider">Slope</p>
                     </div>
+
                     {formData.buildingType && (
-                      <div className="space-y-1">
-                        <p className="text-[28px] lg:text-[34px] font-semibold capitalize">{formData.buildingType}</p>
-                        <p className="text-slate-600 font-semibold text-[16px] uppercase tracking-widest">Building</p>
+                      <div className="flex flex-col justify-end space-y-2">
+                        <div className="min-h-[56px] lg:min-h-[68px] flex items-end">
+                          <p className="text-[28px] lg:text-[34px] font-bold tracking-tight text-white leading-none capitalize">
+                            {formData.buildingType}
+                          </p>
+                        </div>
+                        <p className="text-slate-400 font-semibold text-[12px] uppercase tracking-wider">Building</p>
                       </div>
                     )}
+
                     {formData.material && (
-                      <div className="space-y-1">
-                        <p className="text-[28px] lg:text-[34px] font-semibold capitalize">{formData.material}</p>
-                        <p className="text-slate-600 font-semibold text-[16px] uppercase tracking-widest">Existing Roof</p>
+                      <div className="flex flex-col justify-end space-y-2">
+                        <div className="min-h-[56px] lg:min-h-[68px] flex items-end">
+                          <p className="text-[28px] lg:text-[34px] font-bold tracking-tight text-white leading-none capitalize">
+                            {formData.material}
+                          </p>
+                        </div>
+                        <p className="text-slate-400 font-semibold text-[12px] uppercase tracking-wider">Existing Roof</p>
                       </div>
                     )}
+
                     {formData.timeline && (
-                      <div className="space-y-1">
-                        <p className="text-[28px] lg:text-[34px] font-semibold capitalize">{formData.timeline.replace('-', ' to ')}</p>
-                        <p className="text-slate-600 font-semibold text-[16px] uppercase tracking-widest">Timeline</p>
+                      <div className="flex flex-col justify-end space-y-2">
+                        <div className="min-h-[56px] lg:min-h-[68px] flex items-end">
+                          <p className="text-[28px] lg:text-[34px] font-bold tracking-tight text-white leading-tight">
+                            {formatTimelineValue(formData.timeline)}
+                          </p>
+                        </div>
+                        <p className="text-slate-400 font-semibold text-[12px] uppercase tracking-wider">Timeline</p>
                       </div>
                     )}
+
                     {formData.financing && (
-                      <div className="space-y-1">
-                        <p className="text-[28px] lg:text-[34px] font-semibold capitalize">{formData.financing}</p>
-                        <p className="text-slate-600 font-semibold text-[16px] uppercase tracking-widest">Financing</p>
+                      <div className="flex flex-col justify-end space-y-2">
+                        <div className="min-h-[56px] lg:min-h-[68px] flex items-end">
+                          <p className="text-[28px] lg:text-[34px] font-bold tracking-tight text-white leading-none capitalize">
+                            {formData.financing === "yes" ? "Yes" : formData.financing === "no" ? "No" : "Maybe"}
+                          </p>
+                        </div>
+                        <p className="text-slate-400 font-semibold text-[12px] uppercase tracking-wider">Financing</p>
                       </div>
                     )}
                   </div>
 
                   {lead.notes && (
-                    <div className="pt-8 border-t border-slate-800 mt-4">
-                      <p className="text-slate-600 font-semibold text-[16px] uppercase tracking-widest mb-3 flex items-center gap-2">
-                        <Info className="w-4 h-4" />
+                    <div className="pt-8 border-t border-slate-800/60 mt-4">
+                      <p className="text-slate-400 font-semibold text-[12px] uppercase tracking-wider mb-3 flex items-center gap-2">
+                        <Info className="w-4 h-4 text-slate-500" />
                         Homeowner Notes:
                       </p>
                       <p className="text-slate-300 font-medium italic text-[16px] leading-relaxed">
@@ -346,10 +393,10 @@ export default function EstimatesClient({
                     <div className="absolute inset-0 flex items-center justify-center bg-slate-900 border border-slate-800 fallback-msg">
                        <div className="text-center space-y-3">
                           <MapPin className="w-10 h-10 text-slate-700 mx-auto" />
-                          <p className="text-[16px] font-semibold text-slate-600 uppercase tracking-widest">
+                          <p className="text-[16px] font-semibold text-slate-400 uppercase tracking-widest">
                             {!staticMapUrl ? "Google Maps API Key Missing" : "Satellite Imagery Unavailable"}
                           </p>
-                          <p className="text-[10px] text-slate-600 font-semibold px-8 max-w-[240px]">
+                          <p className="text-[10px] text-slate-500 font-semibold px-8 max-w-[240px]">
                             {!staticMapUrl 
                               ? "Check your .env.local file for GOOGLE_MAPS_API_KEY." 
                               : "High-resolution aerial scan could not be loaded for this location."
