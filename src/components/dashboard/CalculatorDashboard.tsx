@@ -119,16 +119,11 @@ export default function CalculatorDashboard({ initialCalculators }: { initialCal
             className="h-16 sm:h-20 px-6 sm:px-10 bg-[#0F172A] hover:bg-black text-white font-bold rounded-[2rem] text-[16px] sm:text-[18px] shadow-2xl shadow-slate-200 flex items-center gap-4 transition-all hover:scale-[1.02] active:scale-95 border-none group cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
           >
             {isCreating ? <Loader2 className="w-6 h-6 animate-spin" /> : <Plus className="w-6 h-6 stroke-[3px] group-hover:rotate-90 transition-transform duration-300" />}
-            Build New Machine
+            Build New Estimator
           </button>
           <div className="flex items-center gap-2">
-            {!isPro && calculators.length >= 1 ? (
+            {!isPro && calculators.length >= 1 && (
               <span className="text-red-600 font-semibold text-[11px] uppercase tracking-widest bg-red-50 px-3 py-1 rounded-full border border-red-100">Plan Limit Reached</span>
-            ) : (
-              <p className="flex items-center gap-2 text-slate-600 text-[16px] font-bold uppercase tracking-[0.15em]">
-                <Sparkles className="w-3.5 h-3.5 text-red-500" />
-                Live on your site in seconds
-              </p>
             )}
           </div>
         </motion.div>
