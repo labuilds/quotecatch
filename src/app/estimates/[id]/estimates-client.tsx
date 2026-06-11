@@ -605,7 +605,7 @@ export default function EstimatesClient({
                 <div className="relative h-[240px] lg:h-[300px] rounded-3xl overflow-hidden border-4 border-slate-800 shadow-2xl z-10">
                   <MapboxContainer 
                     center={{ lat: Number(lead.lat || 34.2504227), lng: Number(lead.lng || -118.5964844) }}
-                    zoom={18.0}
+                    zoom={17.5}
                   />
                 </div>
               ) : (

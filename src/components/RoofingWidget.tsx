@@ -445,7 +445,7 @@ export default function RoofingWidget({
         
         setFormData(prev => ({ ...prev, address: formattedAddress }))
         setMapCenter({ lat, lng })
-        setMapZoom(18.0)
+        setMapZoom(17.5)
         setAddressConfirmed(true)
         
         // Background pre-fetch: Trigger estimation immediately after selection

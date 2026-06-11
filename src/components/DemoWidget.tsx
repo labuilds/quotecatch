@@ -421,7 +421,7 @@ export default function DemoWidget({
         
         setFormData(prev => ({ ...prev, address: formattedAddress }))
         setMapCenter({ lat, lng })
-        setMapZoom(18.0)
+        setMapZoom(17.5)
         setAddressConfirmed(true)
         
         handleAddressLookup(formattedAddress, false)

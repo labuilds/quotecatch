@@ -40,6 +40,10 @@ CREATE TABLE public.leads (
   homeowner_phone TEXT,
   estimated_price NUMERIC,
   address TEXT,
+  notes TEXT,
+  form_data JSONB DEFAULT '{}'::jsonb,
+  lat NUMERIC,
+  lng NUMERIC,
   pricing_snapshot JSONB,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
