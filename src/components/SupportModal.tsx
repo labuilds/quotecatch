@@ -239,10 +239,10 @@ function SupportModal({ onClose }: { onClose: () => void }) {
             <div className="text-center pt-2 border-t border-slate-50">
               <p className="text-[16px] text-slate-600 font-semibold uppercase tracking-widest mb-1.5 underline underline-offset-4 decoration-slate-200">Founder & Direct Support</p>
               <a
-                href="mailto:founder@getquotecatch.com"
+                href="mailto:contactlaac1@gmail.com"
                 className="text-[17px] text-slate-900 font-extrabold hover:text-red-700 transition-colors"
               >
-                founder@getquotecatch.com
+                contactlaac1@gmail.com
               </a>
             </div>
           </div>

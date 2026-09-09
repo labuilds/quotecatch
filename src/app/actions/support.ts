@@ -34,7 +34,7 @@ export async function sendSupportEmail(data: {
       },
       body: JSON.stringify({
         from: 'support@getquotecatch.com',
-        to: ['founder@getquotecatch.com'],
+        to: ['contactlaac1@gmail.com'],
         reply_to: user.email,
         subject: `Support Request from ${user.email}`,
         html: `

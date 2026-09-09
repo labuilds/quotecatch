@@ -126,7 +126,7 @@ export async function POST(request: Request) {
       let { data: founder } = await supabase
         .from('users')
         .select('id')
-        .ilike('email', 'founder@getquotecatch.com')
+        .ilike('email', 'contactlaac1@gmail.com')
         .maybeSingle();
       
       // FALLBACK: If founder account doesn't exist yet, get the first available pro user
@@ -219,7 +219,7 @@ export async function POST(request: Request) {
 
       // Only the landing page demo widget should notify the founder
       if (isDemoLead) {
-        recipientEmail = 'founder@getquotecatch.com';
+        recipientEmail = 'contactlaac1@gmail.com';
       } else if (targetUserId) {
         // For real users, fetch their actual email
         const { data: userData } = await supabase

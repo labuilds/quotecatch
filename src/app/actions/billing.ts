@@ -16,9 +16,12 @@ const DODO_PRODUCT_ID = IS_LIVE
   ? process.env.DODO_PAYMENTS_LIVE_PRODUCT_ID 
   : process.env.DODO_PAYMENTS_TEST_PRODUCT_ID
 
-const dodo = new DodoPayments({
-  bearerToken: DODO_API_KEY,
-})
+function getDodoClient() {
+  if (!DODO_API_KEY) return null
+  return new DodoPayments({
+    bearerToken: DODO_API_KEY,
+  })
+}
 
 export async function createDodoCheckoutSession(plan: 'monthly' | 'yearly' = 'yearly') {
   try {
@@ -78,8 +81,11 @@ export async function createDodoCheckoutSession(plan: 'monthly' | 'yearly' = 'ye
       return_url: `${dynamicAppUrl}/settings?billing=success`,
     }
 
-    console.log(`[Billing] Creating Dodo session (${plan}) with:`, JSON.stringify(sessionSettings, null, 2))
-    
+    const dodo = getDodoClient()
+    if (!dodo) {
+      return { url: "#billing-keys-not-configured", error: "Billing provider not configured." }
+    }
+
     const session = await dodo.checkoutSessions.create(sessionSettings)
 
     if (!session || !session.checkout_url) {
