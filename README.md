@@ -64,7 +64,6 @@ Open [http://localhost:3000](http://localhost:3000) to view the application loca
 
 ---
 
-## 📬 Contact
+## 👨‍💻 Author
 
-- **Founder / Developer**: [contactlaac1@gmail.com](mailto:contactlaac1@gmail.com)
 - **GitHub**: [@labuilds](https://github.com/labuilds)
