@@ -9,8 +9,8 @@ QuoteCatch is a B2B SaaS platform that turns low-converting contractor websites 
 ## 📸 Preview
 
 <div align="center">
-  <img src="public/demo-screenshot-1.png" alt="QuoteCatch Address & Building Type Step" width="48%" />
-  <img src="public/demo-screenshot-2.png" alt="QuoteCatch Real-Time Roofing Estimate" width="48%" />
+  <img src="public/landing-hero.png" alt="QuoteCatch High-Converting Landing Page" width="49%" />
+  <img src="public/demo-screenshot-2.png" alt="QuoteCatch Real-Time Roofing Estimate" width="49%" />
 </div>
 
 ---
