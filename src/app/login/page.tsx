@@ -16,10 +16,7 @@ function LoginForm() {
   const searchParams = useSearchParams()
   const supabase = createClient()
   const [mounted, setMounted] = useState(false)
-  const [email, setEmail] = useState("")
   const [isGoogleLoading, setIsGoogleLoading] = useState(false)
-  const [isMagicLinkLoading, setIsMagicLinkLoading] = useState(false)
-  const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -54,40 +51,6 @@ function LoginForm() {
       console.error("[Google Login Error]:", err)
       setError(err?.message || "Failed to initialize Google login. Please try again.")
       setIsGoogleLoading(false)
-    }
-  }
-
-  const handleMagicLink = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email) return
-
-    setIsMagicLinkLoading(true)
-    setError(null)
-    setSuccessMessage(null)
-
-    const intent = searchParams.get("intent")
-    if (intent === "pro") {
-      document.cookie = "checkout_intent=pro; path=/; max-age=3600; SameSite=Lax"
-    }
-
-    try {
-      const cleanEmail = email.trim()
-      const { error } = await supabase.auth.signInWithOtp({
-        email: cleanEmail,
-        options: {
-          emailRedirectTo: `${window.location.origin}/auth/confirm?next=/calculators`
-        },
-      })
-      if (error) {
-        setError(error.message)
-      } else {
-        setSuccessMessage("Secure login link sent! Check your inbox.")
-        setEmail("")
-      }
-    } catch (err: any) {
-      setError(err?.message || "An unexpected error occurred. Please try again.")
-    } finally {
-      setIsMagicLinkLoading(false)
     }
   }
 
@@ -130,20 +93,13 @@ function LoginForm() {
             </div>
           )}
 
-          {successMessage && (
-            <div className="p-5 text-[16px] text-emerald-700 bg-emerald-50 rounded-[2rem] border border-emerald-100 font-semibold flex items-center gap-3">
-              <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
-              {successMessage}
-            </div>
-          )}
-
           {mounted ? (
-            <>
+            <div className="space-y-4">
               <Button
                 type="button"
-                className="w-full h-16 text-[16px] font-semibold bg-white hover:bg-slate-50 border-2 border-slate-100 text-[#0F172A] rounded-[1.5rem] transition-all hover:border-slate-200 hover:shadow-xl hover:shadow-slate-100 flex items-center justify-center gap-4"
+                className="w-full h-16 text-[17px] font-semibold bg-white hover:bg-slate-50 border-2 border-slate-200 text-[#0F172A] rounded-[1.5rem] transition-all hover:border-slate-300 hover:shadow-xl hover:shadow-slate-100 flex items-center justify-center gap-4"
                 onClick={handleGoogleLogin}
-                disabled={isGoogleLoading || isMagicLinkLoading}
+                disabled={isGoogleLoading}
               >
                 {isGoogleLoading ? (
                   <Loader2 className="h-5 w-5 animate-spin text-slate-600" />
@@ -154,49 +110,9 @@ function LoginForm() {
                 )}
                 Continue with Google
               </Button>
-
-              <div className="relative py-4">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t border-slate-100" />
-                </div>
-                <div className="relative flex justify-center text-[11px] uppercase tracking-[0.25em] font-semibold text-slate-500">
-                  <span className="bg-white px-6">Direct Access</span>
-                </div>
-              </div>
-
-              <form onSubmit={handleMagicLink} className="space-y-5">
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-[15px] font-semibold uppercase tracking-widest text-[#0F172A] ml-1">
-                    Email
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="you@roofingcompany.com"
-                    required
-                    value={email}
-                    autoCapitalize="none"
-                    autoCorrect="off"
-                    autoComplete="email"
-                    className="h-17 bg-slate-50 border-slate-100 focus-visible:ring-red-500/10 focus-visible:border-red-600 rounded-[1.5rem] px-6 text-[18px] font-normal text-[#0F172A] placeholder:text-slate-400 transition-all shadow-inner"
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <Button
-                  className="w-full h-16 text-[18px] font-semibold bg-[#0F172A] hover:bg-black text-white rounded-[1.5rem] transition-all shadow-2xl shadow-slate-200 border-none"
-                  type="submit"
-                  disabled={isMagicLinkLoading || isGoogleLoading}
-                >
-                  {isMagicLinkLoading ? (
-                    <><Loader2 className="mr-3 h-5 w-5 animate-spin" /> Authenticating...</>
-                  ) : (
-                    "Email login link →"
-                  )}
-                </Button>
-              </form>
-            </>
+            </div>
           ) : (
-            <div className="h-[300px] flex items-center justify-center">
+            <div className="h-[100px] flex items-center justify-center">
               <Loader2 className="w-6 h-6 animate-spin text-slate-200" />
             </div>
           )}
